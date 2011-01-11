@@ -1,7 +1,9 @@
+-----------------------------
 PHPAPP EXAMPLE IMPLEMENTATION
+-----------------------------
 
-This directory contains a skeleton implemention of a PHPApp-enabled
-application.
+The "example/" directory contains a skeleton implemention of a
+PHPApp-enabled application.
 
 Directory structure/notes:
 
