@@ -1,0 +1,10 @@
+#PHPApp Documentation Index
+
+= Introduction =
+
+PHPApp is a web application framework for PHP and MySQL. Includes a user-friendly database query API (modelquery), shared application services, and a powerful administration site builder.
+
+= Documentation =
+
+  * API Documentation
+  * Sample Code
