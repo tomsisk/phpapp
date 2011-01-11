@@ -1,4 +1,4 @@
-= [ModelQuery ModelQuery] =
+= ModelQuery =
 
 ModelQuery is a easy-to-use database API.  Key features include data validation, model caching, lazy loading related models, and a flexible chaining filter API that makes data manipulation in PHP quick and error-free.
 
