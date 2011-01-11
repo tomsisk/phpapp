@@ -1,2 +1,2 @@
- * [Home Home]
- * Documentation
+ * [MainPage Home]
+ * [Documentation Documentation]
