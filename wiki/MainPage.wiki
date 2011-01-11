@@ -2,5 +2,5 @@ PHPApp is a web application framework for PHP and MySQL. Includes a user-friendl
 
 = Documentation =
 
-  * API Documentation
-  * Sample Code
+  * [APIReference API Documentation]
+  * [CodeSamples Code Samples]
