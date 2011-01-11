@@ -1,0 +1,10 @@
+---------------------------------------------------------------------------
+PHPAPP v.0.1 - QUICK START GUIDE
+---------------------------------------------------------------------------
+
+1.  Copy the src/phpapp-core and src/phpapp-modules directories to a
+    location in your PHP path.
+2.  See README for examples on how to use the library.
+
+---------------------------------------------------------------------------
+Author: Jeremy Jongsma <jeremy@jongsma.org>
