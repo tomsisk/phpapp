@@ -2,11 +2,6 @@
 
 ModelQuery is a easy-to-use database API.  Key features include data validation, model caching, lazy loading related models, and a flexible chaining filter API that makes data manipulation in PHP quick and error-free.
 
-= [PHPAppMain PHPApp] =
+= [PHPApp PHPApp] =
 
 PHPApp is a web application framework for PHP and MySQL. It uses ModelQuery for data access, and provides shared application services and a powerful administration site builder.
-
-= Documentation =
-
-  * [APIReference API Reference]
-  * [CodeSamples Code Samples]
