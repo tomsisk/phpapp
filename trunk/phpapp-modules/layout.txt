@@ -1,0 +1,21 @@
+Each module is a self-contained set of data models, admin objects,
+and dependant templates / field definitions / etc.
+
+Filesystem layout:
+
+root (this directory)
+|-- modulename
+| |-- module.php
+| |-- models					- database model definition
+| | |-- MyModel.class.php
+| |-- admin						- admin definitions
+| | |-- MyModelAdmin.class.php
+| |-- fields					- HTML form field templates for custom fields
+| | |-- CustomField.tpl
+| |-- templates					- Custom page templates
+| | |-- modelname
+| | | |-- object_form.tpl
+| |-- media						- supporting media (images, etc)
+
+The variable $module will be created before including module.php,
+and any module configuration should be done using that variable.
