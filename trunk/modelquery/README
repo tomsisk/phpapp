@@ -1,0 +1,139 @@
+---------------------------------------------------------------------------
+MODELQUERY v.0.1 - README
+---------------------------------------------------------------------------
+PHPWork is a simple ORM layer to map database tables to PHP arrays
+using a flexible, object-oriented query mechanism.  It is somewhat inspired
+by Django's database API.
+
+ModelQuery currently requires ADOdb, and has only been tested on MySQL.
+This is an ALPHA PRODUCT, use at your own risk.
+
+To use ModelQuery in your application, copy the modelquery/ directory
+to your PHP path.
+
+To run unit tests, execute "php test.php" in the test/ directory
+from the command line.
+
+Visit http://home.jongsma.org/software/modelquery for additional
+documentation.
+
+---------------------------------------------------------------------
+Usage Examples
+---------------------------------------------------------------------
+
+The base of the ModelQuery framework is the model definition files.
+All definition classes should be placed in the same directory (which
+you will use later when creating the QueryFactory).
+
+Sample model definition:
+
+class User extends Model {
+	public function configure() {
+		$this->username = new CharField('Username', 30, array('required' => true));
+		$this->password = new CharField('Password', 32, array('required' => true));
+		$this->email = new EmailField('Email Address', array('required' => true));
+		$this->verified = new BooleanField('Is Verified', array('required' => true, 'default' => false));
+		$this->created = new DateField('Created on', array('required' => true, 'default' => CURRENT_TIMESTAMP));
+		$this->group = new IntegerField('Group', array('required' => true));
+	}
+}
+
+Model classes should be named "<ModelName>", and be defined
+in a file named "<ModelName>.class.php".  You do not need to
+require() the Model class, as it is included for you in
+QueryFactory, and you should never be creating query objects directly.
+
+In the background, ModelQuery would map this class to a table named
+"users", by lowercasing, un-camelizing and pluralizing it, and optionally
+adding an application prefix (see QueryFactory docs below).  For example
+a model definition named "UserPreference" would translate by default
+to a table name of "user_preferences".  To override the default table
+naming, you can manually call $this->setTable($name) in configure().
+
+Once you have an model defined, you can create a QueryFactory, which
+is the entry point for all query operations.  QueryFactory takes as
+parameters an ADOdb connection object, a root directory for your
+model definitions, and optionally a table prefix.  For example:
+
+$qf = new QueryFactory($conn, '/my/project/models');
+
+To retrieve a model query handler, you can use a method or getter
+syntax.  The following statements are equivalent:
+
+$uq = $qf->User;
+$uq = $qf->get('User');
+
+The ModelQuery object itself supports an object-oriented query
+mechanims, rather than using SQL-like query syntax that some other
+ORM layers typically use.
+
+Examples:
+
+// Get all users
+$users = $uq->all();
+
+// Get all users, sorted by username
+$users = $uq->order('username');
+
+// Get all verified users
+$users = $uq->filter('verified', true);
+
+// Delete all unverified users created before Jan 1
+$uq->filter('verified', false, 'created:lte', mktime(0,0,0,1,1,2008))->delete();
+
+// Get an array of emails for all unverified users with non-null email addresses
+$values = $uq->filter('verified', true, 'email:isnull', false)->values('email');
+
+// Get a list of all users with gmail.com email addresses
+$users = $uq->filter('email:endswith', 'gmail.com');
+
+// Get all unverified users except those in group 5
+$values = $uq->filter('verified', false)->exclude('group', 5);
+
+// Set all users in group 5 to verified
+$uq->filter('group', 5)->update(array('verified', true));
+
+// Get the current user count
+$count = $uq->count();
+
+As you can see, ModelQuery is built on a recursive-filtering concept;
+that is, all of the filtering methods (filter(), exclude(), order(),
+extra(), distinct(), slice()) return a QueryFilter object that can
+then be used to further refine the query.  This means you can create
+a base filter, and then extend it in different ways to save on
+coding:
+
+$query = $uq->filter('group', 5);
+// Get total number of users in group 5
+$total = $query->count();
+// ...but only load the first 10
+$users = $query->slice(10);
+
+All query objects can be treated as arrays or iterators; the query will
+only be executed when you try to access a member:
+
+// Filter applied, but no query execution yet
+$users = $uq->filter('group', 5);
+// foreach loop forces query execution
+foreach ($users as $user) {
+	// Models can also be accessed as objects or arrays:
+	echo $user->username;
+	// ... is equivalent to:
+	echo $user['username'];
+}
+
+If you have too many rows to load in memory, you can use a database
+cursor:
+
+// Create a cursor
+$users = $uq->filter('group', 5)->cursor();
+// Cursor can also be used normally as an array, but keeps the database
+// connection open and loads rows as needed:
+foreach ($users as $user) {
+	// Do something
+}
+// Manually close down the cursor
+$users->close();
+
+---------------------------------------------------------------------
+Author: Jeremy Jongsma <jeremy@jongsma.org>

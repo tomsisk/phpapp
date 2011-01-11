@@ -1,0 +1,4 @@
+General:
+	- Add cross-table queries
+	- Multiple-column primary keys
+	- Add different types of foreign keys (ManyToMany, ManyToOne, OneToOne, etc)
