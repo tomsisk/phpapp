@@ -8,7 +8,7 @@ by Django's database API.
 ModelQuery currently requires ADOdb, and has only been tested on MySQL.
 This is an ALPHA PRODUCT, use at your own risk.
 
-To use ModelQuery in your application, copy the modelquery/ directory
+To use ModelQuery in your application, copy the src/modelquery/ directory
 to your PHP path.
 
 To run unit tests, execute "php test.php" in the test/ directory
