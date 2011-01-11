@@ -1,2 +1,4 @@
  * [MainPage Home]
  * [Documentation Documentation]
+   * [APIReference API Reference]
+   * [CodeSamples Code Samples]
