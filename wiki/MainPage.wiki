@@ -1,4 +1,4 @@
-#PHPApp Documentation Index
+#summary PHPApp Documentation Index
 
 = Introduction =
 
