@@ -1,0 +1,5 @@
+- Bulk delete / update
+- More complex inline fields
+- Group-by headings and table/grid view for OneToMany checkbox lists
+- Audit table for models that can auto-update on save/delete
+- Remember filters across sessions

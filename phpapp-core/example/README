@@ -1,0 +1,44 @@
+PHPAPP EXAMPLE IMPLEMENTATION
+
+This directory contains a skeleton implemention of a PHPApp-enabled
+application.
+
+Directory structure/notes:
+
+example
+ |- www			- The Apache public web site root.
+ |- admin		- The Apache admin site root.
+ |- apache		- Sample Apache configuration directives.
+ |- config		- Sample PHPAPP config files.
+ |- lib			- Application shared code.
+ | \- modules	- The PHPAPP application modules.
+ \- sql			- The database initialization SQL.
+
+SETUP:
+
+1) Copy all directory contents to a new location.  Be sure you
+   do not copy the ".svn" directory entries.  Note that there
+   are some hidden files in some directories (i.e. www/.htaccess).
+
+2) Customize the module path to fit your application.  Ideally in
+   a production app, they would be located somewhere like
+   "lib/myappname/modules" instead of just "lib/modules".
+
+3) Create a new MySQL database for your application.
+
+4) Run the SQL script "sql/phpapp-example.sql" on your new database.
+
+5) Configure "config/default.inc.php" to use your database settings.
+   You can also create a "local.inc.php" in the app root to override
+   and configuration settings in your development environment.
+
+6) If you moved your modules directory, update the "modules"
+   configuration variable in "config/default.inc.php".  Make
+   sure the path listed is accessible from PHP's include_path
+   specified in the Apache environment.
+
+7) Customize the Apache configuration (apache/phpapp-example.conf)
+   to point to the correct directories, and add the new virtual host
+   to your Apache installation.
+
+8) Go to http://<your-new-site>/admin and login as "admin" / "password"
