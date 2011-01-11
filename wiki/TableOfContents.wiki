@@ -5,6 +5,6 @@
    * [ModelQueryCodeSamples Code Samples]
  * [PHPApp PHPApp]
    * [PHPAppFeatures Features]
-   * [PHPAppScreenshots Screenshots]
+   * [PHPAppScreenshots Admin Screenshots]
    * [PHPAppAPIReference API Reference]
    * [PHPAppCodeSamples Code Samples]
