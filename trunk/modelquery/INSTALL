@@ -2,7 +2,7 @@
 MODELQUERY v.0.1 - QUICK START GUIDE
 ---------------------------------------------------------------------------
 
-1.  Copy the modelquery/ directory to a location in your PHP path.
+1.  Copy the src/modelquery/ directory to a location in your PHP path.
 2.  See README for examples on how to use the library.
 
 ---------------------------------------------------------------------------
