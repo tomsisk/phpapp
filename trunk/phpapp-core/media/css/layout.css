@@ -1,0 +1,125 @@
+body, td {
+	font-size: 10pt;
+}
+
+h1 {
+	font-size: 18px;
+	margin: 5px 0;
+	border-bottom: 1px solid #999999;
+}
+h2 {
+	font-size: 16px;
+	margin: 5px 0;
+	border-bottom: 1px dotted #999999;
+}
+h3 {
+	font-size: 14px;
+	margin: 5px 0;
+}
+a img {
+	border: 0;
+}
+
+.homepage_block {
+	margin: 5px 0 10px 0;
+}
+
+.right_margin {
+	margin-right: 5px;
+}
+
+.left_margin {
+	margin-left: 5px;
+}
+
+.homepage_block .block_title {
+	padding: 4px;
+	margin-bottom: 5px;
+}
+.noshow {
+	display: none;
+}
+
+.formTable .formLabel {
+	padding: 2px;
+	vertical-align: top;
+	width: 125px;
+	background-color: #EEEEEE;
+}
+.formTable .formInput {
+	vertical-align: top;
+}
+.error {
+	background-color: #FFCCCC;
+	border: 1px solid #FF0000;
+	padding: 5px;
+	color: #FF0000;
+}
+.message {
+	border:				1px solid green;
+	padding:			5px;
+	background-color:	#CCFFCC;
+	color:				green;
+}
+.required {
+	color: red;
+}
+
+ul.collapsible, ul.collapsible ul {
+	list-style: none;
+}
+
+ul.collapsible ul {
+	display: none;
+}
+
+ul.collapsible li {
+	margin-top: 3px;
+}
+
+ul.collapsible a.selectable {
+	text-decoration: none; 
+	border-bottom: 1px dotted blue;
+}
+
+.homepage_quoteboard td {
+	padding: 2px;
+}
+.homepage_quoteboard thead td {
+	font-weight: bold;
+	border-bottom: 1px solid #999999;
+	background-color: #CCCCCC;
+}
+.homepage_quoteboard tbody td {
+	border-bottom: 1px solid #999999;
+}
+.homepage_quoteboard tbody tr.odd td {
+}
+.homepage_quoteboard tbody tr.even td {
+	background-color: #EEEEEE;
+}
+.homepage_quoteboard tbody tr.quotesection td {
+	background-color: #666666;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+.homepage_quoteboard tbody tr.quotesection td a{
+	color: #FFFFFF;
+}
+.bcTH {
+	background-color: #666666;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+.bcTD {
+	background-color: #EEEEEE;
+}
+.change_up {
+	color: green;
+}
+.change_down {
+	color: red;
+}
+.change_none {
+	color: blue;
+}

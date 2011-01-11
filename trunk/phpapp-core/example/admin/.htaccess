@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteRule ^modules/ /admin/index.php [L]
+RewriteRule ^account/ /admin/index.php [L]
+RewriteRule ^thumb/ /admin/index.php [L]
+RewriteRule ^media/ /admin/media.php [L]

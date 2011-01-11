@@ -1,0 +1,928 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	font-size: 9pt;
+	font-family: sans-serif;
+}
+
+textarea {
+	font-size: 9pt;
+	font-family: sans-serif;
+}
+
+blockquote {
+	background-color: #EEEEEE;
+	border: 1px solid #666666;
+	padding: 5px;
+}
+dt {
+	font-weight: bold;
+}
+dt, dd {
+	margin-bottom: 10px;
+}
+input[type=text],
+input[type=password],
+textarea,
+select {
+	border: 1px solid #999999;
+}
+
+.page_width {
+	width: 100%;
+}
+
+.logoCell, .headerCell {
+	border-bottom: 1px solid #CCCCCC;
+}
+.popupHeader {
+}
+#branding {
+	padding: 10px 0;
+	font-size: 20px;
+}
+
+.headerCell {
+	padding: 5px;
+}
+
+.logoCell {
+	padding: 10px;
+	height: 42px;
+}
+
+.sidebarCell {
+	width: 180px;
+	background-color: #EEEEEE;
+	border-right: 1px solid #CCCCCC;
+}
+#sidebar {
+	padding: 10px;
+}
+#sidebar .menuitem {
+	border: 1px solid transparent;
+}
+#sidebar .menuitem a {
+	display: block;
+	padding-left: 15px;
+	padding-right: 3px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	text-decoration: none;
+	color: #000000;
+}
+#sidebar .menuitem: hover, #sidebar .menuitemhover {
+	border: 1px solid #CCCCCC;
+	background-color: #DDDDDD;
+}
+#sidebar .activemenuitem {
+	border: 1px solid #187BBD;
+	background: #DEE7EF url(../images/arrow_bullet.png) 0px 3px no-repeat;
+}
+#sidebar .active2menuitem {
+	border: 1px solid #CCCCCC;
+	background: #FFFFFF url(../images/arrow_bullet.png) 0px 3px no-repeat;
+}
+#sidebar .activemenuitem a,
+#sidebar .active2menuitem a {
+	display: block;
+	padding-left: 15px;
+	padding-right: 3px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	text-decoration: none;
+	color: #000000;
+}
+#sidebar .menumodule {
+	border: 1px solid #08296B;
+	margin-bottom: 5px;
+	background-color: #08296B;
+}
+#sidebar .menumodule .menumoduletitle a {
+	display: block;
+	padding: 3px;
+	text-decoration: none;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+#sidebar .menumoduleitems {
+	padding: 3px;
+	background-color: #FFFFFF;
+}
+#popup {
+	padding: 10px;
+}
+#page {
+	padding: 10px;
+}
+#footer {
+	padding: 10px;
+	border-top: 1px solid #CCCCCC;
+	text-align: center;
+}
+
+hr {
+	color: #CCCCCC;
+	background-color: #CCCCCC;
+	padding: 0;
+	margin-bottom: 5px;
+	height: 1px;
+	border: 0;
+	display: block;
+}
+
+h1 {
+	margin-top: 0;
+	margin-bottom: 5px;
+	font-size: 12pt;
+	font-weight: bold;
+	border-bottom: 1px solid #999999;
+}
+
+h2 {
+	margin-top: 0;
+	margin-bottom: 5px;
+	font-size: 11pt;
+	font-weight: bold;
+	border-bottom: 1px solid #999999;
+}
+
+h3 {
+	margin-top: 0;
+	margin-bottom: 5px;
+	font-size: 10pt;
+	font-weight: bold;
+	background-color: #08296B;
+	padding: 2px 0 2px 5px;
+	border-left: 5px solid #187BBD;
+	border-bottom: 1px solid #187BBD;
+	color: #FFFFFF;
+}
+h3 a {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+img {
+	border: 0;
+	vertical-align: middle;
+}
+
+input {
+	vertical-align: middle;
+}
+
+input[type=radio] {
+	margin-bottom: 3px;
+}
+
+a {
+	color: #191970;
+}
+a.button {
+	padding: 2px;
+	text-decoration: none;
+	border: 1px solid #999;
+	background-color: #EEE;
+	color: #333;
+}
+
+table.filterTable {
+	width: 100%;
+	border-collapse: collapse;
+}
+table.filterTable td.list {
+	padding-right: 5px;
+	vertical-align: top;
+
+}
+table.filterTable td.filters {
+	border-top: 1px solid #08296B;
+	border-left: 1px solid #08296B;
+	vertical-align: top;
+	width: 200px;
+	background-color: #EEEEEE;
+}
+table.filterTable td.filters div.title {
+	border-top: 5px solid #08296B;
+	padding: 3px;
+	font-weight: bold;
+}
+table.filterTable td.filters div.content {
+	padding: 5px;
+	font-size: .9em;
+}
+table.filterTable td.filters div.content input[type=text] {
+	width: 90px;
+	font-size: .9em;
+}
+table.filterTable td.filters div.content input[type=submit],
+table.filterTable td.filters div.content select {
+	font-size: .9em;
+}
+ul.searchFilter {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+ul.searchFilter li {
+	padding: 1px 0 1px 10px;
+	margin-left: 5px;
+	list-style: none;
+}
+ul.searchFilter li a {
+	text-decoration: none;
+	color: #000000;
+	display: block;
+}
+ul.searchFilter li a: hover {
+	text-decoration: underline;
+}
+ul.searchFilter li.active {
+	margin-left: 0;
+	border-left: 5px solid #187BBD;
+}
+
+table.listTable {
+	width: 100%;
+	border-collapse: collapse;
+}
+table.listTable th {
+	text-align: left;
+	padding: 3px;
+	background-color: #DEE7EF;
+	border-top: 1px solid #08296B;
+	border-bottom: 1px solid #08296B;
+}
+table.listTable th a {
+	color: #000000;
+	text-decoration: none;
+}
+table.listTable td {
+	padding: 3px;
+	border-bottom: 1px solid #CCCCCC;
+	vertical-align: top;
+}
+table.listTable tr.noborder td {
+	border-bottom: 0;
+}
+table.listTable tr.section {
+	background-color: #666666;
+}
+table.listTable tr.section td {
+	color: white;
+	padding: 5px;
+	vertical-align: middle;
+}
+table.listTable tr.section td a {
+	color: white;
+}
+.odd {
+}
+.even {
+	background-color: #EEEEEE;
+}
+
+div.pagelist {
+	padding: 3px;
+}
+div.pagebuttons {
+	float: right;
+}
+span.nextpage {
+	background: url(../images/right_arrow.png) right center no-repeat;
+	padding-right: 12px;
+}
+span.prevpage {
+	background: url(../images/left_arrow.png) left center no-repeat;
+	padding-left: 12px;
+}
+.disabled {
+	color: gray;
+}
+
+table.loginTable {
+	border-collapse: collapse;
+}
+
+table.loginTable td.editLabel {
+	padding: 3px;
+	font-weight: bold;
+	min-width: 120px;
+	width: 120px;
+	vertical-align: top;
+	background-color: #EEEEEE;
+	border-top: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+table.loginTable td.editField {
+	padding: 3px;
+	vertical-align: top;
+	border-top: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+table.editTable {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+table.editTable td.editLabel {
+	padding: 3px;
+	font-weight: bold;
+	width: 150px;
+	vertical-align: top;
+	background-color: #EEEEEE;
+	border-top: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+table.editTable td.editField {
+	padding: 3px;
+	vertical-align: top;
+	border-top: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+table.editTable input.editInput {
+}
+
+.leftimage {
+	float: left;
+	margin-right: 5px;
+	border: 0;
+}
+
+/* Autocomplete box */
+ul.autocomplete {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	background-color: #FFFFFF;
+	border: 1px solid #999999;
+}
+ul.autocomplete li {
+	padding: 2px;
+	cursor: default;
+}
+ul.autocomplete li.selected {
+	background-color: #187BBD;
+	color: #FFFFFF;
+}
+
+/* Dialog boxes */
+.tmDialog {
+	background-color: #EEEEEE;
+	border-bottom: 2px solid #CCCCCC;
+	border-top: 1px solid #DDDDDD;
+	border-right: 2px solid #CCCCCC;
+	border-left: 1px solid #DDDDDD;
+	font-size: 8pt;
+	padding: 5px;
+}
+
+.tmDialog td, .tmDialog input, .tmDialog select {
+	font-size: 8pt;
+}
+
+.highlight {
+	/*
+	background-color: #C15753;
+	*/
+	background-color: #FFFF99;
+}
+
+.sticky {
+	background-color: #FFFFCC;
+}
+.legendbox {
+	float: left;
+	width: 14px;
+	height: 14px;
+	border: 1px solid #999999;
+	margin-right: 10px;
+}
+
+.hidden {
+	display: none;
+}
+
+.graybox {
+	border: 1px solid #999999;
+	background-color: #EEEEEE;
+	padding: 3px;
+}
+.whitebox {
+	border: 1px solid #999999;
+	background-color: #FFFFFF;
+	padding: 5px;
+	margin: 5px;
+}
+ul.boxlines {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+ul.boxlines > li {
+	border: 1px solid #999999;
+	background-color: #EEEEEE;
+	padding: 3px;
+	margin: 2px;
+	cursor: pointer;
+	overflow: hidden;
+}
+ul.sortable li, ul.prioritizable li, ul.sortablehandle .dragHandle {
+	cursor: pointer;
+}
+
+.filebrowser {
+	width: 300px;
+	height: 200px;
+	border: 1px solid #999999;
+	overflow: auto;
+}
+.treebrowser .file {
+	padding: 2px;
+}
+.selected {
+	background-color: #C15753;
+}
+
+.notice {
+	background-color: #FFFF99;
+	border: 1px solid #999999;
+	padding: 10px;
+}
+.confirm {
+	margin-top: 10px;
+	background: 4px 4px no-repeat url(../images/confirm.png) #CCDDFF;
+	min-height: 30px;
+	border: 1px solid #3333FF;
+	padding: 4px 4px 4px 44px;
+}
+.tooltip {
+	position: absolute;
+	width: 300px;
+}
+.tooltipPointer {
+	position: relative;
+	top: 0px;
+	left: 10px;
+	height: 9px;
+	width: 9px;
+	border-bottom: 1px solid #FFFFCC;
+	background: top left no-repeat url(../images/tooltip-pointer.png);
+	z-index: 2;
+}
+.tooltipMessage {
+	position: absolute;
+	top: 8px;
+	border: 1px solid #CC9900;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	color: #333333;
+	background: #FFFF99;
+	padding: 2px 2px 2px 2px;
+	z-index: 1;
+}
+.denied {
+	margin-top: 10px;
+	background: 4px 4px no-repeat url(../images/denied.png) #FFCCCC;
+	min-height: 30px;
+	border: 1px solid #FF0000;
+	padding: 4px 4px 4px 44px;
+}
+.help {
+	margin-top: 10px;
+	background: 4px 4px no-repeat url(../images/help.png) #CCDDFF;
+	min-height: 30px;
+	border: 1px solid #3333FF;
+	padding: 4px 4px 4px 44px;
+}
+.info {
+	margin-top: 10px;
+	background: 4px 4px no-repeat url(../images/info.png) #CCDDFF;
+	min-height: 30px;
+	border: 1px solid #3333FF;
+	padding: 4px 4px 4px 44px;
+}
+.infoSmall {
+	background: 4px 4px no-repeat url(../images/info-small.png) #CCDDFF;
+	min-height: 30px;
+	min-height: 15px;
+	border: 1px solid #3333FF;
+	padding: 4px 4px 4px 22px;
+}
+.warning {
+	margin-top: 10px;
+	background: 4px 4px no-repeat url(../images/warning.png) #FFFF99;
+	min-height: 30px;
+	border: 1px solid #CC9900;
+	padding: 4px 4px 4px 44px;
+}
+.error {
+	margin-top: 10px;
+	background: 4px 4px no-repeat url(../images/error.png) #FFCCCC;
+	min-height: 30px;
+	border: 1px solid #FF0000;
+	padding: 4px 4px 4px 44px;
+}
+.errorSmall {
+	background: 4px 4px no-repeat url(../images/error-small.png) #FFCCCC;
+	min-height: 15px;
+	border: 1px solid #FF0000;
+	padding: 4px 4px 4px 22px;
+}
+.error ul {
+	padding-left: 0;
+}
+.error ul li, .fieldError {
+	background: 2px 2px no-repeat url(../images/warning-small.png);
+	padding: 2px 2px 2px 22px;
+}
+.error ul li {
+	list-style: none;
+}
+.fieldHelp {
+	padding-top: 2px;
+	font-size: 8pt;
+	color: #666;
+	font-weight: normal;
+}
+th .fieldHelp {
+	color: #666;
+}
+
+.fieldInfo {
+	background: 2px 2px no-repeat url(../images/info-small.png);
+	padding: 2px 2px 2px 22px;
+	color: #333333;
+	white-space: nowrap;
+}
+.fieldError {
+	color: #333333;
+	white-space: nowrap;
+}
+.fieldUpdate {
+	color:#666666;
+	background: 2px 2px no-repeat url(../images/working-small.gif);
+	padding: 2px 2px 2px 22px;
+	white-space: nowrap;
+}
+.inputError {
+	background: right 2px no-repeat url(../images/error-small-bkgd.png) #FFCCCC;
+}
+.required {
+	color: #FF0000;
+}
+
+.diff_table {
+}
+.diff_header {
+	font-weight: bold;
+	background-color: #CCCCCC;
+}
+.diff_add {
+	background-color: #9999FF;
+}
+.diff_change {
+	background-color: #99FF99;
+}
+.diff_delete {
+	background-color: #FF9999;
+}
+.diff_context {
+	background-color: #EEEEEE;
+}
+
+/* Input controls */
+input.symbolpicker	{ width: 50px; padding-right: 20px; }
+input.datepicker, input.datepicker_us	{ width: 80px; padding-right: 20px; }
+input.datetimepicker{ width: 120px; padding-right: 20px; }
+input.colorpicker	{ width: 80px; padding-right: 20px; }
+input.filechooser	{ width: 280px; padding-right: 20px; }
+
+/*
+light blue = #C0D8EA;
+light green = #A4CB9C;
+
+maroon = #C15753;
+bright blue = #187BBD;
+light blue = #DEE7EF;
+dark blue = #08296B;
+*/
+
+.debug {
+	color: #999999;
+	text-align: left;
+}
+.color_swatch {
+	float: left;
+	width: 32px;
+	height: 32px;
+	border: 1px solid #999999;
+	margin: 2px;
+}
+#sidebar .menuhighlight {
+	border: 1px solid #CCCCCC;
+	background-color: #FFFFFF;
+	padding: 5px;
+}
+.menu_rule {
+	margin: 3px 15px;
+	height: 1px;
+	background-color: #CCCCCC;
+}
+ul.arrows {
+	padding: 0;
+	margin: 0 0 15px 20px;
+	list-style: none;
+}
+ul.arrows li {
+	background: url(../images/right_arrow.png) left center no-repeat;
+	padding-left: 12px;
+}
+#symbols_container div {
+	margin-bottom: 2px;
+}
+ul.collapsible, ul.collapsible ul {
+	list-style: none;
+}
+
+ul.collapsible ul {
+	display: none;
+}
+
+ul.collapsible li {
+	margin-top: 3px;
+}
+
+ul.collapsible a.selectable {
+	text-decoration: none; 
+	border-bottom: 1px dotted blue;
+}
+ul.plain {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+acronym {
+	border-bottom: 1px dotted #666666;
+}
+
+.relcheckboxCont {
+	height: 150px;
+	width: 300px;
+	border: 1px solid #999999;
+	overflow: auto;
+}
+.m2mselected {
+	height: 150px;
+	width: 300px;
+}
+.relavailable {
+	width: 300px;
+}
+.relavailsearch {
+	background:	2px 2px no-repeat url(../images/search.png);
+	padding-left: 25px;
+	width: 275px;
+}
+.m2mavailable {
+	height: 125px;
+}
+.m2mavailsearch {
+	margin-bottom: 5px;
+}
+.m2mlistbutton {
+	width: 40px;
+	margin: 5px 10px;
+	font-size: 9pt;
+}
+.mailinglists {
+	margin: 0 20px;
+}
+.mailinglist {
+	margin-top: 5px;
+	padding: 5px;
+	border: 1px solid #999999;
+	background-color: #EEEEEE;
+	margin-left: 0;
+}
+.mailinglist p {
+	margin-left: 25px;
+}
+.expander {
+}
+.expander div.title {
+	cursor: pointer;
+}
+.expander div.content {
+	padding-bottom: 15px;
+}
+.basis_swatch {
+}
+.basis_manual {
+	background-color: #FFE4E1;
+}
+.basis_futures {
+	background-color: #E0EEEE;
+}
+
+/**
+ * Styles for DatePicker
+ */
+
+.datepickerControl {
+	border: 1px solid #999999;
+	background-color: #EEEEEE;
+	padding: 5px;
+}
+
+.datepickerControl td {
+	text-align: center;
+	font-family: sans-serif;
+	font-size: 11px;
+	padding: 1px;
+}
+
+.datepickerControl tr.monthLabel td {
+	background-color: #FFFFFF;
+	border: 1px solid #999999;
+	font-weight: bold;
+}
+
+.datepickerControl tr.navigation td {
+	cursor: pointer;
+}
+
+.datepickerControl tr.navigation td: hover {
+	text-decoration: underline;
+}
+
+.datepickerControl tr.dayLabel td {
+	border: 1px solid #A4CB9C;
+	background-color: #A4CB9C;
+	font-weight: bold;
+}
+
+.datepickerControl td.day, .datepickerControl td.dayothermonth {
+	cursor: pointer;
+	background-color: #FFFFFF;
+	border: 1px solid #EEEEEE;
+	width: 2em;
+}
+
+.datepickerControl td.dayothermonth {
+	color: #999999;
+	font-style: italic;
+}
+
+.datepickerControl td.day: hover {
+	background-color: #EBE4C0;
+} 
+
+.datepickerControl td.weekend {
+	background-color: #CCCCCC;
+	font-style: italic;
+}
+
+.datepickerControl td.today {
+	font-weight: bold;
+}
+
+.datepickerControl td.hour {
+	cursor: pointer;
+	background-color: #FFFFFF;
+	border: 1px solid #EEEEEE;
+	width: 2em;
+}
+
+.datepickerControl td.minute {
+	cursor: pointer;
+	background-color: #FFFFFF;
+	border: 1px solid #EEEEEE;
+	width: 2em;
+}
+
+.datepickerControl td input,
+.datepickerControl td button {
+	font-size: 11px;
+	padding: 0;
+	border: 1px solid #999999;
+	text-align: center;
+}
+
+.datepickerControl td.ampm {
+	cursor: pointer;
+	background-color: #CCCCCC;
+	border: 1px solid #EEEEEE;
+	width: 2em;
+}
+
+.datepickerControl td.current {
+	font-weight: bold;
+	background-color: #EBC2C0;
+}
+
+.datepickerControl input.current {
+	background-color: #EBC2C0;
+}
+
+.datepickerControl td.current: hover {
+	background-color: #EBC2C0;
+}
+
+/*
+ * Styles for FileChooser
+ */
+
+.filechooserControl {
+	border: 1px solid gray;
+	background-color: #EEEEEE;
+	padding: 3px;
+	font-size: 8pt;
+}
+
+.filechooserControl td, .filechooserControl input, .filechooserControl select {
+	font-size: 8pt;
+}
+
+#globalfilechooser .filechooserControl,
+#globalfilechooser .filechooserControl td,
+#globalfilechooser .filechooserControl input,
+#globalfilechooser .filechooserControl select,
+#mobilefilechooser .filechooserControl,
+#mobilefilechooser .filechooserControl td,
+#mobilefilechooser .filechooserControl input,
+#mobilefilechooser .filechooserControl select,
+#sitefilechooser .filechooserControl,
+#sitefilechooser .filechooserControl td,
+#sitefilechooser .filechooserControl input,
+#sitefilechooser .filechooserControl select {
+	font-size: 10pt;
+}
+
+.filechooserControl input {
+	border: 1px solid gray;
+}
+
+.filechooserControl .directoryheader {
+	border: 1px solid #CCCCCC;
+	background-color: #FFFFFF;
+	padding: 2px;
+}
+
+.filechooserControl .filelist {
+	background-color: #FFFFFF;
+	border-top: 1px solid #CCCCCC;
+	border-left: 1px solid #CCCCCC;
+}
+
+.filechooserControl .filepreview {
+	background-color: #EEEEEE;
+	border-top: 1px solid #CCCCCC;
+	border-left: 1px solid #CCCCCC;
+	border-bottom: 1px solid #FFFFFF;
+	border-right: 1px solid #FFFFFF;
+}
+
+.filechooserControl .filerow {
+	padding: 3px;
+	cursor: default;
+}
+
+.filechooserControl .selected, .filechooserControl .selected td {
+	background-color: #333399;
+	color: #FFFFFF;
+}
+
+.filechooserControl .prompt {
+	background-color: #EEEEEE;
+	border-bottom: 1px solid #999999;
+	border-top: 10px solid #A4CB9C;
+	border-right: 1px solid #999999;
+	border-left: 1px solid #999999;
+	padding: 5px;
+}
+
+/**
+ * Styles for ColorPicker
+ */
+
+.colorpickerControl {
+	border: 1px solid gray;
+	background-color: #EEEEEE;
+	padding: 3px;
+}
+
+.colorpickerControl input {
+	font-size: 8pt;
+}
+
+img.imagepreview {
+	margin-top: 5px;
+	max-height: 100px;
+}
