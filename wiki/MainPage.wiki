@@ -1,6 +1,4 @@
-#summary PHPApp Documentation Index
-
-= Introduction =
+#summary PHPApp Wiki
 
 PHPApp is a web application framework for PHP and MySQL. Includes a user-friendly database query API (modelquery), shared application services, and a powerful administration site builder.
 
