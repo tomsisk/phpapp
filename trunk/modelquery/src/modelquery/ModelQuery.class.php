@@ -1,4 +1,5 @@
 <?php
+	//! \file ModelQuery.class.php
 	/*
 	 * ModelQuery - a simple ORM layer.
 	 * Copyright (C) 2004 Jeremy Jongsma.  All rights reserved.
@@ -22,12 +23,30 @@
 	require_once('Exceptions.php');
 	require_once('QueryFilter.class.php');
 
+	//! The root query object for a specific model.
+	/*!
+		This class should not be instantiated manually; you should always
+		retrieve a configured ModelQuery object via QueryFactory->get().
+		Most QueryFilter methods are available from this object, except those
+		that actually execute a query (select(), hash(), raw(), etc).  If you
+		need to fetch all instances of a model, try calling the all() filter
+		first.
+		\sa QueryFilter
+	*/
 	class ModelQuery extends QueryFilter {
 		
 		public $modelClass;
 
 		private $appName;
 
+		//! Create a new query object
+		/*!
+			This class should not be instantiated manually.
+			\sa QueryFactory
+			\param Model $modelClass_ A Model instance to build a query object for
+			\param QueryFactory $factory_ The QueryFactory that is creating this object
+			\param string $appName_ The application name (also serves as a table name prefix)
+		*/
 		public function __construct(&$modelClass_, &$factory_, $appName_ = null) {
 			$this->modelClass = $modelClass_;
 			$this->factory = $factory_;
@@ -37,7 +56,17 @@
 			parent::__construct($this);
 		}
 
-		// Create a model from a dictionary.
+		//! Create a model object from a hash of key/value pairs.
+		/*!
+			\param Array $params A hash array of name/value pairs
+			\param Array $rawvalues A list of field names that should be ignored
+					during type conversion
+			\param int $flags A bitmask of flags specifying information about the
+					source of the params (UPDATE_* constants)
+			\sa	UPDATE_FROM_FORM
+			\sa	UPDATE_FORCE_BOOLEAN
+			\sa	UPDATE_FROM_DB
+		*/
 		public function create($params = null, $rawvalues = null, $flags = 0) {
 			$model = null;
 			$scField = $this->model->_subclassField;
