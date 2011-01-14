@@ -1,5 +1,9 @@
 <?php
-	//! \file QueryFilter.class.php
+	/**
+	 * @package modelquery
+	 * @filesource
+	 */
+
 	/*
 	 * ModelQuery - a simple ORM layer.
 	 * Copyright (C) 2004 Jeremy Jongsma.  All rights reserved.
@@ -23,143 +27,152 @@
 	require_once('Exceptions.php');
 	require_once('CursorIterator.class.php');
 
-	//! Special value representing all fields in a model
+	/** Special value representing all fields in a model */
 	define('ALLFIELDS', 'ALLFIELDS');
 
-	//! Core class for query creation in ModelQuery.
-	/*!
-		All queries constructed with ModelQuery use a chain of one or
-		more QueryFilter objects.
-
-		<h3>Basic Usage Examples</h3>
-\code
-// Get the User ModelQuery object (which is also a QueryFilter) from our QueryFactory
-$uq = $qf->get('User');
-
-// Get all users
-$users = $uq->all();
-
-// Get all users, sorted by username
-$users = $uq->order('username');
-
-// Get all verified users
-$users = $uq->filter('verified', true);
-
-// Delete all unverified users created before Jan 1
-$uq->filter('verified', false, 'created:lte', mktime(0,0,0,1,1,2008))->delete();
-
-// Get an array of emails for all unverified users with non-null email addresses
-$values = $uq->filter('verified', true, 'email:isnull', false)->values('email');
-
-// Get a list of all users with gmail.com email addresses
-$users = $uq->filter('email:endswith', '@gmail.com');
-
-// Get all unverified users except those in group 5
-$values = $uq->filter('verified', false)->exclude('group', 5);
-
-// Set all users in group 5 to verified
-$uq->filter('group', 5)->update(array('verified', true));
-
-// Get the current user count
-$count = $uq->count();
-\endcode
-
-		<h3>Filter Chaining</h3>
-
-		You will notice that except for methods that return immediate
-		query results (hash(), select(), raw(), delete(), get(), etc),
-		most filtering methods in this class (filter(), exclude(),
-		slice(), order(), etc) return a new QueryFilter object that
-		chains to the one it was called from, without altering its
-		original state or executing a query against the database.
-		Chaining filters in this way allows you to branch in several
-		different directions with a query without having to start
-		over again.
-
-\code
-// Base query is limited to only users in group 5 
-$query = $uq->filter('group', 5);
-
-// Get total number of users in group 5
-$total = $query->count();
-
-// ...but only load the first 10
-$users = $query->slice(10);
-\endcode
-
-		<h3>Accessing the Result Set</h3>
-
-		As mentioned above, most of the filter methods return a QueryFilter object,
-		but no query is actually executed against the database yet. So how do we get
-		the actual query results?
-		
-		Just start accessing it as a regular PHP array. As soon as you call it
-		in an array context (either as part of a foreach loop, or by trying to directly
-		access an array index on it), the underlying query is executed on the database
-		and the result set is created.
-
-\code
-// Filter applied, but no query execution yet
-$users = $uq->filter('group', 5);
-
-// foreach loop forces query execution
-foreach ($users as $user) {
-
-	// Like QueryFilter, Model instances can also be accessed as objects or arrays:
-	echo $user->username;
-	// ... is equivalent to:
-	echo $user['username'];
-
-}
-\endcode
-
-		<h3>Cursors</h3>
-
-		If you have too many rows to load in memory, you can also use a database
-		cursor:
-
-\code
-// Get a CursorIterator object for this query
-$users = $uq->filter('group', 5)->cursor();
-
-// CursorIterator can also be used normally as an array, but it keeps the database
-// connection open and loads rows as needed:
-foreach ($users as $user) {
-	// Do something
-}
-
-// Manually close down the cursor
-$users->close();
-\endcode
-
-		\sa ModelQuery
-		\sa CursorIterator
-		\implements Iterator
-		\implements ArrayAccess
-		\implements Countable
+	/**
+	 * Core class for query creation in ModelQuery.
+	 *
+	 * All queries constructed with ModelQuery use a chain of one or
+	 * more QueryFilter objects.
+	 * 
+	 * <b>Basic Usage Examples</b>
+	 * <code>
+	 * // Get the User ModelQuery object (which is also a QueryFilter) from our QueryFactory
+	 * $uq = $qf->get('User');
+	 * 
+	 * // Get all users
+	 * $users = $uq->all();
+	 * 
+	 * // Get all users, sorted by username
+	 * $users = $uq->order('username');
+	 * 
+	 * // Get all verified users
+	 * $users = $uq->filter('verified', true);
+	 * 
+	 * // Delete all unverified users created before Jan 1
+	 * $uq->filter('verified', false, 'created:lte', mktime(0,0,0,1,1,2008))->delete();
+	 * 
+	 * // Get an array of emails for all unverified users with non-null email addresses
+	 * $values = $uq->filter('verified', true, 'email:isnull', false)->values('email');
+	 * 
+	 * // Get a list of all users with gmail.com email addresses
+	 * $users = $uq->filter('email:endswith', '@gmail.com');
+	 * 
+	 * // Get all unverified users except those in group 5
+	 * $values = $uq->filter('verified', false)->exclude('group', 5);
+	 * 
+	 * // Set all users in group 5 to verified
+	 * $uq->filter('group', 5)->update(array('verified', true));
+	 * 
+	 * // Get the current user count
+	 * $count = $uq->count();
+	 * </code>
+	 * 
+	 * <b>Filter Chaining</b>
+	 * 
+	 * You will notice that except for methods that return immediate
+	 * query results (hash(), select(), raw(), delete(), get(), etc),
+	 * most filtering methods in this class (filter(), exclude(),
+	 * slice(), order(), etc) return a new QueryFilter object that
+	 * chains to the one it was called from, without altering its
+	 * original state or executing a query against the database.
+	 * Chaining filters in this way allows you to branch in several
+	 * different directions with a query without having to start
+	 * over again.
+	 * 
+	 * <code>
+	 * // Base query is limited to only users in group 5 
+	 * $query = $uq->filter('group', 5);
+	 * 
+	 * // Get total number of users in group 5
+	 * $total = $query->count();
+	 * 
+	 * // ...but only load the first 10
+	 * $users = $query->slice(10);
+	 * </code>
+	 * 
+	 * <b>Accessing the Result Set</b>
+	 * 
+	 * As mentioned above, most of the filter methods return a QueryFilter object,
+	 * but no query is actually executed against the database yet. So how do we get
+	 * the actual query results?
+	 * 
+	 * Just start accessing it as a regular PHP array. As soon as you call it
+	 * in an array context (either as part of a foreach loop, or by trying to directly
+	 * access an array index on it), the underlying query is executed on the database
+	 * and the result set is created.
+	 * 
+	 * <code>
+	 * // Filter applied, but no query execution yet
+	 * $users = $uq->filter('group', 5);
+	 * 
+	 * // foreach loop forces query execution
+	 * foreach ($users as $user) {
+	 * 
+	 *     // Like QueryFilter, Model instances can also be accessed as objects or arrays:
+	 *     echo $user->username;
+	 *     // ... is equivalent to:
+	 *     echo $user['username'];
+	 * 
+	 * }
+	 * </code>
+	 * 
+	 * <b>Cursors</b>
+	 * 
+	 * If you have too many rows to load in memory, you can also use a database
+	 * cursor:
+	 * 
+	 * <code>
+	 * // Get a CursorIterator object for this query
+	 * $users = $uq->filter('group', 5)->cursor();
+	 * 
+	 * // CursorIterator can also be used normally as an array, but it keeps the database
+	 * // connection open and loads rows as needed:
+	 * foreach ($users as $user) {
+	 *     // Do something
+	 * }
+	 * 
+	 * // Manually close down the cursor
+	 * $users->close();
+	 * </code>
+	 * 
+	 * @package modelquery
+	 * @see ModelQuery
+	 * @see CursorIterator
 	*/
 	class QueryFilter implements ArrayAccess, Iterator, Countable {
 
-		public $modelquery;		//!< The ModelQuery object that created this query
-		public $model;			//!< The Model prototype to clone for creating results
-		public $factory;		//!< The QueryFactory associated with this query
-		public $tableName;		//!< The main database table to query against
+		/** The ModelQuery object that created this query */
+		public $modelquery;
+		/** The Model prototype to clone for creating results */
+		public $model;
+		/** The QueryFactory associated with this query */
+		public $factory;
+		/** The main database table to query against */
+		public $tableName;
 
-		protected $parentFilter;	//!< The next filter up the filter chain
-		protected $query;			//!< Filter details for this chain of the query
-		protected $fullQuery;		/*!< \brief Merged filter details from all filters above
-									this one in the filter chain. Cached on first
-									call to QueryFilter::mergedQuery(). */
+		/** The next filter up the filter chain */
+		protected $parentFilter;
+		/** Filter details for this chain of the query */
+		protected $query;
+		/**
+		 * Merged filter details from all filters above this one in the
+		 * filter chain. Cached on first call to QueryFilter::mergedQuery().
+		 */
+		protected $fullQuery;
 
 		private $models;
 
-		//! Create a new QueryFilter object
-		/*!
-			This should not be called by non ModelQuery-code; it is called
-			internally for creating filter chains.
-			\param ModelQuery $modelquery_ The ModelQuery that created this query
-			\param QueryFilter $parentFilter_ The QueryFilter object that created this filter
-		*/
+		/**
+		 * Create a new QueryFilter object.
+		 * 
+		 * This should not be called by non-ModelQuery code; it is called
+		 * internally for creating filter chains.
+		 * 
+		 * @param ModelQuery &$modelquery_ The ModelQuery that created this query
+		 * @param QueryFilter &$parentFilter_ The QueryFilter object that created this filter
+		 */
 		public function __construct(&$modelquery_, &$parentFilter_ = null) {
 			$this->modelquery =& $modelquery_;
 			// Cache some ModelQuery properties
@@ -185,76 +198,74 @@ $users->close();
 								'debug' => false);
 		}
 
-		/*
-		 * Methods that refine a query and return another ModelQuery object
+		/**
+		 * Passthrough filter that returns all models.
+		 * 
+		 * Useful for calling on the root ModelQuery object to retrieve all
+		 * models, since you cannot call select() or hash() on it directly.
+		 *
+		 * @return QueryFilter The new QueryFilter at the end of the filter chain
 		 */
-
-		//! Passthrough filter that returns all models.
-		/*!
-			Useful for calling on the root ModelQuery object to retrieve all
-			models, since you cannot call select() or hash() on it directly.
-			\return QueryFilter The new QueryFilter at the end of the filter chain
-		*/
 		public function &all() {
 			$filter = new QueryFilter($this->modelquery, $this);
 			return $filter;
 		}
 
-		//! Filter models by a field value.
-		/*!
-			This method takes an arbitrary number of parameters, but they
-			must come in pairs, such as:
-\code
-$uq->filter("username:exact", "jjongsma")
-$uq->filter("verified", true, "created:gte", mktime(0,0,0,1,1,2008));
-\endcode
-
-			The first parameter of a pair consists of a field name, and an
-			optional modifier separated by a colon (:).  The second parameter
-			of a pair is the field value to filter by.  The type of the second
-			parameter depends on the field type and the modifier used.  For
-			example, for a date field, you would pass in a numeric timestamp.
-			For an :in modifier (see below), you would pass in an array of values
-			as the second parameter.  If no modifier is specified, "exact" is
-			assumed.
-
-			If multiple pairs of parameters are given, records must match
-			ALL of the filters specified.
-
-			<h4>Available modifiers:</h4>
-<pre>
-exact          Match records exactly against the given field value
-iexact         Match records exactly against the given field value, case-insensitive
-contains       Match records that contain the given value anywhere in the field
-icontains      Match records that contain the given value anywhere in the field, case-insensitive
-gt             Match records that have a value greater than the given value
-gte            Match records that have a value greater than or equal to the given value
-lt             Match records that have a value less than the given value
-lte            Match records that have a value less than or equal to the given value
-in             Match records that have a value that matches any value in the given array
-startswith     Match records with a value that starts with the given string
-istartswith    Match records with a value that starts with the given string, case-insensitive
-endswith       Match records with a value that ends with the given string
-iendswith      Match records with a value that ends with the given string, case-insensitive
-range          Match records within the specified range (given as a 2-item array), inclusive
-isnull         Match records with null values (if parameter is TRUE) or non-null values (if FALSE)
-</pre>
-
-			In addition to filtering by fields that are part of the original model,
-			you can also filter by related objects.  For example, if the User model
-			has a ManyToOneField called "preferences", you could filter on:
-
-\code
-$uq->filter('preferences.homepage', '/news/finance.php');
-\endcode
-
-			This would filter on the "homepage" field belonging to the Preferences model
-			linked to each User record.  You can follow relations as far as they go using
-			this dot notation, not just a single level; QueryFilter will add all the
-			necessary joins.
-
-			\return QueryFilter The new QueryFilter at the end of the filter chain
-		*/
+		/**
+		 * Filter models by a field value.
+		 * 
+		 * <p>This method takes an arbitrary number of parameters, but they
+		 * must come in pairs, such as:</p>
+		 *
+		 * <p><code>
+		 * $uq->filter("username:exact", "jjongsma")
+		 * $uq->filter("verified", true, "created:gte", mktime(0,0,0,1,1,2008));
+		 * </code></p>
+		 * 
+		 * <p>The first parameter of a pair consists of a field name, and an
+		 * optional modifier separated by a colon (:).  The second parameter
+		 * of a pair is the field value to filter by.  The type of the second
+		 * parameter depends on the field type and the modifier used.  For
+		 * example, for a date field, you would pass in a numeric timestamp.
+		 * For an :in modifier (see below), you would pass in an array of values
+		 * as the second parameter.  If no modifier is specified, "exact" is
+		 * assumed.</p>
+		 * 
+		 * <p>If multiple pairs of parameters are given, records must match
+		 * ALL of the filters specified.</p>
+		 * 
+		 * <p><b>Available modifiers:</b><br />
+		 * <i>exact</i>: Match records exactly against the given field value<br />
+		 * <i>iexact</i>: Match records exactly against the given field value, case-insensitive<br />
+		 * <i>contains</i>: Match records that contain the given value anywhere in the field<br />
+		 * <i>icontains</i>: Match records that contain the given value anywhere in the field, case-insensitive<br />
+		 * <i>gt</i>: Match records that have a value greater than the given value<br />
+		 * <i>gte</i>: Match records that have a value greater than or equal to the given value<br />
+		 * <i>lt</i>: Match records that have a value less than the given value<br />
+		 * <i>lte</i>: Match records that have a value less than or equal to the given value<br />
+		 * <i>in</i>: Match records that have a value that matches any value in the given array<br />
+		 * <i>startswith</i>: Match records with a value that starts with the given string<br />
+		 * <i>istartswith</i>: Match records with a value that starts with the given string, case-insensitive<br />
+		 * <i>endswith</i>: Match records with a value that ends with the given string<br />
+		 * <i>iendswith</i>: Match records with a value that ends with the given string, case-insensitive<br />
+		 * <i>range</i>: Match records within the specified range (given as a 2-item array), inclusive<br />
+		 * <i>isnull</i>: Match records with null values (if parameter is TRUE) or non-null values (if FALSE)</p>
+		 * 
+		 * <p>In addition to filtering by fields that are part of the original model,
+		 * you can also filter by related objects.  For example, if the User model
+		 * has a ManyToOneField called "preferences", you could filter on:</p>
+		 * 
+		 * <code>
+		 * $uq->filter('preferences.homepage', '/news/finance.php');
+		 * </code>
+		 * 
+		 * <p>This would filter on the "homepage" field belonging to the Preferences model
+		 * linked to each User record.  You can follow relations as far as they go using
+		 * this dot notation, not just a single level; QueryFilter will add all the
+		 * necessary joins.</p>
+		 * 
+		 * @return QueryFilter The new QueryFilter at the end of the filter chain
+		 */
 		public function &filter() {
 			$filter = new QueryFilter($this->modelquery, $this);
 			$args = func_get_args();
@@ -262,12 +273,15 @@ $uq->filter('preferences.homepage', '/news/finance.php');
 			return $filter;
 		}
 
-		//! Filter models by a field value.
-		/*!
-			Behaves like QueryFilter::filter(), but if multiple pairs of parameters
-			are given, records only have to match ONE of the filters specified.
-			\sa QueryFilter::filter()
-		*/
+		/**
+		 * Filter models by a field value.
+		 *
+		 * Behaves like QueryFilter::filter(), but if multiple pairs of parameters
+		 * are given, records only have to match ONE of the filters specified.
+		 *
+		 * @return QueryFilter The new QueryFilter at the end of the filter chain
+		 * @see QueryFilter::filter()
+		 */
 
 		public function &filteror() {
 			$filter = new QueryFilter($this->modelquery, $this);
@@ -276,13 +290,16 @@ $uq->filter('preferences.homepage', '/news/finance.php');
 			return $filter;
 		}
 
-		//! Filter models by excluding a field value.
-		/*!
-			Behaves like QueryFilter::filter(), except instead of matching
-			against the given field values, it excludes any records that match
-			the field value.
-			\sa QueryFilter::filter()
-		*/
+		/**
+		 * Filter models by excluding a field value.
+		 * 
+		 * Behaves like QueryFilter::filter(), except instead of matching
+		 * against the given field values, it excludes any records that match
+		 * the field value.
+		 *
+		 * @return QueryFilter The new QueryFilter at the end of the filter chain
+		 * @see QueryFilter::filter()
+		 */
 		public function &exclude() {
 			$filter = new QueryFilter($this->modelquery, $this);
 			$args = func_get_args();
@@ -290,13 +307,16 @@ $uq->filter('preferences.homepage', '/news/finance.php');
 			return $filter;
 		}
 
-		//! Filter models by excluding a field value.
-		/*!
-			Behaves like QueryFilter::exclude(), but if multiple pairs of parameters
-			are given, records only have to match ONE of the filters specified to
-			be excluded.
-			\sa QueryFilter::filter()
-		*/
+		/**
+		 * Filter models by excluding a field value.
+		 * 
+		 * Behaves like QueryFilter::exclude(), but if multiple pairs of parameters
+		 * are given, records only have to match ONE of the filters specified to
+		 * be excluded.
+		 *
+		 * @return QueryFilter The new QueryFilter at the end of the filter chain
+		 * @see QueryFilter::filter()
+		 */
 		public function &excludeor() {
 			$filter = new QueryFilter($this->modelquery, $this);
 			$args = func_get_args();
@@ -304,7 +324,7 @@ $uq->filter('preferences.homepage', '/news/finance.php');
 			return $filter;
 		}
 
-		//! Parse function argument list to split into field/value filter pairs
+		/** Parse function argument list to split into field/value filter pairs. */
 		private function getFilters($args) {
 			if (sizeof($args) == 1 && is_array($args[0])) {
 				$filters = array();
@@ -318,22 +338,67 @@ $uq->filter('preferences.homepage', '/news/finance.php');
 				return $args;
 		}
 
-		// Extra SQL directives to add the to database query
+		/**
+		 * Extra SQL directives to add the to database query.
+		 * 
+		 * @param Array $select A hash array of additional fields to include.
+		 * 		This parameter is used to pull in extra fields from related
+		 * 		tables, to reduce additional queries.  The parameter is of
+		 * 		the form "reference_name" => "field_name", where
+		 * 		reference_name is the name of the field as it will be named
+		 * 		in the query result object, and field_name is the original
+		 * 		field name (or path, if you are pulling in a field from a
+		 * 		related obejct).  Example:
+		 *
+		 * 		<code>
+		 * 		$user = $uq->extra(array('homepage' => 'preferences.homepage'));
+		 * 		echo $user->homepage:
+		 * 		</code>
+		 *
+		 * 		While the original user object did not have a "homepage"
+		 * 		field, the query results now include the value of that
+		 * 		field from the related "preferences" object.  This value
+		 * 		could also be retrieved with $user->preferences->homepage,
+		 * 		but it would require an additional database query since
+		 * 		the entire preferences object would be loaded on demand.
+		 * @param string $where A SQL where clause to add to the query. Useful
+		 *		for additional filtering the ModelQuery API doesn't provide,
+		 *		such as comparing two field values: i.e. "WHERE position = max"
+		 * @param Array $params An array of parameters to bind to the query,
+		 *		if any are specified in the $where parameter (using the ? token).
+		 * @param Array $tables Deprecated. You should no longer need to manually
+		 *		define table joins, since ModelQuery does it automatically
+		 *		if you include a related-object field in the $select parameter.
+		 * @return QueryFilter The new QueryFilter at the end of the filter chain
+		 */
 		public function &extra($select = null, $where = null, $params = null, $tables = null) {
 			$filter = new QueryFilter($this->modelquery, $this);
 			$filter->applyExtra($select, $where, $params, $tables);
 			return $filter;
 		}
 
-		// Sort randomly
+		/**
+		 * Sort the results of this query randomly.
+		 *
+		 * @return QueryFilter The new QueryFilter at the end of the filter chain
+		 */
 		public function &random() {
 			$filter = new QueryFilter($this->modelquery, $this);
 			$filter->applyRandom();
 			return $filter;
 		}
 
-		// Accepts a variable length list of field names
-		// Prefix with '-' to reverse sort
+		/**
+		 * Sort the results of this query by the given fields.
+		 *
+		 * This function takes an arbitrary number of arguments, each of
+		 * which is a string containing an (optional) order specifier
+		 * of <i>+</i> or <i>-</i> and a field name.
+		 *
+		 * i.e. $query->order('+author.surname', '-published');
+		 *
+		 * @return QueryFilter The new QueryFilter at the end of the filter chain
+		 */
 		public function &order() {
 			$filter = new QueryFilter($this->modelquery, $this);
 			$args = func_get_args();
@@ -341,7 +406,13 @@ $uq->filter('preferences.homepage', '/news/finance.php');
 			return $filter;
 		}
 
-		// Slice a range from the middle of the queryset
+		/**
+		 * Return only a subset of the total matching records.
+		 *
+		 * @param int $limit The number of records to return
+		 * @param int $offset The record number to start at
+		 * @return QueryFilter The new QueryFilter at the end of the filter chain
+		 */
 		public function &slice($limit = 0, $offset = 0) {
 			if ($offset < 0) $offset = 0;
 			$filter = new QueryFilter($this->modelquery, $this);
@@ -349,28 +420,55 @@ $uq->filter('preferences.homepage', '/news/finance.php');
 			return $filter;
 		}
 
-		// Filter by unique rows
+		/**
+		 * Only return unique records.
+		 *
+		 * Useful for situations where complicated query joins would
+		 * otherwise return duplicate objects.
+		 *
+		 * @return QueryFilter The new QueryFilter at the end of the filter chain
+		 */
 		public function &distinct() {
 			$filter = new QueryFilter($this->modelquery, $this);
 			$filter->applyDistinct();
 			return $filter;
 		}
 
-		// Add a group clause to the query
+		/**
+		 * Add a group clause to the query.
+		 *
+		 * @deprecated 2.0 group()/extra() are unnecessary with the addition
+		 *		of aggregate methods (min(), max(), etc).
+		 * @param Array $groupby A list of fields to group results by
+		 * @return QueryFilter The new QueryFilter at the end of the filter chain
+		 */
 		public function group($groupby) {
 			$filter = new QueryFilter($this->modelquery, $this);
 			$filter->applyGrouping($groupby);
 			return $filter;
 		}
 
-		/*
-		 * Request to preload related objects
+		/**
+		 * Request to pre-emptively load related objects in a single
+		 * query.
+		 *
+		 * If you know you will be needing to access a related
+		 * object from all models in this result set, you can load it
+		 * as part of this query, avoiding an extra query for each
+		 * Model that usually would occur with lazy reference loading.
+		 *
 		 * Important notes:
-		 *  1) You may preload as many ManyToOne fields as you like,
+		 * <ol>
+		 * <li>You may preload as many ManyToOne fields as you like,
 		 *     but you may only preload a single ManyToMany/OneToMany
-		 *     due to limitations in SQL joining
-		 *  2) Applying this filter for a ManyToMany/OneToMany field
-		 *     will result in inaccurate sqlcount() calls
+		 *     due to the way joining works in SQL</li>
+		 * <li>Applying this filter for a ManyToMany/OneToMany field
+		 *     will result in inaccurate sqlcount() calls</li>
+		 * </ol>
+		 *
+		 * @param string $field The field name linking the related object
+		 * @return QueryFilter The new QueryFilter at the end of the filter chain
+		 */
 		 */
 		public function &preload($field) {
 			$filter = new QueryFilter($this->modelquery, $this);
@@ -378,72 +476,244 @@ $uq->filter('preferences.homepage', '/news/finance.php');
 			return $filter;
 		}
 
-		// Output debug info for this query
+		/**
+		 * Output debug info for this query.
+		 * @return QueryFilter The new QueryFilter at the end of the filter chain
+		 */
 		public function &debug() {
 			$filter = new QueryFilter($this->modelquery, $this);
 			$filter->applyDebug();
 			return $filter;
 		}
 
-		// Add a maximum field to the query
+		/**
+		 * Add a maximum field to the query.
+		 *
+		 * Groups the query records together by the given $groupby fields, and
+		 * then returns a maximum value of the field specified for each group.
+		 *
+		 * @param string $name The new field name
+		 * @param string $field The field to aggregate
+		 * @param Array $groupby The list of fields to group by
+		 * @return QueryFilter The new QueryFilter at the end of the filter chain
+		 * @see QueryFilter::aggregate()
+		 */
 		public function maxfield($name, $field, $groupby = null) {
 			return $this->aggregate($name, $field, 'MAX', $groupby);
 		}
 
-		// Add a minimum field to the query
+		/**
+		 * Add a minimum field to the query.
+		 *
+		 * Groups the query records together by the given $groupby fields, and
+		 * then returns a minimum value of the field specified for each group.
+		 *
+		 * @param string $name The new field name
+		 * @param string $field The field to aggregate
+		 * @param Array $groupby The list of fields to group by
+		 * @return QueryFilter The new QueryFilter at the end of the filter chain
+		 * @see QueryFilter::aggregate()
+		 */
 		public function minfield($name, $field, $groupby = null) {
 			return $this->aggregate($name, $field, 'MIN', $groupby);
 		}
 
-		// Add a average field to the query
+		/**
+		 * Add a average field to the query.
+		 *
+		 * Groups the query records together by the given $groupby fields, and
+		 * then returns a average value of the field specified for each group.
+		 *
+		 * @param string $name The new field name
+		 * @param string $field The field to aggregate (must be numeric)
+		 * @param Array $groupby The list of fields to group by
+		 * @return QueryFilter The new QueryFilter at the end of the filter chain
+		 * @see QueryFilter::aggregate()
+		 */
 		public function avgfield($name, $field, $groupby = null) {
 			return $this->aggregate($name, $field, 'AVG', $groupby);
 		}
 
-		// Add a sum field to the query
+		/**
+		 * Add a sum field to the query.
+		 *
+		 * Groups the query records together by the given $groupby fields, and
+		 * then returns a sum of all field values contained in each group.
+		 *
+		 * @param string $name The new field name
+		 * @param string $field The field to aggregate (must be numeric)
+		 * @param Array $groupby The list of fields to group by
+		 * @return QueryFilter The new QueryFilter at the end of the filter chain
+		 * @see QueryFilter::aggregate()
+		 */
 		public function sumfield($name, $field, $groupby = null) {
 			return $this->aggregate($name, $field, 'SUM', $groupby);
 		}
 
-		// Add a maximum field to the query
+		/**
+		 * Add a count field to the query.
+		 *
+		 * Groups the query records together by the given $groupby fields, and
+		 * then returns the count of all records contained in each group.
+		 *
+		 * @param string $name The new field name
+		 * @param string $field The field to aggregate
+		 * @param Array $groupby The list of fields to group by
+		 * @return QueryFilter The new QueryFilter at the end of the filter chain
+		 * @see QueryFilter::aggregate()
+		 */
 		public function countfield($name = null, $field = null, $groupby = null) {
 			return $this->aggregate($name, $field, 'COUNT', $groupby);
 		}
 
-		// Add an aggregate field to the query - does not return
-		// an immediate result, but adds to the field list
+		/**
+		 * Add an aggregate field to the query.
+		 *
+		 * This groups the query records together by the given $groupby fields,
+		 * and then returns models with a SQL aggregate value of the field
+		 * specified for each group (defined by $fn - MIN, MAX, AVG, etc).
+		 *
+		 * The following example, querying a table of employees, would
+		 * add an artificial field "total_employees" to the results that
+		 * represents the number of employees from each state:
+		 *
+		 * <code>
+		 * $query->aggregate('total_employees', 'id', 'COUNT', array('state'));
+		 * </code>
+		 *
+		 * The models returned are artificial; they are read-only and cannot
+		 * be saved to the database.
+		 *
+		 * @param string $name The model field name the aggregate result will use
+		 * @param string $field The real field to compute an aggregate value for
+		 * @param Array $groupby A list of fields to group the aggregate by
+		 * @return QueryFilter The new QueryFilter at the end of the filter chain
+		 */
 		public function aggregate($name, $field, $fn, $groupby = null) {
 			$filter = new QueryFilter($this->modelquery, $this);
 			$filter->addAggregate($name, $field, $fn, $groupby);
 			return $filter;
 		}
 
-		// Get the maximum value of a field
+		/**
+		 * Get a maximum field value and return the result immediately.
+		 *
+		 * This call is identical to:
+		 *
+		 * <code>
+		 * $query->returnAggregate($field, $field, 'MAX', $groupby, true);
+		 * </code>
+		 *
+		 * @param string $field The field to aggregate
+		 * @param Array $groupby A list of fields to group results by
+		 * @return mixed The maximum field value of a group
+		 * @see QueryFilter->returnAggregate()
+		 */
 		public function max($field, $groupby = null) {
 			return $this->returnAggregate($field, $field, 'MAX', $groupby, true);
 		}
 
-		// Get the minimum value of a field
+		/**
+		 * Get a minimum field value and return the result immediately.
+		 *
+		 * This call is identical to:
+		 *
+		 * <code>
+		 * $query->returnAggregate($field, $field, 'MIN', $groupby, true);
+		 * </code>
+		 *
+		 * @param string $field The field to aggregate
+		 * @param Array $groupby A list of fields to group results by
+		 * @return mixed The minimum field value of a group
+		 * @see QueryFilter->returnAggregate()
+		 */
 		public function min($field, $groupby = null) {
 			return $this->returnAggregate($field, $field, 'MIN', $groupby, true);
 		}
 
-		// Get the average value of a field
+		/**
+		 * Get a average field value and return the result immediately.
+		 *
+		 * This call is identical to:
+		 *
+		 * <code>
+		 * $query->returnAggregate($field, $field, 'AVG', $groupby);
+		 * </code>
+		 *
+		 * @param string $field The field to aggregate
+		 * @param Array $groupby A list of fields to group results by
+		 * @return mixed The average field value of a group
+		 * @see QueryFilter->returnAggregate()
+		 */
 		public function avg($field, $groupby = null) {
 			return floatval($this->returnAggregate($field, $field, 'AVG', $groupby));
 		}
 
-		// Get the sum of all field values
+		/**
+		 * Get the sum of all field values and return the result immediately.
+		 *
+		 * This call is identical to:
+		 *
+		 * <code>
+		 * $query->returnAggregate($field, $field, 'SUM', $groupby, true);
+		 * </code>
+		 *
+		 * @param string $field The field to aggregate
+		 * @param Array $groupby A list of fields to group results by
+		 * @return mixed The sum of all field values in a group
+		 * @see QueryFilter->returnAggregate()
+		 */
 		public function sum($field, $groupby = null) {
 			return $this->returnAggregate($field, $field, 'SUM', $groupby, true);
 		}
 
-		// Get the row count of a field
+		/**
+		 * Get the total count of all matching records and return the
+		 * result immediately.
+		 *
+		 * This call is identical to:
+		 *
+		 * <code>
+		 * $query->returnAggregate($field, $field, 'COUNT', $groupby);
+		 * </code>
+		 *
+		 * @param string $field The field to aggregate
+		 * @param Array $groupby A list of fields to group results by
+		 * @return mixed The total number of records per group
+		 * @see QueryFilter->returnAggregate()
+		 */
 		public function sqlcount($field = null, $groupby = null) {
 			return intval($this->returnAggregate($field, $field, 'COUNT', $groupby));
 		}
 
-		// Return an aggregate value of a field
+		/**
+		 * Get an aggregate field value and return the results immediately.
+		 *
+		 * The following two statements are equivalent:
+		 *
+		 * <code>
+		 * $query->addAggregate('id', 'id', 'MAX')->one()->id;
+		 * </code>
+		 * and:
+		 * <code>
+		 * $query->returnAggregate('id', 'id', 'MAX', null, true);
+		 * </code>
+		 *
+		 * This only returns a single value, so if you are specifying
+		 * fields to group by, make sure you are also filtering to
+		 * get the correct group, or you will only get the first
+		 * value of a result set.
+		 *
+		 * @param string $name The new field name
+		 * @param string $field The field name to aggregate
+		 * @param string $fn The SQL aggregate function (MIN, MAX, etc)
+		 * @param Array $groupby A list of fields to group results by
+		 * @param bool $convert Whether to type-convert the resulting value.
+		 *			For example, if you are computing an average of integer
+		 *			fields, you probably don't want to convert the resulting
+		 *			float value to an integer.
+		 * @return mixed The aggregate field value
+		 */
 		public function returnAggregate($name, $field, $fn, $groupby = null, $convert = false) {
 			$filter = new QueryFilter($this->modelquery, $this);
 			list($name, $fieldObj) = $filter->addAggregate($name, $field, $fn, $groupby);
@@ -457,27 +727,60 @@ $uq->filter('preferences.homepage', '/news/finance.php');
 		}
 
 		/*
-		 * Methods used by QuerySet-returning filters above to apply to current object.
+		 * Methods used by the QueryFilter-returning methods above to apply
+		 * to current filter.
 		 */
-		// Filters are defined as arrays, like: ("username:exact", "jjongsma")
+
+		/**
+		 * Applies a filter to the current filter, rather than creating a new
+		 * QueryFilter and adding to the end of the chain.
+		 *
+		 * @param Array $filters A hash array of field => value pairs
+		 * @see QueryFilter::filter()
+		 */
 		public function applyFilter($filters) {
 			$this->createFilterQuery($filters, false, false);
 		}
 
+		/**
+		 * Applies a filter to the current filter, rather than creating a new
+		 * QueryFilter and adding to the end of the chain.
+		 *
+		 * @param Array $filters A hash array of field => value pairs
+		 * @see QueryFilter::filteror()
+		 */
 		public function applyFilterOr($filters) {
 			$this->createFilterQuery($filters, false, true);
 		}
 
-		// Filters are defined as arrays, like: ("username:exact", "jjongsma")
+		/**
+		 * Applies an exclusion filter to the current filter, rather than
+		 * creating a new QueryFilter and adding to the end of the chain.
+		 *
+		 * @param Array $filters A hash array of field => value pairs
+		 * @see QueryFilter::exclude()
+		 */
 		public function applyExclude($filters) {
 			$this->createFilterQuery($filters, true, false);
 		}
 
+		/**
+		 * Applies an exclusion filter to the current filter, rather than
+		 * creating a new QueryFilter and adding to the end of the chain.
+		 *
+		 * @param Array $filters A hash array of field => value pairs
+		 * @see QueryFilter::excludeor()
+		 */
 		public function applyExcludeOr($filters) {
 			$this->createFilterQuery($filters, true, true);
 		}
 
-		// Extra SQL to add to the query
+		/**
+		 * Applies extra SQL directives to the current filter, rather than
+		 * creating a new QueryFilter and adding to the end of the chain.
+		 *
+		 * @see QueryFilter::extra()
+		 */
 		public function applyExtra($select = null, $where = null, $params = null, $tables = null) {
 			if ($select) {
 				foreach ($select as $name => $field) {
@@ -500,7 +803,12 @@ $uq->filter('preferences.homepage', '/news/finance.php');
 				$this->query['tables'] = $this->mergeJoins((array)$this->query['tables'], $tables);
 		}
 
-
+		/**
+		 * Applies random ordering to the current filter, rather than creating a new
+		 * QueryFilter and adding to the end of the chain.
+		 *
+		 * @see QueryFilter::random()
+		 */
 		public function applyRandom() {
 			if ($this->query['order'])
 				$this->query['order'] .= ', RAND()';
@@ -508,8 +816,12 @@ $uq->filter('preferences.homepage', '/news/finance.php');
 				$this->query['order'] = 'RAND()';
 		}
 
-		// Accepts a variable length list of field names
-		// Prefix with '-' to reverse sort
+		/**
+		 * Applies ordering to the current filter, rather than creating a new
+		 * QueryFilter and adding to the end of the chain.
+		 *
+		 * @see QueryFilter::order()
+		 */
 		public function applyOrder() {
 			$args = func_get_args();
 			if ($args && is_array($args[0]))
@@ -524,6 +836,12 @@ $uq->filter('preferences.homepage', '/news/finance.php');
 					$this->query['tables'][$t] = $j;
 		}
 
+		/**
+		 * Generates a list of SQL order clauses and table joins based on
+		 * a field list.
+		 *
+		 * @see QueryFilter::order()
+		 */
 		private function orderClause($fields) {
 			$clauses = array();
 			$joins = array();
@@ -544,6 +862,33 @@ $uq->filter('preferences.homepage', '/news/finance.php');
 			return array(implode(', ', $clauses), $joins);
 		}
 
+		/**
+		 * Generates SQL table join info from the specified field name.
+		 *
+		 * The return value is of the format:
+		 *
+		 * <code>
+		 * array(
+		 *    // List of table joins
+		 *    [0] => array(
+		 *        '`target` ON (`target`.`join_field` = `source`.`id_field`)' => 'INNER JOIN',
+		 *        ...
+		 *        ),
+		 *    // The model owning the resolved field
+		 *    [1] => $related_model
+		 * );
+		 * </code>
+		 *
+		 * @param Model $model The model that is the source of the join.
+		 *		This will usually $this->model.
+		 * @param string $field The field we want to access. If this field
+		 *		represents a related object field in dotted notation (i.e.
+		 *		"site.page.title", it must be resolvable from the given model
+		 *		object (i.e. $model->site must exist)
+		 * @return Array A hash array of join information (defined above)
+		 * @throws InvalidParametersException if a specified field is
+		 *		not defined as a relation field
+		 */
 		private function getFieldJoinInfo($model, $field, $type = 'LEFT OUTER') {
 
 			$joins = array();
@@ -584,6 +929,35 @@ $uq->filter('preferences.homepage', '/news/finance.php');
 
 		}
 
+		/**
+		 * Generates SQL table join info from the specified field name and
+		 * join type.
+		 *
+		 * The return value is of the format:
+		 *
+		 * <code>
+		 * array(
+		 *    // The fully-qualified resolved SQL field name
+		 *    [0] => '`target_table`.`field_name`',
+		 *    // List of table joins required to query for this field
+		 *    [1] => array(
+		 *        '`target` ON (`target`.`join_field` = `source`.`id_field`)' => 'INNER JOIN',
+		 *        ...
+		 *        ),
+		 *    // The Model owning the resolved field
+		 *    [2] => $related_model,
+		 *    // The ModelField defining the resolved field
+		 *    [3] => $related_field
+		 * );
+		 * </code>
+		 *
+		 * @param string $field The field we want to access. If this field
+		 *		represents a related object field in dotted notation (i.e.
+		 *		"site.page.title", it must be resolvable from the given model
+		 *		object (i.e. $model->site must exist)
+		 * @param String $type The SQL join type ('LEFT OUTER', 'INNER', etc)
+		 * @return Array A hash array of join information (defined above)
+		 */
 		private function getJoinInfo($field, $type = 'LEFT OUTER') {
 
 			$joins = array();
@@ -620,17 +994,33 @@ $uq->filter('preferences.homepage', '/news/finance.php');
 
 		}
 
-		// Slice a range from the middle of the queryset
+		/**
+		 * Applies a subset slice to the current filter, rather than creating a new
+		 * QueryFilter and adding to the end of the chain.
+		 *
+		 * @see QueryFilter::slice()
+		 */
 		public function &applySlice($limit = 0, $offset = 0) {
 			$this->query['limit'] = $limit;
 			$this->query['offset'] = $offset;
 		}
 
-		// Filter by unique rows
+		/**
+		 * Apply unique record filtering to the current filter, rather than
+		 * creating a new QueryFilter and adding to the end of the chain.
+		 *
+		 * @see QueryFilter::distinct()
+		 */
 		public function &applyDistinct() {
 			$this->query['distinct'] = true;
 		}
 
+		/**
+		 * Applies a preload directive to the current object, rather than
+		 * creating a new QueryFilter and adding to the end of the chain.
+		 *
+		 * @see QueryFilter::preload()
+		 */
 		public function &applyPreload($field) {
 			if ($field) {
 				list($joins, $relmodel) = $this->getFieldJoinInfo($this->model, $field);
@@ -646,11 +1036,22 @@ $uq->filter('preferences.homepage', '/news/finance.php');
 			}
 		}
 
+		/**
+		 * Applies a debug directive to the current object, rather than
+		 * creating a new QueryFilter and adding to the end of the chain.
+		 *
+		 * @see QueryFilter::debug()
+		 */
 		public function &applyDebug() {
 			$this->query['debug'][] = true;
 		}
 
-		// Add grouping clause
+		/**
+		 * Applies a grouping clause to the current object, rather than
+		 * creating a new QueryFilter and adding to the end of the chain.
+		 *
+		 * @see QueryFilter::group()
+		 */
 		public function applyGrouping($groupby, $select = false) {
 
 			if ($groupby) {
@@ -673,7 +1074,12 @@ $uq->filter('preferences.homepage', '/news/finance.php');
 
 		}
 
-		// Add aggregate field
+		/**
+		 * Add an aggregate field to the current object, rather than
+		 * creating a new QueryFilter and adding to the end of the chain.
+		 *
+		 * @see QueryFilter::aggregate()
+		 */
 		public function addAggregate($name, $field, $fn, $groupby = null) {
 
 			if (!$field)
@@ -713,7 +1119,18 @@ $uq->filter('preferences.homepage', '/news/finance.php');
 		 * Methods that execute a query and return the results
 		 */
 
-		// Execute current query as-is and return results
+		/**
+		 * Execute the current query and return results as a set of
+		 * Model instances.
+		 *
+		 * @param string $map Return a hash array mapped by the specified
+		 *		field's value, rather than a numerically-indexed list
+		 * @param bool $multimap If a $map parameter is specified,
+		 * 		make the returned map values an array of Model objects.
+		 *		Useful if you want to map by a field value that is not
+		 *		unique across records.
+		 * @return Array An array of Model instances matching the query.
+		 */
 		public function select($map = null, $multimap = false) {	
 			$q = $this->mergedQuery(true);
 			// Aggregate queries don't mix with preloads
@@ -725,7 +1142,19 @@ $uq->filter('preferences.homepage', '/news/finance.php');
 			return $this->models;
 		}
 
-		// Execute current query as-is and return results as a hash
+		/**
+		 * Execute the current query and return results as a set of
+		 * hash arrays.
+		 *
+		 * @param string $map Return a hash array mapped by the specified
+		 *		field's value, rather than a numerically-indexed list
+		 * @param bool $multimap If a $map parameter is specified,
+		 * 		make the returned map values an array of records.
+		 *		Useful if you want to map by a field value that is not
+		 *		unique across records.
+		 * @return Array An array of name/value hash arrays for records
+		 *		matching the query.
+		 */
 		public function hash($map = null, $multimap = false) {
 			$q = $this->mergedQuery(true);
 			// Aggregate queries don't mix with preloads
@@ -735,10 +1164,21 @@ $uq->filter('preferences.homepage', '/news/finance.php');
 			return $this->createHash($result, $q['aggregates'], $map, $q['preload'], $multimap);
 		}
 
-		// Execute current query as-is and return results as a hash,
-		// without performing any type conversion.
-		// This is the fastest way to query if you're trying to squeeze
-		// every bit of performance out of a function.
+		/**
+		 * Execute the current query and return results as a set of
+		 * hash arrays, <i>without performing any type conversion</i>.
+		 * This is the fastest way to query if you're trying to squeeze
+		 * every bit of performance out of ModelQuery.
+		 *
+		 * @param string $map Return a hash array mapped by the specified
+		 *		field's value, rather than a numerically-indexed list
+		 * @param bool $multimap If a $map parameter is specified,
+		 * 		make the returned map values an array of records.
+		 *		Useful if you want to map by a field value that is not
+		 *		unique across records.
+		 * @return Array An array of name/value hash arrays for records
+		 *		matching the query.
+		 */
 		public function raw($map = null, $multimap = false) {
 			$q = $this->mergedQuery(true);
 			// Aggregate queries don't mix with preloads
@@ -748,36 +1188,112 @@ $uq->filter('preferences.homepage', '/news/finance.php');
 			return $this->createRawHash($result, $map, $q['preload'], $multimap);
 		}
 
-		// Execute current query as-is and return results as a field-mapped
-		// array.  Identical to calling select($key), but defaults to ID
-		// field if no parameter is given.
+		/**
+		 * Execute the current query and return results as a set of
+		 * Model instances, mapped by the given field.  Identical
+		 * to calling QueryFilter::select($key), except that it
+		 * defaults to the primary key field if no key is given.
+		 *
+		 * @param string $key The field to map values by. Defaults to the
+		 *		model's primary key.
+		 * @param bool $multimap If a $map parameter is specified,
+		 * 		make the returned map values an array of records.
+		 *		Useful if you want to map by a field value that is not
+		 *		unique across records.
+		 * @return Array An array of Models for recordsmatching the query.
+		 * @see QueryFilter::select()
+		 */
 		public function map($key = null, $multimap = false) {
 			if ($key == null)
 				$key = $this->model->_idField;
 			return $this->select($key, $multimap);
 		}
 
-		// Execute current query as-is and return results as cursor
+		/**
+		 * Execute current query and return the results as a database cursor.
+		 *
+		 * Performs the same purpose as QueryFilter::select(),
+		 * except that Model objects are loaded on demand as they are
+		 * iterated over, which avoids loading the entire result set
+		 * into memory.
+		 *
+		 * <code>
+		 * // Get a CursorIterator object for this query
+		 * $users = $uq->filter('group', 5)->cursor();
+		 * 
+		 * // CursorIterator can also be used normally as an array, but it keeps the database
+		 * // connection open and loads rows as needed:
+		 * foreach ($users as $user) {
+		 *     // Do something
+		 * }
+		 * 
+		 * // Manually close down the cursor
+		 * $users->close();
+		 * </code>
+		 *
+		 * @return CursorIterator A database cursor to iterate over
+		 */
 		public function cursor() {
 			$q = $this->mergedQuery(true);
 			$result = $this->doSelect($q);
 			return new CursorIterator($this->modelquery, $result, $q['aggregates']);
 		}
 
-		// Execute current query as-is and return results as cursor
+		/**
+		 * Execute current query and return the results as a database
+		 * cursor.
+		 *
+		 * Performs the same purpose as QueryFilter::select(),
+		 * except that records are loaded on demand as they are
+		 * iterated over, which avoids loading the entire result set
+		 * into memory.
+		 *
+		 * Differs from cursor() in that records are returned as
+		 * name/value hash arrays rather than Model objects.
+		 *
+		 * @return HashCursorIterator A database cursor to iterate over
+		 * @see QueryFilter::cursor()
+		 */
 		public function hashCursor() {
 			$q = $this->mergedQuery(true);
 			$result = $this->doSelect($q);
 			return new HashCursorIterator($this, $result, $q['aggregates']);
 		}
 
-		// Return an array of a single field value
+		/**
+		 * Execute the current query, and return an array of values
+		 * of a single field from each record in the result set.
+		 *
+		 * Example:
+		 * <code>
+		 * // Returns a simple list of all active usernames
+		 * $active = $users->filter('active', true)->pluck('username');
+		 * </code>
+		 *
+		 * @param $field The field to get values for
+		 * @return Array An array of field values
+		 */
 		public function pluck($field) {
 			$values = $this->values($field);
 			return $values[$field];
 		}
 
-		// Return an array of arrays of values mapped to field names
+		/**
+		 * Execute the current query, and return an array of values
+		 * of the specified fields from each record in the result set.
+		 *
+		 * Example:
+		 * <code>
+		 * // Returns a simple list of all active usernames
+		 * $active = $users->filter('active', true)->values('id', 'username');
+		 * // Returns an array of the format:
+		 * // array('id' => array(1, 5, 12, 13),
+		 * //       'username' => array('admin', 'alice', 'bob', 'brian'));
+		 * </code>
+		 *
+		 * @param $field The field to get values for
+		 * @return Array A hash array of field name => values
+		 */
 		public function values() {
 			$q = $this->mergedQuery(true);
 			$fields = func_get_args();
@@ -813,8 +1329,17 @@ $uq->filter('preferences.homepage', '/news/finance.php');
 			return $values;
 		}
 
-		// Get a single object.  Throws error if not found, or
-		// more than one is found
+		/**
+		 * Execute the current query and return a single record.
+		 * 
+		 * @param mixed $id The unique primary key of the object to fetch.
+		 *		Not required if the current filter would only return a
+		 *		single object. (i.e. $query->filter('id', 1)->get())
+		 * @return Model The single Model that matches the current query
+		 * @throws TooManyResultsException if more than one matching record
+		 * 		was found
+		 * @throws DoesNotExistException if no matching records were found
+		 */
 		public function get($id = null) {
 
 			$q = $this->mergedQuery(true);
@@ -838,7 +1363,12 @@ $uq->filter('preferences.homepage', '/news/finance.php');
 
 		}
 
-		// Return only the first result, throwing error if none found
+		/**
+		 * Execute the current query and return the first record.
+		 *
+		 * @return Model The first Model that matches the current query
+		 * @throws DoesNotExistException if no matching records were found
+		 */
 		public function one() {
 			$models = $this->slice(1)->select();
 			if (!count($models))
@@ -846,7 +1376,13 @@ $uq->filter('preferences.homepage', '/news/finance.php');
 			return $models[0];
 		}
 
-		// Return the first result or null if nonexistent
+		/**
+		 * Execute the current query and return the first record, or
+		 * null if none exists.
+		 *
+		 * @return Model The first Model that matches the current query,
+		 *		or null if none were found
+		 */
 		public function any() {
 			$models = $this->slice(1)->select();
 			if (count($models) > 0)
