@@ -1,5 +1,9 @@
 <?php
-	//! \file QueryFactory.class.php
+	/**
+	 * @package modelquery
+	 * @filesource
+	 */
+
 	/*
 	 * ModelQuery - a simple ORM layer.
 	 * Copyright (C) 2004 Jeremy Jongsma.  All rights reserved.
@@ -25,36 +29,36 @@
 	require_once('ModelQuery.class.php');
 	require_once('LRUCache.class.php');
 
-	//! Entry point for all interaction with the ModelQuery API.
-	/*!
-		Handles locating, loading and configuring Model objects, and provides
-		database connection and caching services to models.
-	*/
+	/**
+	 * Entry point for all interaction with the ModelQuery API.
+	 *
+	 * Handles locating, loading and configuring Model objects, and provides
+	 * database connection and caching services to models.
+	 *
+	 * @package modelquery
+	 */
 	class QueryFactory {
 		
-		private static $path;			//!< Parsed PHP include path
+		private static $path;
 
-		private $conn;					//!< Shared database connection
-		private $appName;				//!< Unique application name
-		private $modelRoots = array();	//!< Directories in lookup path
+		private $conn;
+		private $appName;
+		private $modelRoots = array();
 
-		private $objectCache = array();	//!< Hash table of initialized ModelQuery objects
-		private $modelCache;			//!< LRUCache containing cached model instances
-										//!< Models created from query results are automatically
-										//!< cached to reduce database usage on future requests.
-		private $transOpen = false;		//!< Flag designating that a transaction is
-										//!< currently in process
-		private $transFailed = false;	//!< Flag designating that the current transaction
-										//!< should be rolled back
+		private $objectCache = array();
+		private $modelCache;
+		private $transOpen = false;
+		private $transFailed = false;
 										
-		//! Create a new QueryFactory
-		/*!
-			\param $conn An ADODB database connection object
-			\param Array $modelRoot A list of directories that contain model definitions
-			\param string $appName An application name that also serves as the default
-					table prefix
-			\param int $cacheSize The default size of the model cache
-		*/
+		/**
+		 * Create a new QueryFactory.
+		 *
+		 * @param $conn An ADODB database connection object
+		 * @param Array $modelRoot A list of directories that contain model definitions
+		 * @param string $appName An application name that also serves as the default
+		 *			table prefix
+		 * @param int $cacheSize The default size of the model cache
+		 */
 		public function __construct($conn, $modelRoot, $appName = null, $cacheSize = 100) {
 			$this->conn = $conn;
 			$this->appName = $appName;
@@ -62,16 +66,17 @@
 			$this->modelCache = new LRUCache($cacheSize);
 		}
 
-		//! Get a configured ModelQuery object by name.
-		/*!
-			<code>$qf->get('User')</code> will look for a file named User.class.php
-			in the list of model directories specified in the constructor, and upon
-			finding one will include it and attempt to instantiate a <b>User</b>
-			class.
-			\param string $name The model name.
-			\return ModelQuery A ModelQuery object configured for querying the
-					specified model type.
-		*/
+		/**
+		 * Get a configured ModelQuery object by name.
+		 * <code>$qf->get('User')</code> will look for a file named User.class.php
+		 * in the list of model directories specified in the constructor, and upon
+		 * finding one will include it and attempt to instantiate a <b>User</b>
+		 * class.
+		 *
+		 * @param string $name The model name.
+		 * @return ModelQuery A ModelQuery object configured for querying the
+		 * 		specified model type.
+		 */
 		public function &get($name) {
 			if (!array_key_exists($name, $this->objectCache)) {
 				$found = false;
@@ -91,48 +96,51 @@
 			return $this->objectCache[$name];
 		}
 
-		//! Default property getter.
-		/*!
-			Allows alternate syntax for fetching a ModelQuery object.  The calls
-			$qf->User and $qf->get('User') are equivalent.
+		/**
+		 * Default property getter.
+ 		 * 
+		 * Allows alternate syntax for fetching a ModelQuery object.  The calls
+		 * $qf->User and $qf->get('User') are equivalent.
 		*/
 		public function &__get($name) {
 			return $this->get($name);
 		}
 
-		//! Configure ModelQuery objects for all model objects found in the
-		//! search path specified in the constructor.
-		/*!
-			Because instantiating large numbers of ModelQuery objects can be
-			expensive, this method is useful to prepare a QueryFactory instance
-			for adding to a shared application cache.
-		*/
+		/**
+		 * Configure ModelQuery objects for all model objects found in the
+		 * search path specified in the constructor.
+		 *
+		 * Because instantiating large numbers of ModelQuery objects can be
+		 * expensive, this method is useful to prepare a QueryFactory instance
+		 * for adding to a shared application cache.
+		 */
 		public function precacheModels() {
 			$classes = QueryFactory::getModelClasses($this->modelRoots);
 			foreach ($classes as $c => $f)
 				$this->get($c);
 		}
 
-		//! Set the shared database connection for ModelQuery objects.
-		/*!
-			\param $conn An ADODB database connection object
-		*/
+		/**
+		 * Set the shared database connection for ModelQuery objects.
+		 *
+		 * @param $conn An ADODB database connection object
+		 */
 		public function setConnection($conn) {
 			$this->conn = $conn;
 		}
 
-		//! Get the shared database connection.
-		/*!
-			\return An ADODB database connection object
-		*/
+		/**
+		 * Get the shared database connection.
+		 * @return An ADODB database connection object
+		 */
 		public function getConnection() {
 			return $this->conn;
 		}
 
-		//! Begin a transaction.
-		/*!
-			\exception TransactionException if a transaction is already in progress
-		*/
+		/**
+		 * Begin a transaction.
+		 * @exception TransactionException if a transaction is already in progress
+		 */
 		public function begin() {
 			if ($this->transOpen)
 				throw new TransactionException('A transaction is already in progress.');
@@ -141,10 +149,10 @@
 			$this->conn->BeginTrans();
 		}
 
-		//! Commit the current transaction to the database.
-		/*!
-			\exception TransactionException if no transaction is in progress
-		*/
+		/**
+		 * Commit the current transaction to the database.
+		 * @exception TransactionException if no transaction is in progress
+		 */
 		public function commit() {
 			if (!$this->transOpen)
 				throw new TransactionException('No transaction is in progress.');
@@ -152,10 +160,10 @@
 			$this->transOpen = false;
 		}
 
-		//! Rollback the current transaction.
-		/*!
-			\exception TransactionException if no transaction is in progress
-		*/
+		/**
+		 * Rollback the current transaction.
+		 * @exception TransactionException if no transaction is in progress
+		 */
 		public function rollback() {
 			if (!$this->transOpen)
 				throw new TransactionException('No transaction is in progress.');
@@ -163,16 +171,19 @@
 			$this->transOpen = false;
 		}
 
-		//! Cause any currently open transaction to fail, triggering a rollback.
+		/**
+		 * Cause any currently open transaction to fail, triggering a rollback.
+		 */
 		public function fail() {
 			$this->transFailed = true;
 		}
 
-		//! Complete a transaction,
-		/*
-			If the transaction was manually cancelled with fail(), this calls
-			rollback().  Otherwise, commit() is called.
-		*/
+		/**
+		 * Complete a transaction,
+		 *
+		 * If the transaction was manually cancelled with fail(), this calls
+		 * rollback().  Otherwise, commit() is called.
+		 */
 		public function complete() {
 			if ($this->transFailed)
 				$this->rollback();
@@ -180,63 +191,71 @@
 				$this->commit();
 		}
 
-		//! Check if a transaction is in process.
-		/*!
-			\return bool TRUE if a transaction is in process.
-		*/
+		/**
+		 * Check if a transaction is in process.
+		 * @return bool TRUE if a transaction is in process.
+		 */
 		public function inTransaction() {
 			return $this->transOpen;
 		}
 
-		//! Add a model to the in-memory cache.
-		/*!
-			This method is only intended for use for classes that are part of
-			the ModelQuery package.
-			\param string $key A unique cache key
-			\param Model $model
-		*/
+		/**
+		 * Add a model to the in-memory cache.
+		 *
+		 * This method is only intended for use for classes that are part of
+		 * the ModelQuery package.
+		 *
+		 * @param string $key A unique cache key
+		 * @param Model $model
+		 */
 		public function cachePut($key, $model) {
 			return $this->modelCache->put($key, $model);
 		}
 
-		//! Fetch a model from the in-memory cache.
-		/*!
-			This method is only intended for use for classes that are part of
-			the ModelQuery package.
-			\param string $key A unique cache key
-			\return Model The cached model
-		*/
+		/**
+		 * Fetch a model from the in-memory cache.
+		 *
+		 * This method is only intended for use for classes that are part of
+		 * the ModelQuery package.
+		 *
+		 * @param string $key A unique cache key
+		 * @return Model The cached model
+		 */
 		public function cacheGet($key) {
 			return $this->modelCache->get($key);
 		}
 
-		//! Check if a model exists from the in-memory cache.
-		/*!
-			This method is only intended for use for classes that are part of
-			the ModelQuery package.
-			\param string $key A unique cache key
-			\return bool TRUE if the model is currently cached
-		*/
+		/**
+		 * Check if a model exists from the in-memory cache.
+		 *
+		 * This method is only intended for use for classes that are part of
+		 * the ModelQuery package.
+		 *
+		 * @param string $key A unique cache key
+		 * @return bool TRUE if the model is currently cached
+		 */
 		public function cacheExists($key) {
 			return $this->modelCache->exists($key);
 		}
 
-		//! Remove a model from the in-memory cache.
 		/*!
-			This method is only intended for use for classes that are part of
-			the ModelQuery package.
-			\param string $key A unique cache key
-			\return Model The previously cached model, if found
-		*/
+		 * Remove a model from the in-memory cache.
+		 *
+		 * This method is only intended for use for classes that are part of
+		 * the ModelQuery package.
+		 *
+		 * @param string $key A unique cache key
+		 * @return Model The previously cached model, if found
+		 */
 		public function cacheRemove($key) {
 			return $this->modelCache->remove($key);
 		}
 
-		//! Check if a file exists in any directory of PHP's include_path
-		/*!
-			\param string $file The file/relative path to search for
-			\return TRUE if the file is found and able to be included
-		*/
+		/**
+		 * Check if a file exists in any directory of PHP's include_path.
+		 * @param string $file The file/relative path to search for
+		 * @return TRUE if the file is found and able to be included
+		 */
 		private static function file_exists_in_path($file) {
 			if (file_exists($file))
 				return TRUE;
@@ -248,11 +267,11 @@
 			return FALSE;
 		}
 
-		//! Resolve the path of a file in any directory of PHP's include_path
-		/*!
-			\param string $file The file/relative path to search for
-			\return string The full path of the file, if found
-		*/
+		/**
+		 * Resolve the path of a file in any directory of PHP's include_path.
+		 * @param string $file The file/relative path to search for
+		 * @return string The full path of the file, if found
+		 */
 		private static function find_file_in_path($file) {
 			if (file_exists($file))
 				return TRUE;
@@ -264,16 +283,18 @@
 			return null;
 		}
 
-		//! Load the class definitions of all known models.
-		/*!
-			Searches the specfied list of directories for model definitions,
-			and loads the class files without instantiating the model classes.
-			This can be useful in combination with precacheModels().  After
-			calling precacheModels(), a QueryFactory can be serialized to a
-			shared cache (like memcache or xcache), and on future requests,
-			calling preloadModelClasses() before deserialization avoids
-			any class loading errors.
-			\param Array $roots A list of directories to search for models in
+		/**
+		 * Load the class definitions of all known models.
+		 *
+		 * Searches the specfied list of directories for model definitions,
+		 * and loads the class files without instantiating the model classes.
+		 * This can be useful in combination with precacheModels().  After
+		 * calling precacheModels(), a QueryFactory can be serialized to a
+		 * shared cache (like memcache or xcache), and on future requests,
+		 * calling preloadModelClasses() before deserialization avoids
+		 * any class loading errors.
+		 *
+		 * @param Array $roots A list of directories to search for models in
 		*/
 		public static function preloadModelClasses($roots) {
 			$classes = QueryFactory::getModelClasses($roots);
@@ -281,11 +302,12 @@
 				require_once($f);
 		}
 
-		//! Get the class names of all model definitions found in the search path.
-		/*!
-			Any class names returned will have already had their class definitions
-			loaded into memory, and are ready for instantiation.
-		*/
+		/**
+		 * Get the class names of all model definitions found in the search path.
+		 *
+		 * Any class names returned will have already had their class definitions
+		 * loaded into memory, and are ready for instantiation.
+		 */
 		private static function getModelClasses($roots) {
 			$classes = array();
 			foreach ($roots as $root) {
