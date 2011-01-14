@@ -1,4 +1,5 @@
 <?php
+	//! \file QueryFilter.class.php
 	/*
 	 * ModelQuery - a simple ORM layer.
 	 * Copyright (C) 2004 Jeremy Jongsma.  All rights reserved.
@@ -22,21 +23,143 @@
 	require_once('Exceptions.php');
 	require_once('CursorIterator.class.php');
 
+	//! Special value representing all fields in a model
 	define('ALLFIELDS', 'ALLFIELDS');
 
+	//! Core class for query creation in ModelQuery.
+	/*!
+		All queries constructed with ModelQuery use a chain of one or
+		more QueryFilter objects.
+
+		<h3>Basic Usage Examples</h3>
+\code
+// Get the User ModelQuery object (which is also a QueryFilter) from our QueryFactory
+$uq = $qf->get('User');
+
+// Get all users
+$users = $uq->all();
+
+// Get all users, sorted by username
+$users = $uq->order('username');
+
+// Get all verified users
+$users = $uq->filter('verified', true);
+
+// Delete all unverified users created before Jan 1
+$uq->filter('verified', false, 'created:lte', mktime(0,0,0,1,1,2008))->delete();
+
+// Get an array of emails for all unverified users with non-null email addresses
+$values = $uq->filter('verified', true, 'email:isnull', false)->values('email');
+
+// Get a list of all users with gmail.com email addresses
+$users = $uq->filter('email:endswith', '@gmail.com');
+
+// Get all unverified users except those in group 5
+$values = $uq->filter('verified', false)->exclude('group', 5);
+
+// Set all users in group 5 to verified
+$uq->filter('group', 5)->update(array('verified', true));
+
+// Get the current user count
+$count = $uq->count();
+\endcode
+
+		<h3>Filter Chaining</h3>
+
+		You will notice that except for methods that return immediate
+		query results (hash(), select(), raw(), delete(), get(), etc),
+		most filtering methods in this class (filter(), exclude(),
+		slice(), order(), etc) return a new QueryFilter object that
+		chains to the one it was called from, without altering its
+		original state or executing a query against the database.
+		Chaining filters in this way allows you to branch in several
+		different directions with a query without having to start
+		over again.
+
+\code
+// Base query is limited to only users in group 5 
+$query = $uq->filter('group', 5);
+
+// Get total number of users in group 5
+$total = $query->count();
+
+// ...but only load the first 10
+$users = $query->slice(10);
+\endcode
+
+		<h3>Accessing the Result Set</h3>
+
+		As mentioned above, most of the filter methods return a QueryFilter object,
+		but no query is actually executed against the database yet. So how do we get
+		the actual query results?
+		
+		Just start accessing it as a regular PHP array. As soon as you call it
+		in an array context (either as part of a foreach loop, or by trying to directly
+		access an array index on it), the underlying query is executed on the database
+		and the result set is created.
+
+\code
+// Filter applied, but no query execution yet
+$users = $uq->filter('group', 5);
+
+// foreach loop forces query execution
+foreach ($users as $user) {
+
+	// Like QueryFilter, Model instances can also be accessed as objects or arrays:
+	echo $user->username;
+	// ... is equivalent to:
+	echo $user['username'];
+
+}
+\endcode
+
+		<h3>Cursors</h3>
+
+		If you have too many rows to load in memory, you can also use a database
+		cursor:
+
+\code
+// Get a CursorIterator object for this query
+$users = $uq->filter('group', 5)->cursor();
+
+// CursorIterator can also be used normally as an array, but it keeps the database
+// connection open and loads rows as needed:
+foreach ($users as $user) {
+	// Do something
+}
+
+// Manually close down the cursor
+$users->close();
+\endcode
+
+		\sa ModelQuery
+		\sa CursorIterator
+		\implements Iterator
+		\implements ArrayAccess
+		\implements Countable
+	*/
 	class QueryFilter implements ArrayAccess, Iterator, Countable {
 
-		public $modelquery;
-		public $model;
-		public $factory;
-		public $tableName;
+		public $modelquery;		//!< The ModelQuery object that created this query
+		public $model;			//!< The Model prototype to clone for creating results
+		public $factory;		//!< The QueryFactory associated with this query
+		public $tableName;		//!< The main database table to query against
 
-		protected $parentFilter;
-		protected $query;
-		protected $fullQuery;
+		protected $parentFilter;	//!< The next filter up the filter chain
+		protected $query;			//!< Filter details for this chain of the query
+		protected $fullQuery;		/*!< \brief Merged filter details from all filters above
+									this one in the filter chain. Cached on first
+									call to QueryFilter::mergedQuery(). */
 
 		private $models;
 
+		//! Create a new QueryFilter object
+		/*!
+			This should not be called by non ModelQuery-code; it is called
+			internally for creating filter chains.
+			\param ModelQuery $modelquery_ The ModelQuery that created this query
+			\param QueryFilter $parentFilter_ The QueryFilter object that created this filter
+		*/
 		public function __construct(&$modelquery_, &$parentFilter_ = null) {
 			$this->modelquery =& $modelquery_;
 			// Cache some ModelQuery properties
@@ -66,13 +189,72 @@
 		 * Methods that refine a query and return another ModelQuery object
 		 */
 
-		// Everything in the current set (blank filter)
+		//! Passthrough filter that returns all models.
+		/*!
+			Useful for calling on the root ModelQuery object to retrieve all
+			models, since you cannot call select() or hash() on it directly.
+			\return QueryFilter The new QueryFilter at the end of the filter chain
+		*/
 		public function &all() {
 			$filter = new QueryFilter($this->modelquery, $this);
 			return $filter;
 		}
 
-		// Filters are defined as arrays, like: ("username:exact", "jjongsma")
+		//! Filter models by a field value.
+		/*!
+			This method takes an arbitrary number of parameters, but they
+			must come in pairs, such as:
+\code
+$uq->filter("username:exact", "jjongsma")
+$uq->filter("verified", true, "created:gte", mktime(0,0,0,1,1,2008));
+\endcode
+
+			The first parameter of a pair consists of a field name, and an
+			optional modifier separated by a colon (:).  The second parameter
+			of a pair is the field value to filter by.  The type of the second
+			parameter depends on the field type and the modifier used.  For
+			example, for a date field, you would pass in a numeric timestamp.
+			For an :in modifier (see below), you would pass in an array of values
+			as the second parameter.  If no modifier is specified, "exact" is
+			assumed.
+
+			If multiple pairs of parameters are given, records must match
+			ALL of the filters specified.
+
+			<h4>Available modifiers:</h4>
+<pre>
+exact          Match records exactly against the given field value
+iexact         Match records exactly against the given field value, case-insensitive
+contains       Match records that contain the given value anywhere in the field
+icontains      Match records that contain the given value anywhere in the field, case-insensitive
+gt             Match records that have a value greater than the given value
+gte            Match records that have a value greater than or equal to the given value
+lt             Match records that have a value less than the given value
+lte            Match records that have a value less than or equal to the given value
+in             Match records that have a value that matches any value in the given array
+startswith     Match records with a value that starts with the given string
+istartswith    Match records with a value that starts with the given string, case-insensitive
+endswith       Match records with a value that ends with the given string
+iendswith      Match records with a value that ends with the given string, case-insensitive
+range          Match records within the specified range (given as a 2-item array), inclusive
+isnull         Match records with null values (if parameter is TRUE) or non-null values (if FALSE)
+</pre>
+
+			In addition to filtering by fields that are part of the original model,
+			you can also filter by related objects.  For example, if the User model
+			has a ManyToOneField called "preferences", you could filter on:
+
+\code
+$uq->filter('preferences.homepage', '/news/finance.php');
+\endcode
+
+			This would filter on the "homepage" field belonging to the Preferences model
+			linked to each User record.  You can follow relations as far as they go using
+			this dot notation, not just a single level; QueryFilter will add all the
+			necessary joins.
+
+			\return QueryFilter The new QueryFilter at the end of the filter chain
+		*/
 		public function &filter() {
 			$filter = new QueryFilter($this->modelquery, $this);
 			$args = func_get_args();
@@ -80,7 +262,13 @@
 			return $filter;
 		}
 
-		// Filters are defined as arrays, like: ("username:exact", "jjongsma")
+		//! Filter models by a field value.
+		/*!
+			Behaves like QueryFilter::filter(), but if multiple pairs of parameters
+			are given, records only have to match ONE of the filters specified.
+			\sa QueryFilter::filter()
+		*/
+
 		public function &filteror() {
 			$filter = new QueryFilter($this->modelquery, $this);
 			$args = func_get_args();
@@ -88,7 +276,13 @@
 			return $filter;
 		}
 
-		// Filters are defined as arrays, like: ("username:exact", "jjongsma")
+		//! Filter models by excluding a field value.
+		/*!
+			Behaves like QueryFilter::filter(), except instead of matching
+			against the given field values, it excludes any records that match
+			the field value.
+			\sa QueryFilter::filter()
+		*/
 		public function &exclude() {
 			$filter = new QueryFilter($this->modelquery, $this);
 			$args = func_get_args();
@@ -96,7 +290,13 @@
 			return $filter;
 		}
 
-		// Filters are defined as arrays, like: ("username:exact", "jjongsma")
+		//! Filter models by excluding a field value.
+		/*!
+			Behaves like QueryFilter::exclude(), but if multiple pairs of parameters
+			are given, records only have to match ONE of the filters specified to
+			be excluded.
+			\sa QueryFilter::filter()
+		*/
 		public function &excludeor() {
 			$filter = new QueryFilter($this->modelquery, $this);
 			$args = func_get_args();
@@ -104,6 +304,7 @@
 			return $filter;
 		}
 
+		//! Parse function argument list to split into field/value filter pairs
 		private function getFilters($args) {
 			if (sizeof($args) == 1 && is_array($args[0])) {
 				$filters = array();
@@ -117,7 +318,7 @@
 				return $args;
 		}
 
-		// Extra SQL to add to the query
+		// Extra SQL directives to add the to database query
 		public function &extra($select = null, $where = null, $params = null, $tables = null) {
 			$filter = new QueryFilter($this->modelquery, $this);
 			$filter->applyExtra($select, $where, $params, $tables);
