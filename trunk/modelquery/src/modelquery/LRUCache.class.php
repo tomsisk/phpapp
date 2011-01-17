@@ -1,5 +1,33 @@
 <?php
+	/**
+	 * @package modelquery
+	 * @filesource
+	 */
 
+	/*
+	 * ModelQuery - a simple ORM layer.
+	 * Copyright (C) 2004 Jeremy Jongsma.  All rights reserved.
+	 * Portions inspired by the OpenSymphony WebWork project.
+	 * 
+	 * This library is free software; you can redistribute it and/or
+	 * modify it under the terms of the GNU Lesser General Public
+	 * License as published by the Free Software Foundation; either
+	 * version 2.1 of the License, or (at your option) any later version.
+	 * 
+	 * This library is distributed in the hope that it will be useful,
+	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+	 * Lesser General Public License for more details.
+	 * 
+	 * You should have received a copy of the GNU Lesser General Public
+	 * License along with this library; if not, write to the Free Software
+	 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+	 */
+
+	/**
+	 * A least-recently-used cache that purges least-accessed items
+	 * if the cache is over a certain size.
+	 */
 	class LRUCache implements IteratorAggregate {
 
 		private $cache;
@@ -7,6 +35,15 @@
 		private $capacity;
 		private $accessBased;
 
+		/** 
+		 * Create a new cache with the specified capacity and
+		 * purging mode.
+		 *
+		 * @param int $capacity The number of items this cache holds
+		 * @param bool $accessBased TRUE if purging should be done
+		 *		based on access time (less efficient); FALSE if by
+		 *		add time (less useful)
+		 */
 		public function __construct($capacity, $accessBased = true) {
 			$this->cache = array();
 			$this->lru = new LinkedList();
@@ -14,6 +51,11 @@
 			$this->accessBased = $accessBased;
 		}
 
+		/**
+		 * Add a new item to the cache.
+		 * @param string $key The unique cache key
+		 * @param mixed $data The item to cache
+		 */
 		public function put($key, $data) {
 			$key = strval($key);
 			if (isset($this->cache[$key]))
@@ -26,6 +68,11 @@
 			}
 		}
 
+		/**
+		 * Get the item for the specified cache key.
+		 * @param string $key The unique cache key
+		 * @return mixed The cached item, or null
+		 */
 		public function get($key) {
 			$key = strval($key);
 			if (isset($this->cache[$key])) {
@@ -38,10 +85,20 @@
 			return null;
 		}
 
+		/**
+		 * Check if an item exists in the cache for the specified key.
+		 * @param string $key The unique cache key
+		 * @return bool TRUE if a cached item is found
+		 */
 		public function exists($key) {
 			return isset($this->cache[strval($key)]);
 		}
 
+		/** 
+		 * Remove an item from the cache.
+		 * @param string $key The unique cache key
+		 * @return mixed The removed item, or null if none exists
+		 */
 		public function remove($key) {
 			$key = strval($key);
 			if (isset($this->cache[$key])) {
@@ -53,14 +110,25 @@
 			return null;
 		}
 
+		/** 
+		 * Get the current size of this cache.
+		 * @return int The cache size
+		 */
 		public function size() {
 			return $this->lru->size();
 		}
 
+		/** 
+		 * Get the maximum capacity of this cache.
+		 * @return int The cache capacity
+		 */
 		public function capacity() {
 			return $this->capacity;
 		}
 
+		/**
+		 * Get an iterable object for looping through the entire cache.
+		 */
 		public function getIterator() {
 			return new LRUCacheIterator($this->lru->getIterator(), $this->cache);
 		}
@@ -107,6 +175,7 @@
 		}
 
 	}
+
 	class LinkedList implements IteratorAggregate {
 
 		private $_firstNode;
