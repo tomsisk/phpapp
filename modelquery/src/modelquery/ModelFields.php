@@ -1249,6 +1249,7 @@
 		 * @param string $model_ The embedded model prototype
 		 * @param Array $options_ An array of options
 		 * @param Array $validators_ An array of FieldValidator objects
+		 * @see EmbeddedModel
 		 */
 		public function __construct($name_, $model_, $options_ = null, $validators_ = null) {
 			parent::__construct($name_, $options_, $validators_);

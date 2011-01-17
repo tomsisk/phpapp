@@ -1,4 +1,9 @@
 <?php
+	/**
+	 * @package modelquery
+	 * @filesource
+	 */
+
 	/*
 	 * ModelQuery - a simple ORM layer.
 	 * Copyright (C) 2004 Jeremy Jongsma.  All rights reserved.
@@ -19,17 +24,40 @@
 	 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	 */
 
+	/**
+	 * A validator that validates the entire model as a whole, rather
+	 * than limited to individual fields.
+	 */
 	interface ModelValidator {
+
+		/** 
+		 * Validate the specified model.
+		 * @param Model $model The model to validate
+		 */
 		public function validate($model);
+
 	}
 
+	/** 
+	 * Requires that if one field has a non-empty value, another field must
+	 * also have a non-empty value.
+	 */
 	class ConditionalRequiredStringValidator implements ModelValidator {
+
 		private $validated;
 		private $condition;
+
+		/**
+		 * Create a new validator.
+		 * @param string $validated The dependent field to validate
+		 * @param string $condition The field that determines if validation
+		 *		is necessary
+		 */
 		public function __construct($validated, $condition) {
 			$this->validated = $validated;
 			$this->condition = $condition;
 		}
+
 		public function validate($object) {
 			if (!$object[$this->condition]) {
 				$value = $object[$this->validated];
@@ -42,40 +70,75 @@
 			}
 			return true;
 		}
+
 	}
 
+	/**
+	 * Requires that two fields have matching values.
+	 */
 	class FieldsMatchValidator implements ModelValidator {
+
 		private $field1;
 		private $field2;
+
+		/**
+		 * Create a new validator.
+		 * @param string $field1 The first field to check
+		 * @param string $field2 The second field to check
+		 */
 		public function __construct($field1, $field2) {
 			$this->field1 = $field1;
 			$this->field2 = $field2;
 		}
+
 		public function validate($object) {
 			return (array_key_exists($this->field1, $object)
 					&& array_key_exists($this->field1, $object)
 					&& ($object[$this->field1] == $object[$this->field2]));
 		}
+
 	}
 
+	/**
+	 * Require that one or more of the listed fields have non-empty
+	 * values.
+	 */
 	class OneOrMoreValidator implements ModelValidator {
+
 		private $fields;
+
+		/**
+		 * Create a new validator.
+		 * @param Array $fields A list of fields to check
+		 */
 		public function __construct($fields) {
 			$this->fields = $fields;
 		}
+
 		public function validate($object) {
 			foreach ($this->fields as $field) {
 				if (isset($object[$field]) && $object[$field] !== FALSE)
 					return true;
 			}
 		}
+
 	}
 
+	/**
+	 * Require that a set of fields be unique within all model instances.
+	 */
 	class UniqueFieldsValidator implements ModelValidator {
+
 		private $fields;
+
+		/**
+		 * Create a new validator.
+		 * @param Array $fields The combination of fields that must be unique
+		 */
 		public function __construct($fields) {
 			$this->fields = $fields;
 		}
+
 		public function validate($object) {
 			$query = $object->getQuery();
 			if ($object->pk)
@@ -89,45 +152,93 @@
 			$usedct = $query->count();
 			return $usedct == 0;
 		}
+
 	}
 
+	/** 
+	 * A validator that checks individual field values.
+	 */
 	interface FieldValidator {
+
+		/**
+		 * Check the specified field value in the context of the
+		 * given model.
+		 * @param mixed $value The value to check
+		 * @param Model $model The field's parent model 
+		 */
 		public function validate($value, $model);
 	}
 
+	/** 
+	 * Required that a field have a non-null value.
+	 */
 	class RequiredFieldValidator implements FieldValidator{
+
 		public function validate($value, $model) {
 			if (is_array($value))
 				return count($value) > 0;
 			return $value !== null;
 		}
+
 	}
 
+	/** 
+	 * Required that a text field have a minimum length.
+	 */
 	class MinLengthValidator implements FieldValidator {
+
 		private $length;
+
+		/** 
+		 * Create a new validator.
+		 * @param int $length_ The minimum character length.
+		 */
 		public function __construct($length_) {
 			$this->length = $length_;
 		}
+
 		public function validate($value, $model) {
 			return $value ? strlen($value) >= $this->length : true;
 		}
+
 	}
 
+	/** 
+	 * Required that a text field have a maximum length.
+	 */
 	class MaxLengthValidator implements FieldValidator {
+
 		private $length;
+
+		/** 
+		 * Create a new validator.
+		 * @param int $length_ The maximum character length.
+		 */
 		public function __construct($length_) {
 			$this->length = $length_;
 		}
+
 		public function validate($value, $model) {
 			return $value ? strlen($value) <= $this->length : true;
 		}
+
 	}
 
+	/**
+	 * Require that a field value be unique among all model instances.
+	 */
 	class UniqueFieldValidator implements FieldValidator {
+
 		private $field;
+
+		/**
+		 * Create a new validator.
+		 * @param string $field_ The unique field name
+		 */
 		public function __construct($field_) {
 			$this->field = $field_;
 		}
+
 		public function validate($value, $model) {
 			$query = $model->getQuery();
 			// Exclude current item if committed to database
@@ -136,9 +247,17 @@
 			$usedct = $query->filter($this->field, $value)->count();
 			return $usedct == 0;
 		}
+
 	}
 
+	/**
+	 * Require that a string have a non-empty value.  This differs
+	 * from RequiredFieldValidator in that while RequiredFieldValidator
+	 * will accept an empty string as a non-null value, this validator
+	 * will not.
+	 */
 	class RequiredStringValidator implements FieldValidator {
+
 		public function validate($value, $model) {
 			if ($value) {
 				// Also check for blank HTML strings
@@ -147,8 +266,12 @@
 			}
 			return $value !== null && $value !== '';
 		}
+
 	}
 
+	/**
+	 * Require that a field value be numeric.
+	 */
 	class NumericValidator implements FieldValidator {
 
 		public function validate($value, $model) {
@@ -159,12 +282,24 @@
 
 	}
 
+	/** 
+	 * Imposes certain character requirements on password fields.
+	 */
 	class PasswordValidator implements FieldValidator {
 
 		private $numrequired;
 		private $symrequired;
 		private $charpattern;
 
+		/** 
+		 * Create a new validator.
+		 * @param bool $numrequired Whether a numeric character is required
+		 *		in the password
+		 * @param bool $symrequired Whether a non-alphanumeric character is
+		 *		required in the password
+		 * @param string $charpattern A regular expression to test the password
+		 *		against (advanced usage)
+		 */
 		public function __construct($numrequired = false, $symrequired = false, $charpattern = null) {
 			$this->numrequired = $numrequired;
 			$this->symrequired = $symrequired;
@@ -203,18 +338,27 @@
 		}
 	}
 
+	/** 
+	 * Require that an array field have a least one item in it.
+	 */
 	class NonEmptyArrayValidator implements FieldValidator {
 		public function validate($value, $model) {
 			return is_array($value) && count($value) > 0;
 		}
 	}
 
+	/**
+	 * Required a valid date.
+	 */
 	class DateValidator implements FieldValidator {
 		public function validate($value, $model) {
 			return $value !== false;
 		}
 	}
 
+	/**
+	 * Require a valid email address format.
+	 */
 	class EmailValidator implements FieldValidator {
 
 		# Whether to contact the specified server to try and verify the address
@@ -259,12 +403,24 @@
 
 	}
 
+	/**
+	 * Conditionally includes a model validator depending on 
+	 * another field value.  If the specified field matches
+	 * the required value, then the additional validator will
+	 * be added to the validation stack.
+	 */
 	class ConditionalValidator implements ModelValidator {
 
 		private $validated;
 		private $condition;
 		private $validator;
 
+		/** 
+		 * Create a new validator.
+		 * @param string $validated The field the check
+		 * @param mixed $condition The value to match against
+		 * @param ModelValidator $validator The additional validator to call
+		 */
 		public function __construct($validated, $condition, $validator) {
 			$this->validated = $validated;
 			$this->condition = $condition;

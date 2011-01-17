@@ -1,4 +1,9 @@
 <?php
+	/**
+	 * @package modelquery
+	 * @filesource
+	 */
+
 	/*
 	 * ModelQuery - a simple ORM layer.
 	 * Copyright (C) 2004 Jeremy Jongsma.  All rights reserved.
@@ -19,6 +24,13 @@
 	 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	 */
 
+	/**
+	 * An iterable class that wraps a database result, functioning
+	 * as a scrollable cursor.
+	 *
+	 * AbstractCursorIterator can be used in foreach loops or with direct
+	 * array index access.
+	 */
 	abstract class AbstractCursorIterator implements ArrayAccess, Iterator, Countable {
 
 		private $modelquery;
@@ -126,6 +138,13 @@
 
 	}
 
+	/**
+	 * An iterable class that wraps a database result and returns
+	 * Model instances for each record.
+	 *
+	 * CursorIterator can be used in foreach loops or with direct
+	 * array index access.
+	 */
 	class CursorIterator extends AbstractCursorIterator {
 
 		public function createModel($modelquery, $fields, $raw) {
@@ -149,6 +168,13 @@
 
 	}
 
+	/**
+	 * An iterable class that wraps a database result and returns
+	 * hash arrays for each record.
+	 *
+	 * HashCursorIterator can be used in foreach loops or with direct
+	 * array index access.
+	 */
 	class HashCursorIterator extends AbstractCursorIterator {
 
 		public function createModel($modelquery, $fields, $raw) {

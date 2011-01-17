@@ -1,4 +1,9 @@
 <?php
+	/**
+	 * @package modelquery
+	 * @filesource
+	 */
+
 	/*
 	 * ModelQuery - a simple ORM layer.
 	 * Copyright (C) 2004 Jeremy Jongsma.  All rights reserved.
@@ -22,6 +27,9 @@
 	require_once('ModelFields.php');
 	require_once('Exceptions.php');
 
+	/**
+	 * An iterable set of related objects.
+	 */
 	abstract class RelationSet implements ArrayAccess, Countable, Iterator {
 
 		protected $relations;
@@ -34,9 +42,22 @@
 			$this->field = $field;
 		}
 
+		/**
+		 * Add an object to this relation set.
+		 * @param Model $object The new related object
+		 */
 		abstract public function add($object);
+
+		/**
+		 * Remove an object from this relation set.
+		 * @param Model $object The related object to remove
+		 */
 		abstract public function remove($object);
 
+		/**
+		 * Set the complete list of related objects.
+		 * @param Array $objects An array of related Model instances
+		 */
 		public function set($objects) {
 			$this->clear();
 			if ($objects)
@@ -44,6 +65,9 @@
 					$this->add($r);
 		}
 
+		/**
+		 * Remove all related objects.
+		 */
 		public function clear() {
 			foreach ($this->relations as $rel)
 				$this->remove($rel);
@@ -51,12 +75,18 @@
 				$this->relations->flush();
 		}
 
-		// Initializes the internal dataset
+		/**
+		 * Preload the object list, bypassing add triggers.  Only
+		 * for use internally by ModelQuery.
+		 */
 		public function preload($objects) {
 			$this->relations = $objects;
 		}
 
-		// Adds to the internal dataset
+		/**
+		 * Preload the object list, bypassing add triggers.  Only
+		 * for use internally by ModelQuery.
+		 */
 		public function preadd($object) {
 			if (!$this->relations)
 				$this->relations = array();
@@ -102,6 +132,10 @@
 			return $this->relations->count();
 		}
 
+		/**
+		 * Pluck a list of field values from the related models.
+		 * @return Array An array of field values from the related objects.
+		 */
 		public function values($field) {
 			if ($this->relations instanceof QueryFilter)
 				return $this->relations->values($field);
@@ -113,14 +147,15 @@
 			}
 		}
 
+		/**
+		 * Pass through other function calls to the underlying QueryFilter
+		 * object, so that this set can function as a QueryFilter.
+		 */
 		public function __call($func, $args) {
 			// Pass other function calls through to query object
 			return call_user_func_array(array($this->relations, $func), $args);
 		}
 
-		//public function __toString() {
-		//	return '['.get_class($this).']';
-		//}
 		public function __toString() {
 			$strvals = array();
 			foreach ($this->relations as $item)
