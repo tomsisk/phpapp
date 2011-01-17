@@ -1,6 +1,7 @@
  * [MainPage Home]
  * [ModelQuery ModelQuery]
    * [ModelQueryFeatures Features]
+   * [ModelQueryTutorial Tutorial]
    * [http://home.jongsma.org/software/modelquery/docs/phpdoc/ API Reference]
    * [ModelQueryExamples Examples]
  * [PHPApp PHPApp]
