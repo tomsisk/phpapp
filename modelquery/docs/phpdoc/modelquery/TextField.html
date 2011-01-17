@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class TextField</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class TextField</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|											<a href="#sec-vars">Vars</a>
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Field contains textual data.</p>
+<p class="description"><p>&gt;TextField has several custom option:&lt;/p&gt;  <em>blank</em>: If false, blank values are not allowed.<br />  <em>case</em>: Specifies that the input text should be transformed 		before saving to the data store.  Possible values: &quot;upper&quot; 		(convert to uppercase), &quot;lower&quot; (convert to lowercase), 		&quot;capitalize&quot; (capitalize the first letter), &quot;title&quot; 		(capitalize the first letter of every word)</p></p>
+		<p class="notes">
+			Located in <a class="field" href="_ModelFields.php.html">/ModelFields.php</a> (line <span class="field"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a928">928</a></span>)
+		</p>
+		
+				
+		<pre><a href="../modelquery/ModelField.html">ModelField</a>
+   |
+   --TextField</pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|												<a href="#sec-vars">Vars</a>
+								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../modelquery/HTMLField.html">HTMLField</a></td>
+					<td>
+											Field contains HTML-formatted data
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../modelquery/CharField.html">CharField</a></td>
+					<td>
+											Field contains limited-length textual data.
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+																		<a href="#sec-vars">Vars</a>
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																				
+												<div class="method-definition">
+											<span class="method-result">TextField</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$name_</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$options_</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$validators_</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#convertFromDbValue" title="details" class="method-name">convertFromDbValue</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$value</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#convertValue" title="details" class="method-name">convertValue</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$value</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#toHTML" title="details" class="method-name">toHTML</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$value</span>)
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+										<h4>Inherited Variables</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../modelquery/ModelField.html">ModelField</a></span></p>
+					<blockquote>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/ModelField.html#var$errors">ModelField::$errors</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/ModelField.html#var$factory">ModelField::$factory</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/ModelField.html#var$field">ModelField::$field</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/ModelField.html#var$name">ModelField::$name</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/ModelField.html#var$options">ModelField::$options</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/ModelField.html#var$query">ModelField::$query</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/ModelField.html#var$type">ModelField::$type</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/ModelField.html#var$validators">ModelField::$validators</a></span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+															<a href="#sec-vars">Vars</a>
+																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a933">933</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/ModelField.html#method__construct">ModelField::__construct()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">TextField</span>
+		<span class="method-name">
+			__construct
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$name_</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$options_</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$validators_</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$name_</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$options_</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$validators_</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../modelquery/ModelField.html#method__construct">ModelField::__construct()</a></dt>
+						<dd>Configure a new ModelField instance.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../modelquery/CharField.html#method__construct">CharField::__construct()</a>
+								: Configure a new CharField instance.
+							</li>
+					<li>
+				<a href="../modelquery/ColorField.html#method__construct">ColorField::__construct()</a>
+							</li>
+					<li>
+				<a href="../modelquery/ImageField.html#method__construct">ImageField::__construct()</a>
+							</li>
+					<li>
+				<a href="../modelquery/EmailField.html#method__construct">EmailField::__construct()</a>
+							</li>
+				</ul>
+	</div>
+<a name="methodconvertFromDbValue" id="convertFromDbValue"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">convertFromDbValue</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a939">939</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			convertFromDbValue
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$value</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$value</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../modelquery/ModelField.html#methodconvertFromDbValue">ModelField::convertFromDbValue()</a></dt>
+						<dd>Convert a value from the data store's data type into  the correct PHP type.</dd>
+					</dl>
+			
+	</div>
+<a name="methodconvertValue" id="convertValue"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">convertValue</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a949">949</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			convertValue
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$value</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$value</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../modelquery/ModelField.html#methodconvertValue">ModelField::convertValue()</a></dt>
+						<dd>Convert a value into the expected PHP data type.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../modelquery/HTMLField.html#methodconvertValue">HTMLField::convertValue()</a>
+							</li>
+				</ul>
+	</div>
+<a name="methodtoHTML" id="toHTML"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">toHTML</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a969">969</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			toHTML
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$value</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$value</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../modelquery/ModelField.html#methodtoHTML">ModelField::toHTML()</a></dt>
+						<dd>Convert the field value to an HTML representation.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../modelquery/ColorField.html#methodtoHTML">ColorField::toHTML()</a>
+							</li>
+					<li>
+				<a href="../modelquery/ImageField.html#methodtoHTML">ImageField::toHTML()</a>
+								: Displays an image tag.
+							</li>
+					<li>
+				<a href="../modelquery/EmailField.html#methodtoHTML">EmailField::toHTML()</a>
+								: Displays a mailto: link.
+							</li>
+				</ul>
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../modelquery/ModelField.html">ModelField</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../modelquery/ModelField.html#method__construct">ModelField::__construct()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodaddValidator">ModelField::addValidator()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodconvertFromDbValue">ModelField::convertFromDbValue()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodconvertToDbValue">ModelField::convertToDbValue()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodconvertValue">ModelField::convertValue()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodgetDefaultValue">ModelField::getDefaultValue()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodoffsetExists">ModelField::offsetExists()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodoffsetGet">ModelField::offsetGet()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodoffsetSet">ModelField::offsetSet()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodoffsetUnset">ModelField::offsetUnset()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodserialize">ModelField::serialize()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodtoHTML">ModelField::toHTML()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodtoString">ModelField::toString()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodvalidate">ModelField::validate()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodvalidationErrors">ModelField::validationErrors()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#method__toString">ModelField::__toString()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 17 Jan 2011 16:23:02 -0600 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

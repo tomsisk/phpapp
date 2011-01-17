@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class QueryFactory</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class QueryFactory</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Entry point for all interaction with the ModelQuery API.</p>
+<p class="description"><p>Handles locating, loading and configuring Model objects, and provides  database connection and caching services to models.</p></p>
+		<p class="notes">
+			Located in <a class="field" href="_QueryFactory.class.php.html">/QueryFactory.class.php</a> (line <span class="field"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a40">40</a></span>)
+		</p>
+		
+				
+		<pre></pre>
+	
+			</div>
+</div>
+
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																																																				<div class="method-definition">
+					static 						<span class="method-result">void</span>
+										<a href="#preloadModelClasses" title="details" class="method-name">preloadModelClasses</a>
+											(<span class="var-type">Array</span>&nbsp;<span class="var-name">$roots</span>)
+									</div>
+																																
+												<div class="method-definition">
+											<span class="method-result">QueryFactory</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											(<span class="var-type">ADOConnection</span>&nbsp;<span class="var-name">$conn</span>, <span class="var-type">Array</span>&nbsp;<span class="var-name">$modelRoot</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$appName</span> = <span class="var-default">null</span>], [<span class="var-type">int</span>&nbsp;<span class="var-name">$cacheSize</span> = <span class="var-default">100</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#begin" title="details" class="method-name">begin</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">bool</span>
+										<a href="#cacheExists" title="details" class="method-name">cacheExists</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$key</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/Model.html">Model</a></span>
+										<a href="#cacheGet" title="details" class="method-name">cacheGet</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$key</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#cachePut" title="details" class="method-name">cachePut</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$key</span>, <span class="var-type"><a href="../modelquery/Model.html">Model</a></span>&nbsp;<span class="var-name">$model</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#cacheRemove" title="details" class="method-name">cacheRemove</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$key</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#commit" title="details" class="method-name">commit</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#complete" title="details" class="method-name">complete</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#fail" title="details" class="method-name">fail</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/ModelQuery.html">ModelQuery</a></span>
+										<a href="#get" title="details" class="method-name">&amp;get</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">An</span>
+										<a href="#getConnection" title="details" class="method-name">getConnection</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">bool</span>
+										<a href="#inTransaction" title="details" class="method-name">inTransaction</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#precacheModels" title="details" class="method-name">precacheModels</a>
+										()
+									</div>
+																								<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#rollback" title="details" class="method-name">rollback</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setConnection" title="details" class="method-name">setConnection</a>
+											(<span class="var-type">$conn</span>&nbsp;<span class="var-name">$conn</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#__get" title="details" class="method-name">&amp;__get</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$name</span>)
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="methodpreloadModelClasses" id="preloadModelClasses"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">static method preloadModelClasses</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a299">299</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Load the class definitions of all known models.</p>
+<p class="description"><p>Searches the specfied list of directories for model definitions,  and loads the class files without instantiating the model classes.  This can be useful in combination with precacheModels().  After  calling precacheModels(), a QueryFactory can be serialized to a  shared cache (like memcache or xcache), and on future requests,  calling preloadModelClasses() before deserialization avoids  any class loading errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+	    static
+		<span class="method-result">void</span>
+		<span class="method-name">
+			preloadModelClasses
+		</span>
+					(<span class="var-type">Array</span>&nbsp;<span class="var-name">$roots</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$roots</span><span class="var-description">: A list of directories to search for models in</span>			</li>
+				</ul>
+		
+			
+	</div>
+
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a62">62</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a new QueryFactory.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">QueryFactory</span>
+		<span class="method-name">
+			__construct
+		</span>
+					(<span class="var-type">ADOConnection</span>&nbsp;<span class="var-name">$conn</span>, <span class="var-type">Array</span>&nbsp;<span class="var-name">$modelRoot</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$appName</span> = <span class="var-default">null</span>], [<span class="var-type">int</span>&nbsp;<span class="var-name">$cacheSize</span> = <span class="var-default">100</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">ADOConnection</span>
+				<span class="var-name">$conn</span><span class="var-description">: An ADODB database connection object</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$modelRoot</span><span class="var-description">: A list of directories that contain model definitions</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$appName</span><span class="var-description">: An application name that also serves as the default             table prefix</span>			</li>
+					<li>
+				<span class="var-type">int</span>
+				<span class="var-name">$cacheSize</span><span class="var-description">: The default size of the model cache</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodbegin" id="begin"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">begin</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a144">144</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Begin a transaction.</p>
+	<ul class="tags">
+				<li><span class="field">exception:</span> TransactionException if a transaction is already in progress</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			begin
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodcacheExists" id="cacheExists"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">cacheExists</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a237">237</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Check if a model exists from the in-memory cache.</p>
+<p class="description"><p>This method is only intended for use for classes that are part of  the ModelQuery package.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> TRUE if the model is currently cached</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool</span>
+		<span class="method-name">
+			cacheExists
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$key</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$key</span><span class="var-description">: A unique cache key</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodcacheGet" id="cacheGet"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">cacheGet</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a224">224</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Fetch a model from the in-memory cache.</p>
+<p class="description"><p>This method is only intended for use for classes that are part of  the ModelQuery package.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The cached model</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/Model.html">Model</a></span>
+		<span class="method-name">
+			cacheGet
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$key</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$key</span><span class="var-description">: A unique cache key</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodcachePut" id="cachePut"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">cachePut</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a211">211</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a model to the in-memory cache.</p>
+<p class="description"><p>This method is only intended for use for classes that are part of  the ModelQuery package.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			cachePut
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$key</span>, <span class="var-type"><a href="../modelquery/Model.html">Model</a></span>&nbsp;<span class="var-name">$model</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$key</span><span class="var-description">: A unique cache key</span>			</li>
+					<li>
+				<span class="var-type"><a href="../modelquery/Model.html">Model</a></span>
+				<span class="var-name">$model</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodcacheRemove" id="cacheRemove"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">cacheRemove</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a250">250</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			cacheRemove
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$key</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$key</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodcommit" id="commit"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">commit</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a156">156</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Commit the current transaction to the database.</p>
+	<ul class="tags">
+				<li><span class="field">exception:</span> TransactionException if no transaction is in progress</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			commit
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodcomplete" id="complete"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">complete</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a187">187</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Complete a transaction,</p>
+<p class="description"><p>If the transaction was manually cancelled with fail(), this calls  rollback().  Otherwise, commit() is called.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			complete
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodfail" id="fail"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">fail</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a177">177</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Cause any currently open transaction to fail, triggering a rollback.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			fail
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodget" id="get"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">get</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a80">80</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get a configured ModelQuery object by name.</p>
+<p class="description"><p><div class="src-code"><ol><li><div class="src-line"><span class="src-var">$qf</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFactory.html#methodget">get</a><span class="src-sym">(</span><span class="src-str">'User'</span><span class="src-sym">)</span></div></li>
+</ol></div> will look for a file named User.class.php  in the list of model directories specified in the constructor, and upon  finding one will include it and attempt to instantiate a <strong>User</strong>  class.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> A ModelQuery object configured for querying the          specified model type.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/ModelQuery.html">ModelQuery</a></span>
+		<span class="method-name">
+			&amp;get
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: The model name.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetConnection" id="getConnection"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getConnection</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a136">136</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the shared database connection.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> ADODB database connection object</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">An</span>
+		<span class="method-name">
+			getConnection
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodinTransaction" id="inTransaction"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">inTransaction</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a198">198</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Check if a transaction is in process.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> TRUE if a transaction is in process.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool</span>
+		<span class="method-name">
+			inTransaction
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodprecacheModels" id="precacheModels"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">precacheModels</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a117">117</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Configure ModelQuery objects for all model objects found in the  search path specified in the constructor.</p>
+<p class="description"><p>Because instantiating large numbers of ModelQuery objects can be  expensive, this method is useful to prepare a QueryFactory instance  for adding to a shared application cache.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			precacheModels
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodrollback" id="rollback"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">rollback</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a167">167</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Rollback the current transaction.</p>
+	<ul class="tags">
+				<li><span class="field">exception:</span> TransactionException if no transaction is in progress</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			rollback
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodsetConnection" id="setConnection"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">setConnection</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a128">128</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the shared database connection for ModelQuery objects.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setConnection
+		</span>
+					(<span class="var-type">$conn</span>&nbsp;<span class="var-name">$conn</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">$conn</span>
+				<span class="var-name">$conn</span><span class="var-description">: An ADODB database connection object</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method__get" id="__get"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">__get</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a105">105</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Default property getter.</p>
+<p class="description"><p>Allows alternate syntax for fetching a ModelQuery object.  The calls  $qf-&gt;User and $qf-&gt;get('User') are equivalent.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			&amp;__get
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$name</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$name</span>			</li>
+				</ul>
+		
+			
+	</div>
+						
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 17 Jan 2011 16:23:03 -0600 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

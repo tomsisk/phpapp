@@ -1,0 +1,1172 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class ModelField</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class ModelField</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|											<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+                <p class="implements">
+            Implements interfaces:
+            <ul>
+                <li>ArrayAccess (internal interface)</li>            </ul>
+        </p>
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Defines a field specification for mapping to the data store.</p>
+<p class="description"><p>Custom field types must subclass ModelField.  Model fields  are configurated in Model::configure().</p><p>Example:</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-key">class&nbsp;</span><span class="src-id">Book&nbsp;</span><span class="src-key">extends&nbsp;</span><a href="../modelquery/Model.html">Model</a>&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><span class="src-id">configure</span><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">id&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../modelquery/IntegerField.html">IntegerField</a></span><span class="src-sym">(</span><span class="src-str">'ID'</span><span class="src-sym">,&nbsp;</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'pk'&nbsp;</span>=&gt;&nbsp;<span class="src-id">true</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">title&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../modelquery/CharField.html">CharField</a></span><span class="src-sym">(</span><span class="src-str">'Title'</span><span class="src-sym">,&nbsp;</span><span class="src-num">100</span><span class="src-sym">,&nbsp;</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'required'&nbsp;</span>=&gt;&nbsp;<span class="src-id">true</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">published&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../modelquery/DateField.html">DateField</a></span><span class="src-sym">(</span><span class="src-str">'Publication&nbsp;Date'</span><span class="src-sym">,&nbsp;</span><span class="src-key">array</span><span class="src-sym">(</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'default'&nbsp;</span>=&gt;&nbsp;<span class="src-id"><a href="../modelquery/_Model.class.php.html#defineCURRENT_TIMESTAMP">CURRENT_TIMESTAMP</a></span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">format&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../modelquery/CharField.html">CharField</a></span><span class="src-sym">(</span><span class="src-str">'Format'</span><span class="src-sym">,&nbsp;</span><span class="src-num">20</span><span class="src-sym">,&nbsp;</span><span class="src-key">array</span><span class="src-sym">(</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'options'&nbsp;</span>=&gt;&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'H'&nbsp;</span>=&gt;&nbsp;<span class="src-str">'Hardcover'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'P'&nbsp;</span>=&gt;&nbsp;<span class="src-str">'Paperback'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'A'&nbsp;</span>=&gt;&nbsp;<span class="src-str">'Audiobook'</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-id">setDefaultOrder</span><span class="src-sym">(</span><span class="src-str">'+title'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-sym">}</span></div></li>
+</ol></div></p><p>All model fields require a descriptive field name (i.e. &quot;Publication  Date&quot;) and an array of field options.  There are several standard  options common to all fields, which are boolean unless otherwise  specified:</p><p><em>required</em>: The field cannot be null<br /> <em>editable</em>: The field cannot be modified, and should		be hidden from display on editing interfaces<br /> <em>readonly</em>: The field cannot be modified, but should		be displayed on editing interfaces<br /> <em>blankisnull</em>: A blank string should be interpreted as		equivalent to NULL when saving to the data store<br /> <em>options</em>: An array of &quot;value&quot; =&gt; &quot;display name&quot; pairs		specifying the valid values for this field<br /> <em>default</em>: The default field value, if none is given<br /> <em>unique</em>: The field's value must be unique among all		all models<br /> <em>pk</em>: The field is the model's primary key.  Implies the		following options: required=true, editable=false,		blankisnull=true, unique=true</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/Model.html">Model</a></li>
+				<li><span class="field">see:</span> <a href="../modelquery/Model.html#methodconfigure">Model::configure()</a></li>
+				<li><span class="field">abstract:</span> </li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_ModelFields.php.html">/ModelFields.php</a> (line <span class="field"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a80">80</a></span>)
+		</p>
+		
+				
+		<pre></pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|												<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../modelquery/RelationField.html">RelationField</a></td>
+					<td>
+											Defines a field that links a model instance to an instance  (or set of instances) of another model.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../modelquery/IntegerField.html">IntegerField</a></td>
+					<td>
+											Field contains an integer.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../modelquery/FloatField.html">FloatField</a></td>
+					<td>
+											Field contains a floating point decimal.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../modelquery/TextField.html">TextField</a></td>
+					<td>
+											Field contains textual data.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../modelquery/BooleanField.html">BooleanField</a></td>
+					<td>
+											Field contains a boolean value.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../modelquery/DateTimeField.html">DateTimeField</a></td>
+					<td>
+											Field contains date and time data.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../modelquery/EmbeddedModelField.html">EmbeddedModelField</a></td>
+					<td>
+											Field is actually an embedded model that is serialized  to a string field in the data store.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../modelquery/ArrayField.html">ArrayField</a></td>
+					<td>
+											Field contains an array of values, serialized to a string field  in the data store as a comma-separated list.
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																																																																																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$errors" title="details" class="var-name">$errors</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$factory" title="details" class="var-name">$factory</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$field" title="details" class="var-name">$field</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$name" title="details" class="var-name">$name</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$options" title="details" class="var-name">$options</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$query" title="details" class="var-name">$query</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$type" title="details" class="var-name">$type</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$validators" title="details" class="var-name">$validators</a>
+				</div>
+											</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																																																																				
+												<div class="method-definition">
+											<span class="method-result">ModelField</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$options_</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$validators_</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addValidator" title="details" class="method-name">addValidator</a>
+											(<span class="var-type"><a href="../modelquery/FieldValidator.html">FieldValidator</a></span>&nbsp;<span class="var-name">$validator</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$message</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#convertFromDbValue" title="details" class="method-name">convertFromDbValue</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#convertToDbValue" title="details" class="method-name">convertToDbValue</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#convertValue" title="details" class="method-name">convertValue</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">mixed</span>
+										<a href="#getDefaultValue" title="details" class="method-name">getDefaultValue</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#offsetExists" title="details" class="method-name">offsetExists</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$index</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#offsetGet" title="details" class="method-name">offsetGet</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$index</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#offsetSet" title="details" class="method-name">offsetSet</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$index</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$value</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#offsetUnset" title="details" class="method-name">offsetUnset</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$index</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#serialize" title="details" class="method-name">serialize</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#toHTML" title="details" class="method-name">toHTML</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#toString" title="details" class="method-name">toString</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">bool</span>
+										<a href="#validate" title="details" class="method-name">validate</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>, <span class="var-type"><a href="../modelquery/Model.html">Model</a></span>&nbsp;<span class="var-name">$model</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#validationErrors" title="details" class="method-name">validationErrors</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#__toString" title="details" class="method-name">__toString</a>
+										()
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			<a name="var$errors" id="$errors"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$errors</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a90">90</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$factory" id="$factory"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$factory</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a83">83</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$field" id="$field"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$field</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a85">85</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$name" id="$name"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$name</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a86">86</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$options" id="$options"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$options</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a82">82</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$query" id="$query"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$query</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a84">84</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$type" id="$type"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$type</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a87">87</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$validators" id="$validators"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$validators</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a89">89</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+						
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a99">99</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Configure a new ModelField instance.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">ModelField</span>
+		<span class="method-name">
+			__construct
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$options_</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$validators_</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: A descriptive (human-readable) name</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$options_</span><span class="var-description">: An array of options</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$validators_</span><span class="var-description">: An array of FieldValidator objects</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../modelquery/RelationField.html#method__construct">RelationField::__construct()</a>
+								: Configure a new RelationField.
+							</li>
+					<li>
+				<a href="../modelquery/OneToOneField.html#method__construct">OneToOneField::__construct()</a>
+							</li>
+					<li>
+				<a href="../modelquery/RelationSetField.html#method__construct">RelationSetField::__construct()</a>
+							</li>
+					<li>
+				<a href="../modelquery/ManyToManyField.html#method__construct">ManyToManyField::__construct()</a>
+							</li>
+					<li>
+				<a href="../modelquery/IntegerField.html#method__construct">IntegerField::__construct()</a>
+							</li>
+					<li>
+				<a href="../modelquery/OrderedField.html#method__construct">OrderedField::__construct()</a>
+								: Configure a new OrderedField.
+							</li>
+					<li>
+				<a href="../modelquery/FloatField.html#method__construct">FloatField::__construct()</a>
+							</li>
+					<li>
+				<a href="../modelquery/TextField.html#method__construct">TextField::__construct()</a>
+							</li>
+					<li>
+				<a href="../modelquery/CharField.html#method__construct">CharField::__construct()</a>
+								: Configure a new CharField instance.
+							</li>
+					<li>
+				<a href="../modelquery/ColorField.html#method__construct">ColorField::__construct()</a>
+							</li>
+					<li>
+				<a href="../modelquery/ImageField.html#method__construct">ImageField::__construct()</a>
+							</li>
+					<li>
+				<a href="../modelquery/EmailField.html#method__construct">EmailField::__construct()</a>
+							</li>
+					<li>
+				<a href="../modelquery/DateTimeField.html#method__construct">DateTimeField::__construct()</a>
+							</li>
+					<li>
+				<a href="../modelquery/EmbeddedModelField.html#method__construct">EmbeddedModelField::__construct()</a>
+								: Configure a new EmbeddedModelField instance.
+							</li>
+				</ul>
+	</div>
+<a name="methodaddValidator" id="addValidator"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">addValidator</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a128">128</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a validator to this field.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addValidator
+		</span>
+					(<span class="var-type"><a href="../modelquery/FieldValidator.html">FieldValidator</a></span>&nbsp;<span class="var-name">$validator</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$message</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../modelquery/FieldValidator.html">FieldValidator</a></span>
+				<span class="var-name">$validator</span><span class="var-description">: A field validator object</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$message</span><span class="var-description">: The error message to display if validation         fails</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodconvertFromDbValue" id="convertFromDbValue"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">convertFromDbValue</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a197">197</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Convert a value from the data store's data type into  the correct PHP type.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			convertFromDbValue
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$value</span><span class="var-description">: The converted value</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../modelquery/RelationField.html#methodconvertFromDbValue">RelationField::convertFromDbValue()</a>
+							</li>
+					<li>
+				<a href="../modelquery/TextField.html#methodconvertFromDbValue">TextField::convertFromDbValue()</a>
+							</li>
+					<li>
+				<a href="../modelquery/BooleanField.html#methodconvertFromDbValue">BooleanField::convertFromDbValue()</a>
+							</li>
+					<li>
+				<a href="../modelquery/DateTimeField.html#methodconvertFromDbValue">DateTimeField::convertFromDbValue()</a>
+							</li>
+					<li>
+				<a href="../modelquery/EmbeddedModelField.html#methodconvertFromDbValue">EmbeddedModelField::convertFromDbValue()</a>
+							</li>
+					<li>
+				<a href="../modelquery/ArrayField.html#methodconvertFromDbValue">ArrayField::convertFromDbValue()</a>
+							</li>
+				</ul>
+	</div>
+<a name="methodconvertToDbValue" id="convertToDbValue"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">convertToDbValue</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a186">186</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Convert a value into the data store's expected type.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			convertToDbValue
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$value</span><span class="var-description">: The converted value</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../modelquery/RelationField.html#methodconvertToDbValue">RelationField::convertToDbValue()</a>
+							</li>
+					<li>
+				<a href="../modelquery/PasswordField.html#methodconvertToDbValue">PasswordField::convertToDbValue()</a>
+							</li>
+					<li>
+				<a href="../modelquery/BooleanField.html#methodconvertToDbValue">BooleanField::convertToDbValue()</a>
+							</li>
+					<li>
+				<a href="../modelquery/DateTimeField.html#methodconvertToDbValue">DateTimeField::convertToDbValue()</a>
+							</li>
+					<li>
+				<a href="../modelquery/DateField.html#methodconvertToDbValue">DateField::convertToDbValue()</a>
+							</li>
+					<li>
+				<a href="../modelquery/EmbeddedModelField.html#methodconvertToDbValue">EmbeddedModelField::convertToDbValue()</a>
+							</li>
+					<li>
+				<a href="../modelquery/ArrayField.html#methodconvertToDbValue">ArrayField::convertToDbValue()</a>
+							</li>
+				</ul>
+	</div>
+<a name="methodconvertValue" id="convertValue"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">convertValue</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a178">178</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Convert a value into the expected PHP data type.</p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			convertValue
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$value</span><span class="var-description">: The converted value</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../modelquery/RelationField.html#methodconvertValue">RelationField::convertValue()</a>
+							</li>
+					<li>
+				<a href="../modelquery/IntegerField.html#methodconvertValue">IntegerField::convertValue()</a>
+							</li>
+					<li>
+				<a href="../modelquery/FloatField.html#methodconvertValue">FloatField::convertValue()</a>
+							</li>
+					<li>
+				<a href="../modelquery/CurrencyField.html#methodconvertValue">CurrencyField::convertValue()</a>
+							</li>
+					<li>
+				<a href="../modelquery/LongDateTimeField.html#methodconvertValue">LongDateTimeField::convertValue()</a>
+							</li>
+					<li>
+				<a href="../modelquery/TextField.html#methodconvertValue">TextField::convertValue()</a>
+							</li>
+					<li>
+				<a href="../modelquery/HTMLField.html#methodconvertValue">HTMLField::convertValue()</a>
+							</li>
+					<li>
+				<a href="../modelquery/BooleanField.html#methodconvertValue">BooleanField::convertValue()</a>
+							</li>
+					<li>
+				<a href="../modelquery/DateTimeField.html#methodconvertValue">DateTimeField::convertValue()</a>
+							</li>
+					<li>
+				<a href="../modelquery/EmbeddedModelField.html#methodconvertValue">EmbeddedModelField::convertValue()</a>
+							</li>
+					<li>
+				<a href="../modelquery/ArrayField.html#methodconvertValue">ArrayField::convertValue()</a>
+							</li>
+				</ul>
+	</div>
+<a name="methodgetDefaultValue" id="getDefaultValue"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getDefaultValue</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a205">205</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the default value for this field.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The default field value</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			getDefaultValue
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../modelquery/DateTimeField.html#methodgetDefaultValue">DateTimeField::getDefaultValue()</a>
+							</li>
+					<li>
+				<a href="../modelquery/EmbeddedModelField.html#methodgetDefaultValue">EmbeddedModelField::getDefaultValue()</a>
+							</li>
+				</ul>
+	</div>
+<a name="methodoffsetExists" id="offsetExists"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">offsetExists</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a273">273</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			offsetExists
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$index</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$index</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>ArrayAccess::offsetExists</dt>
+					</dl>
+			
+	</div>
+<a name="methodoffsetGet" id="offsetGet"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">offsetGet</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a265">265</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			offsetGet
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$index</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$index</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>ArrayAccess::offsetGet</dt>
+					</dl>
+			
+	</div>
+<a name="methodoffsetSet" id="offsetSet"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">offsetSet</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a259">259</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			offsetSet
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$index</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$value</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$index</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$value</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>ArrayAccess::offsetSet</dt>
+					</dl>
+			
+	</div>
+<a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">offsetUnset</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a262">262</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			offsetUnset
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$index</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$index</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>ArrayAccess::offsetUnset</dt>
+					</dl>
+			
+	</div>
+<a name="methodserialize" id="serialize"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">serialize</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a240">240</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Serialize the field value to a string.</p>
+<p class="description"><p>This method differs from toString in that it preserves the  value, rather than converting to a human-readable form in the  case of an &quot;options&quot; mapping.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> A string representation of the value</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			serialize
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$value</span><span class="var-description">: The field value</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../modelquery/BooleanField.html#methodserialize">BooleanField::serialize()</a>
+							</li>
+				</ul>
+	</div>
+<a name="methodtoHTML" id="toHTML"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">toHTML</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a255">255</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Convert the field value to an HTML representation.</p>
+<p class="description"><p>Behavior is defined by the subclass.  By default, simply calls  toString().</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> An HTML representation of the value</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			toHTML
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$value</span><span class="var-description">: The field value</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../modelquery/TextField.html#methodtoHTML">TextField::toHTML()</a>
+							</li>
+					<li>
+				<a href="../modelquery/ColorField.html#methodtoHTML">ColorField::toHTML()</a>
+							</li>
+					<li>
+				<a href="../modelquery/ImageField.html#methodtoHTML">ImageField::toHTML()</a>
+								: Displays an image tag.
+							</li>
+					<li>
+				<a href="../modelquery/EmailField.html#methodtoHTML">EmailField::toHTML()</a>
+								: Displays a mailto: link.
+							</li>
+				</ul>
+	</div>
+<a name="methodtoString" id="toString"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">toString</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a222">222</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return a human-readable description of a field value.</p>
+<p class="description"><p>If the value is a related object, it will display the results  of that objects __toString() method.  If this field has an  &quot;options&quot; array, if will lookup the description useing the  given value as the key.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> A string representation of the value</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			toString
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$value</span><span class="var-description">: The field value</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../modelquery/CurrencyField.html#methodtoString">CurrencyField::toString()</a>
+							</li>
+					<li>
+				<a href="../modelquery/LongDateTimeField.html#methodtoString">LongDateTimeField::toString()</a>
+							</li>
+					<li>
+				<a href="../modelquery/PasswordField.html#methodtoString">PasswordField::toString()</a>
+							</li>
+					<li>
+				<a href="../modelquery/BooleanField.html#methodtoString">BooleanField::toString()</a>
+							</li>
+					<li>
+				<a href="../modelquery/DateTimeField.html#methodtoString">DateTimeField::toString()</a>
+							</li>
+					<li>
+				<a href="../modelquery/DateField.html#methodtoString">DateField::toString()</a>
+							</li>
+				</ul>
+	</div>
+<a name="methodvalidate" id="validate"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">validate</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a139">139</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Check the given value against this field's validators.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> TRUE if the field value validates</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool</span>
+		<span class="method-name">
+			validate
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>, <span class="var-type"><a href="../modelquery/Model.html">Model</a></span>&nbsp;<span class="var-name">$model</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$value</span><span class="var-description">: The field value</span>			</li>
+					<li>
+				<span class="var-type"><a href="../modelquery/Model.html">Model</a></span>
+				<span class="var-name">$model</span><span class="var-description">: The model instance the value belongs to</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../modelquery/EmbeddedModelField.html#methodvalidate">EmbeddedModelField::validate()</a>
+							</li>
+				</ul>
+	</div>
+<a name="methodvalidationErrors" id="validationErrors"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">validationErrors</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a166">166</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return a list of errors generated from the last validation.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> A list of error messages, or null if none</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			validationErrors
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method__toString" id="__toString"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">__toString</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a281">281</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return a string description of this field.  Defaults to  the class name.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			__toString
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+						
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 17 Jan 2011 16:23:01 -0600 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>
