@@ -53,7 +53,7 @@
 		/**
 		 * Create a new QueryFactory.
 		 *
-		 * @param $conn An ADODB database connection object
+		 * @param ADOConnection $conn An ADODB database connection object
 		 * @param Array $modelRoot A list of directories that contain model definitions
 		 * @param string $appName An application name that also serves as the default
 		 *			table prefix

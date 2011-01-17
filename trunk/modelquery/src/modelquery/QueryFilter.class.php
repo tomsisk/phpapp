@@ -1390,28 +1390,87 @@
 			return null;
 		}
 
-		// Update the current set of objects
+		/**
+		 * Bulk-update the set of records that matches the current query
+		 * filters.
+		 *
+		 * The fields to update are specified as a name/value hash array.  As
+		 * a shortcut, you can use the optional second paramtere to update
+		 * a single object by primary key.
+		 *
+		 * @param Array $values A field name/value hash array
+		 * @param mixed $pk The primary key of the object to update
+		 * @return mixed The updated record's primary key (if specified)
+		 */
 		public function update($values, $pk = null) {
 			return $this->doUpdate($values, $pk);
 		}
 
-		// Insert a new object
+		/**
+		 * Insert a new record into the data store.
+		 *
+		 * The field values are specified as either a name/value hash
+		 * array or a Model object.  If the current query contains any
+		 * ":exact" filters, it will use the filter value as the default
+		 * value for those fields, but will be overridden by any fields
+		 * set in the $model parameter.
+		 *
+		 * For example, the following code would create a new user with
+		 * a "site" field equal to "5", because of the previous filter:
+		 *
+		 * <code>
+		 * $uq->filter('site', 5)->insert(array('username' => 'newuser'));
+		 * </code>
+		 *
+		 * The more typical use will be specifying all field values from
+		 * a call on the ModelQuery object itself, rather than using
+		 * filters.
+		 *
+		 * <code>
+		 * $uq->insert(array('username' => 'newuser', 'site' => 5));
+		 * </code>
+		 *
+		 * @param mixed $values A field name/value hash array, as an array
+		 *		or Model
+		 * @return mixed The new record's primary key
+		 */
 		public function insert($model) {
 			return $this->doInsert($model);
 		}
 
-		// Delete the current set of objects
+		/**
+		 * Delete all records that match the current query.
+		 *
+		 * Note that this method does not take any parameters - the current
+		 * query filters are used to determine which records to delete.
+		 * If you wish to only delete a single record, be sure you use a
+		 * QueryFilter::filter() call on the model's primary key.
+		 *
+		 * WARNING: calling this method on a ModelQuery object itself
+		 * will delete all records!
+		 *
+		 * @return bool TRUE if the delete succeeded
+		 */
 		public function delete() {
 			return $this->doDelete();
 		}
 
-		// Clear query cache
+		/**
+		 * Clear the local query cache.
+		 *
+		 * When a query is executed (either with select() or by using a
+		 * QueryFilter object as an iterator), the query results are cached
+		 * in the QueryFilter object.  If for any reason you need to refresh
+		 * the results from the database, you must call flush() first to
+		 * clear the cached results.
+		 */
 		public function flush() {
 			$this->models = null;
 		}
 
-		/*
-		 * Helper functions to generate query SQL using the filter interface.
+		/**
+		 * Shortcut to just return the SQL WHERE clause from this query object.
+		 * @return string The WHERE clause
 		 */
 		public function where_sql() {
 			$q = $this->mergedQuery(true);
@@ -1420,6 +1479,11 @@
 			return null;
 		}
 
+		/**
+		 * Shortcut to just return the SQL WHERE clause parameter list from this
+		 * query object.
+		 * @return string The WHERE clause parameter list
+		 */
 		public function where_params() {
 			$q = $this->mergedQuery(true);
 			if (isset($q['where']['params']))
@@ -1431,6 +1495,16 @@
 		 * Private methods
 		 */
 
+		/**
+		 * Executes the current query, parses the results into Model objects,
+		 * and caches them internally.
+		 *
+		 * @param Array $query The query specification array
+		 * @param bool $selectAllFields If true, will select all model fields.
+		 *		Otherwise, it will only select fields specified in the query
+		 *		'select' option.
+		 * @return ADORecordSet The record set results from ADODB
+		 */
 		private function doSelect($query, $selectAllFields = true) {
 			$selectAllFields = $selectAllFields && !count($query['aggregates']);
 			$fields = $this->model->_dbFields;
@@ -1519,6 +1593,11 @@
 			return $this->query($sql, $params);
 		}
 
+		/**
+		 * Bulk-update the set of records that matches the current query
+		 * filters.
+		 * @see QueryFilter::update()
+		 */
 		private function doUpdate($model, $pk) {
 
 			// Automatically set ordered fields
@@ -1571,9 +1650,18 @@
 
 		}
 
+		/**
+		 * Bulk-update multiple models in a single query.
+		 *
+		 * @todo Write this
+		 */
 		private function doBatchUpdate(&$models) {
 		}
 
+		/**
+		 * Insert a new record into the data store.
+		 * @see QueryFilter::insert()
+		 */
 		private function doInsert($model) {
 
 			// Automatically set ordered fields
@@ -1618,6 +1706,10 @@
 			}
 		}
 
+		/**
+		 * Delete all records that match the current query.
+		 * @see QueryFilter::delete()
+		 */
 		private function doDelete() {
 			$ordered = $this->model->orderedFields();
 			// If there's ordered fields we have to load all affected and process reordering first
@@ -1666,6 +1758,10 @@
 				//throw new DoesNotExistException('No matching objects were found in the database.');
 		}
 
+		/**
+		 * Convert an array of field values into the correct types for a
+		 * database query.
+		 */
 		private function convertToDBModel($model) {
 			$modelVals = ($model instanceof Model ? $model->getFieldValues() : $model);
 			$values = array();
@@ -1676,6 +1772,14 @@
 			return $values;
 		}
 
+		/**
+		 * If the model contains an OrderedField, adjustOrders() checks
+		 * to see if any related objects' orders need to be adjusted to
+		 * make room for this model before an insert or update.
+		 *
+		 * @param mixed &$model The model values we will be committing to
+		 *		the database, as a hash array or Model object
+		 */
 		private function adjustOrders(&$model) {
 
 			$ordered = $this->model->orderedFields();
@@ -1782,6 +1886,14 @@
 			}
 		}
 
+		/**
+		 * If the model contains an OrderedField, deleteOrders() fills
+		 * in any ordering gaps that would occur in the database if this
+		 * model were deleted.
+		 *
+		 * @param mixed &$model The model values we will be committing to
+		 *		the database, as a hash array or Model object
+		 */
 		private function deleteOrders($model) {
 			$ordered = $this->model->orderedFields();
 			if (count($ordered)) {
@@ -1808,6 +1920,19 @@
 			}
 		}
 
+		/**
+		 * Returns a complete query specification object for this filter chain.
+		 *
+		 * Each query filter stores its own filter state.  During query execution,
+		 * mergedQuery() walks up the filter chain and correctly merges all filters
+		 * contained in any ancestor filters.
+		 *
+		 * This method should never need to be called by external code.
+		 * @param bool $applyDefaults Whether to apply any default parameters
+		 *		specified in the Model definition (such as field ordering)
+		 * @param bool $skipPreload Whether to include preload() filters
+		 * @return Array The complete query filter chain specification
+		 */
 		public function mergedQuery($applyDefaults = false, $skipPreload = false) {
 
 			$q = $this->query;
@@ -1889,6 +2014,14 @@
 
 		}
 
+		/**
+		 * Generate the SQL and parameters for an array of filters, and cache
+		 * them internally.
+		 *
+		 * @param Array $filters An array of field/value filters
+		 * @param bool $negate Negate this filter (NOT())
+		 * @param bool $or Combine multiple filters with OR rather than AND
+		 */
 		private function createFilterQuery($filters, $negate = false, $or = false) {
 
 			if (count($filters)%2 == 1)
@@ -1958,6 +2091,17 @@
 											'params' => $params);
 		}
 
+		/**
+		 * Generate the SQL and parameters for an array of filters.
+		 *
+		 * @param string $table The table to query
+		 * @param string $field The field name
+		 * @param string $value The filter value
+		 * @param string $operator The filter operator/modifier
+		 * @return Array A two-element array containing the SQL and
+		 *		parameters generated from the current filter chain
+		 * @see QueryFilter::filter()
+		 */
 		private function getFilterQuery($table, $field, $value, $operator) {
 
 			$q = $this->mergedQuery(true);
@@ -2056,6 +2200,21 @@
 			return array('sql' => $sql, 'params' => $params);
 		}
 
+		/**
+		 * Execute an arbitrary query on the databse table associated with
+		 * this model.
+		 *
+		 * Bind parameters are specified with a "?" in the SQL string.
+		 *
+		 * Since this returns an ADORecordSet object, you will want to manually
+		 * convert the result to a usable set of objects using createModels() or
+		 * createRawHash().
+		 *
+		 * @params string $sql The SQL query to execute
+		 * @params string $params The SQL parameters to bind the query
+		 * @return ADORecordSet The record set object from ADODB
+		 * @throws SQLException if the query fails
+		 */
 		public function query($sql, $params) {
 
 			$c =& $this->modelquery->getConnection();
@@ -2080,6 +2239,17 @@
 
 		}
 
+		/**
+		 * Create a set of Model objects from a query result.
+		 *
+		 * @param ADORecordSet $result The record set result from ADODB
+		 * @param Array $rawfields A list of fields to skip during type conversion
+		 * @param string $map The field value to use as an array index if the
+		 *		results should be returned as a mapped hash array
+		 * @param Array $preload A list of related object fields that the calling
+		 *		query attempted to preload
+		 * @return Array A list of Model objects created from the result set
+		 */
 		public function createModels($result, $rawfields, $map = null, $preload = null) {
 			$models = array();
 			$lastid = null;
@@ -2164,6 +2334,20 @@
 			return $models;
 		}
 
+		/**
+		 * Create a raw hash array from a query result.
+		 *
+		 * @param ADORecordSet $result The record set result from ADODB
+		 * @param string $map The field value to use as an array index if the
+		 *		results should be returned as a mapped hash array
+		 * @param Array $preload A list of related object fields that the calling
+		 *		query attempted to preload
+		 * @param bool $multimap If a $map parameter is specified,
+		 * 		make the returned map values an array of hash arrays.
+		 *		Useful if you want to map by a field value that is not
+		 *		unique across records.
+		 * @return Array A list of hash arrays created from the result set
+		 */
 		public function createRawHash($result, $map = null, $preload = null, $multimap = false) {
 
 			$hash = array();
@@ -2210,6 +2394,21 @@
 
 		}
 
+		/**
+		 * Create a type-converted hash array from a query result.
+		 *
+		 * @param ADORecordSet $result The record set result from ADODB
+		 * @param Array $rawfields A list of fields to skip during type conversion
+		 * @param string $map The field value to use as an array index if the
+		 *		results should be returned as a mapped hash array
+		 * @param Array $preload A list of related object fields that the calling
+		 *		query attempted to preload
+		 * @param bool $multimap If a $map parameter is specified,
+		 * 		make the returned map values an array of hash arrays.
+		 *		Useful if you want to map by a field value that is not
+		 *		unique across records.
+		 * @return Array A list of hash arrays created from the result set
+		 */
 		public function createHash($result, $rawfields, $map = null, $preload = null, $multimap = false) {
 
 			$hash = array();
@@ -2279,6 +2478,16 @@
 			return $hash;
 		}
 
+		/**
+		 * Create a hash array representation a single query record.
+		 *
+		 * @param $row A row array from ADODB
+		 * @param $model The prototype model to use for field type conversion
+		 * @param $rawfields A list of fields to skip during type conversion
+		 * @param Array $preload A list of related object fields that the calling
+		 *		query attempted to preload
+		 * @return Array A hash array created from the result row
+		 */
 		public function createHashFromRow($row, $model, $rawfields = null, $preload = null) {
 
 			$record = array();
@@ -2306,18 +2515,40 @@
 			return $record;
 		}
 
+		/**
+		 * Return a count of affected rows from a query.
+		 *
+		 * Unreliable or unsupported for many drivers.  For drivers that
+		 * are supported, note this for updates this does not return
+		 * the number of rows that MATCHED, only the number of rows that
+		 * were CHANGED.
+		 *
+		 * @return int The number of rows that were modified.
+		 */
 		private function affectedRows() {
 			return $this->modelquery->getConnection()->Affected_Rows();
 		}
 
+		/**
+		 * Retrieve the primary key ID of the last row inserted.
+		 * @return mixed The primary key of the last inserted record
+		 */
 		private function insertId() {
 			return $this->modelquery->getConnection()->Insert_ID();
 		}
 
+		/**
+		 * Get the most recent error message reported by ADODB.
+		 * @return string The last  error message.
+		 */
 		private function getError() {
 			return $this->modelquery->getConnection()->ErrorMsg();
 		}
 
+		/**
+		 * Merged two join definition arrays, giving preference to
+		 * INNER JOIN definitions in case of a conflict.
+		 */
 		private function mergeJoins($tables1, $tables2) {
 			foreach ($tables1 as $t1 => $j1) {
 				if (isset($tables2[$t1])) {
@@ -2368,7 +2599,16 @@
 			return array_key_exists($index, $this->models);
 		}
 
-		// Countable functions
+		/**
+		 * Get the number of matching rows for the current query.
+		 * If the query has been executed already, it will return the
+		 * number of records in the local cache.  Otherwise, it will
+		 * query the database to determine the total number of matching
+		 * records (with QueryFilter::sqlcount()).
+		 *
+		 * @return int The matching record count
+		 * @see QueryFilter::sqlcount()
+		 */
 		public function count() {
 			if ($this->models) {
 				// Already executed a query, return actual results
