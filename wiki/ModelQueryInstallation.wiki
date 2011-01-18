@@ -1,0 +1,5 @@
+=Installation=
+
+TODO
+
+Now that it's installed, let's [ModelQueryGettingStarted create a database].
