@@ -8,4 +8,105 @@ Because model objects need to be aware of which data store they come from
 $actor = new Actor();
 }}}
 
-Instead, 
+Instead, you need to construct new objects through the query handler:
+
+{{{
+// RIGHT
+// We will always refer to our QueryFactory as $qf in these examples
+$actor = $qf->Actor->create();
+$actor->name = 'Jeremy Jongsma';
+
+// Save to data store
+$actor->save();
+
+// Now we have an ID
+echo $actor->id;
+}}}
+
+The [http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/ModelQuery.html#create create()]
+method has several optional parameters that help you create and populate
+a model with one call:
+
+{{{
+$actor = $qf->Actor->create(array('name' => 'Jeremy Jongsma'), null, UPDATE_FROM_FORM);
+$actor->save();
+}}}
+
+The parameters are:
+  # A hash array of field name and values pairs
+  # A list of fields that should not be type-converted (this will usually be null)
+  # Flags describing where the data came from, to assist ModelQuery in type conversion
+
+The third parameter is of special note.  ModelQuery populates the model slightly
+differently depending on the flag value, which is an OR'd combination of one or
+more of the following constants:
+  * UPDATE_FROM_FORM: the field values were submitted from a web form, and should be parsed accordingly
+  * UPDATE_FORCE_BOOLEAN: the input medium does not include explicit FALSE values for boolean fields.  With this flag, ModelQuery will set any boolean fields that are missing from the input to FALSE.
+  * UPDATE_FROM_DB: the data comes directly from the database, and should be parsed accordingly
+
+Common usage for populating or updating models from a web form is:
+
+{{{
+$actor = $qf->Actor->create($_POST, null, UPDATE_FROM_FORM|UPDATE_FORCE_BOOLEAN);
+$actor->save();
+}}}
+
+The related method getAndUpdate() has similar parameters, except it takes an object ID as
+the first parameter.  It is useful for loading an object from the database, and then
+overriding the field values with the specified input:
+
+{{{
+$actor = $qf->Actor->getAndUpdate($id, $_POST, null, UPDATE_FROM_FORM|UPDATE_FORCE_BOOLEAN);
+$actor->save();
+}}}
+
+If you have a model already loaded that you want to update, these methods internally just call 
+[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/Model.html#updateModel Model::updateModel()],
+which you can also call manually.
+
+Now that we know how to create new models, let's add a few to our database:
+
+{{{
+// Create some actors
+$aq = $qf->Actor;
+$actorClooney = $aq->create(array('name' => 'George Clooney'));
+$actorClooney->save();
+$actorPitt = $aq->create(array('name' => 'Brad Pitt'));
+$actorPitt->save();
+
+// Create a director
+$dq = $qf->Director;
+$directorSoderbergh = $dq->create(array('name' => 'Steven Soderbergh'));
+$directorSoderbergh->save();
+
+// Create a film
+$fq = $qf->Film;
+$filmOceans = $fq->create(array(
+    'title' => 'Ocean\'s 11',
+	'director' => $directorSoderbergh,
+	'release' => mktime(0,0,0,12,7,2001)));
+// Film must be saved before we add items to a relation set field
+$filmOceans->save();
+
+// Adding to a many-to-many set automatically creates a mapping entry,
+// so no further save() call is needed.
+$filmOceans->actors->add($actorClooney);
+$filmOceans->actors->add($actorPitt);
+
+}}}
+
+Once you have a model instance created or loaded from the database,
+you can set or access field values using either properties or array
+indexes:
+
+{{{
+	// These are identical
+	echo $actorClooney->name;
+	echo $actorClooney['name'];
+
+	// So are these
+	$filmOceans->nominated = true;
+	$filmOceans['nominated'] = true;
+}}}
+
+Next, let's look at how to [ModelQueryFilters query for these objects].

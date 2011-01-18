@@ -1,0 +1,127 @@
+=Querying the Database=
+
+Querying the database starts out with a query handler from our QueryFactory again:
+
+{{{
+$fq = $qf->Film;
+}}}
+
+Let's look at some basic query examples:
+
+{{{
+// Get a list of all films
+$films = $fq->all();
+
+// Get all films, sorted by release date
+$films = $fq->order('-released');
+
+// Get all films nominated for an award
+$films = $fq->filter('nominated', true);
+
+// Get a film by ID
+$film = $fq->get(1);
+}}}
+
+Queries in ModelQuery work using a _chain of query filters_.  Many query methods
+add a filter, and returns a new
+[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/QueryFilter.html QueryFilter]
+object at the end of the filter chain.
+
+A QueryFilter represents the current state of the query; it does not actually
+execute a query on the database. The query is executed when one of two things
+happens:
+  # You use the QueryFilter in your code as an array, either in a foreach loop or by direct index access
+  # You explicitly call a method the returns query results, like select(), hash(), get(), etc.
+
+In the above examples, only the last one (the get() call ) results in a database query.
+To get the other examples to execute is just a matter of trying to access the data:
+
+{{{
+// Filter applied, but no query executed yet
+$films = $fq->filter('nominated', true);
+
+// foreach loop forces the query execution
+foreach ($films as $film) {
+    // Now the query executes, and starts iterating through matching objects
+}
+}}}
+
+The following methods are usually the most frequently used in queries:
+  * filter()
+  * exclude()
+  * order()
+  * slice()
+  * count()
+  * get()
+
+For details on their parameters, and a full list of other filter methods, see the API docs for
+[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/QueryFilter.html QueryFilter].
+
+==Filter Chaining==
+
+Here are a few more query examples, taking advantage of filter chaining:
+
+{{{
+// Get all films directed by director ID=1 that were nominated for an award
+$films = $fq->filter('director', 1)->filter('nominated', true);
+
+// Get the first 10 films that director 1 directed, sorted by title
+$films = $fq->filter('director', 1)->order('+title')->slice(10);
+}}}
+
+In addition to making complex queries easy to construct, filter chaining allows
+you to re-use base queries that need to branch in different directions.
+
+{{{
+// Base query limited to films by director 1
+$base = $fq->filter('director', 1);
+
+// Get the total number of films by this director
+$total = $base->count();
+
+// ...but only load the first 10
+$films = $base->slice(10);
+}}}
+
+==Field Modifiers==
+
+The core of ModelQuery's filters is the QueryFilter::filter() call.  This method
+takes pairs of parameters, specifying a field to query (with optional modifier),
+and the value to compare to.
+
+This is a normal field filter that tries to match the exact value given; i.e.
+only return films released on Dec 7, 2001:
+
+{{{
+$fq->filter('released', mktime(0,0,0,12,7,2001));
+}}}
+
+You can also access more querying capabilities by using field modifiers:
+
+{{{
+$fq->filter('release:gte' mktime(0,0,0,1,1,2000));
+}}}
+
+This filter uses a modifier (_gte_) that tells ModelQuery to filter by all
+films that have a release date _greater than or equal to_ Jan 1, 2001.
+
+For a full list of available modifiers, see the API docs for
+[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/QueryFilter.html#methodfilter QueryFilter::filter()].
+
+==Filters Referencing Related Objects==
+
+Because ModelQuery knows about relations between your objects, you can
+filter queries on more the just the fields that are part of the current
+model.  For example, with filter() calls, the field name you specify
+can actually be a _relation path_ specified in dot-notation, such as
+'_director.name_'.
+
+{{{
+// Query for finding films by director name
+$films = $fq->filter('director.name:icontains', 'soderbergh')
+}}}
+
+ModelQuery takes care of the query joins behind the scenes, leaving your
+queries nice and simple.
+
+Next up, we'll learn how to [ModelQueryDeleteModels delete model instances from the database].
