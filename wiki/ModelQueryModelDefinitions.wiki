@@ -25,8 +25,11 @@ The first line of the method creates a field mapping to the "id" field from
 the database.  Let's analyze the line in question:
 
 _$this->id_: This tells modelquery what the database field name is - "id"
+
 _new IntegerField(...)_: This defines the type of data that the field contains - an integer
+
 _'ID'_: The first parameter to a field object is always a human-readable description
+
 _array('pk' => true)_: All field objects take an "options" parameter.  This is an
 array of configuration options for the field.  The positioning of this parameter
 depends on the field type.  For IntegerField, it is the second parameter; for
