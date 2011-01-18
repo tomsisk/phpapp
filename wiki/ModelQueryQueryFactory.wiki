@@ -10,6 +10,7 @@ and a list of directories that contain your model definitions.
 Example of a shared include the creates a QueryFactory for an app:
 
 {{{
+<?php
 require_once('modelquery/QueryFactory.class.php');
 
 // 'mysqlt' is strongly recommended for transactional support
