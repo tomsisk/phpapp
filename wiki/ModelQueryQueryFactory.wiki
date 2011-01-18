@@ -11,6 +11,7 @@ Example of a shared include the creates a QueryFactory for an app:
 
 {{{
 <?php
+require_once('adodb/adodb.inc.php');
 require_once('modelquery/QueryFactory.class.php');
 
 // 'mysqlt' is strongly recommended for transactional support
