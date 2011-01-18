@@ -5,10 +5,8 @@ that tell ModelQuery how to map the database data to PHP objects, so that
 you can easily query for and traverse relationships between records.
 
 First, some naming terminology that will come up here:
-  * Camel-case: camel-case words are a combination of words with the first
-  	letter of each word capitalized, such as "FilmActor".
-  * Underscore-notation: a string that combines multiple words with
-    an underscore, always lower-case, such as "film_actor".
+  * Camel-case: camel-case words are a combination of words with the first letter of each word capitalized, such as "FilmActor".
+  * Underscore-notation: a string that combines multiple words with an underscore, always lower-case, such as "film_actor".
 
 To fit with common practices, ModelQuery assumes underscore-notation for
 database table and field naming, and camel-case for model class naming.
@@ -44,8 +42,8 @@ _new IntegerField(...)_: This defines the type of data that the field contains -
 _'ID'_: The first parameter to a field object is always a human-readable description
 
 _array('pk' => true)_: Sets the "primary key" option on the field, designating it
-	as the unique record identifier (maps to a PRIMARY KEY field in the database).
-	(note: ModelQuery does not support multi-column primary keys.)
+as the unique record identifier (maps to a PRIMARY KEY field in the database).
+(note: ModelQuery does not support multi-column primary keys.)
 
 All field objects take an "options" parameter.  This is an array of configuration
 options for the field.  The positioning of this parameter depends on the field type.
@@ -60,10 +58,8 @@ ModelFields API docs]
 
 _IMPORTANT NOTE:_ By default, ModelQuery maps models to table names using the following
 rules:
-  # Pluralize the model class name (i.e. "FilmActor" -> "FilmActors").  This takes
-    special pluralization rules into account ("y" -> "ies", etc).
-  # Replace uppercase letters in the model name with an underscore and a lowercase letter
-    (the first letter is only lower-cased) (i.e. "FilmActors" -> "film_actors")
+  # Pluralize the model class name (i.e. "FilmActor" -> "FilmActors").  This takes special pluralization rules into account ("y" -> "ies", etc).
+  # Replace uppercase letters in the model name with an underscore and a lowercase letter (the first letter is only lower-cased) (i.e. "FilmActors" -> "film_actors")
 
 If you want to set the table name manually, call $this->setTable($tableName) from
 inside configure().
@@ -109,11 +105,8 @@ $film->director->name), ModelQuery calls the database and load the Director's
 information, transparent to your code.
 
 There are two other additions worth noting in the Film model above:
-  * You can call setDefaultOrder() to determine the default sorting order of query
-  	results.  In this instance, it sorts by release date descending, then title
-	ascending.
-  * You should always define a __toString() method in your models, to give a
-  	human-readable description of the object.
+  * You can call setDefaultOrder() to determine the default sorting order of query results.  In this instance, it sorts by release date descending, then title ascending.
+  * You should always define a __toString() method in your models, to give a human-readable description of the object.
 
 ===Relation Sets===
 
