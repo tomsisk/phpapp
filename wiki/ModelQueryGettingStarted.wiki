@@ -7,17 +7,17 @@ tutorial.
 
 {{{
 CREATE TABLE actors (
-    id int8 PRIMARY KEY AUTO_INCREMENT,
+	id int8 PRIMARY KEY AUTO_INCREMENT,
 	name varchar(255)
 ) ENGINE=InnoDB CHARSET=utf8;
 
 CREATE TABLE directors (
-    id int8 PRIMARY KEY AUTO_INCREMENT,
+	id int8 PRIMARY KEY AUTO_INCREMENT,
 	name varchar(255) NOT NULL
 ) ENGINE=InnoDB CHARSET=utf8;
 
 CREATE TABLE films (
-    id int8 PRIMARY KEY AUTO_INCREMENT,
+	id int8 PRIMARY KEY AUTO_INCREMENT,
 	title varchar(255) NOT NULL,
 	director int8 NOT NULL,
 	released datetime NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE film_actors (
 ) ENGINE=InnoDB CHARSET=utf8;
 
 CREATE TABLE users (
-    id int8 PRIMARY KEY AUTO_INCREMENT,
+	id int8 PRIMARY KEY AUTO_INCREMENT,
 	username varchar(255) NOT NULL,
 	password varchar(255) NOT NULL,
 	email varchar(150) NOT NULL,
