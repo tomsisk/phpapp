@@ -31,5 +31,11 @@ access it as a property of !QueryFactory:
 $actorQuery = $qf->Actor;
 }}}
 
+If you prefer to use method calls, behind the scenes this is equivalent to:
+
+{{{
+$actorQuery = $qf->get('Actor');
+}}}
+
 This assumes you have an "Actor" model defined; we'll get into that in
 the next section, where we look at [ModelQueryModelDefinitions creating model definitions].
