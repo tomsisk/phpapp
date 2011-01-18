@@ -31,14 +31,6 @@ CREATE TABLE film_actors (
     FOREIGN KEY film REFERENCES films(id) ON UPDATE CASCADE ON DELETE RESTRICT,
     FOREIGN KEY actor REFERENCES actors(id) ON UPDATE CASCADE ON DELETE RESTRICT
 ) ENGINE=InnoDB CHARSET=utf8;
-
-CREATE TABLE users (
-    id int8 PRIMARY KEY AUTO_INCREMENT,
-    username varchar(255) NOT NULL,
-    password varchar(255) NOT NULL,
-    email varchar(150) NOT NULL,
-    verified boolean NOT NULL DEFAULT FALSE
-) ENGINE=InnoDB CHARSET=utf8;
 }}}
 
 Next, let's look at [ModelQueryQueryFactory configuring our QueryFactory].
