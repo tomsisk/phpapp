@@ -1,6 +1,6 @@
 =Create Model Definitions=
 
-"Model Definitions" are PHP files that contain configuration directives
+Model definitions are PHP files that contain configuration directives
 that tell ModelQuery how to map the database data to PHP objects, so that
 you can easily query for and traverse relationships between records.
 
@@ -35,13 +35,10 @@ This is where all the configuration happens.
 The first line of the method creates a field mapping to the "id" field from
 the database.  Let's analyze the line in question:
 
-_$this->id_: This tells modelquery what the database field name is - "id"
-
-_new IntegerField(...)_: This defines the type of data that the field contains - an integer
-
-_'ID'_: The first parameter to a field object is always a human-readable description
-
-_array('pk' => true)_: Sets the "primary key" option on the field, designating it
+  * _$this->id_: This tells modelquery what the database field name is - "id"
+  * _new IntegerField(...)_: This defines the type of data that the field contains - an integer
+  * _'ID'_: The first parameter to a field object is always a human-readable description
+  * _array('pk' => true)_: Sets the "primary key" option on the field, designating it
 as the unique record identifier (maps to a PRIMARY KEY field in the database).
 (note: ModelQuery does not support multi-column primary keys.)
 
