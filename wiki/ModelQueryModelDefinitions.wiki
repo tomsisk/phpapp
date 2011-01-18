@@ -4,6 +4,13 @@ Model definitions are PHP files that contain configuration directives
 that tell ModelQuery how to map the database data to PHP objects, so that
 you can easily query for and traverse relationships between records.
 
+There are a few restrictions on model definition file naming:
+  # The file must be named <ModelName>.class.php
+  # The class name in the file must be <ModelName>
+
+This convention allows ModelQuery to load model classes on demand,
+rather than initializing everything on every request.
+
 First, some naming terminology that will come up here:
   * Camel-case: camel-case words are a combination of words with the first letter of each word capitalized, such as "FilmActor".
   * Underscore-notation: a string that combines multiple words with an underscore, always lower-case, such as "film_actor".
@@ -51,11 +58,11 @@ For a complete list of available fields, see the
 
 _IMPORTANT NOTE:_ By default, ModelQuery maps models to table names using the following
 rules:
-  # Pluralize the model class name (i.e. "FilmActor" -> "FilmActors").  This takes special pluralization rules into account ("y" -> "ies", etc).
-  # Convert the pluralized name to underscore-notation (see top of page)
+  # Convert the model name to underscore-notation (see top of page).
+  # Pluralize the result. This takes special pluralization rules into account ("y" -> "ies", etc).
 
 By these rules, the model "FilmActor" would be mapped to the database table "film_actors".
-If you want to set the table name manually, call $this->setTable($tableName) from
+If you want to set the table name manually, you can call $this->setTable($tableName) from
 inside configure().
 
 ==Relation Fields==
@@ -139,7 +146,7 @@ underscore-notation (see top of page)._  In this case, it would be looking
 at Film::$director.  If you need to override the join field name, use the
 "joinField" option in OneToManyField's options array.
 
-Using this field ($director->films) returns a
+Accessing this field ($director->films) returns a
 [http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/RelationSet.html RelationSet]
 object that contains all Film instances that are linked to this Director
 object (lazy-loaded, again).  You can treat it just like an array for iteration in a
@@ -179,7 +186,7 @@ class Film extends Model {
         $this->nominated = new BooleanField('Oscar Nomination', array('required' => true,
             'default' => false));
 
-		$this->actors = new ManyToManyField('Actors', 'Actor', 'FilmActor');
+        $this->actors = new ManyToManyField('Actors', 'Actor', 'FilmActor');
 
         $this->setDefaultOrder('-released', '+title');
     }

@@ -41,4 +41,4 @@ CREATE TABLE users (
 ) ENGINE=InnoDB CHARSET=utf8;
 }}}
 
-Next, let's look at [ModelQueryModelDefinitions creating our model definitions]
+Next, let's look at [ModelQueryQueryFactory configuring our QueryFactory]
