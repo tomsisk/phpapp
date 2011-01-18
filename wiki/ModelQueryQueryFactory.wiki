@@ -32,4 +32,4 @@ $actorQuery = $qf->Actor;
 }}}
 
 This assumes you have an "Actor" model defined; we'll get into that in
-the next section, where we look at [ModelQueryModelDefinitions creating model definitions]
+the next section, where we look at [ModelQueryModelDefinitions creating model definitions].
