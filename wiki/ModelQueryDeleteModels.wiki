@@ -1,3 +1,32 @@
-=Deleting Objects=
+=Deleting Models=
 
+Now that we've loaded some objects into the database, how do we remove them?
 
+Removing a single object is simple: just load the object and call delete():
+
+{{{
+$film = $film->get(1);
+$film->delete();
+}}}
+
+However, you can also bulk-delete any object that matches a query, by
+simple calling QueryFilter::delete() at the end of a filter chain:
+
+{{{
+// Filter by director 1
+$films = $fq->filter('director', 1);
+
+// Delete all of director 1's films from the database
+$films->delete();
+}}}
+
+Deleting objects *_PERMANENTLY REMOVES THEM_* from your data store.
+As you would guess, this has the potential to be disastrous if you do
+not construct your query properly.  A call like:
+
+{{{
+$fq->delete();
+}}}
+
+would delete all films from the database - so be very careful how
+you use it.
