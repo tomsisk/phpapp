@@ -25,7 +25,7 @@ $qf = new QueryFactory($conn, array('/my/model/directory'))
 }}}
 
 That's all there is to it.  Then to fetch a query handler, simply
-access it as a property of QueryFactory:
+access it as a property of !QueryFactory:
 
 {{{
 $actorQuery = $qf->Actor;
