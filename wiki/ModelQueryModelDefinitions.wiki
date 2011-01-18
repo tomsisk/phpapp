@@ -1,0 +1,33 @@
+=Create Model Definitions=
+
+"Model Definitions" are PHP files that contain configuration directives
+that tell ModelQuery how to map the database data to PHP objects, so that
+you can easily query for and traverse relationships between records.
+
+Let's take a simple example, from the "actors" table from the previous step:
+
+{{{
+class Actor extends Model {
+	public function configure() {
+		$this->id = new IntegerField('ID', array('pk' => true));
+		$this->name = new CharField('Name', 255, array('required' => true));
+	}
+}
+}}}
+
+All of your model definitions will extend the base class
+[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/Model.html Model].
+When ModelQuery initializes your model definitions, it calls the configure()
+method to setup the object, which you must override in your model definition.
+This is where all the configuration happens.
+
+The first line of the method creates a field mapping to the "id" field from
+the database.  Let's analyze the line in question:
+
+_$this->id_: This tells modelquery what the database field name is - "id"
+_new IntegerField(...)_: This defines the type of data that the field contains - an integer
+_'ID'_: The first parameter to a field object is always a human-readable description
+_array('pk' => true)_: All field objects take an "options" parameter.  This is an
+array of configuration options for the field.  The positioning of this parameter
+depends on the field type.  For IntegerField, it is the second parameter; for
+CharField, it is the third

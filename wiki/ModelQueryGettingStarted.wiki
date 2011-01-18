@@ -1,0 +1,44 @@
+=Create a Database=
+
+If you are working ModelQuery into an existing application, you probably
+already have an existing MySQL database.  If not, go ahead and create one
+as shown below.  We will be using this test database throughout the
+tutorial.
+
+{{{
+CREATE TABLE actors (
+    id int8 PRIMARY KEY AUTO_INCREMENT,
+	name varchar(255)
+) ENGINE=InnoDB CHARSET=utf8;
+
+CREATE TABLE directors (
+    id int8 PRIMARY KEY AUTO_INCREMENT,
+	name varchar(255) NOT NULL
+) ENGINE=InnoDB CHARSET=utf8;
+
+CREATE TABLE films (
+    id int8 PRIMARY KEY AUTO_INCREMENT,
+	title varchar(255) NOT NULL,
+	director int8 NOT NULL,
+	released datetime NOT NULL,
+	nominee boolean NOT NULL DEFAULT FALSE,
+	FOREIGN KEY director REFERENCES directors(id) ON UPDATE CASCADE ON DELETE RESTRICT
+) ENGINE=InnoDB CHARSET=utf8;
+
+CREATE TABLE film_actors (
+	film int8 NOT NULL,
+	actor int8 NOT NULL,
+	FOREIGN KEY film REFERENCES films(id) ON UPDATE CASCADE ON DELETE RESTRICT,
+	FOREIGN KEY actor REFERENCES actors(id) ON UPDATE CASCADE ON DELETE RESTRICT
+) ENGINE=InnoDB CHARSET=utf8;
+
+CREATE TABLE users (
+    id int8 PRIMARY KEY AUTO_INCREMENT,
+	username varchar(255) NOT NULL,
+	password varchar(255) NOT NULL,
+	email varchar(150) NOT NULL,
+	verified boolean NOT NULL DEFAULT FALSE
+) ENGINE=InnoDB CHARSET=utf8;
+}}}
+
+Next, let's look at [ModelQueryModelDefinitions creating our model definitions]
