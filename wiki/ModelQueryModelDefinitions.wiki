@@ -54,7 +54,8 @@ ModelFields API docs]
 _IMPORTANT NOTE:_ By default, ModelQuery maps models to table names using the following
 rules:
   # Pluralize the model class name (i.e. "FilmActor" -> "FilmActors").  This takes special pluralization rules into account ("y" -> "ies", etc).
-  # Replace uppercase letters in the model name with an underscore and a lowercase letter (the first letter is only lower-cased) (i.e. "FilmActors" -> "film_actors")
+  # Convert the pluralized name to underscore-notation (see top of page)
+By these rules, the model "FilmActor" would be mapped to the database table "film_actors"
 
 If you want to set the table name manually, call $this->setTable($tableName) from
 inside configure().
