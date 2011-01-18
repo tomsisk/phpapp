@@ -72,6 +72,7 @@
 		 * 		during type conversion
 		 * @param int $flags A bitmask of flags specifying information about the
 		 * 		source of the params (UPDATE_* constants)
+		 * @return Model The new Model instance
 		 * @see	UPDATE_FROM_FORM
 		 * @see	UPDATE_FORCE_BOOLEAN
 		 * @see	UPDATE_FROM_DB
@@ -92,6 +93,13 @@
 			return $model;
 		}
 
+		/**
+		 * Determine if the specified model requires an alternate model subclass
+		 * (if the model called mapConcreteTypes()).
+		 * @params Array A hash of field name/value pairs
+		 * @return Model The model prototype that fits the field values
+		 * @see Model::mapConcreteTypes()
+		 */
 		public function getConcreteType($params) {
 
 			$scField = $this->model->_subclassField;
@@ -107,6 +115,20 @@
 
 		}
 
+		/**
+		 * Update an existing model object from a hash of key/value pairs.
+		 *
+		 * @param mixed $id The unique object ID
+		 * @param Array $params A hash array of name/value pairs
+		 * @param Array $rawvalues A list of field names that should be ignored
+		 * 		during type conversion
+		 * @param int $flags A bitmask of flags specifying information about the
+		 * 		source of the params (UPDATE_* constants)
+		 * @return Model The updated Model instance
+		 * @see	UPDATE_FROM_FORM
+		 * @see	UPDATE_FORCE_BOOLEAN
+		 * @see	UPDATE_FROM_DB
+		 */
 		public function getAndUpdate($id, $params, $flags = 0, $filter = null) {
 			if (!$id)
 				return $this->create($params);
@@ -120,14 +142,26 @@
 			}
 		}
 
+		/**
+		 * Get the current database connection.
+		 * @return ADOConnection The database connection
+		 */
 		public function getConnection() {
 			return $this->factory->getConnection();
 		}
 
+		/**
+		 * Get the application name (from QueryFactory).
+		 * @return string The application name
+		 */
 		public function getAppName() {
 			return $this->appName;
 		}
 
+		/**
+		 * Get this model's database table name.
+		 * @return string The table name
+		 */
 		public function getTable() {
 			return $this->model->_table;
 		}
@@ -153,18 +187,36 @@
 			return $out;
 		}
 
+		/**
+		 * This method is illegal on ModelQuery to avoid query caching in the
+		 * base object.
+		 *
+		 * @throws InvalidUsageException Method is not valid on this object.
+		 */
 		public function select() {
 			// Block calling select() - we don't want queries cached in $this->models on
 			// the shared ModelQuery object.
 			throw new InvalidUsageException('Cannot call select() on the root query object (try calling all() first)');
 		}
 
+		/**
+		 * This method is illegal on ModelQuery to avoid query caching in the
+		 * base object.
+		 *
+		 * @throws InvalidUsageException Method is not valid on this object.
+		 */
 		public function hash() {
 			// Block calling select() - we don't want queries cached in $this->models on
 			// the shared ModelQuery object.
 			throw new InvalidUsageException('Cannot call hash() on the root query object (try calling all() first)');
 		}
 
+		/**
+		 * This method is illegal on ModelQuery to avoid query caching in the
+		 * base object.
+		 *
+		 * @throws InvalidUsageException Method is not valid on this object.
+		 */
 		public function raw() {
 			// Block calling select() - we don't want queries cached in $this->models on
 			// the shared ModelQuery object.
