@@ -4,14 +4,27 @@
 that tell ModelQuery how to map the database data to PHP objects, so that
 you can easily query for and traverse relationships between records.
 
+First, some naming terminology that will come up here:
+  * Camel-case: camel-case words are a combination of words with the first
+  	letter of each word capitalized, such as "FilmActor".
+  * Underscore-notation: a string that combines multiple words with
+    an underscore, always lower-case, such as "film_actor".
+
+To fit with common practices, ModelQuery assumes underscore-notation for
+database table and field naming, and camel-case for model class naming.
+Understanding how camel-case Model names map to underscore-notation database
+names is important, i.e. "FilmActor" -> "film_actor"
+
+==Basic Configuration==
+
 Let's take a simple example, from the "actors" table from the previous step:
 
 {{{
 class Actor extends Model {
-	public function configure() {
-		$this->id = new IntegerField('ID', array('pk' => true));
-		$this->name = new CharField('Name', 255, array('required' => true));
-	}
+    public function configure() {
+        $this->id = new IntegerField('ID', array('pk' => true));
+        $this->name = new CharField('Name', 255, array('required' => true));
+    }
 }
 }}}
 
@@ -30,7 +43,173 @@ _new IntegerField(...)_: This defines the type of data that the field contains -
 
 _'ID'_: The first parameter to a field object is always a human-readable description
 
-_array('pk' => true)_: All field objects take an "options" parameter.  This is an
-array of configuration options for the field.  The positioning of this parameter
-depends on the field type.  For IntegerField, it is the second parameter; for
-CharField, it is the third
+_array('pk' => true)_: Sets the "primary key" option on the field, designating it
+	as the unique record identifier (maps to a PRIMARY KEY field in the database).
+	(note: ModelQuery does not support multi-column primary keys.)
+
+All field objects take an "options" parameter.  This is an array of configuration
+options for the field.  The positioning of this parameter depends on the field type.
+For IntegerField, it is the second parameter; for CharField, it is the third.  For
+standard options available to all fields, see the 
+[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/ModelField.html
+ModelField API docs].
+
+For a complete list of available fields, see the 
+[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/_ModelFields.php.html
+ModelFields API docs]
+
+_IMPORTANT NOTE:_ By default, ModelQuery maps models to table names using the following
+rules:
+  # Pluralize the model class name (i.e. "FilmActor" -> "FilmActors").  This takes
+    special pluralization rules into account ("y" -> "ies", etc).
+  # Replace uppercase letters in the model name with an underscore and a lowercase letter
+    (the first letter is only lower-cased) (i.e. "FilmActors" -> "film_actors")
+
+If you want to set the table name manually, call $this->setTable($tableName) from
+inside configure().
+
+==Relation Fields==
+
+Now for a more complex model definition:
+
+{{{
+class Film extends Model {
+
+    public function configure() {
+        $this->id = new IntegerField('ID', array('pk' => true));
+        $this->title = new CharField('Title', 255, array('required' => true));
+        $this->director = new ManyToOneField('Director', 'Director', array('required' => true));
+        $this->released = new DateTimeField('Release Date', array('required' => true));
+        $this->nominated = new BooleanField('Oscar Nomination', array('required' => true,
+            'default' => false));
+        $this->setDefaultOrder('-released', '+title');
+    }
+
+    public function __toString() {
+        return strval($this->title);
+    }
+
+}
+}}}
+
+In addition to using some new field types, this model introduces the concept of
+a _relation field_.  A relation field represents a link between two objects.  In
+database terms, a
+[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/ManyToOneField.html 
+ManyToOneField] maps to a FOREIGN KEY field. The first parameter is a human-readable
+description (as always). The second parameter is the name of the model that this field
+links to (Director).
+
+Relation fields in ModelQuery are _lazy-loading_; that is, they do not contain any
+data until you try to access them.  This limits the amount of database queries that
+are required to retrieve an object from the database.  When you load a Film from the
+database, a single query is executed, and the model only knows the director's primary
+key id - not any other data.  However, as soon as you access the field (i.e. using
+$film->director->name), ModelQuery calls the database and load the Director's
+information, transparent to your code.
+
+There are two other additions worth noting in the Film model above:
+  * You can call setDefaultOrder() to determine the default sorting order of query
+  	results.  In this instance, it sorts by release date descending, then title
+	ascending.
+  * You should always define a __toString() method in your models, to give a
+  	human-readable description of the object.
+
+===Relation Sets===
+
+_Relation set fields_ function similarly to ManyToOneField, except that they
+return a set of related objects rather than just a single object.  Since we
+can't have a single database field that links to multiple objects, these
+are _synthetic fields_ - fields that do not have a corresponding column in
+the database table, but exist within ModelQuery to enable you to traverse
+related objects.
+
+{{{
+class Director extends Model {
+
+    public function configure() {
+        $this->id = new IntegerField('ID', array('pk' => true));
+        $this->name = new CharField('Name', 255, array('required' => true));
+        $this->films = new OneToManyField('Films', 'Film');
+        $this->setDefaultOrder('+name');
+    }
+
+    public function __toString() {
+        return strval($this->name);
+    }
+
+}
+}}}
+
+A [http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/OneToManyField.html
+OneToManyField] is just the inverse of a ManyToOneField.  In the field definition above,
+we are telling ModelQuery to query for the set of Films linked to this director by
+looking at the "Film" model definition, and selecting all films where the "director"
+field matches the current Director object's primary key.
+
+_The field it queries on in the related object is the current model name in
+underscore-notation (see top of page)._  In this case, it would be looking
+at Film::$director.  If you need to override the join field name, use the
+"joinField" option in OneToManyField's options array.
+
+Using this field ($director->films) returns a
+[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/RelationSet.html
+RelationSet] object that contains all Film instances that are linked to this Director
+object (lazy-loaded, again).  You can treat it just like an array for iteration in a
+foreach loop, but it also has add() and remove() methods for managing the related
+objects.
+
+===Many-To-Many Relations===
+
+Many-to-many relations are a more complicated case, because the nature of the
+relationship means we have to use a third table to create the relationship.
+In the database schema we created, that table is film_actors.  Let's look at
+the model definition for it:
+
+{{{
+class FilmActor extends Model {
+    public function configure() {
+        $this->film = new ManyToOneField('Film', 'Film');
+        $this->actor = new ManyToOneField('Actor', 'Actor');
+    }
+}
+}}}
+
+This is a no-frills class because we don't ever need to access it
+directly; it just serves as internal "glue" for ModelQuery.
+
+Now, let's update our Film model to contain a reference to all actors
+the appear in it:
+
+{{{
+class Film extends Model {
+
+    public function configure() {
+        $this->id = new IntegerField('ID', array('pk' => true));
+        $this->title = new CharField('Title', 255, array('required' => true));
+        $this->director = new ManyToOneField('Director', 'Director', array('required' => true));
+        $this->released = new DateTimeField('Release Date', array('required' => true));
+        $this->nominated = new BooleanField('Oscar Nomination', array('required' => true,
+            'default' => false));
+
+		$this->actors = new ManyToManyField('Actors', 'Actor', 'FilmActor');
+
+        $this->setDefaultOrder('-released', '+title');
+    }
+
+    public function __toString() {
+        return strval($this->title);
+    }
+
+}
+}}}
+
+The first parameter of [http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/ManyToManyField.html
+ManyToManyField] is the human-readable description, the second is the name of the model
+we are linking to, and the third is the name of the "glue" model.  The expected join field
+names in the glue model are just the model names, in underscore-notation (see top of page).
+You can override the field names using the "joinField" and "targetField" options (see API
+docs).
+
+Now that we've created a few models, let's move on to [ModelQueryCreatingModels creating
+model objects].
