@@ -5,8 +5,9 @@ that tell ModelQuery how to map the database data to PHP objects, so that
 you can easily query for and traverse relationships between records.
 
 There are a few restrictions on model definition file naming:
-  # The file must be named <ModelName>.class.php
-  # The class name in the file must be <ModelName>
+  # The file must be named _ModelName_.class.php
+  # The class name in the file must be _ModelName_
+  # The file must reside in a model directory known to your QueryFactory
 
 This convention allows ModelQuery to load model classes on demand,
 rather than initializing everything on every request.
