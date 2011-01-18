@@ -30,3 +30,6 @@ $fq->delete();
 
 would delete all films from the database - so be very careful how
 you use it.
+
+This concludes the basic usage of ModelQuery.  If you want to explore
+more advanced uses, continue on to [ModelQueryReturnTypes alternate result types].
