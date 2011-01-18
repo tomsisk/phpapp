@@ -83,8 +83,8 @@ $directorSoderbergh->save();
 $fq = $qf->Film;
 $filmOceans = $fq->create(array(
     'title' => 'Ocean\'s 11',
-	'director' => $directorSoderbergh,
-	'release' => mktime(0,0,0,12,7,2001)));
+    'director' => $directorSoderbergh,
+    'release' => mktime(0,0,0,12,7,2001)));
 // Film must be saved before we add items to a relation set field
 $filmOceans->save();
 
@@ -100,13 +100,13 @@ you can set or access field values using either properties or array
 indexes:
 
 {{{
-	// These are identical
-	echo $actorClooney->name;
-	echo $actorClooney['name'];
+// These are identical
+echo $actorClooney->name;
+echo $actorClooney['name'];
 
-	// So are these
-	$filmOceans->nominated = true;
-	$filmOceans['nominated'] = true;
+// So are these
+$filmOceans->nominated = true;
+$filmOceans['nominated'] = true;
 }}}
 
 Next, let's look at how to [ModelQueryFilters query for these objects].
