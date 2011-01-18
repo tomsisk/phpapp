@@ -13,7 +13,7 @@ $film->delete();
 }}}
 
 However, you can also bulk-delete any object that matches a query, by
-simple calling QueryFilter::delete() at the end of a filter chain:
+simple calling !QueryFilter::delete() at the end of a filter chain:
 
 {{{
 // Filter by director 1

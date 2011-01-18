@@ -1,6 +1,6 @@
 =Querying the Database=
 
-Querying the database starts out with a query handler from our QueryFactory again:
+Querying the database starts out with a query handler from our !QueryFactory again:
 
 {{{
 $fq = $qf->Film;
@@ -27,10 +27,10 @@ add a filter, and returns a new
 [http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/QueryFilter.html QueryFilter]
 object at the end of the filter chain.
 
-A QueryFilter represents the current state of the query; it does not actually
+A !QueryFilter represents the current state of the query; it does not actually
 execute a query on the database. The query is executed when one of two things
 happens:
-  # You use the QueryFilter in your code as an array, either in a foreach loop or by direct index access
+  # You use the !QueryFilter in your code as an array, either in a foreach loop or by direct index access
   # You explicitly call a method the returns query results, like select(), hash(), get(), etc.
 
 In the above examples, only the last one (the get() call ) results in a database query.
@@ -85,7 +85,7 @@ $films = $base->slice(10);
 
 ==Field Modifiers==
 
-The core of ModelQuery's filters is the QueryFilter::filter() call.  This method
+The core of ModelQuery's filters is the !QueryFilter::filter() call.  This method
 takes pairs of parameters, specifying a field to query (with optional modifier),
 and the value to compare to.
 

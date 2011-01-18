@@ -2,12 +2,12 @@
 
 [http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/QueryFactory.html QueryFactory]
 is your entry point to ModelQuery.  All operations in ModelQuery start with getting a
-query handler from QueryFactory.
+query handler from !QueryFactory.
 
-Configuring your QueryFactory is simple - all you need is an ADODB connection object
+Configuring your !QueryFactory is simple - all you need is an ADODB connection object
 and a list of directories that contain your model definitions.
 
-Example of a shared include the creates a QueryFactory for an app:
+Example of a shared include the creates a !QueryFactory for an app:
 
 {{{
 <?php
