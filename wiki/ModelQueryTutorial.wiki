@@ -6,5 +6,6 @@
   * [ModelQueryModelDefinitions Create Model Definitions]
   * [ModelQueryCreatingModels Creating Model Instances]
   * [ModelQueryFilters Querying for Models]
+  * [ModelQueryDeleteModels Deleting Models]
   * [ModelQueryReturnTypes Alternate Return Types]
   * [ModelQueryAdvanced Advanced Usage]
