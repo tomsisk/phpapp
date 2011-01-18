@@ -1,0 +1,31 @@
+=Configure the Query Factory=
+
+[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/QueryFactory.html QueryFactory]
+is your entry point to ModelQuery.  All operations in ModelQuery start with getting a
+query handler from QueryFactory.
+
+Configuring your QueryFactory is simple - all you need is an ADODB connection object
+and a list of directories that contain your model definitions.
+
+Example:
+
+{{{
+// 'mysqlt' is strongly recommended for transactional support
+$conn = ADONewConnection('mysqlt');
+$conn->setFetchMode(ADODB_FETCH_ASSOC);
+$conn->autoCommit = false;
+$conn->Connect($host, $user, $pass, $dbname);
+
+// You can pass a list of model source directories
+$qf = new QueryFactory($conn, array('/my/model/directory'))
+}}}
+
+That's all there is to it.  Then to fetch a query handler, simply
+access it as a property of QueryFactory:
+
+{{{
+$actorQuery = $qf->Actor;
+}}}
+
+This assumes you have an "Actor" model defined; we'll get into that in
+the next section, where we look at [ModelQueryModelDefinitions creating model definitions]

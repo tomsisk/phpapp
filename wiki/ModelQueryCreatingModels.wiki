@@ -1,0 +1,11 @@
+=Create Model Objects=
+
+Because model objects need to be aware of which data store they come from
+(or are going to), we cannot simply instantiate a Model like this:
+
+{{{
+// WRONG
+$actor = new Actor();
+}}}
+
+Instead, 

@@ -4,6 +4,7 @@
   * [ModelQueryGettingStarted Create a Database]
   * [ModelQueryQueryFactory Configure the Query Factory]
   * [ModelQueryModelDefinitions Create Model Definitions]
-  * [ModelQueryFilters Using Query Filters]
+  * [ModelQueryCreatingModels Creating Model Instances]
+  * [ModelQueryFilters Querying for Models]
   * [ModelQueryReturnTypes Alternate Return Types]
   * [ModelQueryAdvanced Advanced Usage]
