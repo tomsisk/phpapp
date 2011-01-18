@@ -80,32 +80,32 @@
 											(<span class="var-type"></span>&nbsp;<span class="var-name">&$modelClass_</span>, <span class="var-type"></span>&nbsp;<span class="var-name">&$factory_</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$appName_</span> = <span class="var-default">null</span>], <span class="var-type"><a href="../modelquery/Model.html">Model</a></span>&nbsp;<span class="var-name">$modelClass_</span>, <span class="var-type"><a href="../modelquery/QueryFactory.html">QueryFactory</a></span>&nbsp;<span class="var-name">$factory_</span>)
 									</div>
 																<div class="method-definition">
-											<span class="method-result">void</span>
+											<span class="method-result"><a href="../modelquery/Model.html">Model</a></span>
 										<a href="#create" title="details" class="method-name">create</a>
 											([<span class="var-type">Array</span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$rawvalues</span> = <span class="var-default">null</span>], [<span class="var-type">int</span>&nbsp;<span class="var-name">$flags</span> = <span class="var-default">0</span>])
 									</div>
 																<div class="method-definition">
-											<span class="method-result">void</span>
+											<span class="method-result"><a href="../modelquery/Model.html">Model</a></span>
 										<a href="#getAndUpdate" title="details" class="method-name">getAndUpdate</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$params</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$flags</span> = <span class="var-default">0</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$filter</span> = <span class="var-default">null</span>])
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">Array</span>&nbsp;<span class="var-name">$params</span>, [<span class="var-type">int</span>&nbsp;<span class="var-name">$flags</span> = <span class="var-default">0</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$filter</span> = <span class="var-default">null</span>], <span class="var-type">Array</span>&nbsp;<span class="var-name">$rawvalues</span>)
 									</div>
 																<div class="method-definition">
-											<span class="method-result">void</span>
+											<span class="method-result">string</span>
 										<a href="#getAppName" title="details" class="method-name">getAppName</a>
 										()
 									</div>
 																<div class="method-definition">
-											<span class="method-result">void</span>
+											<span class="method-result"><a href="../modelquery/Model.html">Model</a></span>
 										<a href="#getConcreteType" title="details" class="method-name">getConcreteType</a>
 											(<span class="var-type"></span>&nbsp;<span class="var-name">$params</span>)
 									</div>
 																<div class="method-definition">
-											<span class="method-result">void</span>
+											<span class="method-result">ADOConnection</span>
 										<a href="#getConnection" title="details" class="method-name">getConnection</a>
 										()
 									</div>
 																<div class="method-definition">
-											<span class="method-result">void</span>
+											<span class="method-result">string</span>
 										<a href="#getTable" title="details" class="method-name">getTable</a>
 										()
 									</div>
@@ -262,12 +262,13 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">create</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelQuery.class.php.html#a79">79</a></span>)
+		<span class="method-title">create</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelQuery.class.php.html#a80">80</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Create a model object from a hash of key/value pairs.</p>
 	<ul class="tags">
+				<li><span class="field">return:</span> The new Model instance</li>
 				<li><span class="field">see:</span> <a href="../modelquery/_Model.class.php.html#defineUPDATE_FROM_DB">UPDATE_FROM_DB</a></li>
 				<li><span class="field">see:</span> <a href="../modelquery/_Model.class.php.html#defineUPDATE_FORCE_BOOLEAN">UPDATE_FORCE_BOOLEAN</a></li>
 				<li><span class="field">see:</span> <a href="../modelquery/_Model.class.php.html#defineUPDATE_FROM_FORM">UPDATE_FROM_FORM</a></li>
@@ -275,7 +276,7 @@
 			</ul>
 	
 	<div class="method-signature">
-		<span class="method-result">void</span>
+		<span class="method-result"><a href="../modelquery/Model.html">Model</a></span>
 		<span class="method-name">
 			create
 		</span>
@@ -300,32 +301,40 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getAndUpdate</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelQuery.class.php.html#a110">110</a></span>)
+		<span class="method-title">getAndUpdate</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelQuery.class.php.html#a132">132</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Update an existing model object from a hash of key/value pairs.</p>
 	<ul class="tags">
+				<li><span class="field">return:</span> The updated Model instance</li>
+				<li><span class="field">see:</span> <a href="../modelquery/_Model.class.php.html#defineUPDATE_FROM_DB">UPDATE_FROM_DB</a></li>
+				<li><span class="field">see:</span> <a href="../modelquery/_Model.class.php.html#defineUPDATE_FORCE_BOOLEAN">UPDATE_FORCE_BOOLEAN</a></li>
+				<li><span class="field">see:</span> <a href="../modelquery/_Model.class.php.html#defineUPDATE_FROM_FORM">UPDATE_FROM_FORM</a></li>
 				<li><span class="field">access:</span> public</li>
 			</ul>
 	
 	<div class="method-signature">
-		<span class="method-result">void</span>
+		<span class="method-result"><a href="../modelquery/Model.html">Model</a></span>
 		<span class="method-name">
 			getAndUpdate
 		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$params</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$flags</span> = <span class="var-default">0</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$filter</span> = <span class="var-default">null</span>])
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">Array</span>&nbsp;<span class="var-name">$params</span>, [<span class="var-type">int</span>&nbsp;<span class="var-name">$flags</span> = <span class="var-default">0</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$filter</span> = <span class="var-default">null</span>], <span class="var-type">Array</span>&nbsp;<span class="var-name">$rawvalues</span>)
 			</div>
 	
 			<ul class="parameters">
 					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$id</span>			</li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$id</span><span class="var-description">: The unique object ID</span>			</li>
 					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$params</span>			</li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$params</span><span class="var-description">: A hash array of name/value pairs</span>			</li>
 					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$flags</span>			</li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$rawvalues</span><span class="var-description">: A list of field names that should be ignored          during type conversion</span>			</li>
+					<li>
+				<span class="var-type">int</span>
+				<span class="var-name">$flags</span><span class="var-description">: A bitmask of flags specifying information about the          source of the params (UPDATE_* constants)</span>			</li>
 					<li>
 				<span class="var-type"></span>
 				<span class="var-name">$filter</span>			</li>
@@ -337,16 +346,18 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getAppName</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelQuery.class.php.html#a127">127</a></span>)
+		<span class="method-title">getAppName</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelQuery.class.php.html#a157">157</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the application name (from QueryFactory).</p>
 	<ul class="tags">
+				<li><span class="field">return:</span> The application name</li>
 				<li><span class="field">access:</span> public</li>
 			</ul>
 	
 	<div class="method-signature">
-		<span class="method-result">void</span>
+		<span class="method-result">string</span>
 		<span class="method-name">
 			getAppName
 		</span>
@@ -360,16 +371,19 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getConcreteType</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelQuery.class.php.html#a95">95</a></span>)
+		<span class="method-title">getConcreteType</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelQuery.class.php.html#a103">103</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Determine if the specified model requires an alternate model subclass  (if the model called mapConcreteTypes()).</p>
 	<ul class="tags">
+				<li><span class="field">return:</span> The model prototype that fits the field values</li>
+				<li><span class="field">see:</span> <a href="../modelquery/Model.html#methodmapConcreteTypes">Model::mapConcreteTypes()</a></li>
 				<li><span class="field">access:</span> public</li>
 			</ul>
 	
 	<div class="method-signature">
-		<span class="method-result">void</span>
+		<span class="method-result"><a href="../modelquery/Model.html">Model</a></span>
 		<span class="method-name">
 			getConcreteType
 		</span>
@@ -388,16 +402,18 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getConnection</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelQuery.class.php.html#a123">123</a></span>)
+		<span class="method-title">getConnection</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelQuery.class.php.html#a149">149</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the current database connection.</p>
 	<ul class="tags">
+				<li><span class="field">return:</span> The database connection</li>
 				<li><span class="field">access:</span> public</li>
 			</ul>
 	
 	<div class="method-signature">
-		<span class="method-result">void</span>
+		<span class="method-result">ADOConnection</span>
 		<span class="method-name">
 			getConnection
 		</span>
@@ -411,16 +427,18 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getTable</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelQuery.class.php.html#a131">131</a></span>)
+		<span class="method-title">getTable</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelQuery.class.php.html#a165">165</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get this model's database table name.</p>
 	<ul class="tags">
+				<li><span class="field">return:</span> The table name</li>
 				<li><span class="field">access:</span> public</li>
 			</ul>
 	
 	<div class="method-signature">
-		<span class="method-result">void</span>
+		<span class="method-result">string</span>
 		<span class="method-name">
 			getTable
 		</span>
@@ -434,11 +452,13 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">hash</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelQuery.class.php.html#a162">162</a></span>)
+		<span class="method-title">hash</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelQuery.class.php.html#a208">208</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">This method is illegal on ModelQuery to avoid query caching in the  base object.</p>
 	<ul class="tags">
+				<li><span class="field">throws:</span> InvalidUsageException Method is not valid on this object.</li>
 				<li><span class="field">access:</span> public</li>
 			</ul>
 	
@@ -463,7 +483,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">makeTableName</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelQuery.class.php.html#a137">137</a></span>)
+		<span class="method-title">makeTableName</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelQuery.class.php.html#a171">171</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -491,11 +511,13 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">raw</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelQuery.class.php.html#a168">168</a></span>)
+		<span class="method-title">raw</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelQuery.class.php.html#a220">220</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">This method is illegal on ModelQuery to avoid query caching in the  base object.</p>
 	<ul class="tags">
+				<li><span class="field">throws:</span> InvalidUsageException Method is not valid on this object.</li>
 				<li><span class="field">access:</span> public</li>
 			</ul>
 	
@@ -520,11 +542,13 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">select</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelQuery.class.php.html#a156">156</a></span>)
+		<span class="method-title">select</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelQuery.class.php.html#a196">196</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">This method is illegal on ModelQuery to avoid query caching in the  base object.</p>
 	<ul class="tags">
+				<li><span class="field">throws:</span> InvalidUsageException Method is not valid on this object.</li>
 				<li><span class="field">access:</span> public</li>
 			</ul>
 	
@@ -629,7 +653,7 @@
 
 
 	<p class="notes" id="credit">
-		Documentation generated on Mon, 17 Jan 2011 16:23:02 -0600 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Tue, 18 Jan 2011 13:37:18 -0600 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
