@@ -5,7 +5,10 @@ Now that we've loaded some objects into the database, how do we remove them?
 Removing a single object is simple: just load the object and call delete():
 
 {{{
+// Load a film
 $film = $film->get(1);
+
+// Delete it immediately
 $film->delete();
 }}}
 
