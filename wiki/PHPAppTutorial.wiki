@@ -5,7 +5,7 @@
 [PHPAppQuickStart Quick Start Guide]: Using the sample application
 
 Step-by-Step Guide:
-  * [PHPAppNewProject Creating a PHPApp Project]
+  * [PHPAppNewProject Creating a New PHPApp Project]
   * [PHPAppModules Creating Content Modules]
   * [PHPAppConfiguration Application Configuration]
   * [PHPAppApplication Using the Application Object]
