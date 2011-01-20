@@ -157,8 +157,8 @@
 							continue;
 
 						$fq = $fma->getQuery();
-						if (count($inuse[$fieldname])) {
-							$related = $fq->filter('pk:in', $inuse[$fieldname]);
+						if (count($inuse[$field])) {
+							$related = $fq->filter('pk:in', $inuse[$field]);
 							foreach($related as $r) {
 								$fo = array($r->pk, $modeladmin->getAdmin()->getApplication()->toString($r),
 										(array_key_exists($field, $filteredFields) && $fieldobj->convertValue($filters[$field]) === $r->pk)
