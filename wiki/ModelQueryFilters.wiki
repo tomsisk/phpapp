@@ -124,4 +124,62 @@ $films = $fq->filter('director.name:icontains', 'soderbergh')
 ModelQuery takes care of the query joins behind the scenes, leaving your
 queries nice and simple.
 
+==Preloading Related Objects==
+
+Although lazy-loading is a nice default feature to prevent excessive
+queries and joins when they're not needed, there will be times when
+you _know_ you will need access to a related object immediately, and
+you don't want to make unnecessary queries to the database.  This is what
+[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/QueryFilter.html#methodpreload QueryFilter::preload()]
+is for.
+
+When you call preload(), ModelQuery will attempt to make the necessary
+joins to load both the primary object and the related object in a single
+database query.
+
+Take the following example, which does not use preload():
+
+{{{
+$films = $fq->filter('nominated', true);
+
+// Foreach loop loads all film data with one query
+foreach ($films as $film) {
+	// Accessing the "director" related object makes a separate query
+	echo $film->director->name;
+}
+}}}
+
+This code executes one query to load the Film objects, and another query
+_for each film_ as you iterate through them.  So if you have 100
+films in the query results, you will make 101 database queries!  Seems
+a bit wasteful since you know in advance that you will need access to
+the director information
+
+Let's modify the example to use preload():
+
+{{{
+// Request to preload the "director" object
+$films = $fq->filter('nominated', true)->preload('director');
+
+// Foreach loop loads all film and directory data with one query
+foreach ($films as $film) {
+	// Accessing the "director" related object no longer makes
+	// an additional query, because the first query already
+	// loaded it
+	echo $film->director->name;
+}
+}}}
+
+With the second method, we are only making a single query to the
+database, no matter how many films are returned - quite a bit
+more efficient.
+
+You can chain multiple preload() calls in a query, and you can
+preload any number of objects that are linked by a !ManyToOneField.
+
+preload() also works on relation set fields (!OneToManyField,
+!ManyToManyField), with one caveat: although you can preload
+any number of !ManyToOneField fields, you can only preload
+a _single_ relation set field.
+
 Next up, we'll learn how to [ModelQueryDeleteModels delete model instances from the database].
