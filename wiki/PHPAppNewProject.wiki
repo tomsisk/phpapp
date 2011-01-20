@@ -33,3 +33,5 @@ example
  # Customize the Apache configuration (apache/phpapp-example.conf) to point to the correct directories, and add the new virtual host to your Apache installation.
  # Go to http://your-new-site.com/admin and login as "admin" / "password"
 
+If the admin site comes up in your browser, your application is ready to
+customize, so let's [PHPAppModules create some content modules].
