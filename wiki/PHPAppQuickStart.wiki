@@ -23,11 +23,11 @@ in SVN.  With this directory:
 
 {{{
 example
- |- www			- The Apache public web site root.
- |- admin		- The Apache admin site root.
- |- apache		- Sample Apache configuration directives.
- |- config		- Sample PHPAPP config files.
- |- lib			- Application shared code.
- | \- modules	- The PHPAPP application modules.
- \- sql			- The database initialization SQL.
+ |- www         - The Apache public web site root.
+ |- admin       - The Apache admin site root.
+ |- apache      - Sample Apache configuration directives.
+ |- config      - Sample PHPAPP config files.
+ |- lib         - Application shared code.
+ | \- modules   - The PHPAPP application modules.
+ \- sql         - The database initialization SQL.
 }}}
