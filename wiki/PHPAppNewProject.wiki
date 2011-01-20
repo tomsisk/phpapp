@@ -1,9 +1,9 @@
-=Quick Start Guide=
+=Creating a New PHPApp Project=
 
 PHPApp includes a bare-bones example application, that includes
 some basic modules like user and group administration.  If you're
 creating a new application, the easiest way to get up and running
-is to copy this sample application.
+is to just copy this sample application.
 
 The sample application is located in
 [http://code.google.com/p/phpapp/source/browse/trunk#trunk%2Fphpapp%2Fexample phpapp/example]
