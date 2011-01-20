@@ -153,7 +153,7 @@ This code executes one query to load the Film objects, and another query
 _for each film_ as you iterate through them.  So if you have 100
 films in the query results, you will make 101 database queries!  Seems
 a bit wasteful since you know in advance that you will need access to
-the director information
+the director information.
 
 Let's modify the example to use preload():
 
@@ -161,7 +161,7 @@ Let's modify the example to use preload():
 // Request to preload the "director" object
 $films = $fq->filter('nominated', true)->preload('director');
 
-// Foreach loop loads all film and directory data with one query
+// Foreach loop loads all film and director data with one query
 foreach ($films as $film) {
 	// Accessing the "director" related object no longer makes
 	// an additional query, because the first query already
