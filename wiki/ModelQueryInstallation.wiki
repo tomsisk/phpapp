@@ -2,4 +2,4 @@
 
 TODO
 
-Now that it's installed, let's [ModelQueryGettingStarted create a database].
+Now that it's installed, let's [ModelQueryCreateDatabase create a database].
