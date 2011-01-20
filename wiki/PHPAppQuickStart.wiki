@@ -17,7 +17,7 @@ in SVN.  With this directory:
  # Configure "config/default.inc.php" to use your database settings.  You can also create a "local.inc.php" in the app root to override and configuration settings in your development environment.
  # If you moved your modules directory, update the "modules" configuration variable in "config/default.inc.php".  Make sure the path listed is accessible from PHP's include_path specified in the Apache environment.
  # Customize the Apache configuration (apache/phpapp-example.conf) to point to the correct directories, and add the new virtual host to your Apache installation.
- # Go to !http://_your-new-site.com_/admin and login as "admin" / "password"
+ # Go to http://your-new-site.com/admin and login as "admin" / "password"
 
 ===Directory Structure of the Sample Application===
 
