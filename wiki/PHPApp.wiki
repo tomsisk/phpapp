@@ -2,5 +2,6 @@ PHPApp is a web application framework for PHP and MySQL. It uses ModelQuery for 
 
 = Documentation =
 
+  * [PHPAppFeatures Features]
+  * [PHPAppTutorial Tutorial]
   * [PHPAppAPIReference API Reference]
-  * [PHPAppCodeSamples Code Samples]

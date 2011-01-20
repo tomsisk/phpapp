@@ -1,9 +1,9 @@
 =Tutorial=
 
   * [ModelQueryInstallation Installation]
-  * [ModelQueryCreateDatabase Create a Database]
-  * [ModelQueryQueryFactory Configure the Query Factory]
-  * [ModelQueryModelDefinitions Create Model Definitions]
+  * [ModelQueryCreateDatabase Creating a Database]
+  * [ModelQueryQueryFactory Configuring the Query Factory]
+  * [ModelQueryModelDefinitions Creating Model Definitions]
   * [ModelQueryCreatingModels Creating Model Instances]
   * [ModelQueryFilters Querying for Models]
   * [ModelQueryDeleteModels Deleting Models]

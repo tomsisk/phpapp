@@ -15,6 +15,5 @@
    * [http://home.jongsma.org/software/modelquery/docs/phpdoc/ API Reference]
  * [PHPApp PHPApp]
    * [PHPAppFeatures Features]
-   * [PHPAppScreenshots Admin Screenshots]
-   * [PHPAppAPIReference API Reference]
    * [PHPAppTutorial Tutorial]
+   * [PHPAppAPIReference API Reference]
