@@ -469,7 +469,6 @@
 		 * @param string $field The field name linking the related object
 		 * @return QueryFilter The new QueryFilter at the end of the filter chain
 		 */
-		 */
 		public function &preload($field) {
 			$filter = new QueryFilter($this->modelquery, $this);
 			$filter->applyPreload($field);
