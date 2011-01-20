@@ -1,3 +1,5 @@
 =Installation=
 
 TODO
+
+Now that PHPApp is installed, let's [PHPAppNewProject create new project].
