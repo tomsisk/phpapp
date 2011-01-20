@@ -6,6 +6,10 @@ the type that doesn't want directions, or have had some experience
 with PHPApp before, you can follow the steps below to get a new
 application up and running in a few minutes.
 
+The sample application is located in
+[http://code.google.com/p/phpapp/source/browse/trunk#trunk%2Fphpapp%2Fexample phpapp/example]
+in SVN.  With this directory:
+
  # Copy all directory contents to a new location.  Be sure you do not copy the ".svn" directory entries.  Note that there are some hidden files in some directories (i.e. www/.htaccess).
  # Customize the module path to fit your application.  Ideally in a production app, they would be located somewhere like "lib/myappname/modules" instead of just "lib/modules".
  # Create a new MySQL database for your application.
