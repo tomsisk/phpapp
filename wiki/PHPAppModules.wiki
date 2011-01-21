@@ -1,0 +1,46 @@
+=Creating Content Modules=
+
+PHPApp depends on ModelQuery for its interaction with the database,
+so this tutorial assumes that you already have your database schema
+created, and have created the appropriate Model definitions for your
+tables.  If you haven't done that yet, go ahead and run through the
+[ModelQueryTutorial ModelQuery tutorial] before continuing on.  This
+tutorial will be using the same example tables and models that we
+first created there.
+
+In order to create an intuitive administration interface, you will
+need to group your model definitions into _modules_.  Modules are
+a directory that contains a set of related models, along with
+additional media and configuration directives to tell PHPApp how
+to build an administration interface for them.
+
+A module directory the following structure.  Let's create a
+"Films" module to group the models we created in the
+[ModelQueryTutorial ModelQuery tutorial].  The module
+should have a unique name (we'll use "films"), which will
+also be the directory name that contains the module.  Inside
+the module directory are several important files and
+directories:
+
+ * films: The module root directory
+   * module.php: Core module configuration _(required)_
+   * models/: Database model definitions _(required)_
+   * admin/: Admin interface configuration _(required)_
+   * fields/: Custom fields used by models
+   * templates/: Custom interface templates
+     * fields/: Custom field form templates
+   * media/: supporting media (images, etc)
+
+Let's look at what each of these does.
+
+==module.php==
+
+==models/==
+
+==admin/==
+
+==fields/==
+
+==templates/==
+
+==media/==
