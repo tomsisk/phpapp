@@ -9,7 +9,7 @@
   * [PHPAppModuleAdmin Configuring Modules]
   * [PHPAppModelAdmin Configuring Model Administration]
   * Advanced !ModelAdmin Configuration
-  	* [PHPAppModelAdminExecution Background: How PHPApp Processes a Request]
+    * [PHPAppModelAdminExecution Background: How PHPApp Processes a Request]
     * [PHPAppActionHooks Adding Action Hooks]
     * [PHPAppActionHandlers Creating Custom Actions]
   * [PHPAppCustomTemplates Customizing the Interface Templates]
