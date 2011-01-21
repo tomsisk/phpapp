@@ -37,4 +37,4 @@ module into the modules path that you created in the last step
 (probably _lib/yourappname/modules_).
 
 Now that we have a basic module created, let's look at configuring
-the core of class of PHPApp - the [PHPAppConfiguration Application object].
+the core class of PHPApp - the [PHPAppConfiguration Application object].
