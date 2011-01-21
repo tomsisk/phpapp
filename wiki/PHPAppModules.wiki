@@ -33,14 +33,16 @@ directories:
 
 Let's look at what each of these does.
 
-==module.php==
+==Module Files==
 
-==models/==
+===module.php===
 
-==admin/==
+===models/===
 
-==fields/==
+===admin/===
 
-==templates/==
+===fields/===
 
-==media/==
+===templates/===
+
+===media/===
