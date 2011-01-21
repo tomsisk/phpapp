@@ -35,14 +35,14 @@ Let's look at what each of these does.
 
 ==Module Files==
 
-===module.php===
+  ===module.php===
 
-===models/===
+  ===models/===
 
-===admin/===
+  ===admin/===
 
-===fields/===
+  ===fields/===
 
-===templates/===
+  ===templates/===
 
-===media/===
+  ===media/===
