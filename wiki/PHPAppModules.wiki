@@ -14,9 +14,8 @@ a directory that contains a set of related models, along with
 additional media and configuration directives to tell PHPApp how
 to build an administration interface for them.
 
-A module directory the following structure.  Let's create a
-"Films" module to group the models we created in the
-[ModelQueryTutorial ModelQuery tutorial].  The module
+Let's create a "Films" module to group the models we created in
+the [ModelQueryTutorial ModelQuery tutorial].  The module
 should have a unique name (we'll use "films"), which will
 also be the directory name that contains the module.  Inside
 the module directory are several important files and
