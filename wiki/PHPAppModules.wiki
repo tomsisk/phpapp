@@ -22,7 +22,7 @@ the module directory are several important files and
 directories:
 
  * films: The module root directory
-   * module.php: Core module configuration _(required)_
+   * [PHPAppModules#module.php module.php]: Core module configuration _(required)_
    * models/: Database model definitions _(required)_
    * admin/: Admin interface configuration _(required)_
    * fields/: Custom fields used by models
