@@ -23,12 +23,12 @@ directories:
 
  * films: The module root directory
    * [PHPAppModules#module.php module.php]: Core module configuration _(required)_
-   * models/: Database model definitions _(required)_
-   * admin/: Admin interface configuration _(required)_
-   * fields/: Custom fields used by models
-   * templates/: Custom interface templates
+   * [PHPAppModules#models/ models/]: Database model definitions _(required)_
+   * [PHPAppModules#admin/ admin/]: Admin interface configuration _(required)_
+   * [PHPAppModules#fields/ fields/]: Custom fields used by models
+   * [PHPAppModules#templates/ templates/]: Custom interface templates
      * fields/: Custom field form templates
-   * media/: supporting media (images, etc)
+   * [PHPAppModules#media/ media/]: supporting media (images, etc)
 
 Let's look at what each of these does.
 
