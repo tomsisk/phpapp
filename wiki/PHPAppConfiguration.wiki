@@ -59,7 +59,7 @@ $app = new Application($name, $appRoot, $configDir, $localConfig);
 
 Parameters:
   # *$name*: A descriptive name for the application.  Since this is used to generate a unique hash identifier, it is recommended that this name be unique among apps that share the same resources (filesystem, memcache server, etc)
-  # *$appRoot*: The root directory of the web application (note that the _web application root_ is different than the _project root_).  This is also used to determine the relative URL of the application (if [PHPAppAdditionalConfig#base_url _base_url_] is not specified in the config file.)
+  # *$appRoot*: The root directory of the web application (note that the _web application root_ is different than the _project root_).  This is also used to determine the relative URL of the application (if [PHPAppAdditionalConfig#Application_Core base_url] is not specified in the config file.)
   # *$configDir*: A directory containing configuration files.  Your main configuration file should be named _default.inc.php_.  However, if you need to customize configuration based on the request's domain, you can create additional config files with the naming pattern of _customer1.example.com.inc.php_.
   # *$localConfig*: A local configuration file that overrides values from the standard config file.  This is useful to do per-server configuration customization, while still sharing the majority of config directives (or for setting up development environments).
 
