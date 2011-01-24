@@ -31,12 +31,19 @@ of the site, if any.  If you copy the index.php controller from the
 example app, it reads this prefix from your configuration file
 (`admin_path`).
 
+Once you create the !AdminController, responding to the web request
+is easy:
+
+{{{
+$admin->handleRequest();
+}}}
+
 Simple, right?  If you've included the `phpapp-modules/users` module
 and loaded the default database data (from
 [http://code.google.com/p/phpapp/source/browse/trunk/phpapp/example/sql/phpapp-example.sql phpapp-example.sql],
-you should be able to login with admin / password and start edit users
+you should be able to login with admin / password and start editing users
 and groups.
 
-So, setting up an admin site with pre-configured modules is a snap.
-Configuring your content modules for the admin interface can be a
-bit more complex, so let's go ahead and [PHPAppModuleAdmin configure a module].
+So setting up an admin site with pre-configured modules is a snap.
+Configuring your content modules for the admin interface is a bit more
+complex, so let's go ahead and [PHPAppModuleAdmin configure a module].
