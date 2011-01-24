@@ -1,21 +1,9 @@
-=The Application Object=
+=Application Configuration=
 
-The [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html Application]
-object is the central interface for interacting with your PHPApp
-application.  The Application object provides services such as:
-
-  * Database access (via ModelQuery)
-  * User authentication
-  * Checking user permissions
-  * Content caching (user, session, or global)
-  * Sending emails
-  * Logging
-
-==Configuration==
-
-When you create an Application instance, you pass it a configuration
-file for your application.  A sample configuration file is shown below
-(this is from the examples app):
+To use PHPApp, you will need to create an
+[http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html Application]
+object for your app.  First, create a configuration file for your application.
+A sample configuration file is shown below (this is from the examples app):
 
 {{{
 <?php
@@ -49,14 +37,14 @@ to initialize an application.  For more configuration options, see
 
 Name this config file _default.inc.php_ and put it in its own directory
 somewhere outside of the application web root (the example app
-uses the directory _config_ in the project root.
+uses the directory _config_ in the project root.)
 
 There is one main requirement for creating an Application instance:
 you must include a module that provides a User model, which extends
 [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-modules/BaseUser.html BaseUser].
-If you do not need to extend the default user class, you can just include the
+If you do not need to extend the default user model, you can just include the
 _phpapp-modules/users_ module itself (as in the example above).  For
-information on extending the default User object, see
+information on extending the default User model, see
 [PHPAppExtendingUser Extending the Default User Model].
 
 ==Creating an Application Instance==
@@ -72,7 +60,7 @@ Parameters:
   # *$name*: A descriptive name for the application.  Since this is used to generate a unique hash identifier, it is recommended that this name be unique among apps that share the same resources (filesystem, memcache server, etc)
   # *$appRoot*: The root directory of the web application (note that the _web application root_ is different than the _project root_).  This is also used to determine the relative URL of the application (if [PHPAppAdditionalConfig#base_url _base_url_] is not specified in the config file.)
   # *$configDir*: A directory containing configuration files.  Your main configuration file should be named _default.inc.php_.  However, if you need to customize configuration based on the request's domain, you can create additional config files with the naming pattern of _customer1.example.com.inc.php_.
-  # *$localConfig*: A local configuration file that overrides values from the standard config file.  This is useful to do per-server configuration customization, while still sharing the majority of config directives.
+  # *$localConfig*: A local configuration file that overrides values from the standard config file.  This is useful to do per-server configuration customization, while still sharing the majority of config directives (or for setting up development environments).
 
 Example:
 {{{

@@ -1,0 +1,122 @@
+=Using the Application Object=
+
+The [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html Application]
+object is the central interface for interacting with your PHPApp
+application.  The Application object provides services such as:
+
+  * Database access (via ModelQuery)
+  * User authentication
+  * Checking user permissions
+  * Content caching (user, session, or global)
+  * Sending emails
+  * Logging
+
+==Database Access==
+
+PHPApp used ModelQuery for database access.  If you are not familiar
+with the ModelQuery API, you can check out the [ModelQueryTutorial tutorial]
+before continuing.
+
+Unlike using ModelQuery manually, PHPApp manages its own !QueryFactory
+instance, so you don't have to worry about creating database connections
+or knowing where your model directories are - PHPApp has all that
+information from your config file.
+
+Accessing a Model included in one of your content modules is simple:
+
+{{{
+$userQuery = $app->query->User;
+}}}
+
+$app->query is just a reference to the Application's preconfigured
+!QueryFactory object.  Once you have a query handler, you use
+it the same way you are used to with ModelQuery:
+
+{{{
+$user = $userQuery->filter('username', 'jjongsma')->one()
+}}}
+
+==User Authentication==
+
+Authenticating a user is as simple as calling the
+[http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#login login()]
+method:
+
+{{{
+$user = $app->login($username, $password, $remember);
+}}}
+
+The *$username* and *$password* parameters should be self-explanatory.
+The *$remember* parameter is a boolean value; if TRUE, it will set a
+cookie on the user's browser to automatically log them back in on
+future visits.  Explicitly calling logout() removes this "remember me"
+cookie:
+
+{{{
+$app->logout()
+}}}
+
+==Checking User Permissions==
+
+If you are also using the administration site piece of PHPApp,
+you can check a user's permission from Application:
+
+{{{
+$allowed = $app->checkPermission('EDIT', 'BLOGS', 'POST');
+}}}
+
+$app->checkPermission() takes 4 parameters:
+  # *$action*: The action to check (VIEW, EDIT, DELETE, MODIFY, ADMIN)
+  # *$module* (default=ALL): The module permission code.  This is generally the admin module ID, uppercased.
+  # *$model* (default=ALL): The model permission code.  This is generally the admin model ID, uppercased.
+  # *$instance* (default=ALL): The instance ID.  If you are checking permissions for a specific object, pass its primary key in here.
+
+There are several other useful methods for checking aggregate permissions over
+larger groups of objects:
+
+  * [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#checkModule checkModule()]: check if a user has any permissions within the specified module
+  * [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#checkAction checkAction()]: check if a user has permissions for a specific action on any object within the specified module
+  * [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#checkAccess checkAccess()]: check if a user has any permissions within the specified module, model or object
+
+==Content Caching==
+
+Application provides mechanisms to cache data by user, by current session,
+or globally.  How that cache mechanism works depends on the cache provider
+you are using, but the API is the same:
+
+  * [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#setUserVar set/getUserVar()]: cache a value for the user's current session.
+  * [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#setSessionVar set/getSessionVar()]: cache a value for the current session (not linked to a user.)
+  * [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#setAppVar set/getAppVar()]: cache a value globally (across requests).  Only works if you a supported cache provider is installed (currently XCache.)
+
+==Sending Emails==
+
+If you've setup your mail server info in your configuration file, you can
+send emails using 
+[http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#authMail authMail()].
+
+{{{
+$app->authMail($to, $from, $subject, $message, $extraheaders);
+}}}
+
+The first four parameters are pretty self-explanatory.  The fifth,
+*$extraheaders*, is a name/value array containing arbitrary SMTP
+header names and values to add to the email.
+
+A shortcut for sending preconfigured email templates is available via
+[http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#sendMailTemplate sendMailTemplate()].
+
+==Logging==
+
+You can also write log messages using the Application object, using the
+following methods:
+
+  * [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#logDebug logDebug()].
+  * [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#logInfo logInfo()].
+  * [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#logWarning logWarning()].
+  * [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#logError logError()].
+
+At this point, you should be ready to use the Application object as you
+build the public interface for your web application.
+
+Now we are ready to take a look at the real benefit of using PHPApp:
+its [PHPAppAdminInterface Administration Interface].
