@@ -147,21 +147,23 @@ Now that we've completed our module configuration, the module
 directory has the following structure.  Double check that yours
 looks the same:
 
-  * films
-    * module.php
-    * models
-      * Actor.class.php
-      * Director.class.php
-      * Film.class.php
-      * FilmActor.class.php
-    * admin
-      * ActorAdmin.class.php
-      * DirectorAdmin.class.php
-      * FilmAdmin.class.php
-    * media
-      * actor.png
-      * director.png
-      * film.png
+{{{
+films
+ |- module.php
+ |- models
+ | |- Actor.class.php
+ | |- Director.class.php
+ | |- Film.class.php
+ | \- FilmActor.class.php
+ |- admin
+ | |- ActorAdmin.class.php
+ | |- DirectorAdmin.class.php
+ | \- FilmAdmin.class.php
+ \- media
+   |- actor.png
+   |- director.png
+   \- film.png
+}}}
 
 ==Advanced Configuration==
 
