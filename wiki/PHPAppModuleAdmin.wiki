@@ -107,6 +107,7 @@ them to the corresponding models in the module's configuration file:
 
 `films/module.php`:
 {{{
+<?php
 // Human-readable name for the module
 $module->name = 'Films';
 // Add a new modules to the admin site
