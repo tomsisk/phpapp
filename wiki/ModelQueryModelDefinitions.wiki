@@ -64,8 +64,8 @@ rules:
   # Pluralize the result. This takes special pluralization rules into account ("y" -> "ies", etc).
 
 By these rules, the model "!FilmActor" would be mapped to the database table "film_actors".
-If you want to set the table name manually, you can call $this->setTable($tableName) from
-inside configure().
+If you want to set the table name manually, you can call `$this->setTable($tableName)` from
+inside `configure()`.
 
 ==Relation Fields==
 
@@ -104,7 +104,7 @@ data until you try to access them.  This limits the amount of database queries t
 are required to retrieve an object from the database.  When you load a Film from the
 database, a single query is executed, and the model only knows the director's primary
 key id - not any other data.  However, as soon as you access the field (i.e. using
-$film->director->name), ModelQuery calls the database and load the Director's
+`$film->director->name`), ModelQuery calls the database and load the Director's
 information, transparent to your code.
 
 There are two other additions worth noting in the Film model above:
@@ -145,14 +145,14 @@ field matches the current Director object's primary key.
 
 _The field it queries on in the related object is the current model name in
 underscore-notation (see top of page)._  In this case, it would be looking
-at Film::$director.  If you need to override the join field name, use the
+at `Film::$director`.  If you need to override the join field name, use the
 "joinField" option in !OneToManyField's options array.
 
-Accessing this field ($director->films) returns a
+Accessing this field (`$director->films`) returns a
 [http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/RelationSet.html RelationSet]
 object that contains all Film instances that are linked to this Director
 object (lazy-loaded, again).  You can treat it just like an array for iteration in a
-foreach loop, but it also has add() and remove() methods for managing the related
+foreach loop, but it also has `add()` and `remove()` methods for managing the related
 objects.
 
 ===Many-To-Many Relations===
