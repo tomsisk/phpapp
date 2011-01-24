@@ -1,0 +1,86 @@
+=The Application Object=
+
+The [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html Application]
+object is the central interface for interacting with your PHPApp
+application.  The Application object provides services such as:
+
+  * Database access (via ModelQuery)
+  * User authentication
+  * Checking user permissions
+  * Content caching (user, session, or global)
+  * Sending emails
+  * Logging
+
+==Configuration==
+
+When you create an Application instance, you pass it a configuration
+file for your application.  A sample configuration file is shown below
+(this is from the examples app):
+
+{{{
+<?php
+// Database configuration
+$config['db_host'] = 'localhost';
+$config['db_name'] = 'phpapp_example';
+$config['db_user'] = 'phpapp';
+$config['db_pass'] = 'password';
+
+// Relative URL to serve admin site from
+// If you are not using an admin site, or it is on its
+// own domain, comment this line out
+$config['admin_path'] = '/admin';
+
+// Mailer - only required if using sendMailTemplate / authMail
+$config['mail_host'] = 'localhost';
+$config['mail_from'] = 'nodody@example.com';
+$config['mail_replyto'] = 'nodody@example.com';
+$config['mail_bounces'] = 'nodody@example.com';
+
+// Content modules that this application uses
+$config['modules'] = array(
+	'users' => 'phpapp-modules/users',
+	'blogs' => 'myappname/modules/blogs'
+	);
+}}}
+
+These are just a few of the basic configuration directives required
+to initialize an application.  For more configuration options, see
+[PHPAppAdditionalConfig Additional Configuration Options].
+
+Name this config file _default.inc.php_ and put it in its own directory
+somewhere outside of the application web root (the example app
+uses the directory _config_ in the project root.
+
+There is one main requirement for creating an Application instance:
+you must include a module that provides a User model, which extends
+[http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-modules/BaseUser.html BaseUser].
+If you do not need to extend the default user class, you can just include the
+_phpapp-modules/users_ module itself (as in the example above).  For
+information on extending the default User object, see
+[PHPAppExtendingUser Extending the Default User Model].
+
+==Creating an Application Instance==
+
+Now that you have a configuration file, let's create the Application instance
+for your app:
+
+{{{
+$app = new Application($name, $appRoot, $configDir, $localConfig);
+}}}
+
+Parameters:
+  # *$name*: A descriptive name for the application.  Since this is used to generate a unique hash identifier, it is recommended that this name be unique among apps that share the same resources (filesystem, memcache server, etc)
+  # *$appRoot*: The root directory of the web application (note that the _web application root_ is different than the _project root_).  This is also used to determine the relative URL of the application (if [PHPAppAdditionalConfig#base_url _base_url_] is not specified in the config file.)
+  # *$configDir*: A directory containing configuration files.  Your main configuration file should be named _default.inc.php_.  However, if you need to customize configuration based on the request's domain, you can create additional config files with the naming pattern of _customer1.example.com.inc.php_.
+  # *$localConfig*: A local configuration file that overrides values from the standard config file.  This is useful to do per-server configuration customization, while still sharing the majority of config directives.
+
+Example:
+{{{
+$app = new Application('Test App', '/var/www/test/web', '/var/www/test/config', '/var/www/test/local.inc.php');
+}}}
+
+Now you have the core Application object that your application's code
+will interact with.  You will typically put this in a shared include, and
+include it in all your pages.
+
+Next we'll look at [PHPAppApplication Using the Application Object].
