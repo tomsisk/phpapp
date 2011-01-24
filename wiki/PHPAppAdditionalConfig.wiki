@@ -23,7 +23,7 @@ All options are are accessible via `$app->config['myoption'];`
 ===Application Core===
 
 || Name || Required || Default || Description ||
-|| *base_url* || False || Determined from appRoot and $_SERVER['DOCUMENT_ROOT'] || The web application root directory ||
+|| *base_url* || False || Determined from appRoot and Apache's `$_SERVER['DOCUMENT_ROOT']` || The web application root directory ||
 || *admin_path* || False || || The relative path of the admin site (omit if the admin site is served from its own domain) ||
 || *user_class* || False || User || The name of the model to use for user authentication and permission (must extend [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-modules/BaseUser.html BaseUser]) ||
 || *login_url* || False || || The URL of the application's login page (needed by Application::requireLogin())
