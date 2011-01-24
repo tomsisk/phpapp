@@ -1,0 +1,10 @@
+=Advanced !ModelAdmin Configuration=
+
+Basic model administration configuration was covered previously in
+[PHPAppModelAdmin Configuring ModelAdmin Definitions], but !ModelAdmin
+has many more options available.
+
+==Configuration Directives==
+
+|| Method/Property || Description ||
+|| setFieldOption($field, $option, $value) || Set a field specific option.  For a list of common options, see [PHPAppFieldOptions Field-Specific Options] ||
