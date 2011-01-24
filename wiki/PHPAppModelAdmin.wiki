@@ -141,6 +141,28 @@ For an application as basic as this one, we're now done.  We can start
 using the admin site for data entry, and can focus on building the public
 web site with the help of our Application object.
 
+==Completed Module Structure==
+
+Now that we've completed our module configuration, the module
+directory has the following structure.  Double check that yours
+looks the same:
+
+  * films
+    * module.php
+    * models
+	  * Actor.class.php
+	  * Director.class.php
+	  * Film.class.php
+	  * FilmActor.class.php
+	* admin
+	  * ActorAdmin.class.php
+	  * DirectorAdmin.class.php
+	  * FilmAdmin.class.php
+	* media
+	  * actor.png
+	  * director.png
+	  * film.png
+
 ==Advanced Configuration==
 
 Most applications will have more complex needs.  Although PHPApp tries to
