@@ -16,36 +16,36 @@ require_once('phpapp-core/ModelAdmin.class.php');
 
 class FilmAdmin extends ModelAdmin {
 
-	public function __construct($model, $module) {
+    public function __construct($model, $module) {
 
-		parent::__construct($model, $module);
-		$this->setName('Film');
-		$this->setDescription('Edit film records');
-		$this->setIcon($module->getMediaURL('film.png'));
+        parent::__construct($model, $module);
+        $this->setName('Film');
+        $this->setDescription('Edit film records');
+        $this->setIcon($module->getMediaURL('film.png'));
 
-		// Fields to display in the model index view
-		$this->setDisplayFields(array('title', 'released', 'director.name'))
+        // Fields to display in the model index view
+        $this->setDisplayFields(array('title', 'released', 'director.name'))
 
-		// Fields to display as available search filters in the sidebar
-		$this->setFilterFields(array('released', 'nominated'));
+        // Fields to display as available search filters in the sidebar
+        $this->setFilterFields(array('released', 'nominated'));
 
-		// Fields to query for searches
-		$this->setSearchFields(array('title'));
+        // Fields to query for searches
+        $this->setSearchFields(array('title'));
 
-		// Set a field display option for the actors list
-		$this->setFieldOption('actors', 'style', 'multilist')
+        // Set a field display option for the actors list
+        $this->setFieldOption('actors', 'style', 'multilist')
 
-		// By default, all fields will be displayed on the form,
-		// in one table.  If you want to customize displayed
-		// fields or groupings, you can use the following method
-		$this->setFieldGroups(array(
-				array('name' => null, // No group heading
-					'fields' => array('title', 'released', 'nominated')),
-				array('name' => 'Credits', // No group heading
-					'fields' => array('director', 'actors'))
-			));
+        // By default, all fields will be displayed on the form,
+        // in one table.  If you want to customize displayed
+        // fields or groupings, you can use the following method
+        $this->setFieldGroups(array(
+                array('name' => null, // No group heading
+                    'fields' => array('title', 'released', 'nominated')),
+                array('name' => 'Credits', // No group heading
+                    'fields' => array('director', 'actors'))
+            ));
 
-	}
+    }
 
 }
 }}}
@@ -62,17 +62,17 @@ require_once('phpapp-core/ModelAdmin.class.php');
 
 class ActorAdmin extends ModelAdmin {
 
-	public function __construct($model, $module) {
+    public function __construct($model, $module) {
 
-		parent::__construct($model, $module);
-		$this->setName('Actor');
-		$this->setDescription('Edit actor records');
-		$this->setIcon($module->getMediaURL('actor.png'));
+        parent::__construct($model, $module);
+        $this->setName('Actor');
+        $this->setDescription('Edit actor records');
+        $this->setIcon($module->getMediaURL('actor.png'));
 
-		$this->setDisplayFields(array('name'));
-		$this->setSearchFields(array('name'));
-	
-	}
+        $this->setDisplayFields(array('name'));
+        $this->setSearchFields(array('name'));
+    
+    }
 }
 }}}
 
@@ -82,23 +82,23 @@ require_once('phpapp-core/ModelAdmin.class.php');
 
 class DirectorAdmin extends ModelAdmin {
 
-	public function __construct($model, $module) {
+    public function __construct($model, $module) {
 
-		parent::__construct($model, $module);
-		$this->setName('Director');
-		$this->setDescription('Edit director records');
-		$this->setIcon($module->getMediaURL('director.png'));
+        parent::__construct($model, $module);
+        $this->setName('Director');
+        $this->setDescription('Edit director records');
+        $this->setIcon($module->getMediaURL('director.png'));
 
-		$this->setDisplayFields(array('name'));
-		$this->setSearchFields(array('name'));
+        $this->setDisplayFields(array('name'));
+        $this->setSearchFields(array('name'));
 
-		// Not interested in displaying many-to-many 'films' field on form
-		$this->setFieldGroups(array(
-				array('name' => null,
-					'fields' = array('name'))
-			));
-	
-	}
+        // Not interested in displaying many-to-many 'films' field on form
+        $this->setFieldGroups(array(
+                array('name' => null,
+                    'fields' = array('name'))
+            ));
+    
+    }
 }
 }}}
 
@@ -107,12 +107,12 @@ them to the corresponding models in the module's configuration file:
 
 films/module.php:
 {{{
-	// Human-readable name for the module
-	$module->name = 'Films';
-	// Add a new modules to the admin site
-	// Param 1 = Model name, param 2 = ModelAdmin definition
-	$module->addModel('Film', 'FilmAdmin');
-	$module->addModel('Actor', 'ActorAdmin');
-	$module->addModel('Director', 'DirectorAdmin');
+    // Human-readable name for the module
+    $module->name = 'Films';
+    // Add a new modules to the admin site
+    // Param 1 = Model name, param 2 = ModelAdmin definition
+    $module->addModel('Film', 'FilmAdmin');
+    $module->addModel('Actor', 'ActorAdmin');
+    $module->addModel('Director', 'DirectorAdmin');
 }}}
 
