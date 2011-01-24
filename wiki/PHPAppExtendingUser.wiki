@@ -48,5 +48,4 @@ Now, let's make sure Application knows to use our custom User model:
   }}}
 
 This example demonstrated extending the user object, but you can do the same thing with 
-[http://code.google.com/p/phpapp/source/browse/trunk/phpapp/src/phpapp-modules/users/models/Group.class.php Group]
-and [http://code.google.com/p/phpapp/source/browse/trunk/phpapp/src/phpapp-modules/users/models/Role.class.php Role].
+[http://code.google.com/p/phpapp/source/browse/trunk/phpapp/src/phpapp-modules/users/models/Group.class.php Group].
