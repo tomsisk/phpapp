@@ -5,7 +5,7 @@ be sufficient for most applications.  However, if you find you
 need to add more fields to your user table, it is easy to extend
 the default user object.
 
-Any user object that PHPApp users *must* extend
+Any user object that PHPApp uses *must* extend
 [http://code.google.com/p/phpapp/source/browse/trunk/phpapp/src/phpapp-modules/users/models/BaseUser.class.php BaseUser].
 In fact, the default user class ([http://code.google.com/p/phpapp/source/browse/trunk/phpapp/src/phpapp-modules/users/models/User.class.php User])
 is just an empty subclass of !BaseUser.
@@ -32,17 +32,21 @@ class User extends BaseUser {
 
 Now, let's make sure Application knows to use our custom User model:
 
-  # Tell your module to inherit all configuration from the shared user module:
+  # Tell your user module to inherit all configuration from the shared user module:
   {{{
-  // In module.php
+  // In myusermodule/module.php
   $module->extend('phpapp-modules/users');
   }}}
-  # If you want your new fields editable in the admin site, override the `admin/UserAdmin.class.php` model admin definition (see example app).
+  # If you want your new fields to be editable in the admin site, override the `admin/UserAdmin.class.php` model admin definition (see example app).
   # Update the database table to include your new fields.
   # Remove `phpapp-modules/users` from your `$config['modules']` configuration.
   # Add `'users' => 'myapp/modules/myusermodule'` to your `$config['modules']` configuration.
   # Include the base user models to make sure we can access all of the extended models.
   {{{
-  // In config file
+  // In application config file
   $config['models'] = array('phpapp-modules/users');
   }}}
+
+This example demonstrated extending the user object, but you can do the same thing with 
+[http://code.google.com/p/phpapp/source/browse/trunk/phpapp/src/phpapp-modules/users/models/Group.class.php Group]
+and [http://code.google.com/p/phpapp/source/browse/trunk/phpapp/src/phpapp-modules/users/models/Role.class.php Role].
