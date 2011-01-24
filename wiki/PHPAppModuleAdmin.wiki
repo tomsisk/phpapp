@@ -107,12 +107,12 @@ them to the corresponding models in the module's configuration file:
 
 `films/module.php`:
 {{{
-    // Human-readable name for the module
-    $module->name = 'Films';
-    // Add a new modules to the admin site
-    // Param 1 = Model name, param 2 = ModelAdmin definition
-    $module->addModel('Film', 'FilmAdmin');
-    $module->addModel('Actor', 'ActorAdmin');
-    $module->addModel('Director', 'DirectorAdmin');
+// Human-readable name for the module
+$module->name = 'Films';
+// Add a new modules to the admin site
+// Param 1 = Model name, param 2 = ModelAdmin definition
+$module->addModel('Film', 'FilmAdmin');
+$module->addModel('Actor', 'ActorAdmin');
+$module->addModel('Director', 'DirectorAdmin');
 }}}
 
