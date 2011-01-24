@@ -1,14 +1,20 @@
 =Setting Up the Administration Interface=
 
 PHPApp's best feature is the ability to quickly create beautiful and
-easy to use administration interfaces.  To get started, let's create
-a directory that will serve as our admin root.  In the example
-app, this is the [http://code.google.com/p/phpapp/source/browse/trunk#trunk%2Fphpapp%2Fexample%2Fadmin admin]
+easy to use administration interfaces.
+
+If you have copied the example app, this section is just
+for reference - if you followed the instructions in Step 2 your admin
+site should already be up a running.
+
+To get started, let's create a directory that will serve as our admin
+root.  In the example app, this is the
+[http://code.google.com/p/phpapp/source/browse/trunk#trunk%2Fphpapp%2Fexample%2Fadmin admin]
 directory.
 
 For your own admin site, you should copy the contents of that
-directory into your own app.  The function of each file is described
-below:
+directory into your own web application root.  The function of each file
+is described below:
 
   # *.htaccess*: Contains Apache rewrite rules for properly routing requests through the admin controller
   # *index.php*: The main PHP script that process admin requests
