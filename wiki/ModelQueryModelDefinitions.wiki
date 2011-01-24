@@ -108,8 +108,8 @@ $film->director->name), ModelQuery calls the database and load the Director's
 information, transparent to your code.
 
 There are two other additions worth noting in the Film model above:
-  * You can call setDefaultOrder() to determine the default sorting order of query results.  In this instance, it sorts by release date descending, then title ascending.
-  * You should always define a __toString() method in your models, to give a human-readable description of the object.
+  * You can call `setDefaultOrder()` to determine the default sorting order of query results.  In this instance, it sorts by release date descending, then title ascending.
+  * You should always define a `__toString()` method in your models, to give a human-readable description of the object.
 
 ===Relation Sets===
 
