@@ -21,7 +21,7 @@ has many more options available.
 || *readonly* || false || If TRUE, instances of this model will only be viewable. ||
 || *saveAndAdd* || false || If TRUE, display a "Save and Add New" button on the edit form. ||
 || *saveNew* || false || If TRUE, display a "Save As New" button on the edit form. ||
-|| *sortable* || false || If TRUE, PHPApp will look for a model-global OrderedField() (i.e. with no grouping fields), and the object list view will allow for drag-and-drop reordering of objects. || 
+|| *sortable* || false || If TRUE, PHPApp will look for a model-global !OrderedField() (i.e. with no grouping fields), and the object list view will allow for drag-and-drop reordering of objects. || 
 || *templateContext* || !PhpAppTemplateContext object || A !PhpAppTemplateContext object.  To add context variables accessible by this model's user interface templates, try `$this->templateContext->context['name'] = 'value';` ||
 
 ===Methods===
@@ -36,3 +36,45 @@ has many more options available.
 || *setModelAccess*(_$field_, _$userpath_) || Limit query results by the specified field filter.  _$field_ is the field name to filter by, and _$userpath_ is a dot-notation field path, starting from the logged-in User object, specifying the value it must match.  i.e.: `$this->setModelAccess('customer', 'customer');` would require that the model's "customer" field match `$user['customer']` for the logged-in user. ||
 || *setSearchFields*(_$fields_) || An array of field names to compare to when searching for objects. ||
 || *setFieldGroups*(_$groups_) || A list of fields to display, along with their groupings, with the following structure: `$this->setFieldGroups(array(array('name' => 'Contact Info', 'fields' => array('name', 'address', 'city'))));` If omitted, PHPApp will display all model fields in a single table. ||
+
+===Field-Specific Options===
+
+`ModelAdmin::setFieldOption()` can have various values depending on the type
+of field you are configuring.
+
+Usage:
+{{{
+$this->setFieldOption($field, $option, $value);
+}}}
+
+*All Fields*
+
+|| $option || Default || Description ||
+|| *help* || null || Descriptive help text for filling out this field. ||
+|| *hidden* || false || Designate this field as a hidden.  It can be set from a request parameter, but will not be displayed on the form. ||
+|| *passedValue* || false || Similar to *hidden*, except that it will display the field as a read-only value on the form. ||
+|| *readonly* || false || Set this field to read-only. ||
+
+*!ArrayField*
+
+|| $option || Default || Description ||
+|| *style* || default || The display style.  Possible values: default, checkbox, multilist, combolist ||
+|| *ordered* || false || Allow drag-and-drop reordering of field values. ||
+
+*!HTMLField*
+
+|| $option || Default || Description ||
+|| *style* || default || The display style.  Possible values: default, large ||
+
+*!ManyToManyField*
+
+|| $option || Default || Description ||
+|| *style* || default || The display style.  Possible values: default, multilist, combolist, checkbox ||
+|| *groupby* || null || The field to sort and group by when displaying headings.  Only applicable for `style = checkbox`. ||
+|| *groupheadings* || null || A `name => value` array of group headings, keyed by possible values of the *groupby* field. ||
+
+*!ManyToOneField*
+
+|| $option || Default || Description ||
+|| *style* || default || The display style.  Possible values: default, radio, searchlist ||
+|| *nullLabel* || 'None' || A custom string label to display for the null value (if null is allowed.) ||
