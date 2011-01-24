@@ -167,7 +167,7 @@ films
 
 ==Advanced Configuration==
 
-Most applications will have more complex needs.  Although PHPApp tries to
+Many applications will have more complex needs.  Although PHPApp tries to
 do the smart thing automatically, it is also very extendable if you run
 into something that doesn't fit your needs.  Extending PHPApp is covered
 in the advanced topics below:
