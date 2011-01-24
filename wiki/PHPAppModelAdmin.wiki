@@ -144,7 +144,7 @@ web site with the help of our Application object.
 But many applications have more complex needs.  Although PHPApp tries to
 do the smart thing automatically, it is also very extendable if you run
 into something that doesn't suit your needs.  Extending PHPApp is covered
-in the appendixes below:
+in the advanced topics below:
 
   * [PHPAppAdvancedModelAdmin Advanced ModelAdmin Configuration]
     * [PHPAppFieldOptions Field-Specific Options]
