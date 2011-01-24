@@ -1,4 +1,4 @@
-=Configuring Modules=
+=Configuring ModelAdmin Definitions=
 
 Back in step 2, we [PHPAppModules created a bare-bones films module].
 Right now, this module just consists of a _models/_ directory
@@ -52,14 +52,14 @@ class FilmAdmin extends ModelAdmin {
 
 Let's look at some of these directives in more detail:
 
-  * `ModelAdmin::setName()`: Sets the human-readable name of the model.  This should be a singular name, since PHPApp attempts to automatically pluralize model names in certain situations.  If your model name isn't accounted for by the usual pluralization rules, you can pass an (optional) second parameter containing the plural name.
-  * `ModelAdmin::setDescription()`: A longer-form description of the model.
-  * `ModelAdmin::setIcon()`: Set an icon that the admin site will use to represent the model.
-  * `ModelAdmin::setDisplayFields()`: A list of field columns that will be shown in the table when listing available objects.
-  * `ModelAdmin::setSearchFields()`: A list of fields that will be checked when searching for objects.
-  * `ModelAdmin::setFilterFields()`: A list of fields that will be shown in the sidebar on the object list view as available filters.  Since PHPApp will attempt to display all unique values as filters for these fields, it is not a good idea to use filter fields that have a wide range of unique values.
-  * `ModelAmdin::setFieldOption()`: Set a field-specific option. See [PHPAppFieldOptions Field-Specific Options] for more details.
-  * `ModelAdmin::setFieldGroups()`: Manually specify the fields to display on the edit form, and arrange them in groups.
+  * `ModelAdmin::setName($name, $plural = null)`: Sets the human-readable name of the model.  This should be a singular name, since PHPApp attempts to automatically pluralize model names in certain situations.  If your model name isn't accounted for by the usual pluralization rules, you can pass an (optional) second parameter containing the plural name.
+  * `ModelAdmin::setDescription($desc)`: A longer-form description of the model.
+  * `ModelAdmin::setIcon($url)`: Set an icon that the admin site will use to represent the model.
+  * `ModelAdmin::setDisplayFields($ary)`: A list of field columns that will be shown in the table when listing available objects.
+  * `ModelAdmin::setSearchFields($ary)`: A list of fields that will be checked when searching for objects.
+  * `ModelAdmin::setFilterFields($ary)`: A list of fields that will be shown in the sidebar on the object list view as available filters.  Since PHPApp will attempt to display all unique values as filters for these fields, it is not a good idea to use filter fields that have a wide range of unique values.
+  * `ModelAdmin::setFieldOption($field, $option, $value)`: Set a field-specific option. See [PHPAppFieldOptions Field-Specific Options] for more details.
+  * `ModelAdmin::setFieldGroups($groups)`: Manually specify the fields to display on the edit form, and arrange them in groups.
 
 There are a lot more options available to !ModelAdmin definitions, which
 you can learn about in [PHPAppAdvancedModelAdmin Advanced ModelAdmin Configuration],
