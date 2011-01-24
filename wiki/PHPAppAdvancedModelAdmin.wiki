@@ -61,7 +61,7 @@ $this->setFieldOption($field, $option, $value);
 || *style* || default || The display style.  Possible values: default, checkbox, multilist, combolist ||
 || *ordered* || false || Allow drag-and-drop reordering of field values. ||
 
-_HTMLField_
+HTMLField
 
 || $option || Default || Description ||
 || *style* || default || The display style.  Possible values: default, large ||
