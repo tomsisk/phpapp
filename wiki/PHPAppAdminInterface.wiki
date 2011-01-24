@@ -3,16 +3,13 @@
 PHPApp's best feature is the ability to quickly create beautiful and
 easy to use administration interfaces.
 
-If you have copied the example app, this section is just
-for reference - if you followed the instructions in Step 2 your admin
-site should already be up a running.
+_If you have copied the example app, this section is just
+for reference - your admin site should already be up a running._
 
 To get started, let's create a directory that will serve as our admin
 root.  In the example app, this is the
 [http://code.google.com/p/phpapp/source/browse/trunk#trunk%2Fphpapp%2Fexample%2Fadmin admin]
-directory.
-
-For your own admin site, you should copy the contents of that
+directory.  For your own admin site, you should copy the contents of that
 directory into your own web application root.  The function of each file
 is described below:
 
