@@ -7,4 +7,4 @@ has many more options available.
 ==Configuration Directives==
 
 || Method/Property || Description ||
-|| setFieldOption($field, $option, $value) || Set a field specific option.  For a list of common options, see [PHPAppFieldOptions Field-Specific Options] ||
+|| *setFieldOption*(_$field_, _$option_, _$value_) || Set a field specific option.  For a list of common options, see [PHPAppFieldOptions Field-Specific Options] ||
