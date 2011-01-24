@@ -33,4 +33,4 @@
          * [PHPAppActionHandlers Creating Custom Actions]
        * [PHPAppCustomTemplates Customizing the Interface Templates]
          * [PHPAppCustomFields Templates for Custom Model Fields]
-   * [PHPAppAPIReference API Reference]
+   * [http://home.jongsma.org/software/phpapp/docs/phpdoc/ API Reference]
