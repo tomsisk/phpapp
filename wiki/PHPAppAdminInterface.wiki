@@ -42,7 +42,7 @@ $admin->handleRequest();
 }}}
 
 Simple, right?  If you've included the `phpapp-modules/users` module
-and loaded the default database data (from
+in your configuration file and have loaded the initial database data (from
 [http://code.google.com/p/phpapp/source/browse/trunk/phpapp/example/sql/phpapp-example.sql phpapp-example.sql],
 you should be able to login with admin / password and start editing users
 and groups.
