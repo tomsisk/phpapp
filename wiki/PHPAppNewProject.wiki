@@ -34,4 +34,8 @@ example
  # Go to http://your-new-site.com/admin and login as "admin" / "password"
 
 If the admin site comes up in your browser, your application is ready to
-customize, so let's [PHPAppModules create some content modules].
+customize.  If you want to move right on to customizing the example app,
+you can jump ahead to [PhpAppModuleAdmin Configuring Modules].
+
+Otherwise, let's take a look at what's going on inside the example app,
+starting with [PHPAppModules creating some content modules].

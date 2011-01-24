@@ -1,0 +1,42 @@
+=Setting Up the Administration Interface=
+
+PHPApp's best feature is the ability to quickly create beautiful and
+easy to use administration interfaces.  To get started, let's create
+a directory that will serve as our admin root.  In the example
+app, this is the [http://code.google.com/p/phpapp/source/browse/trunk#trunk%2Fphpapp%2Fexample%2Fadmin admin]
+directory.
+
+For your own admin site, you should copy the contents of that
+directory into your own app.  The function of each file is described
+below:
+
+  # *.htaccess*: Contains Apache rewrite rules for properly routing requests through the admin controller
+  # *index.php*: The main PHP script that process admin requests
+  # *media.php*: A PHP script that process /media requests for serving shared media files
+
+You can view an example of configuring Apache to host the admin site
+in [http://code.google.com/p/phpapp/source/browse/trunk/phpapp/example/apache/phpapp-example.conf phpapp-example.conf].
+
+==Creating an AdminController==
+
+The first step to generating an admin site is creating an !AdminController.
+
+{{{
+$admin = new AdminController($app, $urlPrefix);
+}}}
+
+The *$app* parameter is the Application instance that you created in
+the previous steps.  *$urlPrefix* is the relative URL for the root
+of the site, if any.  If you copy the index.php controller from the
+example app, it reads this prefix from your configuration file
+(`admin_path`).
+
+Simple, right?  If you've included the `phpapp-modules/users` module
+and loaded the default database data (from
+[http://code.google.com/p/phpapp/source/browse/trunk/phpapp/example/sql/phpapp-example.sql phpapp-example.sql],
+you should be able to login with admin / password and start edit users
+and groups.
+
+So, setting up an admin site with pre-configured modules is a snap.
+Configuring your content modules for the admin interface can be a
+bit more complex, so let's go ahead and [PHPAppModuleAdmin configure a module].

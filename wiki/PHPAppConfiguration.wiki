@@ -2,8 +2,9 @@
 
 To use PHPApp, you will need to create an
 [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html Application]
-object for your app.  First, create a configuration file for your application.
-A sample configuration file is shown below (this is from the examples app):
+object for your app.  To do that, we will need to create a configuration file
+for your application.  A sample configuration file is shown below (this is from
+the example app):
 
 {{{
 <?php
@@ -69,6 +70,7 @@ $app = new Application('Test App', '/var/www/test/web', '/var/www/test/config', 
 
 Now you have the core Application object that your application's code
 will interact with.  You will typically put this in a shared include, and
-include it in all your pages.
+include it in all your pages.  In the example application, this is in
+[http://code.google.com/p/phpapp/source/browse/trunk/phpapp/example/www/lib/common.inc.php www/lib/common.inc.php]
 
 Next we'll look at [PHPAppApplication Using the Application Object].

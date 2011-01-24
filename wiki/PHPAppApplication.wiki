@@ -13,7 +13,7 @@ application.  The Application object provides services such as:
 
 ==Database Access==
 
-PHPApp used ModelQuery for database access.  If you are not familiar
+PHPApp uses ModelQuery for database access.  If you are not familiar
 with the ModelQuery API, you can check out the [ModelQueryTutorial tutorial]
 before continuing.
 
@@ -53,7 +53,15 @@ future visits.  Explicitly calling logout() removes this "remember me"
 cookie:
 
 {{{
-$app->logout()
+$app->logout();
+}}}
+
+Once a user has been logged in, it is accessible for the rest of
+the current session using the getUser() call:
+
+{{{
+if ($app->isLoggedIn())
+	$user = $app->getUser();
 }}}
 
 ==Checking User Permissions==
@@ -119,4 +127,4 @@ At this point, you should be ready to use the Application object as you
 build the public interface for your web application.
 
 Now we are ready to take a look at the real benefit of using PHPApp:
-its [PHPAppAdminInterface Administration Interface].
+the [PHPAppAdminInterface Administration Interface].
