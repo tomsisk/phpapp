@@ -17,7 +17,7 @@ below:
 You can view an example of configuring Apache to host the admin site
 in [http://code.google.com/p/phpapp/source/browse/trunk/phpapp/example/apache/phpapp-example.conf phpapp-example.conf].
 
-==Creating an AdminController==
+==Creating an !AdminController==
 
 The first step to generating an admin site is creating an !AdminController.
 
