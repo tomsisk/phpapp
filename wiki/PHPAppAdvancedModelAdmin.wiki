@@ -6,5 +6,38 @@ has many more options available.
 
 ==Configuration Directives==
 
-|| Method/Property || Description ||
+===Properties===
+|| Property || Default || Description ||
+|| *allowImport* || true || If TRUE, allow users to import records for this model from CSV. ||
+|| *allowExport* || true || If TRUE, allow users to export queries for this model to CSV. ||
+|| *boundTo* || null || Similar to *parent*, but in addition to redirecting after save, it also intercepts edit requests and forces them to go the the parent's edit form. ||
+|| *deleteConfirm* || false || If TRUE, adds an intermediary page that forces the user to explicitly confirm any object deletions for the current model.  Normal behavior is to just use a popup prompt.  This setting is useful to avoid accidental deletions of critical objects (like customer accounts). ||
+|| *inlineOnly* || false || If TRUE, this model will only be edited inline as a dependent object of another model, and will not show up in the sidebar. ||
+|| *instructions* || null || Instructions for filling out the form for this model.  Will be parsed as PHP code to provide access to the object being edited. ||
+|| *paginated* || true || If TRUE, PHPApp will paginate the query results in the object list view. ||
+|| *parent* || null || Identifies a "parent" field this this model is a dependent child of.  If the model is also specified as *$inlineOnly*, PHPApp will go back to the edit form of the parent object on save. ||
+|| *previewUrl* || null || A URL to view this object on the public website.  Will be parsed as PHP code (<?= $object->id ?> will be helpful.) ||
+|| *queryFilter * || null || A `field => value` hash array specifiying filters to pass to ModelQuery when creating the object list view. ||
+|| *readonly* || false || If TRUE, instances of this model will only be viewable. ||
+|| *saveAndAdd* || false || If TRUE, display a "Save and Add New" button on the edit form. ||
+|| *saveNew* || false || If TRUE, display a "Save As New" button on the edit form. ||
+|| *sortable* || false || If TRUE, PHPApp will look for a model-global OrderedField() (i.e. with no grouping fields), and the object list view will allow for drag-and-drop reordering of objects. || 
+|| *templateContext* || PhpAppTemplateContext object || A PhpAppTemplateContext object.  To add context variables accessible by this model's user interface templates, try `$this->templateContext->context['name'] = 'value';` ||
+
+===Methods===
+|| Method || Description ||
+|| *addInlineObject*(_$field_) || Designate a relation field as an inline object, that will be edited on the same form as this model. ||
+|| *mergeWith*(_$field_) || Designate a relation field as a one-to-one relation whose fields should be displayed on the form as if they belonged to the current model. ||
+|| *setDisplayFields*(_$fields_) || An array of field names to display as columns in the object list view. ||
 || *setFieldOption*(_$field_, _$option_, _$value_) || Set a field specific option.  For a list of common options, see [PHPAppFieldOptions Field-Specific Options] ||
+|| *setFieldRestriction*(_$field_, _$value_, _$permission_) || Restrict the use of a value to users with the specified permission.  i.e. `$this->addFieldRestriction('internal', true, 'ADMIN');` only allows users with the ADMIN permission to set `$object->internal = true;`  The special value constant `CHANGE_ONLY` can be used to restrict anyone from changing an existing value unless they have the specified permission. ||
+|| *setFieldTemplate*(_$field_, _$template_, _$context_) || Specify a custom field rendering template for the given field, rather than using the default field template from `phpapp-core/templates/fields/*`. ||
+|| *setFilterFields*(_$fields_) || An array of field names to show as query filters in the sidebar of the object list view.  Note that PHPApp attempts to display all available unique values for a filter field, so it is not a good idea to choose filter fields that have a large number of unique values. ||
+|| *setModelAccess*(_$field_, _$userpath_) || Limit query results by the specified field filter.  _$field_ is the field name to filter by, and _$userpath_ is a dot-notation field path, starting from the logged-in User object, specifying the value it must match.  i.e.: `$this->setModelAccess('customer', 'customer');` would require that the model's "customer" field match `$user['customer']` for the logged-in user. ||
+|| *setSearchFields*(_$fields_) || An array of field names to compare to when searching for objects. ||
+|| *setFieldGroups*(_$groups_) || A list of fields to display, along with their groupings, with the following structure:  {{{
+	$this->setFieldGroups(array(
+			array('name' => 'Contact Info',
+				'fields' => array('name', 'address', 'city'))
+		));
+}}} If omitted, PHPApp will display all model fields in a single table. ||
