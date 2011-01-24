@@ -174,9 +174,9 @@ in the advanced topics below:
 
   * [PHPAppExtendingUser Extending the Default User Model]
   * [PHPAppModelAdminExecution How PHPApp Processes a Request]
+  * [PHPAppModelFilters Creating Drill-Down Modules with Model Filters]
   * [PHPAppAdvancedModelAdmin Advanced ModelAdmin Configuration]
     * [PHPAppActionHooks Adding Action Hooks]
     * [PHPAppActionHandlers Creating Custom Actions]
   * [PHPAppCustomTemplates Customizing the Interface Templates]
-    * [PHPAppModelFilters Creating Drill-Down Modules with Model Filters]
     * [PHPAppCustomFields Templates for Custom Model Fields]
