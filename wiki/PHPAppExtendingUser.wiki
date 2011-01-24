@@ -32,15 +32,16 @@ class User extends BaseUser {
 
 Now, let's make sure Application knows to use our custom User model:
 
-  # Tell your module to inherit from the shared user module:
+  # Tell your module to inherit all configuration from the shared user module:
   {{{
   // In module.php
   $module->extend('phpapp-modules/users');
   }}}
+  # If you want your new fields editable in the admin site, override the `admin/UserAdmin.class.php` model admin definition (see example app).
   # Update the database table to include your new fields.
   # Remove `phpapp-modules/users` from your `$config['modules']` configuration.
   # Add `'users' => 'myapp/modules/myusermodule'` to your `$config['modules']` configuration.
-  # Include the base user models to make sure we can access all of the inherited configuration.
+  # Include the base user models to make sure we can access all of the extended models.
   {{{
   // In config file
   $config['models'] = array('phpapp-modules/users');
