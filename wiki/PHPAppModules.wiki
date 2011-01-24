@@ -37,9 +37,10 @@ module into the modules path that you created in the last step
 (probably _lib/yourappname/modules_).
 
 Now we have a basic module created.  If you want to move right on to
-customizing the example app, you can jump ahead to
+customizing your app and aren't interested in what's going on inside
+the example application, you can jump ahead to
 [PHPAppModelAdmin Configuring ModelAdmin Definitions].
 
-Otherwise, let's take a look at what's going on inside the example app,
+Otherwise, let's take a look inside the example application,
 starting with configuring the core class of PHPApp - the
 [PHPAppConfiguration Application object].
