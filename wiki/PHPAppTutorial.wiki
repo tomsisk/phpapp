@@ -9,12 +9,12 @@
   # [PHPAppApplication Using the Application Object]
   # [PHPAppAdminInterface Setting Up the Administration Interface]
   # [PHPAppModelAdmin Configuring ModelAdmin Definitions]
-  # [PHPAppAdvancedModelAdmin Advanced ModelAdmin Configuration]
-    * [PHPAppFieldOptions Field-Specific Options]
-    * [PHPAppActionHooks Adding Action Hooks]
-    * [PHPAppActionHandlers Creating Custom Actions]
-  # [PHPAppCustomTemplates Customizing the Interface Templates]
-    * [PHPAppCustomFields Templates for Custom Model Fields]
 
 Appendix:
   * [PHPAppModelAdminExecution How PHPApp Processes a Request]
+  * [PHPAppAdvancedModelAdmin Advanced ModelAdmin Configuration]
+    * [PHPAppFieldOptions Field-Specific Options]
+    * [PHPAppActionHooks Adding Action Hooks]
+    * [PHPAppActionHandlers Creating Custom Actions]
+  * [PHPAppCustomTemplates Customizing the Interface Templates]
+    * [PHPAppCustomFields Templates for Custom Model Fields]

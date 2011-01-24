@@ -28,7 +28,7 @@ $config['mail_bounces'] = 'nodody@example.com';
 // Content modules that this application uses
 $config['modules'] = array(
 	'users' => 'phpapp-modules/users',
-	'blogs' => 'myappname/modules/blogs'
+	'films' => 'myapp/modules/films'
 	);
 }}}
 

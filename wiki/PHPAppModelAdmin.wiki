@@ -61,7 +61,7 @@ Let's look at some of these directives in more detail:
   * `ModelAdmin::setFieldOption($field, $option, $value)`: Set a field-specific option. See [PHPAppFieldOptions Field-Specific Options] for more details.
   * `ModelAdmin::setFieldGroups($groups)`: Manually specify the fields to display on the edit form, and arrange them in groups.
 
-There are a lot more options available to !ModelAdmin definitions, which
+There are many more options available to !ModelAdmin definitions, which
 you can learn about in [PHPAppAdvancedModelAdmin Advanced ModelAdmin Configuration],
 but these options are sufficient for this example.
 
@@ -129,3 +129,26 @@ $module->addModel('Actor', 'ActorAdmin');
 $module->addModel('Director', 'DirectorAdmin');
 }}}
 
+Once you have this new module configured, drop it into your application's
+`modules` directory, and make sure it is added to `$config['modules']` in
+your application's configuration file.
+
+Open your admin site and login.  You should now see a new "Films" module
+in the sidebar.  Take a look around and notice how PHPApp creates different
+input fields depending on the Model's field type.
+
+For an application as basic as this one, we're now done.  We can start
+using the admin site for data entry, and can focus on building the public
+web site with the help of our Application object.
+
+But many applications have more complex needs.  Although PHPApp tries to
+do the smart thing automatically, it is also very extendable if you run
+into something that doesn't suit your needs.  Extending PHPApp is covered
+in the appendixes below:
+
+  * [PHPAppAdvancedModelAdmin Advanced ModelAdmin Configuration]
+    * [PHPAppFieldOptions Field-Specific Options]
+    * [PHPAppActionHooks Adding Action Hooks]
+    * [PHPAppActionHandlers Creating Custom Actions]
+  * [PHPAppCustomTemplates Customizing the Interface Templates]
+    * [PHPAppCustomFields Templates for Custom Model Fields]
