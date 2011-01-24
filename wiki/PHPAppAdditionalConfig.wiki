@@ -1,0 +1,12 @@
+=Configuration Options Reference=
+
+Options are specified in the configuration file using
+`$config[$name] = $value;`
+
+===Database Access===
+
+|| Name || Required || Default || Description ||
+|| *db_host* || True || localhost || The database server hostname or IP ||
+|| *db_user* || True || || The database username ||
+|| *db_pass* || True || || The database password ||
+|| *db_name* || True || || The database name to use ||
