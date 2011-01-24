@@ -1,1 +1,47 @@
 =Extending the Default User Model=
+
+The phpapp-modules package includes a `users` module that should
+be sufficient for most applications.  However, if you find you
+need to add more fields to your user table, it is easy to extend
+the default user object.
+
+Any user object that PHPApp users *must* extend
+[http://code.google.com/p/phpapp/source/browse/trunk/phpapp/src/phpapp-modules/users/models/BaseUser.class.php BaseUser].
+In fact, the default user class ([http://code.google.com/p/phpapp/source/browse/trunk/phpapp/src/phpapp-modules/users/models/User.class.php User])
+is just an empty subclass of !BaseUser.
+
+To create your own customized user class, create a class like the following:
+
+`myusermodule/models/User.class.php`:
+{{{
+require_once('phpapp-modules/users/models/BaseUser.class.php');
+
+class User extends BaseUser {
+	
+	public function configure() {
+
+		// Make sure you call BaseUser::configure() first
+		parent::configure()
+
+		// Now add your custom fields
+		$this->country = new CharField("Country", 3);
+
+	}
+}
+}}}
+
+Now, let's make sure Application knows to use our custom User model:
+
+  # Tell your module to inherit from the shared user module:
+  {{{
+  // In module.php
+  $module->extend('phpapp-modules/users');
+  }}}
+  # Update the database table to include your new fields.
+  # Remove `phpapp-modules/users` from your `$config['modules']` configuration.
+  # Add `'users' => 'myapp/modules/myusermodule'` to your `$config['modules']` configuration.
+  # Include the base user models to make sure we can access all of the inherited configuration.
+  {{{
+  // In config file
+  $config['models'] = array('phpapp-modules/users');
+  }}}
