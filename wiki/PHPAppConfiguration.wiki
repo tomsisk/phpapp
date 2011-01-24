@@ -2,9 +2,11 @@
 
 To use PHPApp, you will need to create an
 [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html Application]
-object for your app.  Note that if you are using the example app, this section is
-just for your reference - the app already takes care of doing this for you (in
-[http://code.google.com/p/phpapp/source/browse/trunk/phpapp/example/www/lib/common.inc.php www/lib/common.inc.php]).
+object for your app.
+
+_If you have copied the example app, this section is just for
+reference - the app already takes care of doing this for you (in
+[http://code.google.com/p/phpapp/source/browse/trunk/phpapp/example/www/lib/common.inc.php www/lib/common.inc.php])._
 
 Creating an Application instance requires a configuration file
 for your application.  A sample configuration file is shown below:
