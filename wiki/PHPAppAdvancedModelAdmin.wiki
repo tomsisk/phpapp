@@ -27,6 +27,7 @@ has many more options available.
 ===Methods===
 || Method || Description ||
 || *addInlineObject*(_$field_) || Designate a relation field as an inline object, that will be edited on the same form as this model. ||
+|| *addQueryFilter*(_$field_, _$value_) || Add a filter to limit the results shown on the object list view.  This just adds a filter to the $queryFilters property documented above. ||
 || *mergeWith*(_$field_) || Designate a relation field as a one-to-one relation whose fields should be displayed on the form as if they belonged to the current model. ||
 || *setDisplayFields*(_$fields_) || An array of field names to display as columns in the object list view. ||
 || *setFieldOption*(_$field_, _$option_, _$value_) || Set a field specific option.  For a list of common options, see [PHPAppAdvancedModelAdmin#Field-Specific_Options Field-Specific Options] ||
