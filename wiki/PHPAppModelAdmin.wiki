@@ -150,18 +150,18 @@ looks the same:
   * films
     * module.php
     * models
-	  * Actor.class.php
-	  * Director.class.php
-	  * Film.class.php
-	  * FilmActor.class.php
-	* admin
-	  * ActorAdmin.class.php
-	  * DirectorAdmin.class.php
-	  * FilmAdmin.class.php
-	* media
-	  * actor.png
-	  * director.png
-	  * film.png
+      * Actor.class.php
+      * Director.class.php
+      * Film.class.php
+      * FilmActor.class.php
+    * admin
+      * ActorAdmin.class.php
+      * DirectorAdmin.class.php
+      * FilmAdmin.class.php
+    * media
+      * actor.png
+      * director.png
+      * film.png
 
 ==Advanced Configuration==
 
