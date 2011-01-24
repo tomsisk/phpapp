@@ -47,7 +47,7 @@ Usage:
 $this->setFieldOption($field, $option, $value);
 }}}
 
-*All Fields*
+_All Fields_
 
 || $option || Default || Description ||
 || *help* || null || Descriptive help text for filling out this field. ||
@@ -55,25 +55,25 @@ $this->setFieldOption($field, $option, $value);
 || *passedValue* || false || Similar to *hidden*, except that it will display the field as a read-only value on the form. ||
 || *readonly* || false || Set this field to read-only. ||
 
-*!ArrayField*
+_!ArrayField_
 
 || $option || Default || Description ||
 || *style* || default || The display style.  Possible values: default, checkbox, multilist, combolist ||
 || *ordered* || false || Allow drag-and-drop reordering of field values. ||
 
-HTMLField
+_HTMLField_
 
 || $option || Default || Description ||
 || *style* || default || The display style.  Possible values: default, large ||
 
-*!ManyToManyField*
+_!ManyToManyField_
 
 || $option || Default || Description ||
 || *style* || default || The display style.  Possible values: default, multilist, combolist, checkbox ||
 || *groupby* || null || The field to sort and group by when displaying headings.  Only applicable for `style = checkbox`. ||
 || *groupheadings* || null || A `name => value` array of group headings, keyed by possible values of the *groupby* field. ||
 
-*!ManyToOneField*
+_!ManyToOneField_
 
 || $option || Default || Description ||
 || *style* || default || The display style.  Possible values: default, radio, searchlist ||
