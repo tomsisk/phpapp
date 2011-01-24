@@ -10,7 +10,7 @@ these models, we need to provide some additional metadata
 about the models.  We do this by creating _!ModelAdmin definitions_
 in the module's _admin_ subdirectory:
 
-films/admin/FilmAdmin.class.php:
+`films/admin/FilmAdmin.class.php`:
 {{{
 require_once('phpapp-core/ModelAdmin.class.php');
 
@@ -56,7 +56,7 @@ Let's look at some of these directives in more detail:
 
 Now let's create the remaining !ModelAdmin definitions:
 
-films/admin/ActorAdmin.class.php:
+`films/admin/ActorAdmin.class.php`:
 {{{
 require_once('phpapp-core/ModelAdmin.class.php');
 
@@ -76,7 +76,7 @@ class ActorAdmin extends ModelAdmin {
 }
 }}}
 
-films/admin/DirectorAdmin.class.php:
+`films/admin/DirectorAdmin.class.php`:
 {{{
 require_once('phpapp-core/ModelAdmin.class.php');
 
@@ -105,7 +105,7 @@ class DirectorAdmin extends ModelAdmin {
 Now that we have our !ModelAdmin definitions created, we need to link
 them to the corresponding models in the module's configuration file:
 
-films/module.php:
+`films/module.php`:
 {{{
     // Human-readable name for the module
     $module->name = 'Films';
