@@ -22,7 +22,7 @@ has many more options available.
 || *saveAndAdd* || false || If TRUE, display a "Save and Add New" button on the edit form. ||
 || *saveNew* || false || If TRUE, display a "Save As New" button on the edit form. ||
 || *sortable* || false || If TRUE, PHPApp will look for a model-global OrderedField() (i.e. with no grouping fields), and the object list view will allow for drag-and-drop reordering of objects. || 
-|| *templateContext* || PhpAppTemplateContext object || A PhpAppTemplateContext object.  To add context variables accessible by this model's user interface templates, try `$this->templateContext->context['name'] = 'value';` ||
+|| *templateContext* || !PhpAppTemplateContext object || A !PhpAppTemplateContext object.  To add context variables accessible by this model's user interface templates, try `$this->templateContext->context['name'] = 'value';` ||
 
 ===Methods===
 || Method || Description ||
@@ -35,9 +35,4 @@ has many more options available.
 || *setFilterFields*(_$fields_) || An array of field names to show as query filters in the sidebar of the object list view.  Note that PHPApp attempts to display all available unique values for a filter field, so it is not a good idea to choose filter fields that have a large number of unique values. ||
 || *setModelAccess*(_$field_, _$userpath_) || Limit query results by the specified field filter.  _$field_ is the field name to filter by, and _$userpath_ is a dot-notation field path, starting from the logged-in User object, specifying the value it must match.  i.e.: `$this->setModelAccess('customer', 'customer');` would require that the model's "customer" field match `$user['customer']` for the logged-in user. ||
 || *setSearchFields*(_$fields_) || An array of field names to compare to when searching for objects. ||
-|| *setFieldGroups*(_$groups_) || A list of fields to display, along with their groupings, with the following structure: `
-	$this->setFieldGroups(array(
-			array('name' => 'Contact Info',
-				'fields' => array('name', 'address', 'city'))
-		));
-` If omitted, PHPApp will display all model fields in a single table. ||
+|| *setFieldGroups*(_$groups_) || A list of fields to display, along with their groupings, with the following structure: `$this->setFieldGroups(array(array('name' => 'Contact Info', 'fields' => array('name', 'address', 'city'))));` If omitted, PHPApp will display all model fields in a single table. ||
