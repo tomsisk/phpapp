@@ -7,8 +7,8 @@ The following options are reserved for the Application core.  You may
 also add arbitrary options for your app.
 
 {{{
-	// In default.inc.php:
-	$config['myoption'] = 'something';
+// In default.inc.php:
+$config['myoption'] = 'something';
 }}}
 
 Options are are accessible via `$app->config['myoption'];`
