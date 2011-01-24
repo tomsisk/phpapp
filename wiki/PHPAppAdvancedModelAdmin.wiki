@@ -49,32 +49,32 @@ $this->setFieldOption($field, $option, $value);
 
 _All Fields_
 
-  || $option || Default || Description ||
-  || *help* || null || Descriptive help text for filling out this field. ||
-  || *hidden* || false || Designate this field as a hidden.  It can be set from a request parameter, but will not be displayed on the form. ||
-  || *passedValue* || false || Similar to *hidden*, except that it will display the field as a read-only value on the form. ||
-  || *readonly* || false || Set this field to read-only. ||
+|| $option || Default || Description ||
+|| *help* || null || Descriptive help text for filling out this field. ||
+|| *hidden* || false || Designate this field as a hidden.  It can be set from a request parameter, but will not be displayed on the form. ||
+|| *passedValue* || false || Similar to *hidden*, except that it will display the field as a read-only value on the form. ||
+|| *readonly* || false || Set this field to read-only. ||
 
 _!ArrayField_
 
-  || $option || Default || Description ||
-  || *style* || default || The display style.  Possible values: default, checkbox, multilist, combolist ||
-  || *ordered* || false || Allow drag-and-drop reordering of field values. ||
+|| $option || Default || Description ||
+|| *style* || default || The display style.  Possible values: default, checkbox, multilist, combolist ||
+|| *ordered* || false || Allow drag-and-drop reordering of field values. ||
 
 _HTMLField_
 
-  || $option || Default || Description ||
-  || *style* || default || The display style.  Possible values: default, large ||
+|| $option || Default || Description ||
+|| *style* || default || The display style.  Possible values: default, large ||
 
 _!ManyToManyField_
 
-  || $option || Default || Description ||
-  || *style* || default || The display style.  Possible values: default, multilist, combolist, checkbox ||
-  || *groupby* || null || The field to sort and group by when displaying headings.  Only applicable for `style = checkbox`. ||
-  || *groupheadings* || null || A `name => value` array of group headings, keyed by possible values of the *groupby* field. ||
+|| $option || Default || Description ||
+|| *style* || default || The display style.  Possible values: default, multilist, combolist, checkbox ||
+|| *groupby* || null || The field to sort and group by when displaying headings.  Only applicable for `style = checkbox`. ||
+|| *groupheadings* || null || A `name => value` array of group headings, keyed by possible values of the *groupby* field. ||
 
 _!ManyToOneField_
 
-  || $option || Default || Description ||
-  || *style* || default || The display style.  Possible values: default, radio, searchlist ||
-  || *nullLabel* || 'None' || A custom string label to display for the null value (if null is allowed.) ||
+|| $option || Default || Description ||
+|| *style* || default || The display style.  Possible values: default, radio, searchlist ||
+|| *nullLabel* || 'None' || A custom string label to display for the null value (if null is allowed.) ||
