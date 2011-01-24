@@ -14,7 +14,6 @@
   * [PHPAppExtendingUser Extending the Default User Model]
   * [PHPAppModelAdminExecution How PHPApp Processes a Request]
   * [PHPAppAdvancedModelAdmin Advanced ModelAdmin Configuration]
-    * [PHPAppFieldOptions Field-Specific Options]
     * [PHPAppActionHooks Adding Action Hooks]
     * [PHPAppActionHandlers Creating Custom Actions]
   * [PHPAppCustomTemplates Customizing the Interface Templates]
