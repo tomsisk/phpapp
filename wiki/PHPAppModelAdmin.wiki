@@ -3,7 +3,7 @@
 Back in step 2, we [PHPAppModules created a bare-bones films module].
 Right now, this module just consists of a _models/_ directory
 containing the Film models we created in the
-[ModelQueryTutorial ModelQuery tutorial].
+[ModelQueryModelDefinitions ModelQuery tutorial].
 
 In order for PHPApp to generate a user-friendly interface for
 these models, we need to provide some additional metadata
