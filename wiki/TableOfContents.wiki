@@ -24,7 +24,7 @@
      * [PHPAppApplication Using the Application Object]
      * [PHPAppAdminInterface Setting Up the Administration Interface]
      * [PHPAppModelAdmin Configuring ModelAdmin Definitions]
-	 * [PHPAppAdvancedTopics Advanced Topics]
+     * [PHPAppAdvancedTopics Advanced Topics]
        * [PHPAppExtendingUser Extending the Default User Model]
        * [PHPAppModelAdminExecution How PHPApp Processes a Request]
        * [PHPAppAdvancedModelAdmin Advanced ModelAdmin Configuration]
