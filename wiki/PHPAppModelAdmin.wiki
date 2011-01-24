@@ -1,4 +1,4 @@
-=Configuring ModelAdmin Definitions=
+=Configuring !ModelAdmin Definitions=
 
 Back in step 2, we [PHPAppModules created a bare-bones films module].
 Right now, this module just consists of a _models/_ directory
@@ -141,9 +141,11 @@ For an application as basic as this one, we're now done.  We can start
 using the admin site for data entry, and can focus on building the public
 web site with the help of our Application object.
 
-But many applications have more complex needs.  Although PHPApp tries to
+==Advanced Configuration==
+
+Most applications will have more complex needs.  Although PHPApp tries to
 do the smart thing automatically, it is also very extendable if you run
-into something that doesn't suit your needs.  Extending PHPApp is covered
+into something that doesn't fit your needs.  Extending PHPApp is covered
 in the advanced topics below:
 
   * [PHPAppAdvancedModelAdmin Advanced ModelAdmin Configuration]
