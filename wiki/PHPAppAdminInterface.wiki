@@ -46,4 +46,4 @@ and groups.
 
 So setting up an admin site with pre-configured modules is a snap.
 Configuring your content modules for the admin interface is a bit more
-complex, so let's go ahead and [PHPAppModuleAdmin configure a module].
+complex, so let's go ahead and [PHPAppModelAdmin configure our ModelAdmin definitions].

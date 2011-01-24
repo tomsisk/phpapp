@@ -35,7 +35,7 @@ example
 
 If the admin site comes up in your browser, your application is ready to
 customize.  If you want to move right on to customizing the example app,
-you can jump ahead to [PhpAppModuleAdmin Configuring Modules].
+you can jump ahead to [PhpAppModelAdmin Configuring ModelAdmin Definitions].
 
 Otherwise, let's take a look at what's going on inside the example app,
 starting with [PHPAppModules creating some content modules].
