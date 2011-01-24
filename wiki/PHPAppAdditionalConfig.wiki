@@ -3,10 +3,51 @@
 Options are specified in the configuration file using
 `$config[$name] = $value;`
 
+The following options are reserved for the Application core.  You may
+also add arbitrary options for your app.
+
+{{{
+	// In default.inc.php:
+	$config['myoption'] = 'something';
+}}}
+
+Options are are accessible via `$app->config['myoption'];`
+
 ===Database Access===
 
 || Name || Required || Default || Description ||
-|| *db_host* || True || localhost || The database server hostname or IP ||
+|| *db_host* || True || `localhost` || The database server hostname or IP ||
 || *db_user* || True || || The database username ||
 || *db_pass* || True || || The database password ||
 || *db_name* || True || || The database name to use ||
+
+===Application Core===
+
+|| Name || Required || Default || Description ||
+|| *base_url* || False || Determined from appRoot and $_SERVER['DOCUMENT_ROOT'] || The web application root directory ||
+|| *admin_path* || False || || The relative path of the admin site (omit if the admin site is served from its own domain) ||
+|| *user_class* || False || User || The name of the model to use for user authentication and permission (must extend [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-modules/BaseUser.html BaseUser]) ||
+|| *login_url* || False || || The URL of the application's login page (needed by Application::requireLogin())
+|| *debug* || False || `false` || The URL of the application's login page (needed by Application::requireLogin())
+
+===Content Modules===
+
+|| Name || Required || Default || Description ||
+|| *modules* || False || || A list of modules to include, as a `name => module_directory` array ||
+|| *models* || False || || A list of additional directories containing model definitions that are not part of a module ||
+
+===Caching===
+
+|| Name || Required || Default || Description ||
+|| *cache_dir* || False || `/tmp/cache-APPID` || A temporary cache directory ||
+|| *cache_files* || False || || A list of `filename => url` entries for preconfigured cacheing of remote files, retrievable via Application::getCacheFile($filename).
+
+===Email Delivery===
+
+|| Name || Required || Default || Description ||
+|| *mail_host* || False || || The SMTP server to send mail through ||
+|| *mail_user* || False || || The SMTP username to connect to the mail server as ||
+|| *mail_pass* || False || || The SMTP user's password ||
+|| *mail_from* || False || || The default "From" header for outbound emails ||
+|| *mail_replyto* || False || || The default "Reply-To" header for outbound emails ||
+|| *mail_templates* || False || || A directory containing preconfigured email templates ||
