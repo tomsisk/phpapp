@@ -4,14 +4,14 @@
   # [PHPAppNewProject Creating a New PHPApp Project]
   # [PHPAppModules Creating Content Modules]
   # [PHPAppConfiguration Application Configuration]
-    * [PHPAppAdditionalConfig Additional Configuration Options]
-    * [PHPAppExtendingUser Extending the Default User Model]
+    * [PHPAppAdditionalConfig Configuration Options Reference]
   # [PHPAppApplication Using the Application Object]
   # [PHPAppAdminInterface Setting Up the Administration Interface]
   # [PHPAppModelAdmin Configuring ModelAdmin Definitions]
 
 ===Advanced Topics===
 
+  * [PHPAppExtendingUser Extending the Default User Model]
   * [PHPAppModelAdminExecution How PHPApp Processes a Request]
   * [PHPAppAdvancedModelAdmin Advanced ModelAdmin Configuration]
     * [PHPAppFieldOptions Field-Specific Options]
