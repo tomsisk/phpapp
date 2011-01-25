@@ -1,0 +1,123 @@
+=Creating Drill-Down Modules with Model Filters=
+
+Picture the following scenario: you have built a website content management
+system with PHPApp.  It allows you to add custom pages, configure
+templates, setup color schemes and navigation menus, and a variety of other
+things for the site.
+
+Now, what if you want to use to to manage multiple sites?  Hundreds of
+sites?
+
+For this application, let's say we have a Site Content module:
+
+  * Site Content
+    * Web Sites
+    * Color Schemes
+    * Menus
+    * My Pages
+
+==The Problem==
+
+The database and model design of such a system is easy enough, but when
+you start using the admin interface, you quickly realize you're in
+information overload.
+
+Let's say we want to edit a site.  Click on the Sites module, then Web Sites
+to get a list of all available web sites.  So far so good.
+
+Now let's say we want to edit a page on a web site.  So we go to Sites, then
+Pages... and now we are looking a list of all pages for all sites.  With
+hundreds of sites that could each potentially have hundreds of pages on them,
+searching through the page list starts to get a bit overwhelming.
+
+==The Solution==
+
+One solution to this problem is to use _Drill-Down Modules_.  This is a module
+that designates a specific model as its _master model_.  By doing so, you are
+telling the administration interface that when you open that module, it should
+prompt you to select a _master object_ to work with.  Once you select an
+object, it uses it as a query filter for all models in that section, and only
+displays query results that are related to the filter model.
+
+Example:
+
+{{{
+// module.php
+$sa = $module->addModel('Site', 'SiteAdmin');
+$module->master = $sa;
+$module->addModel('Colorscheme', 'ColorschemeAdmin');
+$module->addModel('Menu', 'MenuAdmin');
+$module->addModel('Page', 'PageAdmin');
+}}}
+
+This example specifies that the "Site" model is the master model for this
+module.  Now, when you go to the "Site Content" module, things look a little
+different:
+
+http://home.jongsma.org/software/phpapp/images/drill-down-sidebar.png
+
+First, notice that the module sidebar now has a heading, naming the currently
+active model filter, followed by some links to allow you to add a new site or
+select another site to work with.  If you click "Select another site", you
+will be presented with a popup window to choose a new site to work on:
+
+http://home.jongsma.org/software/phpapp/images/drill-down-filter-popup.png
+
+Second, where the "Sites" model usually would be displayed, it now says
+"Site Details".  If you click on it, instead of seeing a list of all
+available sites, it brings you directly to the edit form for the active
+site.
+
+===Model Design Requirements===
+
+There is only one major requirement for creating a effective drill-down
+module: All other top-level (non-inline) models in the module should have a
+!ManyToOneField that links to the master model.
+
+==Going Further: Using a Base Filter for the Entire Application==
+
+Drill-down modules have the benefit of streamlining your workflow.  Many
+applications have model groupings like this, where you will usually only
+be working on data belonging to a specific object for extended periods
+of time.  Using drill-down modules to filter objects by a master model
+allows you to work faster, and do less searching.
+
+However, some applications go even further.  Let's say we're building
+the above application, but need to support multiple customer accounts,
+each one managing multiple web sites for their account.
+
+  * Accounts
+    * Account
+  * Site Content
+    * Web Sites
+    * Color Schemes
+    * Menus
+    * My Pages
+
+In this case, when an admin logs in, we first want them to select
+which customer they want to work on.
+
+To configure a base filter for the entire app, you need to call
+`AdminController::setBaseFilter()`.  The best place to do this is
+in your admin site's index.php:
+
+{{{
+// index.php
+$admin = new AdminController($app);
+$admin->setBaseFilter('Account');
+$admin->handleRequest();
+}}}
+
+Now, before they select a customer, modules which require a customer account
+are hidden (the screenshots below are from a more complex app, but should
+illustrate the concept):
+
+http://home.jongsma.org/software/phpapp/images/drill-down-base-filter.png
+
+Once the customer is selected, then we display the Site Content module
+in the sidebar:
+
+http://home.jongsma.org/software/phpapp/images/drill-down-base-filter-selected.png
+
+When they click on the module, then they are allowed to select a site as
+before.
