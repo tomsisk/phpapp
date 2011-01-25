@@ -39,7 +39,7 @@ try {
 ==Lazy Loading==
 
 ModelQuery will automatically and invisibly load related objects for you,
-but only when they are need.  It's the perfect tradeoff between ease of use
+but only when they are needed.  It's a perfect tradeoff between ease of use
 and query efficiency.
 
 {{{
