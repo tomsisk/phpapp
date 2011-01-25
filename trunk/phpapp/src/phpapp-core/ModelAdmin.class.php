@@ -405,10 +405,10 @@
 					}
 					$model = $query->get($id);
 				} else {
-					$model = $this->getQuery()->modelquery->create($params, null, $flags);
+					$model = $this->getQuery()->queryhandler->create($params, null, $flags);
 				}
 			} catch(DoesNotExistException $dne) {
-				$model = $this->getQuery()->modelquery->create($params, null, $flags);
+				$model = $this->getQuery()->queryhandler->create($params, null, $flags);
 			}
 
 			// Enforce access
@@ -540,7 +540,7 @@
 				$query = $query->order($this->fieldOptions[$field->field]['groupby']);
 
 			if (isset($field->options['allowNull']))
-				$available[] = array('object' => $query->modelquery->create(array(
+				$available[] = array('object' => $query->queryhandler->create(array(
 					'name' => isset($this->fieldOptions[$field->field]['nullLabel'])
 						? $this->fieldOptions[$field->field]['nullLabel']
 						: 'None'

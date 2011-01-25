@@ -111,7 +111,7 @@
 					$parts = explode('|', $p);
 					// Only let users assign permissions they have themselves
 					if ($modeladmin->getAdmin()->checkPermission($parts[0], $parts[1], $parts[3], $parts[2])) {
-						$perm = $upq->modelquery->create(array('user' => $id,
+						$perm = $upq->queryhandler->create(array('user' => $id,
 																	'module' => $parts[0],
 																	'type' => $parts[1],
 																	'instance' => $parts[2],
