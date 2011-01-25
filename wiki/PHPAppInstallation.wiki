@@ -1,5 +1,8 @@
 =Installation=
 
-TODO
+To install PHPApp:
 
-Now that PHPApp is installed, let's [PHPAppNewProject create new project].
+  # Checkout the project code from SVN: `svn checkout http://phpapp.googlecode.com/svn/trunk/phpapp`
+  # Copy the contents of the `src/` directory into your PHP path
+
+Done!  Now that it's installed, let's [PHPAppNewProject create new project].

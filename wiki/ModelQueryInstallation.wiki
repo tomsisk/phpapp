@@ -1,5 +1,8 @@
 =Installation=
 
-TODO
+To install ModelQuery:
 
-Now that it's installed, let's [ModelQueryCreateDatabase create a database].
+  # Checkout the project code from SVN: `svn checkout http://phpapp.googlecode.com/svn/trunk/modelquery`
+  # Copy the contents of the `src/` directory into your PHP path
+
+Done!  Now that it's installed, let's [ModelQueryCreateDatabase create a database].
