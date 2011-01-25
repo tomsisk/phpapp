@@ -2621,4 +2621,13 @@
 				return $this->sqlcount();
 			}
 		}
+
+		/**
+		 * Get the underlying QueryHandler object for this filter.
+		 * @return QueryHandler The root query handler
+		 */
+		public function getHandler() {
+			return $this->queryhandler;
+		}
+
 	}
