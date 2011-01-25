@@ -1,4 +1,4 @@
-=Extending !ModelAdmin: Custom Actions and Action Hooks
+=Extending !ModelAdmin: Custom Actions and Action Hooks=
 
 ==How Requests are Process==
 
