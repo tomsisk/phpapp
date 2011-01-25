@@ -116,7 +116,7 @@ complex app, but should illustrate the concept):
 
 _Note: if a user only has permission to access to a single instance of
 the base filter (in this case Account), it will be automatically
-selected for them and does not require this step.)_
+selected for them and does not require this step._
 
 http://home.jongsma.org/software/phpapp/images/drill-down-base-filter.png
 
