@@ -51,6 +51,7 @@ $user = $userQuery->get(1);
 
 // As soon as we access the field, it is loaded from the database
 $customer = $user->customer;
+}}}
 
 ==Model Caching==
 
