@@ -28,17 +28,17 @@ metadata defined in [PHPAppModelAdmin ModelAdmin definitions], PHPApp
 allows you to quickly and easily generate beautiful, easy to use
 administration interfaces:
 
-[http://home.jongsma.org/software/phpapp/images/phpapp-admin-overview.png http://home.jongsma.org/software/phpapp/images/phpapp-admin-overview-thumb.png]
+[http://home.jongsma.org/software/phpapp/docs/images/phpapp-admin-overview.png http://home.jongsma.org/software/phpapp/docs/images/phpapp-admin-overview-thumb.png]
 
 _The module overview page_
 
 
-[http://home.jongsma.org/software/phpapp/images/phpapp-account-form.png http://home.jongsma.org/software/phpapp/images/phpapp-account-form-thumb.png]
+[http://home.jongsma.org/software/phpapp/docs/images/phpapp-account-form.png http://home.jongsma.org/software/phpapp/docs/images/phpapp-account-form-thumb.png]
 
 _A model editing form, showing examples of rich widget interfaces and live AJAX data validation via_
 
 
-[http://home.jongsma.org/software/phpapp/images/phpapp-admin-customtemplate.png http://home.jongsma.org/software/phpapp/images/phpapp-admin-customtemplate-thumb.png]
+[http://home.jongsma.org/software/phpapp/docs/images/phpapp-admin-customtemplate.png http://home.jongsma.org/software/phpapp/docs/images/phpapp-admin-customtemplate-thumb.png]
 
 _A customized interface template, showing drag-and-drop reordering capabilities_
 
