@@ -114,7 +114,7 @@ GET /modules/films/film/custom/12
 ==Action Hooks==
 
 In addition to creating custom actions, you can also add pre-execution or
-post-execution hooks to existing actions.
+post-execution hooks that get called before or after existing actions.
 
 ===Pre-Execution Hooks===
 
