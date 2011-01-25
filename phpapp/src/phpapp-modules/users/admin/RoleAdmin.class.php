@@ -86,7 +86,7 @@
 			foreach ($params as $k => $v) {
 				if (substr($k, 0, 6) == '_perm_') {
 					$def = explode('_', $k);
-					$perm = $rpq->modelquery->create(array('role' => $id,
+					$perm = $rpq->queryhandler->create(array('role' => $id,
 																'module' => $def[2],
 																'type' => $def[3],
 																'instance' => 'ALL',
