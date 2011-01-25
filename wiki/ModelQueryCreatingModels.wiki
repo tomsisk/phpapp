@@ -23,7 +23,7 @@ $actor->save();
 echo $actor->id;
 }}}
 
-The [http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/ModelQuery.html#create create()]
+The [http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/QueryHandler.html#create create()]
 method has several optional parameters that help you create and populate
 a model with one call:
 
@@ -35,7 +35,7 @@ $actor->save();
 The parameters are:
   # A hash array of field name and values pairs
   # A list of fields that should not be type-converted (this will usually be null)
-  # Flags describing where the data came from, to assist ModelQuery in type conversion
+  # Flags describing where the data came from, to assist QueryHandler in type conversion
 
 The third parameter is of special note.  ModelQuery populates the model slightly
 differently depending on the flag value, which is an OR'd combination of one or
