@@ -1,6 +1,8 @@
-=How PHPApp Processes a Request=
+=Extending !ModelAdmin: Custom Actions and Action Hooks
 
-In order to extend ModelAdmin with action hooks or custom actions, you will
+==How Requests are Process==
+
+In order to extend !ModelAdmin with action hooks or custom actions, you will
 need to understand how a request is processed by PHPApp.
 
 When PHPApp's admin controller receives a request:
@@ -14,7 +16,7 @@ what would happen with this request:
 
   # /modules identifies it as a module content request
   # The app finds the "films" module, and calls Module::execute() on it with the remaining path portion ('film/edit/12')
-  # Module::execute() finds the "film" !ModelAdmin definition, and calls ModelAdmin::execute() with the remaining path ('edit/12')
+  # Module::execute() finds the "film" !ModelAdmin definition, and calls `ModelAdmin::execute()` with the remaining path ('edit/12')
   # !ModelAdmin tries to find an appropriate action handler for the path specified ('edit')
   # If there are any pre-execution hooks for the action, !ModelAdmin executes them
   # If an action handler is found, module executes the action handler, passing any remaining path portion to it as an object ID
