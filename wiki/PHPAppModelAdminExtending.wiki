@@ -128,6 +128,14 @@ The function signature for pre-execution hooks is the same as for actions:
 public function myAction($id, $params, $modeladmin, $method);
 }}}
 
+Registering a pre-execution hook is done with
+`ModelAdmin::registerActionPreHook()`:
+
+{{{
+// In ModelAdmin::__construct():
+$this->registerActionPreHook('edit', array($this, 'preEdit'));
+}}}
+
 One important thing to note: since it is executed before the action,
 you can modify the contents of the request before the action gets it by
 updating the `$params` array.
@@ -143,6 +151,14 @@ The function signature for pre-execution hooks is the same as for actions:
 
 {{{
 public function myAction($id, $params, $modeladmin, $method);
+}}}
+
+Registering a post-execution hook is done with
+`ModelAdmin::registerActionPostHook()`:
+
+{{{
+// In ModelAdmin::__construct():
+$this->registerActionPostHook('save', array($this, 'postSave'));
 }}}
 
 ==Examples==
