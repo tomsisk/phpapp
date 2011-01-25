@@ -57,9 +57,10 @@ different:
 http://home.jongsma.org/software/phpapp/images/drill-down-sidebar.png
 
 First, notice that the module sidebar now has a heading, naming the currently
-active model filter, followed by some links to allow you to add a new site or
-select another site to work with.  If you click "Select another site", you
-will be presented with a popup window to choose a new site to work on:
+active model filter ("Test 2"), followed by some links to allow you to add a
+new site or select another site to work with.  If you click "Select another
+site", you will be presented with a popup window to choose a new site to work
+on:
 
 http://home.jongsma.org/software/phpapp/images/drill-down-filter-popup.png
 
@@ -72,7 +73,8 @@ site.
 
 There is only one major requirement for creating a effective drill-down
 module: All other top-level (non-inline) models in the module should have a
-!ManyToOneField that links to the master model.
+!ManyToOneField that links to the master model.  PHPApp will automatically
+detect those fields and filter them by the selected master model.
 
 ==Going Further: Using a Base Filter for the Entire Application==
 
@@ -95,11 +97,11 @@ each one managing multiple web sites for their account.
     * My Pages
 
 In this case, when an admin logs in, we first want them to select
-which customer they want to work on.
+which customer they want to work on first.
 
-To configure a base filter for the entire app, you need to call
-`AdminController::setBaseFilter()`.  The best place to do this is
-in your admin site's index.php:
+To do this, we will configure a base filter for the entire app by
+calling `AdminController::setBaseFilter()`.  The best place to do
+this is in your admin site's index.php:
 
 {{{
 // index.php
@@ -108,16 +110,19 @@ $admin->setBaseFilter('Account');
 $admin->handleRequest();
 }}}
 
-Now, before they select a customer, modules which require a customer account
-are hidden (the screenshots below are from a more complex app, but should
-illustrate the concept):
+Now when you login, before you select a customer, modules which require
+a customer account are hidden (the screenshots below are from a more
+complex app, but should illustrate the concept):
+
+_Note: if a user only has permission to access to a single instance of
+the base filter (in this case Account), it will be automatically
+selected for them and does not require this step.)_
 
 http://home.jongsma.org/software/phpapp/images/drill-down-base-filter.png
 
-Once the customer is selected, then we display the Site Content module
-in the sidebar:
+Once the customer is selected, then all available modules are displayed,
+including our Site Content module:
 
 http://home.jongsma.org/software/phpapp/images/drill-down-base-filter-selected.png
 
-When they click on the module, then they are allowed to select a site as
-before.
+Now when you click on the Site Content module, you can select a site as before.
