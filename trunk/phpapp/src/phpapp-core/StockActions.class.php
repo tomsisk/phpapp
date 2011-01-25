@@ -1272,7 +1272,7 @@
 
 			$filterFields = $modeladmin->getFilterFields();
 			foreach($params as $key => $value)
-				if ($filterFields && !is_array($key) && in_array($key, $filterFields) || $key{0} == '_')
+				if ($filterFields && !is_array($value) && in_array($key, $filterFields) || $key{0} == '_')
 					$filterstr .= ($filterstr?'&':'').rawurlencode(str_replace('.', '__', $key)).'='.rawurlencode($value);
 
 			return $filterstr;
