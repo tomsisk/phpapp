@@ -97,7 +97,7 @@
 										()
 									</div>
 																<div class="method-definition">
-											<span class="method-result"><a href="../modelquery/ModelQuery.html">ModelQuery</a></span>
+											<span class="method-result"><a href="../modelquery/QueryHandler.html">QueryHandler</a></span>
 										<a href="#get" title="details" class="method-name">&amp;get</a>
 											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
 									</div>
@@ -446,16 +446,16 @@
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Get a configured ModelQuery object by name.</p>
+<p class="short-description">Get a configured QueryHandler object by name.</p>
 <p class="description"><p><div class="src-code"><ol><li><div class="src-line"><span class="src-var">$qf</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFactory.html#methodget">get</a><span class="src-sym">(</span><span class="src-str">'User'</span><span class="src-sym">)</span></div></li>
 </ol></div> will look for a file named User.class.php  in the list of model directories specified in the constructor, and upon  finding one will include it and attempt to instantiate a <strong>User</strong>  class.</p></p>
 	<ul class="tags">
-				<li><span class="field">return:</span> A ModelQuery object configured for querying the          specified model type.</li>
+				<li><span class="field">return:</span> A QueryHandler object configured for querying the          specified model type.</li>
 				<li><span class="field">access:</span> public</li>
 			</ul>
 	
 	<div class="method-signature">
-		<span class="method-result"><a href="../modelquery/ModelQuery.html">ModelQuery</a></span>
+		<span class="method-result"><a href="../modelquery/QueryHandler.html">QueryHandler</a></span>
 		<span class="method-name">
 			&amp;get
 		</span>
@@ -528,8 +528,8 @@
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Configure ModelQuery objects for all model objects found in the  search path specified in the constructor.</p>
-<p class="description"><p>Because instantiating large numbers of ModelQuery objects can be  expensive, this method is useful to prepare a QueryFactory instance  for adding to a shared application cache.</p></p>
+<p class="short-description">Configure QueryHandler objects for all model objects found in the  search path specified in the constructor.</p>
+<p class="description"><p>Because instantiating large numbers of QueryHandler objects can be  expensive, this method is useful to prepare a QueryFactory instance  for adding to a shared application cache.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -578,7 +578,7 @@
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Set the shared database connection for ModelQuery objects.</p>
+<p class="short-description">Set the shared database connection for QueryHandler objects.</p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -608,7 +608,7 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Default property getter.</p>
-<p class="description"><p>Allows alternate syntax for fetching a ModelQuery object.  The calls  $qf-&gt;User and $qf-&gt;get('User') are equivalent.</p></p>
+<p class="description"><p>Allows alternate syntax for fetching a QueryHandler object.  The calls  $qf-&gt;User and $qf-&gt;get('User') are equivalent.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -635,7 +635,7 @@
 
 
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 18 Jan 2011 13:37:18 -0600 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Tue, 25 Jan 2011 15:17:19 -0600 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

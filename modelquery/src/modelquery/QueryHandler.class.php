@@ -31,7 +31,7 @@
 	 * The root query object for a specific model.
 	 *
 	 * This class should not be instantiated manually; you should always
-	 * retrieve a configured ModelQuery object via QueryFactory->get().
+	 * retrieve a configured QueryHandler object via QueryFactory->get().
 	 * Most QueryFilter methods are available from this object, except those
 	 * that actually execute a query (select(), hash(), raw(), etc).  If you
 	 * need to fetch all instances of a model, try calling the all() filter
@@ -39,7 +39,7 @@
 	 *
 	 * @see QueryFilter
 	 */
-	class ModelQuery extends QueryFilter {
+	class QueryHandler extends QueryFilter {
 		
 		public $modelClass;
 
@@ -188,38 +188,38 @@
 		}
 
 		/**
-		 * This method is illegal on ModelQuery to avoid query caching in the
+		 * This method is illegal on QueryHandler to avoid query caching in the
 		 * base object.
 		 *
 		 * @throws InvalidUsageException Method is not valid on this object.
 		 */
 		public function select() {
 			// Block calling select() - we don't want queries cached in $this->models on
-			// the shared ModelQuery object.
+			// the shared QueryHandler object.
 			throw new InvalidUsageException('Cannot call select() on the root query object (try calling all() first)');
 		}
 
 		/**
-		 * This method is illegal on ModelQuery to avoid query caching in the
+		 * This method is illegal on QueryHandler to avoid query caching in the
 		 * base object.
 		 *
 		 * @throws InvalidUsageException Method is not valid on this object.
 		 */
 		public function hash() {
 			// Block calling select() - we don't want queries cached in $this->models on
-			// the shared ModelQuery object.
+			// the shared QueryHandler object.
 			throw new InvalidUsageException('Cannot call hash() on the root query object (try calling all() first)');
 		}
 
 		/**
-		 * This method is illegal on ModelQuery to avoid query caching in the
+		 * This method is illegal on QueryHandler to avoid query caching in the
 		 * base object.
 		 *
 		 * @throws InvalidUsageException Method is not valid on this object.
 		 */
 		public function raw() {
 			// Block calling select() - we don't want queries cached in $this->models on
-			// the shared ModelQuery object.
+			// the shared QueryHandler object.
 			throw new InvalidUsageException('Cannot call raw() on the root query object (try calling all() first)');
 		}
 

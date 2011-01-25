@@ -33,7 +33,7 @@
 	 */
 	abstract class AbstractCursorIterator implements ArrayAccess, Iterator, Countable {
 
-		private $modelquery;
+		private $queryhandler;
 		private $result;
 		private $aggregates;
 
@@ -41,8 +41,8 @@
 		private $reccount = 0;
 		private $current = null;
 
-		public function __construct($modelquery_, $result_, $aggregates_ = null) {
-			$this->modelquery = $modelquery_;
+		public function __construct($queryhandler_, $result_, $aggregates_ = null) {
+			$this->queryhandler = $queryhandler_;
 			$this->result = $result_;
 			$this->aggregates = $aggregates_;
 			if ($result_ && !$result_->EOF) {
@@ -63,7 +63,7 @@
 		public function current() {
 			if ($this->result && !$this->result->EOF) {
 				if (!$this->current)
-					$this->current = $this->createModel($this->modelquery, $this->result->fields, $this->aggregates);
+					$this->current = $this->createModel($this->queryhandler, $this->result->fields, $this->aggregates);
 				return $this->current;
 			}
 			return false;
@@ -134,7 +134,7 @@
 			}
 		}
 
-		public abstract function createModel($modelquery, $fields, $raw);
+		public abstract function createModel($queryhandler, $fields, $raw);
 
 	}
 
@@ -147,19 +147,19 @@
 	 */
 	class CursorIterator extends AbstractCursorIterator {
 
-		public function createModel($modelquery, $fields, $raw) {
+		public function createModel($queryhandler, $fields, $raw) {
 
-			$pk = $modelquery->model->_idField;
+			$pk = $queryhandler->model->_idField;
 			$model = null;
 
-			$cacheKey = get_class($modelquery->model).':'
-				.$modelquery->model->_fields[$pk]->convertFromDbValue($fields[$pk]);
+			$cacheKey = get_class($queryhandler->model).':'
+				.$queryhandler->model->_fields[$pk]->convertFromDbValue($fields[$pk]);
 
-			if ($modelquery->factory->cacheExists($cacheKey)) {
-				$model = $modelquery->factory->cacheGet($cacheKey);
+			if ($queryhandler->factory->cacheExists($cacheKey)) {
+				$model = $queryhandler->factory->cacheGet($cacheKey);
 			} else {
-				$model = $modelquery->create($fields, $rawfields, UPDATE_FROM_DB);
-				$modelquery->factory->cachePut($cacheKey, $model);
+				$model = $queryhandler->create($fields, $rawfields, UPDATE_FROM_DB);
+				$queryhandler->factory->cachePut($cacheKey, $model);
 			}
 
 			return $model;
@@ -177,8 +177,8 @@
 	 */
 	class HashCursorIterator extends AbstractCursorIterator {
 
-		public function createModel($modelquery, $fields, $raw) {
-			return $modelquery->createHashFromRow($fields, $modelquery->model, $raw);
+		public function createModel($queryhandler, $fields, $raw) {
+			return $queryhandler->createHashFromRow($fields, $queryhandler->model, $raw);
 		}
 
 	}
