@@ -1,6 +1,6 @@
 =Extending !ModelAdmin: Custom Actions and Action Hooks=
 
-==How Requests are Process==
+==How Requests are Processed==
 
 In order to extend !ModelAdmin with action hooks or custom actions, you will
 need to understand how a request is processed by PHPApp.
