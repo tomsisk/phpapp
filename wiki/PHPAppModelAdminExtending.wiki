@@ -11,27 +11,29 @@ When PHPApp's admin controller receives a request:
 GET /modules/films/film/edit/12
 }}}
 
-it splits it into chunks for processing.  The following are steps are
-what would happen with this request:
+it splits it into chunks for processing.  The following steps show
+what happens to process this request:
 
   # /modules identifies it as a module content request
-  # The app finds the "films" module, and calls Module::execute() on it with the remaining path portion ('film/edit/12')
+  # The !AdminController finds the "films" module, and calls `Module::execute()` on it with the remaining path portion ('film/edit/12')
   # Module::execute() finds the "film" !ModelAdmin definition, and calls `ModelAdmin::execute()` with the remaining path ('edit/12')
   # !ModelAdmin tries to find an appropriate action handler for the path specified ('edit')
   # If there are any pre-execution hooks for the action, !ModelAdmin executes them
-  # If an action handler is found, module executes the action handler, passing any remaining path portion to it as an object ID
+  # If an action handler is found, module executes the action handler, passing any remaining path portion to it as the object ID
   # If there are any post-execution hooks for the action, !ModelAdmin executes them
 
-The key to adding additional functionality to PHPApp is by registering
-_custom actions_ and _action hooks_ in a !ModelAdmin definition. All actions
-and action hooks must be functions with the following signature:
+Since request is process by an action registered with !ModelAdmin, the key to
+adding additional functionality to PHPApp is by registering _custom actions_
+and _action hooks_ in a !ModelAdmin definition.
+
+All actions and action hooks must be functions with the following signature:
 
 {{{
 public function myAction($id, $params, $modeladmin, $method);
 }}}
 
 Parameters:
-  # *$id*: The object id passed from the request path
+  # *$id*: The object id passed from the request path (may be null or 0)
   # *$params*: Any query string parameters from the request, as a name => value array
   # *$modeladmin*: The !ModelAdmin definition that is calling the action
   # *$method*: The HTTP method of the request (GET, POST, etc)
@@ -44,35 +46,36 @@ a redirect URL:
 
 ==Default Actions==
 
-ModelAdmin has a set of default action handlers that are used to generate
+!ModelAdmin has a set of default action handlers that are used to generate
 the admin interface.  These are useful to know so that you can use
 the built-in handlers as a fallback mechanism in your own custom actions:
 
 || Action || Handler ||
-|| (default) || StockActions::showObjectList() ||
-|| add || StockActions::doObjectAdd() ||
-|| addpopup || StockActions::doObjectAddPopup() ||
-|| autocomplete || StockActions::doObjectAutocomplete() ||
-|| delete || StockActions::doObjectDelete() ||
-|| deleteconfirm || StockActions::showObjectDeleteConfirm() ||
-|| edit || StockActions::doObjectEdit() ||
-|| export || StockActions::exportObjectList() ||
-|| filter || StockActions::showObjectFilter() ||
-|| import || StockActions::doObjectImport() ||
-|| validateimport || StockActions::validateObjectImport() ||
-|| verifyimport || StockActions::verifyObjectImport() ||
-|| save || StockActions::doObjectSave() ||
-|| saved || StockActions::showObjectSaved() ||
-|| savejs || StockActions::doObjectSaveJSON() ||
-|| savepopup || StockActions::doObjectSavePopup() ||
-|| searchjs || StockActions::doObjectSearchJSON() ||
-|| listupdatejs || StockActions::doObjectListUpdateJSON() ||
-|| validate || StockActions::doObjectValidateJSON() ||
-|| view || StockActions::doObjectView() ||
+|| (default) || `StockActions::showObjectList()` ||
+|| add || `StockActions::doObjectAdd()` ||
+|| addpopup || `StockActions::doObjectAddPopup()` ||
+|| autocomplete || `StockActions::doObjectAutocomplete()` ||
+|| delete || `StockActions::doObjectDelete()` ||
+|| deleteconfirm || `StockActions::showObjectDeleteConfirm()` ||
+|| edit || `StockActions::doObjectEdit()` ||
+|| export || `StockActions::exportObjectList()` ||
+|| filter || `StockActions::showObjectFilter()` ||
+|| import || `StockActions::doObjectImport()` ||
+|| validateimport || `StockActions::validateObjectImport()` ||
+|| verifyimport || `StockActions::verifyObjectImport()` ||
+|| save || `StockActions::doObjectSave()` ||
+|| saved || `StockActions::showObjectSaved()` ||
+|| savejs || `StockActions::doObjectSaveJSON()` ||
+|| savepopup || `StockActions::doObjectSavePopup()` ||
+|| searchjs || `StockActions::doObjectSearchJSON()` ||
+|| listupdatejs || `StockActions::doObjectListUpdateJSON()` ||
+|| validate || `StockActions::doObjectValidateJSON()` ||
+|| view || `StockActions::doObjectView()` ||
 
 ==Custom Actions==
 
-Creating a custom action is simple: just all `ModelAdmin::registerActionHandler()`.
+Creating a custom action is simple: just call `ModelAdmin::registerActionHandler()`
+in your !ModelAdmin definition:
 
 {{{
 class FilmAdmin extends ModelAdmin {
@@ -100,7 +103,7 @@ class FilmAdmin extends ModelAdmin {
 
 Parameters
   # *$action*: The action name.
-  # *$function: The function handler.  This can be a function name, or an array specifying an object instance and member function to call.
+  # *$function*: The function handler.  This can be a function name, or an array specifying an object instance and member function to call.
  
 After defining this custom handler, it would be called by the following request:
 
@@ -127,9 +130,9 @@ public function myAction($id, $params, $modeladmin, $method);
 
 One important thing to note: since it is executed before the action,
 you can modify the contents of the request before the action gets it by
-updating the $params array.
+updating the `$params` array.
 
-===Pre-Execution Hooks===
+===Post-Execution Hooks===
 
 Post-execution hooks can be useful for:
   * Creating triggers that executed business logic after a model is saved
@@ -141,3 +144,10 @@ The function signature for pre-execution hooks is the same as for actions:
 {{{
 public function myAction($id, $params, $modeladmin, $method);
 }}}
+
+===Execution Hook Examples===
+
+To view a real-life example of custom actions and action hooks, take look
+at the source code to the
+[http://code.google.com/p/phpapp/source/browse/trunk/phpapp/src/phpapp-modules/users/admin/BaseUserAdmin.class.php BaseUser]
+class from phpapp-modules.
