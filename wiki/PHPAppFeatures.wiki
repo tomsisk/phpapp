@@ -1,0 +1,43 @@
+=Features=
+
+<wiki:toc/>
+
+PHPApp is a web application framework for PHP and MySQL.  It uses
+!ModelQuery for data access, and provides shared application services
+and a powerful administraton site builder.
+
+==Application Services==
+
+The [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html Application]
+object is the central interface for interacting with your PHPApp
+application.  The Application object provides services such as:
+
+  * Database access (via ModelQuery)
+  * User authentication
+  * Checking user permissions
+  * Content caching (user, session, or global)
+  * Sending emails
+  * Logging
+
+See the [PHPAppTutorial tutorial] for more details on
+[PHPAppApplication using the Application object].
+
+==Administration Site Builder==
+
+The key feature that makes PHPApp so useful is the administration site
+builder.  Using the field definitions from your ModelQuery models,
+along with additional metadata defined in [PHPAppModelAdmin ModelAdmin definitions],
+PHPApp allows you to quickly and easily generate beautiful, easy to use
+administration interfaces:
+
+[http://home.jongsma.org/software/phpapp/images/phpapp-admin-overview-thumb.png http://home.jongsma.org/software/phpapp/images/phpapp-admin-overview.png]
+_The module overview page_
+
+[http://home.jongsma.org/software/phpapp/images/phpapp-admin-form-thumb.png http://home.jongsma.org/software/phpapp/images/phpapp-admin-form.png]
+_A model editing form, showing examples of rich widget interfaces and live data validation_
+
+[http://home.jongsma.org/software/phpapp/images/phpapp-admin-customtemplate-thumb.png http://home.jongsma.org/software/phpapp/images/phpapp-admin-customtemplate.png]
+_A customized interface template, showing drag-and-drop reordering capabilities_
+
+For more details on setting up the administration site, check out the
+[PHPAppTutorial tutorial].
