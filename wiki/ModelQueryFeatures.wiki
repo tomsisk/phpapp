@@ -1,0 +1,86 @@
+=Features=
+
+ModelQuery is a easy-to-use database API.  Key features include data
+validation, model caching, lazy loading related models, and a flexible
+chaining filter API that makes data manipulation in PHP quick and error-free.
+
+==Simple Query API==
+
+ModelQuery uses an intuitive PHP API for queries, so you don't have to
+mess with SQL.  Fetching a list of all active users with GMail addresses
+is as simple as:
+
+{{{
+$users = $userQuery->filter('active', true)->filter('email:endswith', '@gmail.com');
+}}}
+
+==Data Validation==
+
+When you save a model instance with ModelQuery, it validates the field
+data based on the type of field, and any additional validation restrictions
+you have configured:
+
+{{{
+// Create a model
+$user = $userQuery->create():
+
+// "email" is a field of type EmailField
+$user->email = 'not_an_email_address';
+
+// Oops!  This will throw an exception since email doesn't validate
+try {
+    $user->save();
+} catch (ValidationException $ve) {
+    echo 'Validation failed';
+    print_r($ve->getFieldErrors());
+}
+}}}
+
+==Lazy Loading==
+
+ModelQuery will automatically and invisibly load related objects for you,
+but only when they are need.  It's the perfect tradeoff between ease of use
+and query efficiency.
+
+{{{
+// The User model has a "customer" foreign key field that links to a
+// Customer object
+
+// The user object is loaded, but the "customer" relation is still empty
+$user = $userQuery->get(1);
+
+// As soon as we access the field, it is loaded from the database
+$customer = $user->customer;
+
+==Model Caching==
+
+Models that are loaded from the database are cached in memory for the
+duration the current request.  This means that repeated calls to load
+the same object will only execute one database query:
+
+{{{
+// Executes a database query
+$user = $userQuery->get(1);
+
+// No query is executed; the cached copy is returned
+$user = $userQuery->get(1);
+}}}
+
+An additional benefit of this is that all code that loads the same
+object gets the same object reference - so field changes made in one
+piece of code show up immediately in the others.
+
+{{{
+// Loads user 1
+$user1 = $userQuery->get(1):
+
+// Loads a cached copy of user 1
+$user2 = $userQuery->get(1):
+
+// Set the user's email address
+$user1->email = 'test@example.com';
+
+// ...and it shows up immediately in the second copy
+echo $user2->email;
+// Displays 'test@example.com'
+}}}
