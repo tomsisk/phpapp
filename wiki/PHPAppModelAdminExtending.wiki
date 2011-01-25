@@ -35,7 +35,7 @@ public function myAction($id, $params, $modeladmin, $method);
 Parameters:
   # *$id*: The object id passed from the request path (may be null or 0)
   # *$params*: Any query string parameters from the request, as a name => value array
-  # *$modeladmin*: The !ModelAdmin definition that is calling the action
+  # *$modeladmin*: The !ModelAdmin definition that is calling the action.  This will always be set to the caller of the action, so `$modeladmin` and `$this` are the same thing if your action handler function is a member of your !ModelAdmin class.
   # *$method*: The HTTP method of the request (GET, POST, etc)
 
 Return Value: The return value of your action is a string specifying
