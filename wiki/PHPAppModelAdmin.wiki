@@ -58,11 +58,11 @@ Let's look at some of these directives in more detail:
   * `ModelAdmin::setDisplayFields($ary)`: A list of field columns that will be shown in the table when listing available objects.
   * `ModelAdmin::setSearchFields($ary)`: A list of fields that will be checked when searching for objects.
   * `ModelAdmin::setFilterFields($ary)`: A list of fields that will be shown in the sidebar on the object list view as available filters.  Since PHPApp will attempt to display all unique values as filters for these fields, it is not a good idea to use filter fields that have a wide range of unique values.
-  * `ModelAdmin::setFieldOption($field, $option, $value)`: Set a field-specific option. See [PHPAppAdvancedModelAdmin#Field-Specific_Options Field-Specific Options] for more details.
+  * `ModelAdmin::setFieldOption($field, $option, $value)`: Set a field-specific option. See [PHPAppModelAdminConfig#Field-Specific_Options Field-Specific Options] for more details.
   * `ModelAdmin::setFieldGroups($groups)`: Manually specify the fields to display on the edit form, and arrange them in groups.
 
 There are many more options available to !ModelAdmin definitions, which
-you can learn about in [PHPAppAdvancedModelAdmin Advanced ModelAdmin Configuration],
+you can learn about in [PHPAppModelAdminConfig Advanced ModelAdmin Configuration],
 but these options are sufficient for this example.
 
 Let's create the remaining !ModelAdmin definitions:
@@ -173,10 +173,8 @@ into something that doesn't fit your needs.  Extending PHPApp is covered
 in the advanced topics below:
 
   * [PHPAppExtendingUser Extending the Default User Model]
-  * [PHPAppModelAdminExecution How PHPApp Processes a Request]
   * [PHPAppModelFilters Creating Drill-Down Modules with Model Filters]
-  * [PHPAppAdvancedModelAdmin Advanced ModelAdmin Configuration]
-    * [PHPAppActionHooks Adding Action Hooks]
-    * [PHPAppActionHandlers Creating Custom Actions]
+  * [PHPAppModelAdminConfig ModelAdmin Configuration Reference]
+  * [PHPAppModelAdminExtending Extending ModelAdmin: Custom Actions and Action Hooks]
   * [PHPAppCustomTemplates Customizing the Interface Templates]
     * [PHPAppCustomFields Templates for Custom Model Fields]

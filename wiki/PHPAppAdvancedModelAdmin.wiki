@@ -1,4 +1,4 @@
-=Advanced !ModelAdmin Configuration=
+=!ModelAdmin Configuration Reference=
 
 Basic model administration configuration was covered previously in
 [PHPAppModelAdmin Configuring ModelAdmin Definitions], but !ModelAdmin
@@ -30,7 +30,7 @@ has many more options available.
 || *addQueryFilter*(_$field_, _$value_) || Add a filter to limit the results shown on the object list view.  This just adds a filter to the $queryFilters property documented above. ||
 || *mergeWith*(_$field_) || Designate a relation field as a one-to-one relation whose fields should be displayed on the form as if they belonged to the current model. ||
 || *setDisplayFields*(_$fields_) || An array of field names to display as columns in the object list view. ||
-|| *setFieldOption*(_$field_, _$option_, _$value_) || Set a field specific option.  For a list of common options, see [PHPAppAdvancedModelAdmin#Field-Specific_Options Field-Specific Options] ||
+|| *setFieldOption*(_$field_, _$option_, _$value_) || Set a field specific option.  For a list of common options, see [PHPAppModelAdminConfig#Field-Specific_Options Field-Specific Options] ||
 || *setFieldRestriction*(_$field_, _$value_, _$permission_) || Restrict the use of a value to users with the specified permission.  i.e. `$this->addFieldRestriction('internal', true, 'ADMIN');` only allows users with the ADMIN permission to set `$object->internal = true;`  The special value constant `CHANGE_ONLY` can be used to restrict anyone from changing an existing value unless they have the specified permission. ||
 || *setFieldTemplate*(_$field_, _$template_, _$context_) || Specify a custom field rendering template for the given field, rather than using the default field template from `phpapp-core/templates/fields/*`. ||
 || *setFilterFields*(_$fields_) || An array of field names to show as query filters in the sidebar of the object list view.  Note that PHPApp attempts to display all available unique values for a filter field, so it is not a good idea to choose filter fields that have a large number of unique values. ||

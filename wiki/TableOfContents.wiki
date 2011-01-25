@@ -26,11 +26,9 @@
      * [PHPAppModelAdmin Configuring ModelAdmin Definitions]
      * Advanced Topics
        * [PHPAppExtendingUser Extending the Default User Model]
-       * [PHPAppModelAdminExecution How PHPApp Processes a Request]
+       * [PHPAppModelAdminExtending Extending ModelAdmin: Custom Actions and Action Hooks]
        * [PHPAppModelFilters Creating Drill-Down Modules with Model Filters]
-       * [PHPAppAdvancedModelAdmin Advanced ModelAdmin Configuration]
-         * [PHPAppActionHooks Adding Action Hooks]
-         * [PHPAppActionHandlers Creating Custom Actions]
+       * [PHPAppModelAdminConfig ModelAdmin Configuration Reference]
        * [PHPAppCustomTemplates Customizing the Interface Templates]
          * [PHPAppCustomFields Templates for Custom Model Fields]
    * [http://home.jongsma.org/software/phpapp/docs/phpdoc/ API Reference]
