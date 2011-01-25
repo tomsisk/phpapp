@@ -13,7 +13,7 @@
 
   * [PHPAppExtendingUser Extending the Default User Model]
   * [PHPAppModelFilters Creating Drill-Down Modules with Model Filters]
-  * [PHPAppModelAdminConfig ModelAdmin ConfigurationReference]
+  * [PHPAppModelAdminConfig ModelAdmin Configuration Reference]
   * [PHPAppModelAdminExtending Extending ModelAdmin: Custom Actions and Action Hooks]
   * [PHPAppCustomTemplates Customizing the Interface Templates]
     * [PHPAppCustomFields Templates for Custom Model Fields]
