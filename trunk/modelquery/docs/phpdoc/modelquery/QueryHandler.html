@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class QueryHandler</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class QueryHandler</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+													<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The root query object for a specific model.</p>
+<p class="description"><p>This class should not be instantiated manually; you should always  retrieve a configured QueryHandler object via QueryFactory-&gt;get().  Most QueryFilter methods are available from this object, except those  that actually execute a query (select(), hash(), raw(), etc).  If you  need to fetch all instances of a model, try calling the all() filter  first.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html">QueryFilter</a></li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_QueryHandler.class.php.html">/QueryHandler.class.php</a> (line <span class="field"><a href="../__filesource/fsource_modelquery__QueryHandler.class.php.html#a42">42</a></span>)
+		</p>
+		
+				
+		<pre><a href="../modelquery/QueryFilter.html">QueryFilter</a>
+   |
+   --QueryHandler</pre>
+	
+			</div>
+</div>
+
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																								<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$modelClass" title="details" class="var-name">$modelClass</a>
+				</div>
+											</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																												
+												<div class="method-definition">
+											<span class="method-result">QueryHandler</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">&$modelClass_</span>, <span class="var-type"></span>&nbsp;<span class="var-name">&$factory_</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$appName_</span> = <span class="var-default">null</span>], <span class="var-type"><a href="../modelquery/Model.html">Model</a></span>&nbsp;<span class="var-name">$modelClass_</span>, <span class="var-type"><a href="../modelquery/QueryFactory.html">QueryFactory</a></span>&nbsp;<span class="var-name">$factory_</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/Model.html">Model</a></span>
+										<a href="#create" title="details" class="method-name">create</a>
+											([<span class="var-type">Array</span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$rawvalues</span> = <span class="var-default">null</span>], [<span class="var-type">int</span>&nbsp;<span class="var-name">$flags</span> = <span class="var-default">0</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/Model.html">Model</a></span>
+										<a href="#getAndUpdate" title="details" class="method-name">getAndUpdate</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">Array</span>&nbsp;<span class="var-name">$params</span>, [<span class="var-type">int</span>&nbsp;<span class="var-name">$flags</span> = <span class="var-default">0</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$filter</span> = <span class="var-default">null</span>], <span class="var-type">Array</span>&nbsp;<span class="var-name">$rawvalues</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getAppName" title="details" class="method-name">getAppName</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/Model.html">Model</a></span>
+										<a href="#getConcreteType" title="details" class="method-name">getConcreteType</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$params</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">ADOConnection</span>
+										<a href="#getConnection" title="details" class="method-name">getConnection</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getTable" title="details" class="method-name">getTable</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#hash" title="details" class="method-name">hash</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#makeTableName" title="details" class="method-name">makeTableName</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$string</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#raw" title="details" class="method-name">raw</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#select" title="details" class="method-name">select</a>
+										()
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			<a name="var$modelClass" id="$modelClass"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$modelClass</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryHandler.class.php.html#a44">44</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+							<h4>Inherited Variables</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span></p>
+					<blockquote>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/QueryFilter.html#var$factory">QueryFilter::$factory</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/QueryFilter.html#var$fullQuery">QueryFilter::$fullQuery</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/QueryFilter.html#var$model">QueryFilter::$model</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/QueryFilter.html#var$modelquery">QueryFilter::$modelquery</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/QueryFilter.html#var$parentFilter">QueryFilter::$parentFilter</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/QueryFilter.html#var$query">QueryFilter::$query</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/QueryFilter.html#var$queryhandler">QueryFilter::$queryhandler</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/QueryFilter.html#var$tableName">QueryFilter::$tableName</a></span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryHandler.class.php.html#a58">58</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a new query object.</p>
+<p class="description"><p>This class should not be instantiated manually.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFactory.html">QueryFactory</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">QueryHandler</span>
+		<span class="method-name">
+			__construct
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">&$modelClass_</span>, <span class="var-type"></span>&nbsp;<span class="var-name">&$factory_</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$appName_</span> = <span class="var-default">null</span>], <span class="var-type"><a href="../modelquery/Model.html">Model</a></span>&nbsp;<span class="var-name">$modelClass_</span>, <span class="var-type"><a href="../modelquery/QueryFactory.html">QueryFactory</a></span>&nbsp;<span class="var-name">$factory_</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../modelquery/Model.html">Model</a></span>
+				<span class="var-name">$modelClass_</span><span class="var-description">: A Model instance to build a query object for</span>			</li>
+					<li>
+				<span class="var-type"><a href="../modelquery/QueryFactory.html">QueryFactory</a></span>
+				<span class="var-name">$factory_</span><span class="var-description">: The QueryFactory that is creating this object</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$appName_</span><span class="var-description">: The application name (also serves as a table name prefix)</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">&$modelClass_</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">&$factory_</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../modelquery/QueryFilter.html#method__construct">QueryFilter::__construct()</a></dt>
+						<dd>Create a new QueryFilter object.</dd>
+					</dl>
+			
+	</div>
+<a name="methodcreate" id="create"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">create</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryHandler.class.php.html#a80">80</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a model object from a hash of key/value pairs.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The new Model instance</li>
+				<li><span class="field">see:</span> <a href="../modelquery/_Model.class.php.html#defineUPDATE_FROM_DB">UPDATE_FROM_DB</a></li>
+				<li><span class="field">see:</span> <a href="../modelquery/_Model.class.php.html#defineUPDATE_FORCE_BOOLEAN">UPDATE_FORCE_BOOLEAN</a></li>
+				<li><span class="field">see:</span> <a href="../modelquery/_Model.class.php.html#defineUPDATE_FROM_FORM">UPDATE_FROM_FORM</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/Model.html">Model</a></span>
+		<span class="method-name">
+			create
+		</span>
+					([<span class="var-type">Array</span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$rawvalues</span> = <span class="var-default">null</span>], [<span class="var-type">int</span>&nbsp;<span class="var-name">$flags</span> = <span class="var-default">0</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$params</span><span class="var-description">: A hash array of name/value pairs</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$rawvalues</span><span class="var-description">: A list of field names that should be ignored          during type conversion</span>			</li>
+					<li>
+				<span class="var-type">int</span>
+				<span class="var-name">$flags</span><span class="var-description">: A bitmask of flags specifying information about the          source of the params (UPDATE_* constants)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetAndUpdate" id="getAndUpdate"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getAndUpdate</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryHandler.class.php.html#a132">132</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Update an existing model object from a hash of key/value pairs.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The updated Model instance</li>
+				<li><span class="field">see:</span> <a href="../modelquery/_Model.class.php.html#defineUPDATE_FROM_DB">UPDATE_FROM_DB</a></li>
+				<li><span class="field">see:</span> <a href="../modelquery/_Model.class.php.html#defineUPDATE_FORCE_BOOLEAN">UPDATE_FORCE_BOOLEAN</a></li>
+				<li><span class="field">see:</span> <a href="../modelquery/_Model.class.php.html#defineUPDATE_FROM_FORM">UPDATE_FROM_FORM</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/Model.html">Model</a></span>
+		<span class="method-name">
+			getAndUpdate
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$id</span>, <span class="var-type">Array</span>&nbsp;<span class="var-name">$params</span>, [<span class="var-type">int</span>&nbsp;<span class="var-name">$flags</span> = <span class="var-default">0</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$filter</span> = <span class="var-default">null</span>], <span class="var-type">Array</span>&nbsp;<span class="var-name">$rawvalues</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$id</span><span class="var-description">: The unique object ID</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$params</span><span class="var-description">: A hash array of name/value pairs</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$rawvalues</span><span class="var-description">: A list of field names that should be ignored          during type conversion</span>			</li>
+					<li>
+				<span class="var-type">int</span>
+				<span class="var-name">$flags</span><span class="var-description">: A bitmask of flags specifying information about the          source of the params (UPDATE_* constants)</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$filter</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetAppName" id="getAppName"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getAppName</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryHandler.class.php.html#a157">157</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the application name (from QueryFactory).</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The application name</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getAppName
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetConcreteType" id="getConcreteType"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getConcreteType</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryHandler.class.php.html#a103">103</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Determine if the specified model requires an alternate model subclass  (if the model called mapConcreteTypes()).</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The model prototype that fits the field values</li>
+				<li><span class="field">see:</span> <a href="../modelquery/Model.html#methodmapConcreteTypes">Model::mapConcreteTypes()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/Model.html">Model</a></span>
+		<span class="method-name">
+			getConcreteType
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$params</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$params</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetConnection" id="getConnection"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getConnection</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryHandler.class.php.html#a149">149</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the current database connection.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The database connection</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">ADOConnection</span>
+		<span class="method-name">
+			getConnection
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetTable" id="getTable"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getTable</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryHandler.class.php.html#a165">165</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get this model's database table name.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The table name</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getTable
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodhash" id="hash"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">hash</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryHandler.class.php.html#a208">208</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">This method is illegal on QueryHandler to avoid query caching in the  base object.</p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> InvalidUsageException Method is not valid on this object.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			hash
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../modelquery/QueryFilter.html#methodhash">QueryFilter::hash()</a></dt>
+						<dd>Execute the current query and return results as a set of  hash arrays.</dd>
+					</dl>
+			
+	</div>
+<a name="methodmakeTableName" id="makeTableName"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">makeTableName</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryHandler.class.php.html#a171">171</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			makeTableName
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$string</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$string</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodraw" id="raw"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">raw</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryHandler.class.php.html#a220">220</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">This method is illegal on QueryHandler to avoid query caching in the  base object.</p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> InvalidUsageException Method is not valid on this object.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			raw
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../modelquery/QueryFilter.html#methodraw">QueryFilter::raw()</a></dt>
+						<dd>Execute the current query and return results as a set of  hash arrays, <em>without performing any type conversion</em>.</dd>
+					</dl>
+			
+	</div>
+<a name="methodselect" id="select"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">select</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryHandler.class.php.html#a196">196</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">This method is illegal on QueryHandler to avoid query caching in the  base object.</p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> InvalidUsageException Method is not valid on this object.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			select
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../modelquery/QueryFilter.html#methodselect">QueryFilter::select()</a></dt>
+						<dd>Execute the current query and return results as a set of  Model instances.</dd>
+					</dl>
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#method__construct">QueryFilter::__construct()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodaddAggregate">QueryFilter::addAggregate()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodaggregate">QueryFilter::aggregate()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodall">QueryFilter::all()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodany">QueryFilter::any()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodapplyDebug">QueryFilter::applyDebug()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodapplyDistinct">QueryFilter::applyDistinct()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodapplyExclude">QueryFilter::applyExclude()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodapplyExcludeOr">QueryFilter::applyExcludeOr()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodapplyExtra">QueryFilter::applyExtra()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodapplyFilter">QueryFilter::applyFilter()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodapplyFilterOr">QueryFilter::applyFilterOr()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodapplyGrouping">QueryFilter::applyGrouping()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodapplyOrder">QueryFilter::applyOrder()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodapplyPreload">QueryFilter::applyPreload()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodapplyRandom">QueryFilter::applyRandom()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodapplySlice">QueryFilter::applySlice()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodavg">QueryFilter::avg()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodavgfield">QueryFilter::avgfield()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodcount">QueryFilter::count()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodcountfield">QueryFilter::countfield()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodcreateHash">QueryFilter::createHash()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodcreateHashFromRow">QueryFilter::createHashFromRow()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodcreateModels">QueryFilter::createModels()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodcreateRawHash">QueryFilter::createRawHash()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodcurrent">QueryFilter::current()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodcursor">QueryFilter::cursor()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methoddebug">QueryFilter::debug()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methoddelete">QueryFilter::delete()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methoddistinct">QueryFilter::distinct()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodexclude">QueryFilter::exclude()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodexcludeor">QueryFilter::excludeor()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodextra">QueryFilter::extra()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodfilter">QueryFilter::filter()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodfilteror">QueryFilter::filteror()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodflush">QueryFilter::flush()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodget">QueryFilter::get()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodgroup">QueryFilter::group()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodhash">QueryFilter::hash()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodhashCursor">QueryFilter::hashCursor()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodinsert">QueryFilter::insert()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodkey">QueryFilter::key()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodmap">QueryFilter::map()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodmax">QueryFilter::max()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodmaxfield">QueryFilter::maxfield()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodmergedQuery">QueryFilter::mergedQuery()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodmin">QueryFilter::min()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodminfield">QueryFilter::minfield()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodnext">QueryFilter::next()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodoffsetExists">QueryFilter::offsetExists()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodoffsetGet">QueryFilter::offsetGet()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodoffsetSet">QueryFilter::offsetSet()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodoffsetUnset">QueryFilter::offsetUnset()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodone">QueryFilter::one()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodorder">QueryFilter::order()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodpluck">QueryFilter::pluck()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodpreload">QueryFilter::preload()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodquery">QueryFilter::query()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodrandom">QueryFilter::random()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodraw">QueryFilter::raw()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodreturnAggregate">QueryFilter::returnAggregate()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodrewind">QueryFilter::rewind()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodselect">QueryFilter::select()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodslice">QueryFilter::slice()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodsqlcount">QueryFilter::sqlcount()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodsum">QueryFilter::sum()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodsumfield">QueryFilter::sumfield()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodupdate">QueryFilter::update()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodvalid">QueryFilter::valid()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodvalues">QueryFilter::values()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodwhere_params">QueryFilter::where_params()</a></span><br>
+													<span class="method-name"><a href="../modelquery/QueryFilter.html#methodwhere_sql">QueryFilter::where_sql()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Tue, 25 Jan 2011 15:17:23 -0600 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

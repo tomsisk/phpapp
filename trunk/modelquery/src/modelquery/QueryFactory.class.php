@@ -26,7 +26,7 @@
 
 	require_once('Exceptions.php');
 	require_once('Model.class.php');
-	require_once('ModelQuery.class.php');
+	require_once('QueryHandler.class.php');
 	require_once('LRUCache.class.php');
 
 	/**
@@ -67,14 +67,14 @@
 		}
 
 		/**
-		 * Get a configured ModelQuery object by name.
+		 * Get a configured QueryHandler object by name.
 		 * <code>$qf->get('User')</code> will look for a file named User.class.php
 		 * in the list of model directories specified in the constructor, and upon
 		 * finding one will include it and attempt to instantiate a <b>User</b>
 		 * class.
 		 *
 		 * @param string $name The model name.
-		 * @return ModelQuery A ModelQuery object configured for querying the
+		 * @return QueryHandler A QueryHandler object configured for querying the
 		 * 		specified model type.
 		 */
 		public function &get($name) {
@@ -89,7 +89,7 @@
 					}
 				}
 				if ($found) {
-					$mq = new ModelQuery($name, $this, $this->appName);
+					$mq = new QueryHandler($name, $this, $this->appName);
 					$this->objectCache[$name] =& $mq;
 				}
 			}
@@ -99,7 +99,7 @@
 		/**
 		 * Default property getter.
  		 * 
-		 * Allows alternate syntax for fetching a ModelQuery object.  The calls
+		 * Allows alternate syntax for fetching a QueryHandler object.  The calls
 		 * $qf->User and $qf->get('User') are equivalent.
 		*/
 		public function &__get($name) {
@@ -107,10 +107,10 @@
 		}
 
 		/**
-		 * Configure ModelQuery objects for all model objects found in the
+		 * Configure QueryHandler objects for all model objects found in the
 		 * search path specified in the constructor.
 		 *
-		 * Because instantiating large numbers of ModelQuery objects can be
+		 * Because instantiating large numbers of QueryHandler objects can be
 		 * expensive, this method is useful to prepare a QueryFactory instance
 		 * for adding to a shared application cache.
 		 */
@@ -121,7 +121,7 @@
 		}
 
 		/**
-		 * Set the shared database connection for ModelQuery objects.
+		 * Set the shared database connection for QueryHandler objects.
 		 *
 		 * @param $conn An ADODB database connection object
 		 */

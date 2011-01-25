@@ -54,7 +54,7 @@
 	 * Model is the base class for all of your data model definitions.
 	 * To define a model, you must subclass this Model class.  Field
 	 * definitions and configuration options should be handled by
-	 * overriding Model::configure() in your subclass. When a ModelQuery
+	 * overriding Model::configure() in your subclass. When a QueryHandler
 	 * handler is created for a Model subclass (by QueryFactory->get(),
 	 * the model class is instantiated.  As part of the initialization,
 	 * configure() is called to setup field definitions.
@@ -91,7 +91,7 @@
 	 * by your code.
 	 *
 	 * @package modelquery
-	 * @see ModelQuery
+	 * @see QueryHandler
 	 * @see ModelField
 	 */
 	abstract class Model implements ArrayAccess, Countable, Iterator {
@@ -130,9 +130,9 @@
 		 * Create a new Model object.
 		 *
 		 * This constructor should not be called directly; all Model subclasses should
-		 * be instantiated by ModelQuery.
+		 * be instantiated by QueryHandler.
 		 *
-		 * @param ModelQuery &$query_ The ModelQuery object that is managing this model
+		 * @param QueryHandler &$query_ The QueryHandler object that is managing this model
 		 * @param string $tableName_ The database table name for model persistence
 		 * @param string $appName_ The application name from the QueryFactory
 		 * @see QueryFactory::get()
@@ -196,8 +196,8 @@
 		}
 
 		/**
-		 * Retrieve the ModelQuery object that manages this model
-		 * @return ModelQuery The query manager
+		 * Retrieve the QueryHandler object that manages this model
+		 * @return QueryHandler The query manager
 		 */
 		public function getQuery() {
 			return $this->_query;

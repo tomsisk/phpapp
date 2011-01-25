@@ -67,7 +67,7 @@
 <li><div class="src-line"><a name="a54"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Model&nbsp;is&nbsp;the&nbsp;base&nbsp;class&nbsp;for&nbsp;all&nbsp;of&nbsp;your&nbsp;data&nbsp;model&nbsp;definitions.</span></div></li>
 <li><div class="src-line"><a name="a55"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;To&nbsp;define&nbsp;a&nbsp;model,&nbsp;you&nbsp;must&nbsp;subclass&nbsp;this&nbsp;Model&nbsp;class.&nbsp;&nbsp;Field</span></div></li>
 <li><div class="src-line"><a name="a56"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;definitions&nbsp;and&nbsp;configuration&nbsp;options&nbsp;should&nbsp;be&nbsp;handled&nbsp;by</span></div></li>
-<li><div class="src-line"><a name="a57"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;overriding&nbsp;Model::configure()&nbsp;in&nbsp;your&nbsp;subclass.&nbsp;When&nbsp;a&nbsp;ModelQuery</span></div></li>
+<li><div class="src-line"><a name="a57"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;overriding&nbsp;Model::configure()&nbsp;in&nbsp;your&nbsp;subclass.&nbsp;When&nbsp;a&nbsp;QueryHandler</span></div></li>
 <li><div class="src-line"><a name="a58"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;handler&nbsp;is&nbsp;created&nbsp;for&nbsp;a&nbsp;Model&nbsp;subclass&nbsp;(by&nbsp;QueryFactory-&gt;get(),</span></div></li>
 <li><div class="src-line"><a name="a59"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;the&nbsp;model&nbsp;class&nbsp;is&nbsp;instantiated.&nbsp;&nbsp;As&nbsp;part&nbsp;of&nbsp;the&nbsp;initialization,</span></div></li>
 <li><div class="src-line"><a name="a60"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;configure()&nbsp;is&nbsp;called&nbsp;to&nbsp;setup&nbsp;field&nbsp;definitions.</span></div></li>
@@ -104,7 +104,7 @@
 <li><div class="src-line"><a name="a91"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;by&nbsp;your&nbsp;code.</span></div></li>
 <li><div class="src-line"><a name="a92"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
 <li><div class="src-line"><a name="a93"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;modelquery</span></div></li>
-<li><div class="src-line"><a name="a94"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@see</span><span class="src-doc">&nbsp;ModelQuery</span></div></li>
+<li><div class="src-line"><a name="a94"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@see</span><span class="src-doc">&nbsp;QueryHandler</span></div></li>
 <li><div class="src-line"><a name="a95"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@see</span><span class="src-doc">&nbsp;ModelField</span></div></li>
 <li><div class="src-line"><a name="a96"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
 <li><div class="src-line"><a name="a97"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">abstract&nbsp;</span><span class="src-key">class&nbsp;</span><a href="../modelquery/Model.html">Model</a>&nbsp;<span class="src-key">implements&nbsp;</span><span class="src-id">ArrayAccess</span><span class="src-sym">,&nbsp;</span><span class="src-id">Countable</span><span class="src-sym">,&nbsp;</span><span class="src-id">Iterator&nbsp;</span><span class="src-sym">{</span></div></li>
@@ -143,9 +143,9 @@
 <li><div class="src-line"><a name="a130"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Create&nbsp;a&nbsp;new&nbsp;Model&nbsp;object.</span></div></li>
 <li><div class="src-line"><a name="a131"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
 <li><div class="src-line"><a name="a132"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;This&nbsp;constructor&nbsp;should&nbsp;not&nbsp;be&nbsp;called&nbsp;directly;&nbsp;all&nbsp;Model&nbsp;subclasses&nbsp;should</span></div></li>
-<li><div class="src-line"><a name="a133"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;be&nbsp;instantiated&nbsp;by&nbsp;ModelQuery.</span></div></li>
+<li><div class="src-line"><a name="a133"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;be&nbsp;instantiated&nbsp;by&nbsp;QueryHandler.</span></div></li>
 <li><div class="src-line"><a name="a134"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
-<li><div class="src-line"><a name="a135"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">ModelQuery&nbsp;</span><span class="src-doc-var">&amp;$query_&nbsp;</span><span class="src-doc">The&nbsp;ModelQuery&nbsp;object&nbsp;that&nbsp;is&nbsp;managing&nbsp;this&nbsp;model</span></div></li>
+<li><div class="src-line"><a name="a135"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">QueryHandler&nbsp;</span><span class="src-doc-var">&amp;$query_&nbsp;</span><span class="src-doc">The&nbsp;QueryHandler&nbsp;object&nbsp;that&nbsp;is&nbsp;managing&nbsp;this&nbsp;model</span></div></li>
 <li><div class="src-line"><a name="a136"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$tableName_&nbsp;</span><span class="src-doc">The&nbsp;database&nbsp;table&nbsp;name&nbsp;for&nbsp;model&nbsp;persistence</span></div></li>
 <li><div class="src-line"><a name="a137"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$appName_&nbsp;</span><span class="src-doc">The&nbsp;application&nbsp;name&nbsp;from&nbsp;the&nbsp;QueryFactory</span></div></li>
 <li><div class="src-line"><a name="a138"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@see</span><span class="src-doc">&nbsp;QueryFactory::get()</span></div></li>
@@ -209,8 +209,8 @@
 <li><div class="src-line"><a name="a196"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
 <li><div class="src-line"><a name="a197"></a>&nbsp;</div></li>
 <li><div class="src-line"><a name="a198"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
-<li><div class="src-line"><a name="a199"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Retrieve&nbsp;the&nbsp;ModelQuery&nbsp;object&nbsp;that&nbsp;manages&nbsp;this&nbsp;model</span></div></li>
-<li><div class="src-line"><a name="a200"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">ModelQuery&nbsp;</span><span class="src-doc">The&nbsp;query&nbsp;manager</span></div></li>
+<li><div class="src-line"><a name="a199"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Retrieve&nbsp;the&nbsp;QueryHandler&nbsp;object&nbsp;that&nbsp;manages&nbsp;this&nbsp;model</span></div></li>
+<li><div class="src-line"><a name="a200"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">QueryHandler&nbsp;</span><span class="src-doc">The&nbsp;query&nbsp;manager</span></div></li>
 <li><div class="src-line"><a name="a201"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
 <li><div class="src-line"><a name="a202"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../modelquery/Model.html#methodgetQuery">getQuery</a><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
 <li><div class="src-line"><a name="a203"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../modelquery/Model.html#var$_query">_query</a><span class="src-sym">;</span></div></li>
@@ -1063,7 +1063,7 @@
 </ol></div>
 </div>
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 18 Jan 2011 13:37:14 -0600 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Tue, 25 Jan 2011 15:17:14 -0600 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</body>
 </html>

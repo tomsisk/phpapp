@@ -38,7 +38,7 @@
 	 * 
 	 * <b>Basic Usage Examples</b>
 	 * <code>
-	 * // Get the User ModelQuery object (which is also a QueryFilter) from our QueryFactory
+	 * // Get the User QueryHandler object (which is also a QueryFilter) from our QueryFactory
 	 * $uq = $qf->get('User');
 	 * 
 	 * // Get all users
@@ -138,12 +138,14 @@
 	 * </code>
 	 * 
 	 * @package modelquery
-	 * @see ModelQuery
+	 * @see QueryHandler
 	 * @see CursorIterator
 	*/
 	class QueryFilter implements ArrayAccess, Iterator, Countable {
 
-		/** The ModelQuery object that created this query */
+		/** The QueryHandler object that created this query */
+		public $queryhandler;
+		/** Backwards-compatible reference  to queryhandler - deprecated */
 		public $modelquery;
 		/** The Model prototype to clone for creating results */
 		public $model;
@@ -170,15 +172,17 @@
 		 * This should not be called by non-ModelQuery code; it is called
 		 * internally for creating filter chains.
 		 * 
-		 * @param ModelQuery &$modelquery_ The ModelQuery that created this query
+		 * @param QueryHandler &$queryhandler_ The QueryHandler that created this query
 		 * @param QueryFilter &$parentFilter_ The QueryFilter object that created this filter
 		 */
-		public function __construct(&$modelquery_, &$parentFilter_ = null) {
-			$this->modelquery =& $modelquery_;
-			// Cache some ModelQuery properties
-			$this->model =& $modelquery_->model;
-			$this->factory =& $modelquery_->factory;
-			$this->tableName =& $modelquery_->model->_table;
+		public function __construct(&$queryhandler_, &$parentFilter_ = null) {
+			$this->queryhandler =& $queryhandler_;
+			// Backwards compatibility
+			$this->modelquery =& $queryhandler_;
+			// Cache some QueryHandler properties
+			$this->model =& $queryhandler_->model;
+			$this->factory =& $queryhandler_->factory;
+			$this->tableName =& $queryhandler_->model->_table;
 
 			$this->parentFilter =& $parentFilter_;
 
@@ -201,13 +205,13 @@
 		/**
 		 * Passthrough filter that returns all models.
 		 * 
-		 * Useful for calling on the root ModelQuery object to retrieve all
+		 * Useful for calling on the root QueryHandler object to retrieve all
 		 * models, since you cannot call select() or hash() on it directly.
 		 *
 		 * @return QueryFilter The new QueryFilter at the end of the filter chain
 		 */
 		public function &all() {
-			$filter = new QueryFilter($this->modelquery, $this);
+			$filter = new QueryFilter($this->queryhandler, $this);
 			return $filter;
 		}
 
@@ -267,7 +271,7 @@
 		 * @return QueryFilter The new QueryFilter at the end of the filter chain
 		 */
 		public function &filter() {
-			$filter = new QueryFilter($this->modelquery, $this);
+			$filter = new QueryFilter($this->queryhandler, $this);
 			$args = func_get_args();
 			$filter->applyFilter($this->getFilters($args));
 			return $filter;
@@ -284,7 +288,7 @@
 		 */
 
 		public function &filteror() {
-			$filter = new QueryFilter($this->modelquery, $this);
+			$filter = new QueryFilter($this->queryhandler, $this);
 			$args = func_get_args();
 			$filter->applyFilterOr($this->getFilters($args));
 			return $filter;
@@ -301,7 +305,7 @@
 		 * @see QueryFilter::filter()
 		 */
 		public function &exclude() {
-			$filter = new QueryFilter($this->modelquery, $this);
+			$filter = new QueryFilter($this->queryhandler, $this);
 			$args = func_get_args();
 			$filter->applyExclude($this->getFilters($args));
 			return $filter;
@@ -318,7 +322,7 @@
 		 * @see QueryFilter::filter()
 		 */
 		public function &excludeor() {
-			$filter = new QueryFilter($this->modelquery, $this);
+			$filter = new QueryFilter($this->queryhandler, $this);
 			$args = func_get_args();
 			$filter->applyExcludeOr($this->getFilters($args));
 			return $filter;
@@ -372,7 +376,7 @@
 		 * @return QueryFilter The new QueryFilter at the end of the filter chain
 		 */
 		public function &extra($select = null, $where = null, $params = null, $tables = null) {
-			$filter = new QueryFilter($this->modelquery, $this);
+			$filter = new QueryFilter($this->queryhandler, $this);
 			$filter->applyExtra($select, $where, $params, $tables);
 			return $filter;
 		}
@@ -383,7 +387,7 @@
 		 * @return QueryFilter The new QueryFilter at the end of the filter chain
 		 */
 		public function &random() {
-			$filter = new QueryFilter($this->modelquery, $this);
+			$filter = new QueryFilter($this->queryhandler, $this);
 			$filter->applyRandom();
 			return $filter;
 		}
@@ -400,7 +404,7 @@
 		 * @return QueryFilter The new QueryFilter at the end of the filter chain
 		 */
 		public function &order() {
-			$filter = new QueryFilter($this->modelquery, $this);
+			$filter = new QueryFilter($this->queryhandler, $this);
 			$args = func_get_args();
 			call_user_func_array(array($filter, 'applyOrder'), $args);
 			return $filter;
@@ -415,7 +419,7 @@
 		 */
 		public function &slice($limit = 0, $offset = 0) {
 			if ($offset < 0) $offset = 0;
-			$filter = new QueryFilter($this->modelquery, $this);
+			$filter = new QueryFilter($this->queryhandler, $this);
 			$filter->applySlice($limit, $offset);
 			return $filter;
 		}
@@ -429,7 +433,7 @@
 		 * @return QueryFilter The new QueryFilter at the end of the filter chain
 		 */
 		public function &distinct() {
-			$filter = new QueryFilter($this->modelquery, $this);
+			$filter = new QueryFilter($this->queryhandler, $this);
 			$filter->applyDistinct();
 			return $filter;
 		}
@@ -443,7 +447,7 @@
 		 * @return QueryFilter The new QueryFilter at the end of the filter chain
 		 */
 		public function group($groupby) {
-			$filter = new QueryFilter($this->modelquery, $this);
+			$filter = new QueryFilter($this->queryhandler, $this);
 			$filter->applyGrouping($groupby);
 			return $filter;
 		}
@@ -470,7 +474,7 @@
 		 * @return QueryFilter The new QueryFilter at the end of the filter chain
 		 */
 		public function &preload($field) {
-			$filter = new QueryFilter($this->modelquery, $this);
+			$filter = new QueryFilter($this->queryhandler, $this);
 			$filter->applyPreload($field);
 			return $filter;
 		}
@@ -480,7 +484,7 @@
 		 * @return QueryFilter The new QueryFilter at the end of the filter chain
 		 */
 		public function &debug() {
-			$filter = new QueryFilter($this->modelquery, $this);
+			$filter = new QueryFilter($this->queryhandler, $this);
 			$filter->applyDebug();
 			return $filter;
 		}
@@ -589,7 +593,7 @@
 		 * @return QueryFilter The new QueryFilter at the end of the filter chain
 		 */
 		public function aggregate($name, $field, $fn, $groupby = null) {
-			$filter = new QueryFilter($this->modelquery, $this);
+			$filter = new QueryFilter($this->queryhandler, $this);
 			$filter->addAggregate($name, $field, $fn, $groupby);
 			return $filter;
 		}
@@ -714,7 +718,7 @@
 		 * @return mixed The aggregate field value
 		 */
 		public function returnAggregate($name, $field, $fn, $groupby = null, $convert = false) {
-			$filter = new QueryFilter($this->modelquery, $this);
+			$filter = new QueryFilter($this->queryhandler, $this);
 			list($name, $fieldObj) = $filter->addAggregate($name, $field, $fn, $groupby);
 			$result = $filter->raw();
 			$aggregate = $result[0][$name];
@@ -1235,7 +1239,7 @@
 		public function cursor() {
 			$q = $this->mergedQuery(true);
 			$result = $this->doSelect($q);
-			return new CursorIterator($this->modelquery, $result, $q['aggregates']);
+			return new CursorIterator($this->queryhandler, $result, $q['aggregates']);
 		}
 
 		/**
@@ -1345,7 +1349,7 @@
 
 			if (count($q['filters']) == 0) {
 				$cacheKey = get_class($this->model).':'.$id;
-				$model = $this->modelquery->factory->cacheGet($cacheKey);
+				$model = $this->queryhandler->factory->cacheGet($cacheKey);
 				if ($model)
 					return $model;
 			}
@@ -1422,7 +1426,7 @@
 		 * </code>
 		 *
 		 * The more typical use will be specifying all field values from
-		 * a call on the ModelQuery object itself, rather than using
+		 * a call on the QueryHandler object itself, rather than using
 		 * filters.
 		 *
 		 * <code>
@@ -1445,7 +1449,7 @@
 		 * If you wish to only delete a single record, be sure you use a
 		 * QueryFilter::filter() call on the model's primary key.
 		 *
-		 * WARNING: calling this method on a ModelQuery object itself
+		 * WARNING: calling this method on a QueryHandler object itself
 		 * will delete all records!
 		 *
 		 * @return bool TRUE if the delete succeeded
@@ -1721,7 +1725,7 @@
 			if (count($ordered) || count($cascade)) {
 				$models = $this->select();
 				foreach ($models as $model) {
-					$this->modelquery->factory->cacheRemove(get_class($model).':'.$model->pk);
+					$this->queryhandler->factory->cacheRemove(get_class($model).':'.$model->pk);
 					if (count($ordered)) $this->deleteOrders($model);
 					if (count($cascade))
 						foreach ($cascade as $f => $junk)
@@ -1787,7 +1791,7 @@
 
 				foreach ($ordered as $field => $def) {
 
-					$groupquery = $this->modelquery;
+					$groupquery = $this->queryhandler;
 					$group_by = $def->groupBy ? $def->groupBy : array();
 					$currorder = null;
 
@@ -1812,7 +1816,7 @@
 
 					if (!$changedGroup && !$currorder && isset($model[$this->model->_idField])) {
 						try {
-							$original = $this->modelquery->get($model[$this->model->_idField]);
+							$original = $this->queryhandler->get($model[$this->model->_idField]);
 							$currorder = $original[$field];
 						} catch (DoesNotExist $e) {
 							$currorder = null;
@@ -1897,7 +1901,7 @@
 			$ordered = $this->model->orderedFields();
 			if (count($ordered)) {
 				foreach ($ordered as $field => $def) {
-					$groupquery = $this->modelquery;
+					$groupquery = $this->queryhandler;
 					$group_by = $def->groupBy;
 					if ($group_by)
 						foreach ($group_by as $g)
@@ -2216,8 +2220,8 @@
 		 */
 		public function query($sql, $params) {
 
-			$c =& $this->modelquery->getConnection();
-			$qf =& $this->modelquery->factory;
+			$c =& $this->queryhandler->getConnection();
+			$qf =& $this->queryhandler->factory;
 			if (!$qf->inTransaction())
 				$c->BeginTrans();
 			$stmt = $c->prepare($sql);
@@ -2272,11 +2276,11 @@
 					}
 					$cacheKey = get_class($this->model).':'
 						.$this->model->_fields[$pk]->convertFromDbValue($result->fields[$pk]);
-					if ($this->modelquery->factory->cacheExists($cacheKey)) {
-						$model = $this->modelquery->factory->cacheGet($cacheKey);
+					if ($this->queryhandler->factory->cacheExists($cacheKey)) {
+						$model = $this->queryhandler->factory->cacheGet($cacheKey);
 					} else {
-						$model = $this->modelquery->create($result->fields, $rawfields, UPDATE_FROM_DB);
-						$this->modelquery->factory->cachePut($cacheKey, $model);
+						$model = $this->queryhandler->create($result->fields, $rawfields, UPDATE_FROM_DB);
+						$this->queryhandler->factory->cachePut($cacheKey, $model);
 					}
 				}
 
@@ -2294,8 +2298,8 @@
 								.$relmodel->_fields[$relmodel->_idField]->convertFromDbValue(
 									$result->fields['__'.$field.'__'.$relmodel->_idField]);
 
-							if ($this->modelquery->factory->cacheExists($relCacheKey)) {
-								$relobj = $this->modelquery->factory->cacheGet($relCacheKey);
+							if ($this->queryhandler->factory->cacheExists($relCacheKey)) {
+								$relobj = $this->queryhandler->factory->cacheGet($relCacheKey);
 							} else {
 								$relfields = array();
 								foreach($result->fields as $f => $v) {
@@ -2305,7 +2309,7 @@
 								}
 								$relobj = $relmodel->getQuery()->create($relfields, null, UPDATE_FROM_DB);
 								if (!$relobj->pk) continue;
-								$this->modelquery->factory->cachePut(get_class($relobj).':'.$relobj->pk, $relobj);
+								$this->queryhandler->factory->cachePut(get_class($relobj).':'.$relobj->pk, $relobj);
 							}
 
 							if ($model->$field instanceof RelationSet)
@@ -2421,7 +2425,7 @@
 			while (!$result->EOF) {
 				$model = $this->model;
 				if ($this->model->_subclassField)
-					$model = $this->modelquery->getConcreteType($result->fields);
+					$model = $this->queryhandler->getConcreteType($result->fields);
 				$row =& $result->fields;
 				if (!$preload || $row[$pk] != $lastid) {
 					if ($record) {
@@ -2525,7 +2529,7 @@
 		 * @return int The number of rows that were modified.
 		 */
 		private function affectedRows() {
-			return $this->modelquery->getConnection()->Affected_Rows();
+			return $this->queryhandler->getConnection()->Affected_Rows();
 		}
 
 		/**
@@ -2533,7 +2537,7 @@
 		 * @return mixed The primary key of the last inserted record
 		 */
 		private function insertId() {
-			return $this->modelquery->getConnection()->Insert_ID();
+			return $this->queryhandler->getConnection()->Insert_ID();
 		}
 
 		/**
@@ -2541,7 +2545,7 @@
 		 * @return string The last  error message.
 		 */
 		private function getError() {
-			return $this->modelquery->getConnection()->ErrorMsg();
+			return $this->queryhandler->getConnection()->ErrorMsg();
 		}
 
 		/**
