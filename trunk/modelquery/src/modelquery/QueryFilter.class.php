@@ -2630,4 +2630,12 @@
 			return $this->queryhandler;
 		}
 
+		/**
+		 * Get the underlying QueryFactory object for this filter.
+		 * @return QueryFactory The query factory
+		 */
+		public function getQueryFactory() {
+			return $this->factory;
+		}
+
 	}
