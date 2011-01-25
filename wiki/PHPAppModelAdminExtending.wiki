@@ -145,7 +145,7 @@ The function signature for pre-execution hooks is the same as for actions:
 public function myAction($id, $params, $modeladmin, $method);
 }}}
 
-===Execution Hook Examples===
+==Examples==
 
 To view a real-life example of custom actions and action hooks, take look
 at the source code to the
