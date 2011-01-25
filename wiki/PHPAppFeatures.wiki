@@ -32,13 +32,16 @@ administration interfaces:
 
 _The module overview page_
 
+
 [http://home.jongsma.org/software/phpapp/images/phpapp-account-form.png http://home.jongsma.org/software/phpapp/images/phpapp-account-form-thumb.png]
 
 _A model editing form, showing examples of rich widget interfaces and live data validation_
 
+
 [http://home.jongsma.org/software/phpapp/images/phpapp-admin-customtemplate.png http://home.jongsma.org/software/phpapp/images/phpapp-admin-customtemplate-thumb.png]
 
 _A customized interface template, showing drag-and-drop reordering capabilities_
+
 
 For more details on setting up the administration site, check out the
 [PHPAppTutorial tutorial].
