@@ -128,25 +128,27 @@ to render a text input box for it:
 {{{
 // MYAPP/lib/myappname/modules/films/templates/fields/URLField.tpl
 <input type="text"
-	class="editInput<? if ($inputClass) echo ' '.$inputClass; ?>"
-	<? if ($inputTitle) { ?>title="<?= $inputTitle ?>"<? }
-	if ($inlineField) { ?>
-	name="_<?= $inlineField ?>_<?= $field->field ?>[]"
-	<? } elseif ($fieldName) { ?>
-	name="<?= $fieldName ?>"
-	<? } else { ?>
-	name="<?= $field->field ?>"
-	<? } ?>
-	value="<?= htmlentities($object[$field->field]) ?>"
-	maxlength="<?= $field->length ?>"
-	onchange="fieldChanged(this)"
+    class="editInput<? if ($inputClass) echo ' '.$inputClass; ?>"
+    <? if ($inputTitle) { ?>title="<?= $inputTitle ?>"<? }
+    if ($inlineField) { ?>
+    name="_<?= $inlineField ?>_<?= $field->field ?>[]"
+    <? } elseif ($fieldName) { ?>
+    name="<?= $fieldName ?>"
+    <? } else { ?>
+    name="<?= $field->field ?>"
+    <? } ?>
+    value="<?= htmlentities($object[$field->field]) ?>"
+    maxlength="<?= $field->length ?>"
+    onchange="fieldChanged(this)"
 <? if ($field->length < 40) { ?>
-	size="<?= $field->length ?>"
+    size="<?= $field->length ?>"
 <? } else { ?>
-	style="width:300px"
+    style="width:300px"
 <? } ?>
-	/>
+    />
 }}}
+
+This would end up displaying a simple HTML text input box for the field.
 
 IMPORTANT NOTE: it is critical to follow the logic above for determining the
 input's "name" attribute, in order to allow the field to be correctly used
