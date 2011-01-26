@@ -12,23 +12,22 @@ interface.  The template files are just PHP files that have some standard
 context variables set when they are executed.
 
 To override templates, you will need to understand how PHPApp searches
-for templates.  In this example, let's say we're looking a the list
-view of film models (i.e. http://admin-domain/modules/films/film/).
-The action that handles this request (`StockActions::showObjectList()`)
+for templates.  In this example, let's say we're looking at customizing
+the list view of film models (i.e. http://admin-domain/modules/films/film/).
+The default action that handles this request (`StockActions::showObjectList()`)
 asks PHPApp to display a template called "object_list.tpl".  To do
 this, PHPApp performs a search for this template in the following
 directories:
 
-PHPApp 
   # The model's template directory: `MYAPP/lib/myappname/modules/films/templates/film/object_list.tpl`
   # The module's template directory: `MYAPP/lib/myappname/modules/films/templates/object_list.tpl`
-  # The default template directory: `PHPAPP/templates/object_list.tpl`
+  # The default PHPApp template directory: `PHPAPP/templates/object_list.tpl`
 
 As soon as it finds a matching template, it stops searching and executes
 the template.
 
-So to customize the editing form of the Film model, you would perform the
-following steps:
+With that knowledge, to customize the editing form of the Film model, you
+only need to do the following:
 
   # Copy _PHPAPP_/templates/object_form.tpl to _MYAPP_/lib/myappname/modules/films/templates/film/
   # Edit the new template to customize it
@@ -45,33 +44,33 @@ Templates have several useful variables and methods at their disposal
 during execution:
 
 || Variable || Content ||
-|| $app || The Application object for this app ||
-|| $admin || The AdminController object for this site ||
-|| $user || The currently logged-in user ||
-|| $modules || A list of Module instances registered in the admin site ||
-|| $host || The hostname of the admin site ||
-|| $publichost || The hostname of the public (end-user) site, if specified in application config ||
-|| $context || An array of all context variables available to the template (including those listed here) ||
-|| $module || The active Module object ||
-|| $moduleid || The module ID (same as $module->id) ||
-|| $moduleurl || The base URL of the current module (same as $module->relativeUrl('') ||
-|| $modeladmin || The active ModelAdmin object (if applicable) ||
-|| $section || The current section (same as $modeladmin->id) ||
-|| $sectionurl || The base URL of the current section (same as $modeladmin->relativeUrl('')) ||
+|| *$app* || The Application object for this app ||
+|| *$admin* || The !AdminController object for this site ||
+|| *$user* || The currently logged-in user ||
+|| *$modules* || A list of Module instances registered in the admin site ||
+|| *$host* || The hostname of the admin site ||
+|| *$publichost* || The hostname of the public (end-user) site, if specified in application config ||
+|| *$context* || An array of all context variables available to the template (including those listed here) ||
+|| *$module* || The active Module object ||
+|| *$moduleid* || The module ID (same as $module->id) ||
+|| *$moduleurl* || The base URL of the current module (same as $module->relativeUrl('') ||
+|| *$modeladmin* || The active !ModelAdmin object (if applicable) ||
+|| *$section* || The current section (same as $modeladmin->id) ||
+|| *$sectionurl* || The base URL of the current section (same as $modeladmin->relativeUrl('')) ||
 
 Since a template is executed in the context of a
 [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/PhpAppTemplate.html PhpAppTemplate]
 object, it also has access to several useful member methods:
 
 || Method || Purpose ||
-|| $this->defaultValue($value, $default) || Return the given value, or the default if the value is empty. ||
-|| $this->incl($template, $context = null) || Include the named template. ||
-|| $this->pluralize($string) || Pluralize the given word. ||
-|| $this->priceFormat($value, $zeroDeafult = null, $site = true) || Format a number as a monetary value, with two decimal places. ||
-|| $this->selfform($name = null, $value = null) || Output HTML of a list of hidden form fields required to regenerate a request to the current page.  If a name and value are specified, it will change the named parameter to the new value. ||
-|| $this->selfurl($name = null, $value = null) || Output a URL with parameters required to regenerate a request to the current page.  If a name and value are specified, it will change the named parameter to the new value. ||
-|| $this->singularize($string) || Attempt to convert a plural word to singular. ||
-|| $this->truncate($value, $length, $suffix = '...', $boundary = true) || Truncate a string to the given length, replacing the remainder with the given suffix.  If $boundary is true, only truncate at word boundaries. ||
+|| *$this->defaultValue*(_$value_, _$default_) || Return the given value, or the default if the value is empty. ||
+|| *$this->incl*(_$template_, _$context = null_) || Include the named template. ||
+|| *$this->pluralize*(_$string_) || Pluralize the given word. ||
+|| *$this->priceFormat*(_$value_, _$zeroDeafult = null_, _$site = true_) || Format a number as a monetary value, with two decimal places. ||
+|| *$this->selfform*(_$name = null_, _$value = null_) || Output HTML of a list of hidden form fields required to regenerate a request to the current page.  If a name and value are specified, it will change the named parameter to the new value. ||
+|| *$this->selfurl*(_$name = null_, _$value = null_) || Output a URL with parameters required to regenerate a request to the current page.  If a name and value are specified, it will change the named parameter to the new value. ||
+|| *$this->singularize*(_$string_) || Attempt to convert a plural word to singular. ||
+|| *$this->truncate*(_$value_, _$length_, _$suffix = '...'_, _$boundary = true_) || Truncate a string to the given length, replacing the remainder with the given suffix.  If $boundary is true, only truncate at word boundaries. ||
 
 ==Drawbacks of Overriding Templates==
 
@@ -86,8 +85,8 @@ You can reduce the impact of this by:
   {{{
   // By calling fetchTemplate() on the module object, we are bypassing
   // the model-specific template directory in the search path
-
   echo $module->fetchTemplate('object_form.tpl', $context);
+
   // Add footer content here (useful for content previews, etc)
   }}}
   * If you need to completely override a template, it is usually a good idea to copy the original template to the model's template directory and just customize it as needed.  Default templates are located in [http://code.google.com/p/phpapp/source/browse/trunk#trunk%2Fphpapp%2Fsrc%2Fphpapp-core%2Ftemplates src/phpapp-core/templates].
