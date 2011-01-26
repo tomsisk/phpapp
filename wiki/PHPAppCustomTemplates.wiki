@@ -116,10 +116,10 @@ at the stock templates or the !StockActions source code for more information._
 
 ==Rendering Input Widgets for Custom Fields==
 
-If you are using any custom fields in a module, you will also need to
-create templates to render an input widget on the editing form.  This
-is done by creating a template in your module at `templates/fields`
-with the same name as the custom field's class.
+If you are using any [ModelQueryCustomFields custom model fields] in a module,
+you will also need to create templates to render an input widget on the
+editing form.  This is done by creating a template in your module at
+`templates/fields` with the same name as the custom field's class.
 
 Using the [ModelQueryCustomFields custom field we created in the ModelQuery tutorial],
 we would create the field template `templates/fields/URLField.tpl`
