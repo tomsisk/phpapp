@@ -108,8 +108,47 @@ at the stock templates or the !StockActions source code for more information._
 || *module_list.tpl* || Displays an overview of available modules when you first log in. ||
 || *model_list.tpl* || Displays an overview of available models when you click on a module in the sidebar. ||
 || *object_list.tpl* || Display a paginated table showing available model instances when you click on a specific model section. ||
-|| *object_filter.tpl* || Displays an object selection table in a pop-up window for choosing filter objects for drill-down modules ||
+|| *object_filter.tpl* || Displays an object selection table in a pop-up window for choosing filter objects for drill-down modules. ||
 || *object_detail.tpl* || Displays read-only details on a model instance. ||
 || *object_form.tpl* || Displays an editing form for a model instance. ||
 || *object_field.tpl* || Displays a row in the editing form with a field label and form input widget.  Used indirectly by object_form.tpl. ||
 || *fields/`*`.tpl* || Renders the actual form input widget for a field.  The template name is the same as the field's PHP class name.  So, rendering a `TextField` widget is done by `fields/TextField.tpl`.  See [PHPAppCustomFields Templates for Custom Model Fields] for more details. ||
+
+==Rendering Input Widgets for Custom Fields==
+
+If you are using any custom fields in a module, you will also need to
+create templates to render an input widget on the editing form.  This
+is done by creating a template in your module at `templates/fields`
+with the same name as the custom field's class.
+
+Using the [ModelQueryCustomFields custom field we created in the ModelQuery tutorial],
+we would create the field template `templates/fields/URLField.tpl`
+to render a text input box for it:
+
+{{{
+// MYAPP/lib/myappname/modules/films/templates/fields/URLField.tpl
+<input type="text"
+	class="editInput<? if ($inputClass) echo ' '.$inputClass; ?>"
+	<? if ($inputTitle) { ?>title="<?= $inputTitle ?>"<? }
+	if ($inlineField) { ?>
+	name="_<?= $inlineField ?>_<?= $field->field ?>[]"
+	<? } elseif ($fieldName) { ?>
+	name="<?= $fieldName ?>"
+	<? } else { ?>
+	name="<?= $field->field ?>"
+	<? } ?>
+	value="<?= htmlentities($object[$field->field]) ?>"
+	maxlength="<?= $field->length ?>"
+	onchange="fieldChanged(this)"
+<? if ($field->length < 40) { ?>
+	size="<?= $field->length ?>"
+<? } else { ?>
+	style="width:300px"
+<? } ?>
+	/>
+}}}
+
+IMPORTANT NOTE: it is critical to follow the logic above for determining the
+input's "name" attribute, in order to allow the field to be correctly used
+in inline forms as well as normal forms.  Future versions of PHPApp will
+streamline this process.
