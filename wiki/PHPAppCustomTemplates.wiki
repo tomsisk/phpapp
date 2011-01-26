@@ -88,7 +88,8 @@ You can reduce the impact of this by:
   * If you just want to add text or code to the header or footer of the page, you can include the full original template in your custom template:
   {{{
   // By calling fetchTemplate() on the module object, we are bypassing
-  // the model-specific template directory in the search path
+  // the model-specific template directory in the search path, or we
+  // could get into an include infinite loop
   echo $module->fetchTemplate('object_form.tpl', $context);
 
   // Add footer content here (useful for content previews, etc)
@@ -97,19 +98,18 @@ You can reduce the impact of this by:
 
 ==Standard Templates==
 
-The following is a list of standard interface templates the PHPApp uses, and
-the context variables available to each:
+The following is a list of standard interface templates that PHPApp uses:
 
-_Context variables are not fully documented here; please look at the stock
-templates, or the !StockActions source code for more information._
+_Context variables for each template are not documented here; please look
+at the stock templates or the !StockActions source code for more information._
 
-|| Template || Purpose || Context Variables ||
-|| *base.tpl* || The base user interface template for the admin site, that creates the page headers and footers. || ||
-|| *module_list.tpl* || Displays an overview of available modules when you first log in. || ||
-|| *model_list.tpl* || Displays an overview of available models when you click on a module in the sidebar. || ||
-|| *object_list.tpl* || Display a paginated table showing available model instances when you click on a specific model section. || ||
-|| *object_filter.tpl* || Displays an object selection table in a pop-up window for choosing filter objects for drill-down modules || ||
-|| *object_detail.tpl* || Displays read-only details on a model instance. || ||
-|| *object_form.tpl* || Displays an editing form for a model instance. || ||
-|| *object_field.tpl* || Displays a row in the editing form with a field label and form input widget.  Used indirectly by object_form.tpl. || ||
-|| *fields/`*`.tpl* || Renders the actual form input widget for a field.  The template name is the same as the field's PHP class name.  So, rendering a `TextField` widget is done by `fields/TextField.tpl`.  See [PHPAppCustomFields Templates for Custom Model Fields] for more details. || ||
+|| Template || Purpose ||
+|| *base.tpl* || The base user interface template for the admin site, that creates the page headers and footers. ||
+|| *module_list.tpl* || Displays an overview of available modules when you first log in. ||
+|| *model_list.tpl* || Displays an overview of available models when you click on a module in the sidebar. ||
+|| *object_list.tpl* || Display a paginated table showing available model instances when you click on a specific model section. ||
+|| *object_filter.tpl* || Displays an object selection table in a pop-up window for choosing filter objects for drill-down modules ||
+|| *object_detail.tpl* || Displays read-only details on a model instance. ||
+|| *object_form.tpl* || Displays an editing form for a model instance. ||
+|| *object_field.tpl* || Displays a row in the editing form with a field label and form input widget.  Used indirectly by object_form.tpl. ||
+|| *fields/`*`.tpl* || Renders the actual form input widget for a field.  The template name is the same as the field's PHP class name.  So, rendering a `TextField` widget is done by `fields/TextField.tpl`.  See [PHPAppCustomFields Templates for Custom Model Fields] for more details. ||
