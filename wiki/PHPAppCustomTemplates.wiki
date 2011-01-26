@@ -148,7 +148,9 @@ to render a text input box for it:
     />
 }}}
 
-This would end up displaying a simple HTML text input box for the field.
+This would end up displaying a simple HTML text input box for the field,
+but you can make your widgets as complex as you need.  PHPApp includes
+several fairly complicated input widgets, like the date and color pickers.
 
 IMPORTANT NOTE: it is critical to follow the logic above for determining the
 input's "name" attribute, in order to allow the field to be correctly used
