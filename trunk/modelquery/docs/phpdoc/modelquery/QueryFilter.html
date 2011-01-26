@@ -193,7 +193,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
 												<div class="method-definition">
 											<span class="method-result">QueryFilter</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
@@ -221,6 +221,11 @@
 									</div>
 																<div class="method-definition">
 											<span class="method-result">void</span>
+										<a href="#applyCondition" title="details" class="method-name">applyCondition</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$expression</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
 										<a href="#applyDebug" title="details" class="method-name">&amp;applyDebug</a>
 										()
 									</div>
@@ -242,7 +247,7 @@
 																<div class="method-definition">
 											<span class="method-result">void</span>
 										<a href="#applyExtra" title="details" class="method-name">applyExtra</a>
-											([<span class="var-type"></span>&nbsp;<span class="var-name">$select</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$where</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$tables</span> = <span class="var-default">null</span>])
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$select</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$where</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">null</span>])
 									</div>
 																<div class="method-definition">
 											<span class="method-result">void</span>
@@ -288,6 +293,11 @@
 											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
 										<a href="#avgfield" title="details" class="method-name">avgfield</a>
 											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+										<a href="#condition" title="details" class="method-name">condition</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$expression</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">null</span>])
 									</div>
 																<div class="method-definition">
 											<span class="method-result">int</span>
@@ -357,7 +367,7 @@
 																<div class="method-definition">
 											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
 										<a href="#extra" title="details" class="method-name">&amp;extra</a>
-											([<span class="var-type">Array</span>&nbsp;<span class="var-name">$select</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$where</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$tables</span> = <span class="var-default">null</span>])
+											([<span class="var-type">Array</span>&nbsp;<span class="var-name">$select</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$where</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">null</span>])
 									</div>
 																<div class="method-definition">
 											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
@@ -378,6 +388,16 @@
 											<span class="method-result"><a href="../modelquery/Model.html">Model</a></span>
 										<a href="#get" title="details" class="method-name">get</a>
 											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$id</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryHandler.html">QueryHandler</a></span>
+										<a href="#getHandler" title="details" class="method-name">getHandler</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFactory.html">QueryFactory</a></span>
+										<a href="#getQueryFactory" title="details" class="method-name">getQueryFactory</a>
+										()
 									</div>
 																<div class="method-definition">
 											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
@@ -810,7 +830,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">addAggregate</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1086">1086</a></span>)
+		<span class="method-title">addAggregate</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1141">1141</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -849,7 +869,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">aggregate</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a595">595</a></span>)
+		<span class="method-title">aggregate</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a620">620</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -916,7 +936,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">any</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1389">1389</a></span>)
+		<span class="method-title">any</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1444">1444</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -937,11 +957,44 @@
 		
 			
 	</div>
-<a name="methodapplyDebug" id="applyDebug"><!-- --></a>
+<a name="methodapplyCondition" id="applyCondition"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">applyDebug</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1048">1048</a></span>)
+		<span class="method-title">applyCondition</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a832">832</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a more complex conditional expression to the query that  is not limited to one field.</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodcondition">QueryFilter::condition()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			applyCondition
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$expression</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$expression</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$params</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodapplyDebug" id="applyDebug"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">applyDebug</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1103">1103</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -963,10 +1016,10 @@
 			
 	</div>
 <a name="methodapplyDistinct" id="applyDistinct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">applyDistinct</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1017">1017</a></span>)
+		<span class="method-title">applyDistinct</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1072">1072</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -988,10 +1041,10 @@
 			
 	</div>
 <a name="methodapplyExclude" id="applyExclude"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">applyExclude</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a766">766</a></span>)
+		<span class="method-title">applyExclude</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a791">791</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1018,10 +1071,10 @@
 			
 	</div>
 <a name="methodapplyExcludeOr" id="applyExcludeOr"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">applyExcludeOr</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a777">777</a></span>)
+		<span class="method-title">applyExcludeOr</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a802">802</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1048,14 +1101,14 @@
 			
 	</div>
 <a name="methodapplyExtra" id="applyExtra"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">applyExtra</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a787">787</a></span>)
+		<span class="method-title">applyExtra</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a812">812</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Applies extra SQL directives to the current filter, rather than  creating a new QueryFilter and adding to the end of the chain.</p>
+<p class="short-description">Adds extra fields from related tables to the results  of this query, to reduce additional queries.</p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodextra">QueryFilter::extra()</a></li>
 				<li><span class="field">access:</span> public</li>
@@ -1066,7 +1119,7 @@
 		<span class="method-name">
 			applyExtra
 		</span>
-					([<span class="var-type"></span>&nbsp;<span class="var-name">$select</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$where</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$tables</span> = <span class="var-default">null</span>])
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$select</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$where</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">null</span>])
 			</div>
 	
 			<ul class="parameters">
@@ -1079,18 +1132,15 @@
 					<li>
 				<span class="var-type"></span>
 				<span class="var-name">$params</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$tables</span>			</li>
 				</ul>
 		
 			
 	</div>
 <a name="methodapplyFilter" id="applyFilter"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">applyFilter</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a744">744</a></span>)
+		<span class="method-title">applyFilter</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a769">769</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1117,10 +1167,10 @@
 			
 	</div>
 <a name="methodapplyFilterOr" id="applyFilterOr"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">applyFilterOr</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a755">755</a></span>)
+		<span class="method-title">applyFilterOr</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a780">780</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1147,10 +1197,10 @@
 			
 	</div>
 <a name="methodapplyGrouping" id="applyGrouping"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">applyGrouping</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1058">1058</a></span>)
+		<span class="method-title">applyGrouping</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1113">1113</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1180,10 +1230,10 @@
 			
 	</div>
 <a name="methodapplyOrder" id="applyOrder"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">applyOrder</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a828">828</a></span>)
+		<span class="method-title">applyOrder</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a883">883</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1205,10 +1255,10 @@
 			
 	</div>
 <a name="methodapplyPreload" id="applyPreload"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">applyPreload</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1027">1027</a></span>)
+		<span class="method-title">applyPreload</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1082">1082</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1235,10 +1285,10 @@
 			
 	</div>
 <a name="methodapplyRandom" id="applyRandom"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">applyRandom</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a815">815</a></span>)
+		<span class="method-title">applyRandom</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a870">870</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1260,10 +1310,10 @@
 			
 	</div>
 <a name="methodapplySlice" id="applySlice"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">applySlice</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1006">1006</a></span>)
+		<span class="method-title">applySlice</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1061">1061</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1293,10 +1343,10 @@
 			
 	</div>
 <a name="methodavg" id="avg"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">avg</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a651">651</a></span>)
+		<span class="method-title">avg</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a676">676</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1329,10 +1379,10 @@
 			
 	</div>
 <a name="methodavgfield" id="avgfield"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">avgfield</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a536">536</a></span>)
+		<span class="method-title">avgfield</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a561">561</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1366,11 +1416,47 @@
 		
 			
 	</div>
+<a name="methodcondition" id="condition"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">condition</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a403">403</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a more complex conditional expression to the query that  is not limited to one field.</p>
+<p class="description"><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-var">$query</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodcondition">condition</a><span class="src-sym">(</span><span class="src-str">'close&nbsp;&gt;&nbsp;open'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+</ol></div></p><p>The expression is not currently parsed to evaluate dot-notation  paths to related objects, so conditions are limited to fields  available on the current model.</p><p>If the condition contains variable parameters that may required  escaping, use the a &quot;?&quot; token as a placeholder, and pass the  associated variable values as an array in the second parameter.</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-var">$query</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodcondition">condition</a><span class="src-sym">(</span><span class="src-str">'price&nbsp;&gt;&nbsp;earnings&nbsp;*&nbsp;?'</span><span class="src-sym">,&nbsp;</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-var">$peratio</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+</ol></div></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The new QueryFilter at the end of the filter chain</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+		<span class="method-name">
+			condition
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$expression</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$expression</span><span class="var-description">: The conditional expression.</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$params</span><span class="var-description">: An array of parameters to bind to the query.         if any are specified in the $expression parameter (using the ? token).</span>			</li>
+				</ul>
+		
+			
+	</div>
 <a name="methodcount" id="count"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">count</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2615">2615</a></span>)
+		<span class="method-title">count</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2670">2670</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1402,7 +1488,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">countfield</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a568">568</a></span>)
+		<span class="method-title">countfield</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a593">593</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1440,7 +1526,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">createHash</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2415">2415</a></span>)
+		<span class="method-title">createHash</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2470">2470</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1482,7 +1568,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">createHashFromRow</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2494">2494</a></span>)
+		<span class="method-title">createHashFromRow</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2549">2549</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1521,7 +1607,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">createModels</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2256">2256</a></span>)
+		<span class="method-title">createModels</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2311">2311</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1560,7 +1646,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">createRawHash</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2354">2354</a></span>)
+		<span class="method-title">createRawHash</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2409">2409</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1599,7 +1685,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">current</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2572">2572</a></span>)
+		<span class="method-title">current</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2627">2627</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1627,7 +1713,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">cursor</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1239">1239</a></span>)
+		<span class="method-title">cursor</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1294">1294</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1664,7 +1750,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">debug</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a486">486</a></span>)
+		<span class="method-title">debug</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a511">511</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1689,7 +1775,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">delete</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1457">1457</a></span>)
+		<span class="method-title">delete</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1512">1512</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1715,7 +1801,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">distinct</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a435">435</a></span>)
+		<span class="method-title">distinct</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a460">460</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1795,11 +1881,14 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">extra</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a378">378</a></span>)
+		<span class="method-title">extra</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a372">372</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Extra SQL directives to add the to database query.</p>
+<p class="short-description">Adds extra fields from related tables to the results  of this query, to reduce additional queries.</p>
+<p class="description"><p>The parameter is of the form &quot;reference_name&quot; =&gt; &quot;field_name&quot;,  where reference_name is the name of the field as it will be  named in the query result object, and field_name is the  original field name (or path, if you are pulling in a field  from a related object).</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-var">$user&nbsp;</span>=&nbsp;<span class="src-var">$uq</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodextra">extra</a><span class="src-sym">(</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'homepage'&nbsp;</span>=&gt;&nbsp;<span class="src-str">'preferences.homepage'</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;echo&nbsp;<span class="src-var">$user</span><span class="src-sym">-&gt;</span><span class="src-id">homepage</span>:</div></li>
+</ol></div></p><p>While the original user object did not have a &quot;homepage&quot;  field, the query results now include the value of that  field from the related &quot;preferences&quot; object.  This value  could also be retrieved with $user-&gt;preferences-&gt;homepage,  but it would require an additional database query since  the entire preferences object would be loaded on demand.</p></p>
 	<ul class="tags">
 				<li><span class="field">return:</span> The new QueryFilter at the end of the filter chain</li>
 				<li><span class="field">access:</span> public</li>
@@ -1810,24 +1899,19 @@
 		<span class="method-name">
 			&amp;extra
 		</span>
-					([<span class="var-type">Array</span>&nbsp;<span class="var-name">$select</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$where</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$tables</span> = <span class="var-default">null</span>])
+					([<span class="var-type">Array</span>&nbsp;<span class="var-name">$select</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$where</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">null</span>])
 			</div>
 	
 			<ul class="parameters">
 					<li>
 				<span class="var-type">Array</span>
-				<span class="var-name">$select</span><span class="var-description">: <p>A hash array of additional fields to include.          This parameter is used to pull in extra fields from related          tables, to reduce additional queries.  The parameter is of          the form &quot;reference_name&quot; =&gt; &quot;field_name&quot;, where          reference_name is the name of the field as it will be named          in the query result object, and field_name is the original          field name (or path, if you are pulling in a field from a          related obejct).  Example:</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$user&nbsp;</span>=&nbsp;<span class="src-var">$uq</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodextra">extra</a><span class="src-sym">(</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'homepage'&nbsp;</span>=&gt;&nbsp;<span class="src-str">'preferences.homepage'</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
-<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;<span class="src-var">$user</span><span class="src-sym">-&gt;</span><span class="src-id">homepage</span>:</div></li>
-</ol></div></p><p>While the original user object did not have a &quot;homepage&quot;          field, the query results now include the value of that          field from the related &quot;preferences&quot; object.  This value          could also be retrieved with $user-&gt;preferences-&gt;homepage,          but it would require an additional database query since          the entire preferences object would be loaded on demand.</p></span>			</li>
+				<span class="var-name">$select</span><span class="var-description">: A hash array of additional fields to include.</span>			</li>
 					<li>
 				<span class="var-type">string</span>
-				<span class="var-name">$where</span><span class="var-description">: A SQL where clause to add to the query. Useful         for additional filtering the ModelQuery API doesn't provide,         such as comparing two field values: i.e. &quot;WHERE position = max&quot;</span>			</li>
+				<span class="var-name">$where</span><span class="var-description">: <em>Deprecated, use {@see QueryFilter::condition()}</em>.</span>			</li>
 					<li>
 				<span class="var-type">Array</span>
-				<span class="var-name">$params</span><span class="var-description">: An array of parameters to bind to the query,         if any are specified in the $where parameter (using the ? token).</span>			</li>
-					<li>
-				<span class="var-type">Array</span>
-				<span class="var-name">$tables</span><span class="var-description">: Deprecated. You should no longer need to manually         define table joins, since ModelQuery does it automatically         if you include a related-object field in the $select parameter.</span>			</li>
+				<span class="var-name">$params</span><span class="var-description">: <em>Deprecated, use {@see QueryFilter::condition()}</em>.</span>			</li>
 				</ul>
 		
 			
@@ -1893,7 +1977,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">flush</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1470">1470</a></span>)
+		<span class="method-title">flush</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1525">1525</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1918,7 +2002,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">get</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1346">1346</a></span>)
+		<span class="method-title">get</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1401">1401</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1946,18 +2030,68 @@
 		
 			
 	</div>
+<a name="methodgetHandler" id="getHandler"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getHandler</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2684">2684</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the underlying QueryHandler object for this filter.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The root query handler</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryHandler.html">QueryHandler</a></span>
+		<span class="method-name">
+			getHandler
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetQueryFactory" id="getQueryFactory"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getQueryFactory</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2692">2692</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the underlying QueryFactory object for this filter.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The query factory</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFactory.html">QueryFactory</a></span>
+		<span class="method-name">
+			getQueryFactory
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
 <a name="methodgroup" id="group"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">group</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a449">449</a></span>)
+		<span class="method-title">group</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a474">474</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Add a group clause to the query.</p>
 	<ul class="tags">
 				<li><span class="field">return:</span> The new QueryFilter at the end of the filter chain</li>
-				<li><span class="field">deprecated:</span> 2.0 group()/extra() are unnecessary with the addition         of aggregate methods (min(), max(), etc).</li>
+				<li><span class="field">deprecated:</span> 2.0 group() is unnecessary with the addition         of aggregate methods (min(), max(), etc).</li>
 				<li><span class="field">access:</span> public</li>
 			</ul>
 	
@@ -1981,7 +2115,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">hash</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1161">1161</a></span>)
+		<span class="method-title">hash</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1216">1216</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2022,7 +2156,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">hashCursor</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1260">1260</a></span>)
+		<span class="method-title">hashCursor</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1315">1315</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2049,7 +2183,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">insert</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1440">1440</a></span>)
+		<span class="method-title">insert</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1495">1495</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2085,7 +2219,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">key</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2576">2576</a></span>)
+		<span class="method-title">key</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2631">2631</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2113,7 +2247,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">map</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1209">1209</a></span>)
+		<span class="method-title">map</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1264">1264</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2147,7 +2281,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">max</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a615">615</a></span>)
+		<span class="method-title">max</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a640">640</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2183,7 +2317,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">maxfield</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a504">504</a></span>)
+		<span class="method-title">maxfield</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a529">529</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2221,7 +2355,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">mergedQuery</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1939">1939</a></span>)
+		<span class="method-title">mergedQuery</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1994">1994</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2255,7 +2389,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">min</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a633">633</a></span>)
+		<span class="method-title">min</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a658">658</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2291,7 +2425,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">minfield</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a520">520</a></span>)
+		<span class="method-title">minfield</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a545">545</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2329,7 +2463,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">next</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2580">2580</a></span>)
+		<span class="method-title">next</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2635">2635</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2357,7 +2491,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">offsetExists</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2600">2600</a></span>)
+		<span class="method-title">offsetExists</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2655">2655</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2390,7 +2524,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">offsetGet</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2596">2596</a></span>)
+		<span class="method-title">offsetGet</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2651">2651</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2423,7 +2557,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">offsetSet</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2593">2593</a></span>)
+		<span class="method-title">offsetSet</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2648">2648</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2459,7 +2593,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">offsetUnset</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2590">2590</a></span>)
+		<span class="method-title">offsetUnset</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2645">2645</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2492,7 +2626,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">one</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1375">1375</a></span>)
+		<span class="method-title">one</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1430">1430</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2518,7 +2652,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">order</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a406">406</a></span>)
+		<span class="method-title">order</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a431">431</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2544,7 +2678,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">pluck</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1279">1279</a></span>)
+		<span class="method-title">pluck</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1334">1334</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2577,7 +2711,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">preload</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a476">476</a></span>)
+		<span class="method-title">preload</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a501">501</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2611,7 +2745,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">query</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2221">2221</a></span>)
+		<span class="method-title">query</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2276">2276</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2646,7 +2780,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">random</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a389">389</a></span>)
+		<span class="method-title">random</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a414">414</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2671,7 +2805,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">raw</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1185">1185</a></span>)
+		<span class="method-title">raw</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1240">1240</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2713,7 +2847,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">returnAggregate</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a720">720</a></span>)
+		<span class="method-title">returnAggregate</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a745">745</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2758,7 +2892,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">rewind</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2568">2568</a></span>)
+		<span class="method-title">rewind</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2623">2623</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2786,7 +2920,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">select</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1137">1137</a></span>)
+		<span class="method-title">select</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1192">1192</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2827,7 +2961,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">slice</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a420">420</a></span>)
+		<span class="method-title">slice</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a445">445</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2860,7 +2994,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">sqlcount</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a688">688</a></span>)
+		<span class="method-title">sqlcount</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a713">713</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2896,7 +3030,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">sum</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a669">669</a></span>)
+		<span class="method-title">sum</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a694">694</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2932,7 +3066,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">sumfield</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a552">552</a></span>)
+		<span class="method-title">sumfield</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a577">577</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2970,7 +3104,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">update</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1408">1408</a></span>)
+		<span class="method-title">update</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1463">1463</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3004,7 +3138,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">valid</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2584">2584</a></span>)
+		<span class="method-title">valid</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2639">2639</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3032,7 +3166,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">values</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1300">1300</a></span>)
+		<span class="method-title">values</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1355">1355</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3068,7 +3202,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">where_params</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1490">1490</a></span>)
+		<span class="method-title">where_params</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1545">1545</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3093,7 +3227,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">where_sql</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1478">1478</a></span>)
+		<span class="method-title">where_sql</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1533">1533</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3120,7 +3254,7 @@
 
 
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 25 Jan 2011 15:17:22 -0600 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Wed, 26 Jan 2011 13:14:36 -0600 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
