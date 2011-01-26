@@ -1,1 +1,76 @@
 =Advanced Usage=
+
+Don't feel like reading through the API documentation?  Here's a
+few less-commmonly-used methods in ModelQuery that can save you
+a bunch of time.  You can find more details on all of them in the
+[http://home.jongsma.org/software/modelquery/docs/phpdoc/ API docs].
+
+===max(), min(), sum(), avg()===
+
+The are direct analogues to the correponding SQL functions.  When
+you call these methods with a field name as the parameter, ModelQuery
+immediately executes a query and returns the results.
+
+{{{
+// Get the highest user ID
+$maxid = $uq->max('id');
+}}}
+
+===get(), any(), one()===
+
+All of these functions return a single object, but differ in their
+behaviors:
+
+  * `get()`: Expects to find a single object.  If there is none, or more than one, it will throw an exception.
+  * `one()`: Expects to find at least one object.  If there is none, it will throw an exception.  If there is more than one result, it will just return the first one.
+  * `any()`: Tries to find a single object (like `one()`), but if none are found, will just return `null` instead of throwing an exception.
+
+===condition()===
+
+This method allows you to specify advanced filtering conditions, such as
+comparing two field values.
+
+{{{
+// Comparing field values
+$query->condition('close > open');
+
+// Related fields work too
+$query->condition('current.price > previous.price');
+}}}
+
+===extra()===
+
+This method allows you to include fields from other related objects
+as part of the query, to reduce the number of queries you execute.
+
+{{{
+$user = $uq->extra(array('homepage' => 'preferences.homepage'));
+echo $user->homepage;
+}}}
+
+===pluck()===
+
+This method returns an array of the specified field value
+of all matching objects in the current query.
+
+{{{
+// Get a list of all page URLs
+$urls = $pageQuery->pluck('url');
+
+// $urls = array(
+//   'http://example.com/page1',
+//   'http://example.com/page2',
+//   'http://example.com/page3'
+//   ...
+//   );
+
+===update()===
+
+This is the method the Model uses internally when you call `Model::save()`,
+but you can also use it to bulk-update all records that match the current
+query.
+
+{{{
+// Flag all users that have not logged in recently as inactive
+$userQuery->filter('last_login:lte', mktime(0,0,0,1,1,2010))->update(array('active', false));
+}}}
