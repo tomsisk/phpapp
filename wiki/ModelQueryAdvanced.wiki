@@ -1,6 +1,6 @@
 =Advanced Usage=
 
-Don't feel like reading through the API documentation?  Here's a
+Don't feel like reading through the API documentation?  Here are a
 few less-commmonly-used methods in ModelQuery that can save you
 a bunch of time.  You can find more details on all of them in the
 [http://home.jongsma.org/software/modelquery/docs/phpdoc/ API docs].
