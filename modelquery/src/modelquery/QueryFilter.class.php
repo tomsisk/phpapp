@@ -830,12 +830,35 @@
 		 * @see QueryFilter::condition()
 		 */
 		public function applyCondition($expression, $params = null) {
+
+			// strpos() prequalifies the more intensive preg_match_all()
+			// check so we don't do a lot of unnecessary regular expression
+			// matching.
+			if (strpos($expression, '.') !== FALSE) {
+				$matches = array();
+				// Check if expression uses related fields
+				$matchct = preg_match_all("/[a-zA-Z0-9_]+\.[a-zA-Z0-9_\.]+/",
+					$expression, $matches);
+				if ($matchct > 0) {
+					foreach ($matches[0] as $matchField) {
+						list ($realField, $joins, $relmodel, $relfield) = $this->getJoinInfo($matchField);
+						// Add any necessary table joins
+						if (count($joins))
+							$this->query['tables'] = $this->mergeJoins((array)$this->query['tables'], $joins);
+						// Replace dot-notation names with real SQL names
+						$expression = str_replace($matchField, $realField, $expression);
+					}
+				}
+			}
+
+			// Add SQL where expression to the query
 			if (isset($this->query['where']['sql']))
 				$this->query['where']['sql'] = $this->query['where']['sql'].' AND ('.$expression.')';
 			else
 				$this->query['where']['sql'] = $expression;
 			if ($params)
 				$this->query['where']['params'] = array_merge((array)$this->query['where']['params'], $params);
+
 		}
 
 		/**
