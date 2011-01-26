@@ -383,12 +383,16 @@
 		 * $query->condition('close > open');
 		 * </code>
 		 *
-		 * The expression is not currently parsed to evaluate dot-notation
-		 * paths to related objects, so conditions are limited to fields
+		 * The expression is parsed to evaluate dot-notation paths to
+		 * related objects, so conditions are not just limited to fields
 		 * available on the current model.
 		 *
+		 * <code>
+		 * $query->condition('current.price > previous.price');
+		 * </code>
+		 *
 		 * If the condition contains variable parameters that may required
-		 * escaping, use the a "?" token as a placeholder, and pass the
+		 * escaping, use the "?" token as a placeholder, and pass the
 		 * associated variable values as an array in the second parameter.
 		 *
 		 * <code>
