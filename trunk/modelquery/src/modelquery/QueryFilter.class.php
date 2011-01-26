@@ -343,41 +343,66 @@
 		}
 
 		/**
-		 * Extra SQL directives to add the to database query.
-		 * 
+		 * Adds extra fields from related tables to the results
+		 * of this query, to reduce additional queries.
+		 *
+		 * The parameter is of the form "reference_name" => "field_name",
+		 * where reference_name is the name of the field as it will be
+		 * named in the query result object, and field_name is the
+		 * original field name (or path, if you are pulling in a field
+		 * from a related object).
+		 *
+		 * <code>
+		 * $user = $uq->extra(array('homepage' => 'preferences.homepage'));
+		 * echo $user->homepage:
+		 * </code>
+		 *
+		 * While the original user object did not have a "homepage"
+		 * field, the query results now include the value of that
+		 * field from the related "preferences" object.  This value
+		 * could also be retrieved with $user->preferences->homepage,
+		 * but it would require an additional database query since
+		 * the entire preferences object would be loaded on demand.
+		 *
 		 * @param Array $select A hash array of additional fields to include.
-		 * 		This parameter is used to pull in extra fields from related
-		 * 		tables, to reduce additional queries.  The parameter is of
-		 * 		the form "reference_name" => "field_name", where
-		 * 		reference_name is the name of the field as it will be named
-		 * 		in the query result object, and field_name is the original
-		 * 		field name (or path, if you are pulling in a field from a
-		 * 		related obejct).  Example:
-		 *
-		 * 		<code>
-		 * 		$user = $uq->extra(array('homepage' => 'preferences.homepage'));
-		 * 		echo $user->homepage:
-		 * 		</code>
-		 *
-		 * 		While the original user object did not have a "homepage"
-		 * 		field, the query results now include the value of that
-		 * 		field from the related "preferences" object.  This value
-		 * 		could also be retrieved with $user->preferences->homepage,
-		 * 		but it would require an additional database query since
-		 * 		the entire preferences object would be loaded on demand.
-		 * @param string $where A SQL where clause to add to the query. Useful
-		 *		for additional filtering the ModelQuery API doesn't provide,
-		 *		such as comparing two field values: i.e. "WHERE position = max"
-		 * @param Array $params An array of parameters to bind to the query,
-		 *		if any are specified in the $where parameter (using the ? token).
-		 * @param Array $tables Deprecated. You should no longer need to manually
-		 *		define table joins, since ModelQuery does it automatically
-		 *		if you include a related-object field in the $select parameter.
+		 * @param string $where <i>Deprecated, use {@see QueryFilter::condition()}</i>.
+		 * @param Array $params <i>Deprecated, use {@see QueryFilter::condition()}</i>.
 		 * @return QueryFilter The new QueryFilter at the end of the filter chain
 		 */
-		public function &extra($select = null, $where = null, $params = null, $tables = null) {
+		public function &extra($select = null, $where = null, $params = null) {
 			$filter = new QueryFilter($this->queryhandler, $this);
-			$filter->applyExtra($select, $where, $params, $tables);
+			$filter->applyExtra($select, $where, $params);
+			return $filter;
+		}
+
+		/**
+		 * Add a more complex conditional expression to the query that
+		 * is not limited to one field.
+		 *
+		 * <code>
+		 * $query->condition('close > open');
+		 * </code>
+		 *
+		 * The expression is not currently parsed to evaluate dot-notation
+		 * paths to related objects, so conditions are limited to fields
+		 * available on the current model.
+		 *
+		 * If the condition contains variable parameters that may required
+		 * escaping, use the a "?" token as a placeholder, and pass the
+		 * associated variable values as an array in the second parameter.
+		 *
+		 * <code>
+		 * $query->condition('price > earnings * ?', array($peratio));
+		 * </code>
+		 * 
+		 * @param string $expression The conditional expression.
+		 * @param Array $params An array of parameters to bind to the query.
+		 *		if any are specified in the $expression parameter (using the ? token).
+		 * @return QueryFilter The new QueryFilter at the end of the filter chain
+		 */
+		public function condition($expression, $params = null) {
+			$filter = new QueryFilter($this->queryhandler, $this);
+			$filter->applyCondition($expression, $params);
 			return $filter;
 		}
 
@@ -441,7 +466,7 @@
 		/**
 		 * Add a group clause to the query.
 		 *
-		 * @deprecated 2.0 group()/extra() are unnecessary with the addition
+		 * @deprecated 2.0 group() is unnecessary with the addition
 		 *		of aggregate methods (min(), max(), etc).
 		 * @param Array $groupby A list of fields to group results by
 		 * @return QueryFilter The new QueryFilter at the end of the filter chain
@@ -779,12 +804,12 @@
 		}
 
 		/**
-		 * Applies extra SQL directives to the current filter, rather than
-		 * creating a new QueryFilter and adding to the end of the chain.
+		 * Adds extra fields from related tables to the results
+		 * of this query, to reduce additional queries.
 		 *
 		 * @see QueryFilter::extra()
 		 */
-		public function applyExtra($select = null, $where = null, $params = null, $tables = null) {
+		public function applyExtra($select, $where = null, $params = null) {
 			if ($select) {
 				foreach ($select as $name => $field) {
 					list ($realField, $joins, $relmodel, $relfield) = $this->getJoinInfo($field);
@@ -794,16 +819,23 @@
 						$this->query['tables'] = $this->mergeJoins((array)$this->query['tables'], $joins);
 				}
 			}
-			if ($where) {
-				if (isset($this->query['where']['sql']))
-					$this->query['where']['sql'] = $this->query['where']['sql'].' AND ('.$where.')';
-				else
-					$this->query['where']['sql'] = $where;
-				if ($params)
-					$this->query['where']['params'] = array_merge((array)$this->query['where']['params'], $params);
-			}
-			if ($tables)
-				$this->query['tables'] = $this->mergeJoins((array)$this->query['tables'], $tables);
+			if ($where)
+				$this->applyCondition($where, $params);
+		}
+
+		/**
+		 * Add a more complex conditional expression to the query that
+		 * is not limited to one field.
+		 *
+		 * @see QueryFilter::condition()
+		 */
+		public function applyCondition($expression, $params = null) {
+			if (isset($this->query['where']['sql']))
+				$this->query['where']['sql'] = $this->query['where']['sql'].' AND ('.$expression.')';
+			else
+				$this->query['where']['sql'] = $expression;
+			if ($params)
+				$this->query['where']['params'] = array_merge((array)$this->query['where']['params'], $params);
 		}
 
 		/**
