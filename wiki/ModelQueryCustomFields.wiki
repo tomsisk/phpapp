@@ -15,28 +15,28 @@ and overriding the conversion methods:
 
 ===convertValue()===
 
-This function is expected to take any sensible input (either a PHP
-type or a string representation), and convert it to a PHP type
-if needed.  It is the only method you are required to override
-when extending !ModelField - the next two functions default to
-calling it if you do not override them.
+  This function is expected to take any sensible input (either a PHP
+  type or a string representation), and convert it to a PHP type
+  if needed.  It is the only method you are required to override
+  when extending !ModelField - the next two functions default to
+  calling it if you do not override them.
 
 ===convertFromDbValue()===
 
-This method converts from the value format returned by the database
-driver into a native PHP type.  For example, with the MySQL driver, all
-date fields are returned as a string.  So,
-[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/DateTimeField.html DateTimeField]
-parses that string and converts it to a UNIX timestamp to make it useful
-in PHP date functions.
+  This method converts from the value format returned by the database
+  driver into a native PHP type.  For example, with the MySQL driver, all
+  date fields are returned as a string.  So,
+  [http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/DateTimeField.html DateTimeField]
+  parses that string and converts it to a UNIX timestamp to make it useful
+  in PHP date functions.
 
 ===convertToDbValue()===
 
-This method converts from a PHP value to the format expected by
-the database driver.  Using !DateTimeField as an example again, the field
-object is responsible to taking the PHP representation of a date
-(a UNIX timestamp) and formatting it into a date string ("2011-03-14 12:00:00")
-that the database understands.
+  This method converts from a PHP value to the format expected by
+  the database driver.  Using !DateTimeField as an example again, the field
+  object is responsible to taking the PHP representation of a date
+  (a UNIX timestamp) and formatting it into a date string ("2011-03-14 12:00:00")
+  that the database understands.
 
 ==Defining a Custom Field==
 
