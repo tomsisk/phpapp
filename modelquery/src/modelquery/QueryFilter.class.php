@@ -365,8 +365,8 @@
 		 * the entire preferences object would be loaded on demand.
 		 *
 		 * @param Array $select A hash array of additional fields to include.
-		 * @param string $where <i>Deprecated, use {@see QueryFilter::condition()}</i>.
-		 * @param Array $params <i>Deprecated, use {@see QueryFilter::condition()}</i>.
+		 * @param string $where <i>Deprecated, use QueryFilter::condition()</i>.
+		 * @param Array $params <i>Deprecated, use QueryFilter::condition()</i>.
 		 * @return QueryFilter The new QueryFilter at the end of the filter chain
 		 */
 		public function &extra($select = null, $where = null, $params = null) {
