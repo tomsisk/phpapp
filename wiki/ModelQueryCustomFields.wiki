@@ -6,9 +6,9 @@ ModelQuery allows you to create your own custom field types.  The main role
 of a field definition object to to convert values to different
 formats:
 
-1) Convert a value from the database format to a PHP type
-2) Convert a value from a text representation (i.e. web form submissions) to a PHP type
-3) Convert a value from a PHP type to the database format
+  # Convert a value from the database format to a PHP type
+  # Convert a value from a text representation (i.e. web form submissions) to a PHP type
+  # Convert a value from a PHP type to the database format
 
 This is accomplished by extended [http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/ModelField.html ModelField]
 and overriding the conversion methods:
