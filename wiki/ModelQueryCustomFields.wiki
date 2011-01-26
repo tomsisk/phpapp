@@ -1,0 +1,112 @@
+=Custom Field Types=
+
+In addition to the standard field types (defined in
+[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/_ModelFields.php.html ModelFields.php]),
+ModelQuery allows you to create your own custom field types.  The main role
+of a field definition object to to convert values to different
+formats:
+
+1) Convert a value from the database format to a PHP type
+2) Convert a value from a text representation (i.e. web form submissions) to a PHP type
+3) Convert a value from a PHP type to the database format
+
+This is accomplished by extended [http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/ModelField.html ModelField]
+and overriding the conversion methods:
+
+===convertValue()===
+
+This function is expected to take any sensible input (either a PHP
+type or a string representation), and convert it to a PHP type
+if needed.  It is the only method you are required to override
+when extending !ModelField - the next two functions default to
+calling it if you do not override them.
+
+===convertFromDbValue()===
+
+This method converts from the value format returned by the database
+driver into a native PHP type.  For example, with the MySQL driver, all
+date fields are returned as a string.  So,
+[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/DateTimeField.html DateTimeField]
+parses that string and converts it to a UNIX timestamp to make it useful
+in PHP date functions.
+
+===convertToDbValue()===
+
+This method converts from a PHP value to the format expected by
+the database driver.  Using !DateTimeField as an example again, the field
+object is responsible to taking the PHP representation of a date
+(a UNIX timestamp) and formatting it into a date string ("2011-03-14 12:00:00")
+that the database understands.
+
+==Defining a Custom Field==
+
+Let's say we want to create a custom field specifically for storing URLs.
+A URL is just stored as text, so we will extend
+[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/TextField.html TextField]:
+
+{{{
+class URLField extends TextField {
+}
+}}}
+
+Simple, right?  Since TextField already provides implementations
+of the conversion functions, there's no need to override them.
+If that was all we wanted to do, it would be pretty pointless
+to create a new field type - but we also want to ensure that
+the field values are in the correct format before saving them
+to the database.  That is done with a !FieldValidator.
+
+==Creating Validators for Custom Fields==
+
+Creating a custom validator for a field is done by defining a
+class that implements [http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/FieldValidator.html FieldValidator].
+
+{{{
+class URLValidator implements FieldValidator {
+
+    public function validate($value, $model) {
+
+        // Only validate if a non-empty value is given
+        if ($value) {
+
+            // Check the input value against a regex pattern
+            if (preg_match('/^[a-z]:\/\/[a-z0-9-\.]+/', $value))
+                // Matches, validation passed
+                return true;
+
+            // No match, validation failed
+            return false;
+
+        }
+
+        // Null/empty value, pass
+        return true;
+
+    }
+
+}
+}}}
+
+Now that we have a validator defined for our field, we need to tell
+ModelQuery to use it when validating the model.  We'll do that in our
+field constructor, by calling
+[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/ModelField.html#addValidator ModelField::addValidator()]:
+
+{{{
+class URLField extends TextField {
+
+    public function __construct($name_, $options_ = null, $validators_ = null) {
+
+        // Always initialize parent field first
+        parent::__construct($name_, $options_, $validators_);
+
+        // Now register our new validator and error message
+        $this->addValidator(new URLValidator(), 'Incorrect URL format.');
+
+    }
+
+}
+}}}
+
+Now our new validator will be called before saving a model, and will result
+in a save failure if the URLField does not contain a valid URL.
