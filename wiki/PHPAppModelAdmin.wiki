@@ -177,4 +177,4 @@ in the advanced topics below:
   * [PHPAppModelAdminConfig ModelAdmin Configuration Reference]
   * [PHPAppModelAdminExtending Extending ModelAdmin: Custom Actions and Action Hooks]
   * [PHPAppCustomTemplates Customizing the Interface Templates]
-    * [PHPAppCustomFields Templates for Custom Model Fields]
+    * [PHPAppCustomTemplates#Rendering_Input_Widgets_for_Custom_Fields Templates for Custom Model Fields]

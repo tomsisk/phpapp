@@ -112,7 +112,7 @@ at the stock templates or the !StockActions source code for more information._
 || *object_detail.tpl* || Displays read-only details on a model instance. ||
 || *object_form.tpl* || Displays an editing form for a model instance. ||
 || *object_field.tpl* || Displays a row in the editing form with a field label and form input widget.  Used indirectly by object_form.tpl. ||
-|| *fields/`*`.tpl* || Renders the actual form input widget for a field.  The template name is the same as the field's PHP class name.  So, rendering a `TextField` widget is done by `fields/TextField.tpl`.  See [PHPAppCustomFields Templates for Custom Model Fields] for more details. ||
+|| *fields/`*`.tpl* || Renders the actual form input widget for a field.  The template name is the same as the field's PHP class name.  So, rendering a `TextField` widget is done by `fields/TextField.tpl`.  See [PHPAppCustomTemplates#Rendering_Input_Widgets_for_Custom_Fields Templates for Custom Model Fields] for more details. ||
 
 ==Rendering Input Widgets for Custom Fields==
 

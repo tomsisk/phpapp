@@ -30,5 +30,5 @@
        * [PHPAppModelFilters Creating Drill-Down Modules with Model Filters]
        * [PHPAppModelAdminConfig ModelAdmin Configuration Reference]
        * [PHPAppCustomTemplates Customizing the Interface Templates]
-         * [PHPAppCustomFields Templates for Custom Model Fields]
+         * [PHPAppCustomTemplates#Rendering_Input_Widgets_for_Custom_Fields Templates for Custom Model Fields]
    * [http://home.jongsma.org/software/phpapp/docs/phpdoc/ API Reference]
