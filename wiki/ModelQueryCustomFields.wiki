@@ -49,7 +49,7 @@ class URLField extends TextField {
 }
 }}}
 
-Simple, right?  Since TextField already provides implementations
+Simple, right?  Since !TextField already provides implementations
 of the conversion functions, there's no need to override them.
 If that was all we wanted to do, it would be pretty pointless
 to create a new field type - but we also want to ensure that
