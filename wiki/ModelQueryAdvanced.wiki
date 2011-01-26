@@ -7,7 +7,7 @@ a bunch of time.  You can find more details on all of them in the
 
 ===max(), min(), sum(), avg()===
 
-The are direct analogues to the correponding SQL functions.  When
+These are direct analogues to the correponding SQL functions.  When
 you call these methods with a field name as the parameter, ModelQuery
 immediately executes a query and returns the results.
 
