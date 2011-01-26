@@ -1,0 +1,112 @@
+=Customizing the Interface Templates=
+
+PHPApp's default editing interface should meet your administration
+needs 95% of the time, but there will be occassions when your business
+rules require a custom administration interface for a model.  This
+can be easily accomplished by overriding the default interface templates.
+
+==PHPApp Template System==
+
+PHPApp contains a basic template system that it uses to create the user
+interface.  The template files are just PHP files that have some standard
+context variables set when they are executed.
+
+To override templates, you will need to understand how PHPApp searches
+for templates.  In this example, let's say we're looking a the list
+view of film models (i.e. http://admin-domain/modules/films/film/).
+The action that handles this request (`StockActions::showObjectList()`)
+asks PHPApp to display a template called "object_list.tpl".  To do
+this, PHPApp performs a search for this template in the following
+directories:
+
+PHPApp 
+  # The model's template directory: `MYAPP/lib/myappname/modules/films/templates/film/object_list.tpl`
+  # The module's template directory: `MYAPP/lib/myappname/modules/films/templates/object_list.tpl`
+  # The default template directory: `PHPAPP/templates/object_list.tpl`
+
+As soon as it finds a matching template, it stops searching and executes
+the template.
+
+So to customize the editing form of the Film model, you would perform the
+following steps:
+
+  # Copy _PHPAPP_/templates/object_form.tpl to _MYAPP_/lib/myappname/modules/films/templates/film/
+  # Edit the new template to customize it
+
+That's all there is to it.  The next time you edit a Film model, it will
+use your customized form. Or, to customize the module overview page:
+
+  # Copy _PHPAPP_/templates/model_list.tpl to _MYAPP_/lib/myappname/modules/films/templates/
+  # Edit the new template to customize it
+
+==Useful Templates Variables and Methods==
+
+Templates have several useful variables and methods at their disposal
+during execution:
+
+|| Variable || Content ||
+|| $app || The Application object for this app ||
+|| $admin || The AdminController object for this site ||
+|| $user || The currently logged-in user ||
+|| $modules || A list of Module instances registered in the admin site ||
+|| $host || The hostname of the admin site ||
+|| $publichost || The hostname of the public (end-user) site, if specified in application config ||
+|| $context || An array of all context variables available to the template (including those listed here) ||
+|| $module || The active Module object ||
+|| $moduleid || The module ID (same as $module->id) ||
+|| $moduleurl || The base URL of the current module (same as $module->relativeUrl('') ||
+|| $modeladmin || The active ModelAdmin object (if applicable) ||
+|| $section || The current section (same as $modeladmin->id) ||
+|| $sectionurl || The base URL of the current section (same as $modeladmin->relativeUrl('')) ||
+
+Since a template is executed in the context of a
+[http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/PhpAppTemplate.html PhpAppTemplate]
+object, it also has access to several useful member methods:
+
+|| Method || Purpose ||
+|| $this->defaultValue($value, $default) || Return the given value, or the default if the value is empty. ||
+|| $this->incl($template, $context = null) || Include the named template. ||
+|| $this->pluralize($string) || Pluralize the given word. ||
+|| $this->priceFormat($value, $zeroDeafult = null, $site = true) || Format a number as a monetary value, with two decimal places. ||
+|| $this->selfform($name = null, $value = null) || Output HTML of a list of hidden form fields required to regenerate a request to the current page.  If a name and value are specified, it will change the named parameter to the new value. ||
+|| $this->selfurl($name = null, $value = null) || Output a URL with parameters required to regenerate a request to the current page.  If a name and value are specified, it will change the named parameter to the new value. ||
+|| $this->singularize($string) || Attempt to convert a plural word to singular. ||
+|| $this->truncate($value, $length, $suffix = '...', $boundary = true) || Truncate a string to the given length, replacing the remainder with the given suffix.  If $boundary is true, only truncate at word boundaries. ||
+
+==Drawbacks of Overriding Templates==
+
+PHPApp does a lot of complex stuff behind the scenes in its default
+templates, providing things like dynamic input widgets based on field
+types, live AJAX data validation, displaying validation errors by the
+appropriate fields, and inline editing of related objects.  When you
+override templates, you lose a lot of this functionality.
+
+You can reduce the impact of this by:
+  * If you just want to add text or code to the header or footer of the page, you can include the full original template in your custom template:
+  {{{
+  // By calling fetchTemplate() on the module object, we are bypassing
+  // the model-specific template directory in the search path
+
+  echo $module->fetchTemplate('object_form.tpl', $context);
+  // Add footer content here (useful for content previews, etc)
+  }}}
+  * If you need to completely override a template, it is usually a good idea to copy the original template to the model's template directory and just customize it as needed.  Default templates are located in [http://code.google.com/p/phpapp/source/browse/trunk#trunk%2Fphpapp%2Fsrc%2Fphpapp-core%2Ftemplates src/phpapp-core/templates].
+
+==Standard Templates==
+
+The following is a list of standard interface templates the PHPApp uses, and
+the context variables available to each:
+
+_Context variables are not fully documented here; please look at the stock
+templates, or the !StockActions source code for more information._
+
+|| Template || Purpose || Context Variables ||
+|| base.tpl || The base user interface template for the admin site, that creates the page headers and footers. || ||
+|| module_list.tpl || Displays an overview of available modules when you first log in. || ||
+|| model_list.tpl || Displays an overview of available models when you click on a module in the sidebar. || ||
+|| object_list.tpl || Display a paginated table showing available model instances when you click on a specific model section. || ||
+|| object_filter.tpl || Displays an object selection table in a pop-up window for choosing filter objects for drill-down modules || ||
+|| object_detail.tpl || Displays read-only details on a model instance. || ||
+|| object_form.tpl || Displays an editing form for a model instance. || ||
+|| object_field.tpl || Displays a row in the editing form with a field label and form input widget.  Used indirectly by object_form.tpl. || ||
+|| fields/*.tpl || Renders the actual form input widget for a field.  The template name is the same as the field's PHP class name.  So, rendering a `TextField` widget is done by `fields/TextField.tpl`.  See [PHPAppCustomFields Templates for Custom Model Fields] for more details. || ||
