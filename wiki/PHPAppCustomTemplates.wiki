@@ -38,10 +38,14 @@ use your customized form. Or, to customize the module overview page:
   # Copy _PHPAPP_/templates/model_list.tpl to _MYAPP_/lib/myappname/modules/films/templates/
   # Edit the new template to customize it
 
+The following screenshot shows a customized `object_list.tpl` template that
+was created for menu model instead of the standard paginated table:
+
+[http://home.jongsma.org/software/phpapp/docs/images/phpapp-admin-customtemplate.png http://home.jongsma.org/software/phpapp/docs/images/phpapp-admin-customtemplate-thumb.png]
+
 ==Useful Templates Variables and Methods==
 
-Templates have several useful variables and methods at their disposal
-during execution:
+Templates have several useful variables at their disposal during execution:
 
 || Variable || Content ||
 || *$app* || The Application object for this app ||
