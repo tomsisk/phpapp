@@ -214,11 +214,10 @@
 			parent::__construct($object, $field);
 			$rq = $field->getRelationModel()->getQuery();
 			$jt = $field->getJoinModel()->_table;
-			$qt = $rq->tableName;
-			$where = $jt.'.'.$field->joinField.' = ?';
-			$join = array($jt.' ON ('.$jt.'.'.$field->targetField.' = '.$qt.'.'.$rq->model->_idField.')' => 'INNER JOIN');
+			$join = array('`'.$jt.'` ON (`'.$jt.'`.`'.$field->targetField.'` = `'.$rq->tableName.'`.`'.$rq->model->_idField.'`)' => 'INNER JOIN');
+			$where = '`'.$jt.'`.`'.$field->joinField.'` = ?';
 			$params = array($object->pk);
-			$this->relations = $rq->extra(null, $where, $params, $join);
+			$this->relations = $rq->join($join)->condition($where, $params);
 		}
 
 		public function add($object) {
