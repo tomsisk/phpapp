@@ -467,8 +467,11 @@
 
 				// Set default value for base filter fields
 				if ($baseFilter = $this->getAdmin()->getBaseFilter()) {
-					if ($def instanceof ManyToOneField && $def->relationName == $baseFilter->getQueryName())
-						$params[$field] = $baseFilter;
+					if ($def instanceof ManyToOneField && $def->relationName == $baseFilter->getQueryName()) {
+						if ($filterid = $this->getAdmin()->getFilter($baseFilter->getQueryName())) {
+							$params[$field] = $filterid;
+						}
+					}
 				}
 
 				if (count($this->queryFilter)) {
