@@ -28,7 +28,7 @@ All options are are accessible via `$app->config['myoption'];`
 || *public_host* || False || || The domain of the public (end-user, not admin) web site for this application ||
 || *user_class* || False || User || The name of the model to use for user authentication and permission (must extend [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-modules/BaseUser.html BaseUser]) ||
 || *login_url* || False || || The URL of the application's login page (needed by Application::requireLogin()) ||
-|| *debug* || False || `false` || The URL of the application's login page (needed by Application::requireLogin()) ||
+|| *debug* || False || `false` || Enable debug output in the page footer (not currently enabled) ||
 
 ===Content Modules===
 
