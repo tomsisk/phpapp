@@ -410,6 +410,22 @@
 			return $filter;
 		}
 
+
+		/**
+		 * Manually join tables to this query.
+		 *
+		 * This is only intended for internal ModelQuery usage, or
+		 * as a last resort for custom `condition()` clauses that
+		 * work with fields not defined in a Model.
+		 *
+		 * @return QueryFilter The new QueryFilter at the end of the filter chain
+		 */
+		public function &join($joins) {
+			$filter = new QueryFilter($this->queryhandler, $this);
+			$filter->applyJoin($joins);
+			return $filter;
+		}
+
 		/**
 		 * Sort the results of this query randomly.
 		 *
@@ -863,6 +879,16 @@
 			if ($params)
 				$this->query['where']['params'] = array_merge((array)$this->query['where']['params'], $params);
 
+		}
+
+		/**
+		 * Manually join tables.
+		 *
+		 * @see QueryFilter::join()
+		 */
+		public function applyJoin($joins) {
+			if (count($joins))
+				$this->query['tables'] = $this->mergeJoins((array)$this->query['tables'], $joins);
 		}
 
 		/**
