@@ -1018,6 +1018,30 @@
 	}
 
 	/**
+	 * Field contains string data limited to specific values.
+	 */
+	class EnumField extends TextField {
+
+		/**
+		 * Configure a new EnumField instance.
+		 *
+		 * @param string $name A descripticontainingve (human-readable) name
+		 * @param Array $values_ An array of valid values for this field.
+		 *		The array must be a map of 'value' => 'description'.
+		 * @param Array $options_ An array of options
+		 * @param Array $validators_ An array of FieldValidator objects
+		 * @see ModelField::__construct()
+		 */
+		public function __construct($name_, $values_, $options_ = null, $validators_ = null) {
+			parent::__construct($name_, $options_, $validators_);
+			if ($values_ == null || !count($values_))
+				throw new Exception('EnumField requires at least one valid value.');
+			$this->options['options'] = $values_;
+		}
+
+	}
+
+	/**
 	 * Field contains an MD5-encoded password.
 	 *
 	 * If the value passed in is exactly 32 characters long and consists
