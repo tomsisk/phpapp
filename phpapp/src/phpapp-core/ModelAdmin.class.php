@@ -856,6 +856,22 @@
 		 *		'collapse' => true),
 		 *	)
 		 *
+		 * Group options:
+		 * <ul>
+		 * 	<li><i>name</i>: The group heading, or null for no heading.</li>
+		 * 	<li><i>fields</i>: An array of field names that belong to
+		 *		the group.</li>
+		 * 	<li><i>collapse</i>: Displays the field group as a single line
+		 * 		initially, that can be expanded with a click.</li>
+		 * 	<li><i>displayConditions</i>: Defines rules that determine when
+		 *		this field group should be displayed.  The value of this
+		 *		option is a <i>field => value</i> array.  When the current
+		 *		form value for <i>field</i> is equal to <i>value</i>, the
+		 *		field will be displayed; otherwise it will be hidden.  This
+		 *		behavior is dynamic; fields will be shown and hidden via
+		 *		Javascript as form values change.</li>
+		 * </ul>
+		 *
 		 * @param $groups The field grouping definitions (see above).
 		 * </code>
 		 */
