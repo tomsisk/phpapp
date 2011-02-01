@@ -764,19 +764,19 @@
 				if ($admin->getFilter($modeladmin->getQueryName()))
 				if ($isFilter)
 					$modeladmin->getAdmin()->addFilter($modeladmin->getQueryName(), null);
+
+				if ($modeladmin->parent && $modeladmin->inlineOnly) {
+					$parent = $object[$modeladmin->parent];
+					$ma = $modeladmin->getAdmin()->findModelAdmin($parent);
+					return $ma->relativeUrl('/edit/'.$parent->pk);
+				} elseif ($isFilter)
+					return $modeladmin->getModule()->relativeUrl('/');
+				else
+					return $modeladmin->relativeUrl('/'.($filterstr?'?'.$filterstr:''));
 			} catch(Exception $e) {
-				echo $e->getMessage();
+				$modeladmin->renderTemplate('object_delete_failed.tpl', array('object' => $object, 'filterstr' => $filterstr, 'error' => $e));
+				return false;
 			}
-			if ($modeladmin->parent && $modeladmin->inlineOnly) {
-				$parent = $object[$modeladmin->parent];
-				$ma = $modeladmin->getAdmin()->findModelAdmin($parent);
-				return $ma->relativeUrl('/edit/'.$parent->pk);
-			} elseif ($isFilter)
-				return $modeladmin->getModule()->relativeUrl('/');
-			else
-				return $modeladmin->relativeUrl('/'.($filterstr?'?'.$filterstr:''));
-			//$modeladmin->renderTemplate('object_deleted.tpl', array('object' => $object, 'filterstr' => $filterstr));
-			//return true;
 		}
 
 		public static function doObjectSave(&$id, $params, $modeladmin, $method) {
