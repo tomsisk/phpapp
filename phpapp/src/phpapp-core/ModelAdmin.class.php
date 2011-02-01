@@ -839,6 +839,24 @@
 			$this->customFilters[$field] = $filter;
 		}
 
+		/**
+		 * Configures form field grouping and display options for
+		 * field groups.
+		 *
+		 * Example of the format of the $groups parameter:
+		 * <code>
+		 * array(
+		 * 	array('name' => null,
+		 *		'fields' => array('title', 'content', 'type')),
+		 * 	array('name' => 'Form Action',
+		 *		'fields' => array('action'),
+		 *		'displayConditions => array('type' => 'FORM')),
+		 * 	array('name' => 'SEO Fields',
+		 *		'fields' => array('meta_keywords', 'meta_description', '),
+		 *		'collapse' => true),
+		 *	)
+		 * </code>
+		 */
 		public function setFieldGroups($groups) {
 			$this->fieldGroups = $groups;
 			$idx = 1;
