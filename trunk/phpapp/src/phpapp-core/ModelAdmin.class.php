@@ -855,6 +855,8 @@
 		 *		'fields' => array('meta_keywords', 'meta_description'),
 		 *		'collapse' => true),
 		 *	)
+		 *
+		 * @param $groups The field grouping definitions (see above).
 		 * </code>
 		 */
 		public function setFieldGroups($groups) {
