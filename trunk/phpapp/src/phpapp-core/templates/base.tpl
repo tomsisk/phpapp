@@ -93,7 +93,9 @@ if ($script) { ?>
 									</div>
 									<?  $query = $filter->getQuery(); ?>
 									<? if (($filter->checkPermission('VIEW') && $query->count() > 1)
-											|| $filter->checkPermission('CREATE')) { ?>
+											|| $filter->checkPermission('CREATE')
+											|| ($admin->getFilter($filter->queryName)
+												&& $filter->checkPermission('DELETE'))) { ?>
 										<hr style="clear:left;" />
 										<small>
 											<? if ($filter->checkPermission('VIEW') && $query->count() > 1) { ?>
@@ -104,6 +106,12 @@ if ($script) { ?>
 											if ($filter->checkPermission('CREATE')) { ?>
 												<a href="<?= $filter->relativeUrl('/add/') ?>"><img src="<?= $admin->mediaRoot ?>/images/add.png"/></a>
 												<a href="<?= $filter->relativeUrl('/add/') ?>">add a new <?= htmlentities(strtolower($filter->name)) ?></a>
+												<br />
+											<? }
+											if ($admin->getFilter($filter->queryName) && $filter->checkPermission('DELETE')) { ?>
+												<a href="<?= $filter->relativeUrl('/deleteconfirm/'.$admin->getFilter($filter->queryName)) ?>"><img src="<?= $admin->mediaRoot ?>/images/delete.png"/></a>
+												<a href="<?= $filter->relativeUrl('/deleteconfirm/'.$admin->getFilter($filter->queryName)) ?>">delete this <?= htmlentities(strtolower($filter->name)) ?></a>
+												<br />
 											<? } ?>
 										</small>
 									<? } ?>
@@ -134,7 +142,9 @@ if ($script) { ?>
 													<? }
 													if (($filter->checkPermission('VIEW')
 																&& $filter->getQuery()->count() > 1)
-															|| $filter->checkPermission('CREATE')) { ?>
+															|| $filter->checkPermission('CREATE')
+															|| ($admin->getFilter($filter->queryName)
+																&& $filter->checkPermission('DELETE'))) { ?>
 														<small>
 															<? if ($filter->checkPermission('VIEW') && $filter->getQuery()->count() > 1) { ?>
 															<a href="" onclick="popup('<?= $filter->relativeUrl('/filter/') ?>', 700, 700); return false;"><img src="<?= $admin->mediaRoot ?>/images/undo.png"/></a>
@@ -144,6 +154,12 @@ if ($script) { ?>
 															if ($filter->checkPermission('CREATE')) { ?>
 																<a href="<?= $filter->relativeUrl('/add/') ?>"><img src="<?= $admin->mediaRoot ?>/images/add.png"/></a>
 																<a href="<?= $filter->relativeUrl('/add/') ?>">add a new <?= htmlentities(strtolower($filter->name)) ?></a>
+																<br />
+															<? }
+															if ($admin->getFilter($filter->queryName) && $filter->checkPermission('DELETE')) { ?>
+																<a href="<?= $filter->relativeUrl('/deleteconfirm/'.$admin->getFilter($filter->queryName)) ?>"><img src="<?= $admin->mediaRoot ?>/images/delete.png"/></a>
+																<a href="<?= $filter->relativeUrl('/deleteconfirm/'.$admin->getFilter($filter->queryName)) ?>">delete this <?= htmlentities(strtolower($filter->name)) ?></a>
+																<br />
 															<? } ?>
 														</small>
 														<? if ($admin->getFilter($filter->queryName)) { ?>
