@@ -757,8 +757,13 @@
 
 			$object = $modeladmin->getQuery()->get($id);
 			$filterstr = StockActions::getFilterString($object, $modeladmin, $params);
+			$isFilter = $modeladmin->getAdmin()->getFilter($modeladmin->getQueryName()) && true;
 			try {
 				$object->delete();
+				$admin = $modeladmin->getAdmin();
+				if ($admin->getFilter($modeladmin->getQueryName()))
+				if ($isFilter)
+					$modeladmin->getAdmin()->addFilter($modeladmin->getQueryName(), null);
 			} catch(Exception $e) {
 				echo $e->getMessage();
 			}
@@ -766,7 +771,9 @@
 				$parent = $object[$modeladmin->parent];
 				$ma = $modeladmin->getAdmin()->findModelAdmin($parent);
 				return $ma->relativeUrl('/edit/'.$parent->pk);
-			} else
+			} elseif ($isFilter)
+				return $modeladmin->getModule()->relativeUrl('/');
+			else
 				return $modeladmin->relativeUrl('/'.($filterstr?'?'.$filterstr:''));
 			//$modeladmin->renderTemplate('object_deleted.tpl', array('object' => $object, 'filterstr' => $filterstr));
 			//return true;
