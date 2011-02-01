@@ -850,9 +850,9 @@
 		 *		'fields' => array('title', 'content', 'type')),
 		 * 	array('name' => 'Form Action',
 		 *		'fields' => array('action'),
-		 *		'displayConditions => array('type' => 'FORM')),
+		 *		'displayConditions' => array('type' => 'FORM')),
 		 * 	array('name' => 'SEO Fields',
-		 *		'fields' => array('meta_keywords', 'meta_description', '),
+		 *		'fields' => array('meta_keywords', 'meta_description'),
 		 *		'collapse' => true),
 		 *	)
 		 * </code>
