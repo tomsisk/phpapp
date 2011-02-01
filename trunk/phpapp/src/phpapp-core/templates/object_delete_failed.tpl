@@ -1,4 +1,4 @@
-<h1><?= htmlentities($modeladmin->name) ?> Deleted</h1>
+<h1>Could Not Delete <?= htmlentities($modeladmin->name) ?></h1>
 
 <p>The <?= htmlentities(strtolower($modeladmin->name)) ?> <b><?= htmlentities($this->toString($object)) ?></b> could not be deleted.</p>
 
