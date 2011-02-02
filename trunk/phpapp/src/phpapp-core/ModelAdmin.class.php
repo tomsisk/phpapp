@@ -855,6 +855,7 @@
 		 *		'fields' => array('meta_keywords', 'meta_description'),
 		 *		'collapse' => true),
 		 *	)
+		 * </code>
 		 *
 		 * Group options:
 		 * <ul>
@@ -873,7 +874,6 @@
 		 * </ul>
 		 *
 		 * @param $groups The field grouping definitions (see above).
-		 * </code>
 		 */
 		public function setFieldGroups($groups) {
 			$this->fieldGroups = $groups;
