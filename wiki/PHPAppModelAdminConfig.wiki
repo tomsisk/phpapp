@@ -12,6 +12,7 @@ has many more options available.
 || *allowExport* || true || If TRUE, allow users to export queries for this model to CSV. ||
 || *boundTo* || null || Similar to *parent*, but in addition to redirecting after save, it also intercepts edit requests and forces them to go the the parent's edit form. ||
 || *deleteConfirm* || false || If TRUE, adds an intermediary page that forces the user to explicitly confirm any object deletions for the current model.  Normal behavior is to just use a popup prompt.  This setting is useful to avoid accidental deletions of critical objects (like customer accounts). ||
+|| *displayConditions* || null || Sets rules that determine when this field should be visible on the editing form.  Option value is identical to the _displayConditions_ group option in [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/ModelAdmin.html#setFieldGroups ModelAdmin::setFieldGroups()] ||
 || *inlineOnly* || false || If TRUE, this model will only be edited inline as a dependent object of another model, and will not show up in the sidebar. ||
 || *instructions* || null || Instructions for filling out the form for this model.  Will be parsed as PHP code to provide access to the object being edited. ||
 || *paginated* || true || If TRUE, PHPApp will paginate the query results in the object list view. ||
@@ -36,7 +37,8 @@ has many more options available.
 || *setFilterFields*(_$fields_) || An array of field names to show as query filters in the sidebar of the object list view.  Note that PHPApp attempts to display all available unique values for a filter field, so it is not a good idea to choose filter fields that have a large number of unique values. ||
 || *setModelAccess*(_$field_, _$userpath_) || Limit query results by the specified field filter.  _$field_ is the field name to filter by, and _$userpath_ is a dot-notation field path, starting from the logged-in User object, specifying the value it must match.  i.e.: `$this->setModelAccess('customer', 'customer');` would require that the model's "customer" field match `$user['customer']` for the logged-in user. ||
 || *setSearchFields*(_$fields_) || An array of field names to compare to when searching for objects. ||
-|| *setFieldGroups*(_$groups_) || A list of fields to display, along with their groupings, with the following structure: `$this->setFieldGroups(array(array('name' => 'Contact Info', 'fields' => array('name', 'address', 'city'))));` If omitted, PHPApp will display all model fields in a single table. ||
+|| *setFieldGroups*(_$groups_) || A list of fields to display, along with their groupings.  If omitted, PHPApp will display all model fields in a single table.  See [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/ModelAdmin.html#setFieldGroups ModelAdmin::setFieldGroups()] for the parameter format. ||
+
 
 ===Field-Specific Options===
 
