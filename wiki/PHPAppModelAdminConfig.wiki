@@ -12,7 +12,6 @@ has many more options available.
 || *allowExport* || true || If TRUE, allow users to export queries for this model to CSV. ||
 || *boundTo* || null || Similar to *parent*, but in addition to redirecting after save, it also intercepts edit requests and forces them to go the the parent's edit form. ||
 || *deleteConfirm* || false || If TRUE, adds an intermediary page that forces the user to explicitly confirm any object deletions for the current model.  Normal behavior is to just use a popup prompt.  This setting is useful to avoid accidental deletions of critical objects (like customer accounts). ||
-|| *displayConditions* || null || Sets rules that determine when this field should be visible on the editing form.  Option value is identical to the _displayConditions_ group option in [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/ModelAdmin.html#setFieldGroups ModelAdmin::setFieldGroups()] ||
 || *inlineOnly* || false || If TRUE, this model will only be edited inline as a dependent object of another model, and will not show up in the sidebar. ||
 || *instructions* || null || Instructions for filling out the form for this model.  Will be parsed as PHP code to provide access to the object being edited. ||
 || *paginated* || true || If TRUE, PHPApp will paginate the query results in the object list view. ||
@@ -53,6 +52,7 @@ $this->setFieldOption($field, $option, $value);
 _All Fields_
 
 || $option || Default || Description ||
+|| *displayConditions* || null || Sets rules that determine when this field should be visible on the editing form.  Option value is identical to the _displayConditions_ group option in [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/ModelAdmin.html#setFieldGroups ModelAdmin::setFieldGroups()] ||
 || *help* || null || Descriptive help text for filling out this field. ||
 || *hidden* || false || Designate this field as a hidden.  It can be set from a request parameter, but will not be displayed on the form. ||
 || *passedValue* || false || Similar to *hidden*, except that it will display the field as a read-only value on the form. ||
