@@ -118,7 +118,7 @@
 					$this->setAppVar($this->id.'_queryFactory', serialize($this->query));
 				}
 				
-				if ($config['user_class'])
+				if (isset($config['user_class']) && $config['user_class'])
 					$this->userQuery = $this->query->$config['user_class'];
 				else
 					$this->userQuery = $this->query->User;
@@ -169,7 +169,8 @@
 		}
 
 		public function getUserId() {
-			if ($_SESSION[$this->id])
+			if (isset($_SESSION[$this->id])
+					&& isset($_SESSION[$this->id]['user']))
 				return $_SESSION[$this->id]['user'];
 			return null;
 		}
@@ -345,11 +346,11 @@
 		public function checkAccess($module = null, $type = null, $instance = null) {
 			$perms = $this->getPermissions();
 			if ($module) {
-				$perms = array_merge_recursive((array)$perms[$module], (array)$perms['ALL']);
+				$perms = array_merge_recursive(isset($perms[$module]) ? $perms[$module] : array(), (array)$perms['ALL']);
 				if ($perms && $type) {
-					$perms = array_merge_recursive((array)$perms[$type], (array)$perms['ALL']);
+					$perms = array_merge_recursive(isset($perms[$type]) ? $perms[$type] : array(), (array)$perms['ALL']);
 					if ($perms && $instance) {
-						$perms = array_merge_recursive((array)$perms[$instance], (array)$perms['ALL']);
+						$perms = array_merge_recursive(isset($perms[$instance]) ? $perms[$instance] : array(), (array)$perms['ALL']);
 					}
 				}
 			}
