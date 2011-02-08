@@ -4,7 +4,10 @@ if (isset($field->options['joinField']))
 	$joinField = $field->options['joinField'];
 $availrelated = $modeladmin->getRelatedQuery($field, $object);
 $availcount = count($availrelated);
-if ($modeladmin->fieldOptions[$fieldRef]['style'] == 'radio') {
+$style = isset($modeladmin->fieldOptions[$fieldRef]['style'])
+	? $modeladmin->fieldOptions[$fieldRef]['style']
+	: null;
+if ($style == 'radio') {
 	if ($availcount > 10) { ?>
 		<div class="relcheckboxCont">
 	<? } ?>
@@ -47,7 +50,7 @@ if ($modeladmin->fieldOptions[$fieldRef]['style'] == 'radio') {
 	<? if ($availcount > 10) { ?>
 		</div>
 	<? }
-} elseif ($modeladmin->fieldOptions[$fieldRef]['style'] == 'searchlist') { ?>
+} elseif ($style == 'searchlist') { ?>
 	<select
 		id="relavailable_<?= $field->field ?>"
 		<? if ($inlineField) { ?>
@@ -84,12 +87,12 @@ if ($modeladmin->fieldOptions[$fieldRef]['style'] == 'radio') {
 		<? if ($inputTitle) { ?>title="<?= $inputTitle ?>"<? } ?>
 		<? if ($inputClass) { ?>class="<?= $inputClass ?>"<? } ?>
 		>
-		<option value=""><?= $modeladmin->fieldOptions[$fieldName]['nullLabel'] ? $modeladmin->fieldOptions[$fieldName]['nullLabel'] : 'None' ?></option>
+		<option value=""><?= isset($modeladmin->fieldOptions[$fieldName]['nullLabel']) ? $modeladmin->fieldOptions[$fieldName]['nullLabel'] : 'None' ?></option>
 		<? foreach ($availrelated->cursor() as $related) { ?>
-			<option <? if ($object[$field->field]->$joinField == $related->$joinField) echo 'selected'; ?> value="<?= $related->$joinField ?>"><?= htmlentities($this->toString($related)) ?></option>
+			<option <? if ($object[$field->field] && $object[$field->field]->$joinField == $related->$joinField) echo 'selected'; ?> value="<?= $related->$joinField ?>"><?= htmlentities($this->toString($related)) ?></option>
 		<? } ?>
 	</select>
 <? }
 if (!$inlineField) {
-	echo $modeladmin->getDependencyHTML($field, $popup);
+	echo $modeladmin->getDependencyHTML($field, isset($popup) ? $popup : false);
 }

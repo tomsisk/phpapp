@@ -143,7 +143,8 @@
 					$inuse = null;
 					if ($custom)
 						$inuse = array($field => array_keys($custom));
-					elseif ($fieldoptions = $fieldobj->options['options'])
+					elseif (isset($fieldobj->options['options'])
+							&& $fieldoptions = $fieldobj->options['options'])
 						$inuse = array($field => array_keys($fieldoptions));
 					elseif ($fieldobj instanceof BooleanField)
 						$inuse = array($field => array(true, false));
@@ -165,8 +166,8 @@
 					if ($custom) {
 
 						foreach ($custom as $val => $def) {
-							$filter['objects'][] = array($val, $def[0], $filteredFields[$field] === strval($val));
-							$filtered = $filtered || $filteredFields[$field] === strval($val);
+							$filter['objects'][] = array($val, $def[0], isset($filteredFields[$field]) && ($filteredFields[$field] === strval($val)));
+							$filtered = $filtered || (isset($filteredFields[$field]) && $filteredFields[$field] === strval($val));
 						}
 
 					} elseif ($fieldobj instanceof RelationField) {
@@ -180,7 +181,7 @@
 							continue;
 
 						$fq = $fma->getQuery();
-						if (count($inuse[$field])) {
+						if (isset($inuse[$field]) && count($inuse[$field])) {
 							$related = $fq->filter('pk:in', $inuse[$field]);
 							foreach($related as $r) {
 								$fo = array($r->pk, $modeladmin->getAdmin()->getApplication()->toString($r),
@@ -288,7 +289,7 @@
 					// Restrict to in-use values, unless a limited selection is
 					// available (i.e. BooleanField, fields with "options" option)
 					$inuse = null;
-					if ($fieldoptions = $fieldobj->options['options'])
+					if (isset($fieldobj->options['options']) && $fieldoptions = $fieldobj->options['options'])
 						$inuse = array($field => array_keys($fieldoptions));
 					elseif ($fieldobj instanceof BooleanField)
 						$inuse = array($field => array(true, false));
@@ -786,6 +787,7 @@
 
 			$relatedErrors = array();
 			$relatedFieldErrors = array();
+			$inlineObjects = array();
 			$errors = array();
 			$fieldErrors = array();
 
@@ -844,7 +846,6 @@
 				foreach ($object->_fields as $name => $field) {
 					if ($field instanceof RelationSetField) {
 						$relations = array();
-						$inlineObjects = array();
 						$validationFailed = false;
 						if ($modeladmin->isInlineObject($field->field)) {
 							$inlineObjects[$name] = array();
@@ -924,7 +925,7 @@
 
 						// Some m2m have null values, so we can't use relation set
 						// TODO: find a way for RelationSet to handle null members
-						if ($field instanceof ManyToManyField && $field->options['allowNull']) {
+						if ($field instanceof ManyToManyField && isset($field->options['allowNull']) && $field->options['allowNull']) {
 
 							$jq = $field->getJoinModel()->getQuery();
 							$current = $jq->filter($field->joinField, $object->pk);
@@ -969,7 +970,7 @@
 					}
 				}
 
-				$filterstr = $params['_filterstr'];
+				$filterstr = isset($params['_filterstr']) ? $params['_filterstr'] : null;
 				if (isset($params['_return'])) {
 					return $params['_return'];
 				} elseif ($modeladmin->matchesMaster()) {

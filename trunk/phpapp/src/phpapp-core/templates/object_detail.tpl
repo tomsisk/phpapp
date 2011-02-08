@@ -20,8 +20,8 @@ if ($modeladmin->previewUrl && $object->pk) { ?>
 <? }
 
 foreach ($modeladmin->getFieldGroups() as $group) {
-	if ($group['name']) {
-		if ($group['collapse']) { ?>
+	if (isset($group['name'])) {
+		if (isset($group['collapse'])) { ?>
 			<div class="expander">
 				<h3><?= htmlentities($group['name']) ?></h3>
 				<div class="content">
@@ -58,7 +58,7 @@ foreach ($modeladmin->getFieldGroups() as $group) {
 			}
 		} ?>
 	</table>
-	<? if ($group['name'] && $group['collapse']) { ?>
+	<? if (isset($group['name']) && isset($group['collapse'])) { ?>
 			</div>
 		</div>
 	<? } else { ?>

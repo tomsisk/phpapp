@@ -4,8 +4,12 @@
 	$groupHeadings = null;
 
 	if (isset($modeladmin->fieldOptions[$fieldName])) {
-		$groupField = $modeladmin->fieldOptions[$fieldName]['groupby'];
-		$groupHeadings = $modeladmin->fieldOptions[$fieldName]['groupheadings'];
+		$groupField = null;
+		if (isset($modeladmin->fieldOptions[$fieldName]['groupby']))
+			$groupField = $modeladmin->fieldOptions[$fieldName]['groupby'];
+		$groupHeadings = null;
+		if (isset($modeladmin->fieldOptions[$fieldName]['groupheadings']))
+			$groupHeadings = $modeladmin->fieldOptions[$fieldName]['groupheadings'];
 	}
 
 	$availrelated = $modeladmin->getManyToManyList($field, $object);

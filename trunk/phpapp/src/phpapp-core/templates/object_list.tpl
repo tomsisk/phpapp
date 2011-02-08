@@ -14,9 +14,9 @@ $canedit = $modeladmin->checkAction('MODIFY');
 					<div class="pagelist">
 						<div class="pagebuttons">
 							Results per page:
-							<? if ($_REQUEST['_r'] === null or $_REQUEST['_r'] == 25) { ?><b>25</b><? } else { ?><a href="<?= $this->selfurl('_r', '25') ?>">25</a><? } ?> |
-							<? if ($_REQUEST['_r'] == 50) { ?><b>50</b><? } else { ?><a href="<?= $this->selfurl('_r', '50') ?>">50</a><? } ?> |
-							<? if ($_REQUEST['_r'] == 100) { ?><b>100</b><? } else { ?><a href="<?= $this->selfurl('_r', '100') ?>">100</a><? } ?>
+							<? if (!isset($_REQUEST['_r']) or $_REQUEST['_r'] == 25) { ?><b>25</b><? } else { ?><a href="<?= $this->selfurl('_r', '25') ?>">25</a><? } ?> |
+							<? if (isset($_REQUEST['_r']) && $_REQUEST['_r'] == 50) { ?><b>50</b><? } else { ?><a href="<?= $this->selfurl('_r', '50') ?>">50</a><? } ?> |
+							<? if (isset($_REQUEST['_r']) && $_REQUEST['_r'] == 100) { ?><b>100</b><? } else { ?><a href="<?= $this->selfurl('_r', '100') ?>">100</a><? } ?>
 						</div>
 						Displaying <?= $pagestart ?> - <?= $pageend ?> of <?= $objectcount ?> <?= htmlentities(strtolower($modeladmin->pluralName)) ?>
 						<br clear="all"/>

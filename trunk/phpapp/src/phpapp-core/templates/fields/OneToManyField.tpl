@@ -5,7 +5,7 @@ $orderField = $modeladmin->getOrderField($relModel);
 
 if (!$inlineField && $modeladmin->isInlineObject($field->field)) {
 	$selector = $modeladmin->inlineObjects[$field->field]['selector'];
-	if ($relatedFieldErrors[$field->field]) { ?>
+	if (isset($relatedFieldErrors[$field->field])) { ?>
 		<div class="error">
 			<b>Unable to save some <?= htmlentities(strtolower($field->pluralName)) ?></b><br />
 			Please correct the highlighted fields below. Click on a field to view the error.
@@ -35,7 +35,7 @@ if (!$inlineField && $modeladmin->isInlineObject($field->field)) {
 					?>
 					<th valign="top">
 						<?= htmlentities($rfield->name) ?>
-						<? if ($rfield->options['help']) { ?>
+						<? if (isset($rfield->options['help'])) { ?>
 							<span class="fieldHelp">(<?= $rfield->options['help'] ?>)</span>
 						<? } ?>
 					</th>
@@ -57,7 +57,7 @@ if (!$inlineField && $modeladmin->isInlineObject($field->field)) {
 			<ul class="plain sortablehandle" id="<?= $module->id ?>__<?= $fieldAdmin->id ?>__<?= $orderField->field ?>">
 		<? }
 		$objetList = null;
-		if ($relatedObjects[$field->field])
+		if (isset($relatedObjects[$field->field]))
 			$objectList = $relatedObjects[$field->field];
 		else
 			$objectList = $object[$field->field];
@@ -109,7 +109,7 @@ if (!$inlineField && $modeladmin->isInlineObject($field->field)) {
 				if ($orderField) { ?>
 					<li class="<?= $row ?>" id="_<?= $field->field ?>_sortpk_<?= $related->pk ?>"><table class="listTable tablegroupref tablegroupmember">
 				<? }
-				if ($relatedErrors[$field->field][$idx]) { ?>
+				if (isset($relatedErrors[$field->field][$idx])) { ?>
 					<tr class="< if (!$orderField) { echo $row.' ';?>noborder">
 						<? if ($orderField) { ?>
 							<td width="15">&nbsp;</td>
@@ -144,10 +144,10 @@ if (!$inlineField && $modeladmin->isInlineObject($field->field)) {
 					<?
 					foreach ($fieldList as $rfieldName) {
 						$rfield = $relModel->_fields[$rfieldName];
-						if (($rfield->options['editable'] || $rfield->options['readonly']) && $rfield->field != $field->joinField) { ?>
+						if (((isset($rfield->options['editable']) && $rfield->options['editable']) || isset($rfield->options['readonly']) && $rfield->options['readonly']) && $rfield->field != $field->joinField) { ?>
 							<td>
 							<?
-							if (($related->pk || !$rfield->options['required'] || $rfield->options['default']) && $rfield->options['readonly']) {
+							if (($related->pk || !isset($rfield->options['required']) || !$rfield->options['required'] || isset($rfield->options['default'])) && (isset($rfield->options['readonly']) && $rfield->options['readonly'])) {
 								if ($fieldAdmin->checkAction('VIEW'))
 									echo '<a href="'.$fieldAdmin->getRelativeUrl('/view/'.$related->pk).'">';
 								echo $modeladmin->getFieldValueHTML($related, $rfield->field);
@@ -156,7 +156,7 @@ if (!$inlineField && $modeladmin->isInlineObject($field->field)) {
 							} else {
 								$inputTitle = null;
 								$inputClass = null;
-								if ($relatedFieldErrors[$field->field][$idx][$rfield->field]) {
+								if (isset($relatedFieldErrors[$field->field][$idx][$rfield->field])) {
 									$inputTitle = $relatedFieldErrors[$field->field][$idx][$rfield->field][0];
 									$inputClass = 'inputError';
 								}

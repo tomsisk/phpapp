@@ -204,7 +204,7 @@
 
 			$parts = explode('?', $_SERVER['REQUEST_URI']);
 			$path = $parts[0].'?';
-			$query = $this->parseQS($parts[1]);
+			 $query = count($parts) > 1 ? $this->parseQS($parts[1]) : array();
 
 			if ($value === null)
 				unset($query[$name]);
@@ -255,7 +255,9 @@
 			$pairs = explode('&', $qs);
 
 			foreach($pairs as $p) {
-				list ($k, $v) = explode('=', $p);
+				$field = explode('=', $p);
+				$k = $field[0];
+				$v = isset($field[1]) ? $field[1] : null;
 				$params[urldecode($k)] = urldecode($v);
 			}
 
@@ -300,7 +302,7 @@
 			foreach ($parts as &$part)
 				$part = ucfirst($part);
 
-			return implode($spacer, $parts);
+			return implode(' ', $parts);
 
 		}
 

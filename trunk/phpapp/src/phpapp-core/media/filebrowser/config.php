@@ -72,7 +72,7 @@ $defaultlanguage = 'en';
 //--------------------------DON'T EDIT BEYOND THIS POINT ----------------------------------
 
 // Check paths
-if ($uploadpath{strlen($uploadpath)} != '/')
+if (!$uploadpath || $uploadpath{strlen($uploadpath)-1} != '/')
 	$uploadpath .= '/';
 
 define('STARTINGPATH', DOCUMENTROOT . $uploadpath);

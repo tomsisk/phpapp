@@ -310,8 +310,8 @@
 			return false;
 		}
 
-		public function &getPermissions() {
-			if ($_SESSION[$this->id])
+		public function getPermissions() {
+			if (isset($_SESSION[$this->id]) && isset($_SESSION[$this->id]['permissions']))
 				return $_SESSION[$this->id]['permissions'];
 			return null;
 		} 
@@ -324,9 +324,9 @@
 		public function checkAction($action, $module = null, $type = null) {
 			$perms = $this->getPermissions();
 			if ($module) {
-				$perms = array_merge_recursive((array)$perms[$module], (array)$perms['ALL']);
+				$perms = array_merge_recursive(isset($perms[$module]) ? $perms[$module] : array(), isset($perms['ALL']) ? $perms['ALL'] : array());
 				if ($perms && $type)
-					$perms = array_merge_recursive((array)$perms[$type], (array)$perms['ALL']);
+					$perms = array_merge_recursive(isset($perms[$type]) ? $perms[$type] : array(), isset($perms['ALL']) ? $perms['ALL'] : array());
 			}
 			$actions = $this->getLeaves($perms);
 			return in_array($action, $actions) || in_array('ALL', $actions);
@@ -346,11 +346,11 @@
 		public function checkAccess($module = null, $type = null, $instance = null) {
 			$perms = $this->getPermissions();
 			if ($module) {
-				$perms = array_merge_recursive(isset($perms[$module]) ? $perms[$module] : array(), (array)$perms['ALL']);
+				$perms = array_merge_recursive(isset($perms[$module]) ? $perms[$module] : array(), isset($perms['ALL']) ? $perms['ALL'] : array());
 				if ($perms && $type) {
-					$perms = array_merge_recursive(isset($perms[$type]) ? $perms[$type] : array(), (array)$perms['ALL']);
+					$perms = array_merge_recursive(isset($perms[$type]) ? $perms[$type] : array(), isset($perms['ALL']) ? $perms['ALL'] : array());
 					if ($perms && $instance) {
-						$perms = array_merge_recursive(isset($perms[$instance]) ? $perms[$instance] : array(), (array)$perms['ALL']);
+						$perms = array_merge_recursive(isset($perms[$instance]) ? $perms[$instance] : array(), isset($perms['ALL']) ? $perms['ALL'] : array());
 					}
 				}
 			}
@@ -464,10 +464,10 @@
 		public function _parsePermissions($raw) {
 			$perms = array();
 			foreach ($raw as $perm) {
-				if (!$perms[$perm['module']]) $perms[$perm['module']] = array();
-				if (!$perms[$perm['module']][$perm['type']])
+				if (!isset($perms[$perm['module']])) $perms[$perm['module']] = array();
+				if (!isset($perms[$perm['module']][$perm['type']]))
 					$perms[$perm['module']][$perm['type']] = array();
-				if (!$perms[$perm['module']][$perm['type']][$perm['instance']])
+				if (!isset($perms[$perm['module']][$perm['type']][$perm['instance']]))
 					$perms[$perm['module']][$perm['type']][$perm['instance']] = array();
 				if (!in_array($perm['action'], $perms[$perm['module']][$perm['type']][$perm['instance']]))
 					$perms[$perm['module']][$perm['type']][$perm['instance']][] = $perm['action'];

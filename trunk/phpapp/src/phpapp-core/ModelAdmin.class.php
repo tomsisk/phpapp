@@ -218,6 +218,7 @@
 		public function findFieldAndObject($fieldname, $object = null) {
 			if (!$object) $object = $this->getPrototype();
 			$field = null;
+			$prefix = null;
 			if (strpos($fieldname, '.') !== false) {
 				$fieldpath = explode('.', $fieldname);
 				for ($i = 0; $i < count($fieldpath); ++$i) {
@@ -430,7 +431,7 @@
 					}
 				}
 
-				if ($restricted = $this->fieldRestrictions[$field]) {
+				if (isset($this->fieldRestrictions[$field]) && $restricted = $this->fieldRestrictions[$field]) {
 					if (!$this->checkPermission($restricted[1])) { 
 						unset($params[$field]);
 						$def->options['editable'] = false;
@@ -512,7 +513,7 @@
 			$relation = $field->relationName;
 			$targetadmin = $this->getAdmin()->findModelAdmin($relation);
 			$query = $targetadmin ? $targetadmin->getQuery() : $field->getRelationModel()->getQuery();
-			if ($filter = $field->options['filter']) {
+			if (isset($field->options['filter']) && $filter = $field->options['filter']) {
 				$final = array();
 				foreach ($filter as $name => $value) {
 					if ($value instanceof ModelField)
@@ -535,7 +536,7 @@
 			$selected = $selected[$field->targetField];
 
 			$query = $this->getQuery($field->relationName);
-			if ($filter = $field->options['filter']) {
+			if (isset($field->options['filter']) && ($filter = $field->options['filter'])) {
 				$final = array();
 				foreach ($filter as $name => $value) {
 					if ($value instanceof ModelField)
@@ -582,7 +583,7 @@
 		}
 		public function getRelatedJavascript($field, $modeladmin) {
 			$script = '';
-			if ($modeladmin && $filter = $field->options['filter']) {
+			if ($modeladmin && isset($field->options['filter']) && $filter = $field->options['filter']) {
 				foreach ($filter as $name => $value) {
 					if ($value instanceof ModelField) {
 						if (!$script) $script = '<script language="javascript">';
@@ -681,7 +682,7 @@
 		}
 
 		public function isFilter() {
-			return $this->isMaster() || $this->getAdmin()->getBaseFilter() == $modeladmin;
+			return $this->isMaster() || $this->getAdmin()->getBaseFilter() == $this;
 		}
 
 		public function isMaster() {
@@ -1116,7 +1117,8 @@
 			if ($orig !== $object)
 				$modeladmin = $this->getAdmin()->findModelAdmin($object);
 
-			if ($field->options['editable'] || $field->options['readonly'])
+			if ((isset($field->options['editable']) && $field->options['editable'])
+					|| (isset($field->options['readonly']) && $field->options['readonly']))
 				return $this->fetchTemplate('object_field.tpl', array(
 						'modeladmin' => $modeladmin,
 						'object' => $object,
@@ -1141,7 +1143,8 @@
 
 		public function getTypeAdmin($model) {
 
-			if ($model && $this->subtypeAdmins && count($this->subtypeAdmins) > 0) {
+			if ($model && $this->subtypeAdmins && count($this->subtypeAdmins) > 0
+					&& isset($this->subtypeAdmins[get_class($model)])) {
 				$typeAdmin = $this->subtypeAdmins[get_class($model)];
 				if ($typeAdmin)
 					return $typeAdmin;

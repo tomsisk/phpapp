@@ -1,7 +1,7 @@
 <h1><?= ($pk ? 'Edit ' : 'New ').htmlentities($modeladmin->name) ?></h1>
 
 <span id="errorMessage">
-	<? if ($errors || $fieldErrors) { ?>
+	<? if (isset($errors) || isset($fieldErrors)) { ?>
 		<div class="error">
 		<b>Unable to Save</b>
 			<br />
@@ -29,22 +29,21 @@ if ($modeladmin->previewUrl && $object->pk) { ?>
 </div>
 <? } ?>
 
-<form action="<?= $sectionurl ?>/<? if ($popup) echo 'savepopup'; else echo 'save'; ?>/<?= $pk ?>" method="post" class="focusonload validated" id="<?= $module->id?>_<?=$modeladmin->id?>_form" autocomplete="off">
+<form action="<?= $sectionurl ?>/<? if (isset($popup) && $popup) echo 'savepopup'; else echo 'save'; ?>/<?= $pk ?>" method="post" class="focusonload validated" id="<?= $module->id?>_<?=$modeladmin->id?>_form" autocomplete="off">
 	<input type="hidden" name="_filterstr" value="<?= $filterstr ?>"/>
 	<?
 	$hidden = array();
 	$idx = 1;
 	foreach ($modeladmin->getFieldGroups() as $group) {
-		ob_start();
 		?>
 		<div id="_field_row__group<?= $idx ?>"
-			<? if (!$modeladmin->checkDisplayCondition($parent ? $parent : $object, '_group'.$idx)) { ?>
+			<? if (!$modeladmin->checkDisplayCondition(isset($parent) ? $parent : $object, '_group'.$idx)) { ?>
 				class="hidden"
 			<? } ?>
 			>
 		<?
 		if ($group['name']) {
-			if ($group['collapse']) { ?>
+			if (isset($group['collapse']) && $group['collapse']) { ?>
 				<div class="expander">
 					<h3><?= htmlentities($group['name']) ?></h3>
 					<div class="content">
@@ -60,7 +59,9 @@ if ($modeladmin->previewUrl && $object->pk) { ?>
 			<?
 			$displayed = false;
 			foreach ($group['fields'] as $fieldname) {
-				if ($modeladmin->fieldOptions[$fieldname]
+				if (isset($modeladmin->fieldOptions[$fieldname])
+						&& $modeladmin->fieldOptions[$fieldname]
+						&& isset($modeladmin->fieldOptions[$fieldname]['hidden'])
 						&& $modeladmin->fieldOptions[$fieldname]['hidden'])
 					$hidden[] = $fieldname;
 				else {
@@ -73,7 +74,8 @@ if ($modeladmin->previewUrl && $object->pk) { ?>
 			}
 			?>
 		</table>
-		<? if ($group['name'] && $group['collapse']) { ?>
+		<? if (isset($group['name']) && $group['name']
+				&& isset($group['collapse']) && $group['collapse']) { ?>
 				</div>
 			</div>
 		<? } else { ?>
@@ -83,17 +85,14 @@ if ($modeladmin->previewUrl && $object->pk) { ?>
 		<?
 		echo $modeladmin->getDisplayJavascript('_group'.$idx);
 		$idx++;
-		if ($displayed)
-			ob_end_flush();
-		else
-			ob_end_clean();
 	}
 
-	if ($group['name'] && $group['collapse']) { ?>
+	if (isset($group['name']) && $group['name']
+			&& isset($group['collapse']) && $group['collapse']) { ?>
 		<br />
 	<? } 
 
-	if ($extraForm) {
+	if (isset($extraForm)) {
 		echo $extraForm; ?>
 		<br />
 	<? }

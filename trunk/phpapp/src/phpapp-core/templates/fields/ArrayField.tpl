@@ -1,14 +1,16 @@
 <?
-$options = $field->options['options'];
-if ($field->options['relation']) {
+$options = array();
+if (isset($field->options['relation'])) {
 	// Load relation set
 	$rq = $modeladmin->getQuery($field->options['relation']);
 	if ($rq)
 		$options = $rq->map('pk');
-}
+} else
+	$options = $field->options['options'];
 if ($modeladmin->fieldOptions[$fieldRef]['style'] == 'checkbox') {
 
-	$ordered = $modeladmin->fieldOptions[$fieldRef]['ordered'];
+	$ordered = isset($modeladmin->fieldOptions[$fieldRef]['ordered'])
+		&& $modeladmin->fieldOptions[$fieldRef]['ordered'];
 
 	if ($ordered) { ?>
 	<ul id="<?= $fieldName ?>_checkbox_list" class="sortable boxlines" style="width: 200px;">

@@ -94,11 +94,12 @@
 				'app' => $this->app,
 				'admin' => $this,
 				'user' => $this->app->getUser(),
-				'debug' => $this->app->config['debug'],
+				'debug' => isset($this->app->config['debug']) && $this->app->config['debug'],
 				'modules' => $this->modules,
 				'host' => $_SERVER['HTTP_HOST'],
 				'defScripts' => $jsIncludes,
 				'defStylesheets' => $cssIncludes,
+				'popup' => false,
 				'publichost' => $this->app->config['public_host']
 				);
 
@@ -184,7 +185,8 @@
 
 			$name = $model->getQueryName();
 
-			if (!isset($this->filterObjects[$name])) {
+			if (!isset($this->filterObjects[$name])
+					&& isset($this->filters[$name])) {
 				$id = $this->filters[$name];
 				if ($id)
 					try {
@@ -210,7 +212,9 @@
 					}
 				}
 			}
-			return $this->modelCache[$modelName];
+			if (isset($this->modelCache[$modelName]))
+				return $this->modelCache[$modelName];
+			return null;
 		}
 
 		// Shortcut function to simplify request handler script
@@ -232,7 +236,11 @@
 			if (!$path[sizeof($path)-1]) array_pop($path);
 
 			if (!$this->app->isLoggedIn()) {
-				if (($path[0] != 'account' || $path[1] != 'login') && $path[0] != 'media') {
+				if (count($path) > 0 && $path[0] == 'media') {
+					// Pass
+				} elseif (count($path) > 1 && $path[0] == 'account' && $path[1] == 'login') {
+					// Pass
+				} else {
 					$this->relativeRedirect('/account/login?redirect='.rawurlencode($_SERVER['REQUEST_URI']));
 					return;
 				}
@@ -293,24 +301,27 @@
 			$action = array_shift($path);
 			switch($action) {
 				case 'login':
+					$redirect = null;
+					if (isset($params['redirect']))
+						$redirect = $params['redirect'];
 					if ($method == 'post') {
 						if ($this->app->query->User->model->_fields['password'] instanceof PasswordField)
 							$params['password'] = md5($params['password']);
-						if ($this->app->login($params['username'], $params['password'], $params['remember'])) {
+						if ($this->app->login($params['username'], $params['password'], isset($params['remember']) ? true : false)) {
 							if ($this->baseFilter) {
 								$query = $this->baseFilter->getQuery()->all();
 								if ($query->count() == 1)
 									$this->addFilter($this->baseFilter->getQueryName(), $query->one()->pk);
 							}
 							if ($params['redirect'])
-								header('Location: '.$params['redirect']);
+								header('Location: '.$redirect);
 							else
 								$this->relativeRedirect('/');
 						} else {
-							$this->renderTemplate('account/login.tpl', array('redirect' => $params['redirect'], 'error' => '<b>Login Failed</b><br />Incorrect username or password.'));
+							$this->renderTemplate('account/login.tpl', array('redirect' => $redirect, 'error' => '<b>Login Failed</b><br />Incorrect username or password.'));
 						}
 					} else {
-						$this->renderTemplate('account/login.tpl', array('redirect' => $params['redirect']));
+						$this->renderTemplate('account/login.tpl', array('redirect' => $redirect));
 					}
 					break;
 				case 'logout':

@@ -11,7 +11,8 @@
 	<? if ($inlineField) { ?>
 		style="width:250px; height:75px;"
 	<? } else { ?>
-		<? if ($modeladmin->fieldOptions[$fieldRef]['style'] == 'large') { ?>
+		<? if (isset($modeladmin->fieldOptions[$fieldRef]['style'])
+			&& $modeladmin->fieldOptions[$fieldRef]['style'] == 'large') { ?>
 		style="width:650px; height:500px;"
 		<? } else { ?>
 		style="width:550px; height:150px;"
