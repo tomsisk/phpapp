@@ -158,7 +158,7 @@
 			if ($queryhandler->factory->cacheExists($cacheKey)) {
 				$model = $queryhandler->factory->cacheGet($cacheKey);
 			} else {
-				$model = $queryhandler->create($fields, $rawfields, UPDATE_FROM_DB);
+				$model = $queryhandler->create($fields, $raw, UPDATE_FROM_DB);
 				$queryhandler->factory->cachePut($cacheKey, $model);
 			}
 
