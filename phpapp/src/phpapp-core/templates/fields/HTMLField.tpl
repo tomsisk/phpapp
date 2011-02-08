@@ -8,7 +8,8 @@
 	<? } ?>
 	<? if ($inputTitle) { ?>title="<?= $inputTitle ?>"<? } ?>
 	<? if ($inputClass) { ?>class="<?= $inputClass ?>"<? } ?>
-	<? if ($modeladmin->fieldOptions[$fieldRef]['style'] == 'large') { ?>
+	<? if (isset($modeladmin->fieldOptions[$fieldRef]['style'])
+		&& $modeladmin->fieldOptions[$fieldRef]['style'] == 'large') { ?>
 	style="width:675px; height:700px;"
 	<? } else { ?>
 	style="width:550px; height:150px;"

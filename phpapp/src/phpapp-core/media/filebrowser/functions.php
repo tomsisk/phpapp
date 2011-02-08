@@ -130,7 +130,7 @@ function renderTree($dirs, $rootpath){
 		$html .= '<li><a href="'.$rootpath.$key."/".'" class="folder">'.$key.'</a>';
 		
 		if (count($dirs[$key]) > 0) {
-			$level++;
+			//$level++;
 			$html .= renderTree($dirs[$key], $rootpath.$key."/");
 		}
 		

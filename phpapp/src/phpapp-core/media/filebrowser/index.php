@@ -38,7 +38,7 @@ endif;
 
 //$rootname = array_pop(explode("/", trim($uploadpath,"/")));
 $rootname = 'Home';
-$callback = $_REQUEST['callback'];
+$callback = isset($_REQUEST['callback']) ? $REQUEST['callback'] : null;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -101,7 +101,6 @@ var insert_cancelled = "<?php echo $lang['insert_cancelled'];?>";
 var invalid_characters_used = "<?php echo 'Invalid characters used!'?>";
 var rename_file = "<?php echo $lang['rename_file'];?>";
 var rename_folder = "<?php echo $lang['rename_folder'];?>";
-var rename_error = "<?php echo $lang['rename_error'];?>";
 
 $(document).ready(function() {
 	
@@ -486,9 +485,9 @@ $(document).ready(function() {
         	<h2><?php echo $rootname?></h2>
           	<select id="filters">
            		<option value="">All files (*.*)&nbsp;</option>
-                <option<?php echo ($_GET["filter"] == "flash" ? ' selected="selected"' : '');?> value=".swf|.flv|.fla">Flash&nbsp;</option>
-	            <option<?php echo ($_GET["filter"] == "image" ? ' selected="selected"' : '');?> value=".bmp|.gif|.jpg|.jpeg|.png">Images&nbsp;</option>
-                <option<?php echo ($_GET["filter"] == "media" ? ' selected="selected"' : '');?> value=".avi|.flv|.mov|.mp3|.mp4|.mpeg|.mpg|.ogg|.wav|.wma|.wmv">Media&nbsp;</option>
+                <option<?php echo (isset($_GET['filter']) && $_GET["filter"] == "flash" ? ' selected="selected"' : '');?> value=".swf|.flv|.fla">Flash&nbsp;</option>
+	            <option<?php echo (isset($_GET['filter']) && $_GET["filter"] == "image" ? ' selected="selected"' : '');?> value=".bmp|.gif|.jpg|.jpeg|.png">Images&nbsp;</option>
+                <option<?php echo (isset($_GET['filter']) && $_GET["filter"] == "media" ? ' selected="selected"' : '');?> value=".avi|.flv|.mov|.mp3|.mp4|.mpeg|.mpg|.ogg|.wav|.wma|.wmv">Media&nbsp;</option>
     		</select>
             <hr />
             <div id="files">

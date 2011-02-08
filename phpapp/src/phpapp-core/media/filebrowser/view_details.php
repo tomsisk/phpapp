@@ -51,6 +51,8 @@ print '<table id="details" class="files">
 		</thead>
 		<tbody>';
 						
+$htmlFiles = '';
+$htmlFolders = '';
 foreach($dirs as $key => $value){
 	if($value != "folder"){
 		if(strtolower($value) == "png" || strtolower($value) == "jpg" || strtolower($value) == "jpeg" || strtolower($value) == "gif" || strtolower($value) == "bmp"){

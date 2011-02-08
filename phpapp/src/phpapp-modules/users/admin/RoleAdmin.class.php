@@ -60,7 +60,7 @@
 				foreach ($permissions as $p) {
 					if ($p->instance != 'ALL')
 						continue;
-					if ($last->module != $p->module)
+					if (!$last || $last->module != $p->module)
 						$permmap[$p->module] = array();
 					elseif ($last->type != $p->type)
 						$permmap[$p->module][$p->type] = array();

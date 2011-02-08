@@ -1,20 +1,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title><?= htmlentities($this->defaultValue($title, $admin->appName)) ?></title>
+		<title><?= htmlentities($this->defaultValue(isset($title) ? $title : null, $admin->appName)) ?></title>
 		<link rel="stylesheet" type="text/css" href="<?= $admin->mediaRoot ?>/css/admin.css"/>
 		<link rel="stylesheet" type="text/css" href="<?= $admin->baseUrl ?>/css/admin.css"/>
-<? if (count($defStylesheets)) {
+<? if (isset($defStylesheets) && count($defStylesheets)) {
 	foreach ($defStylesheets as $ss) { ?>
 		<link rel="stylesheet" href="<?= $ss ?>"/>
 	<? }
 }
-if (count($stylesheets)) {
+if (isset($stylesheets) && count($stylesheets)) {
 	foreach ($stylesheets as $ss) { ?>
 		<link rel="stylesheet" href="<?= $ss ?>"/>
 	<? }
 }
-if ($stylesheet) { ?>
+if (isset($stylesheet)) { ?>
 		<link rel="stylesheet" href="<?= $stylesheet ?>"/>
 <? } ?>
 		<script language="javascript">
@@ -37,17 +37,17 @@ if ($stylesheet) { ?>
 		<script type="text/javascript" language="javascript" src="<?= $admin->mediaRoot ?>/js/admin.js"></script>
 		<script type="text/javascript" language="javascript" src="<?= $admin->mediaRoot ?>/js/admin-behaviors.js"></script>
 		<script type="text/javascript" language="javascript" src="<?= $admin->baseUrl ?>/js/admin.js"></script>
-<? if (count($defScripts)) {
+<? if (isset($defScripts) && count($defScripts)) {
 	foreach ($defScripts as $scr) { ?>
 		<script type="text/javascript" language="javascript" src="<?= $scr ?>"></script>
 	<? }
 }
-if (count($scripts)) {
+if (isset($scripts) && count($scripts)) {
 	foreach ($scripts as $scr) { ?>
 		<script type="text/javascript" language="javascript" src="<?= $scr ?>"></script>
 	<? }
 }
-if ($script) { ?>
+if (isset($script)) { ?>
 		<script type="text/javascript" language="javascript" src="<?= $script ?>"></script>
 <? } ?>
 	</head>
@@ -123,7 +123,7 @@ if ($script) { ?>
 									<div class="menumodule">
 										<?
 										$filter = $mod->master;
-										if ($moduleid != $module_id) { ?>
+										if (!isset($moduleid) || $moduleid != $module_id) { ?>
 											<div class="menumoduletitle">
 												<a href="<?= $admin->baseUrl ?>/modules/<?= $module_id ?>/"><?= htmlentities($mod->name) ?></a>
 											</div>
@@ -171,9 +171,9 @@ if ($script) { ?>
 													foreach ($mod->modelAdmins as $ma) {
 														if ($ma->checkAccess() && !$ma->inlineOnly) {
 															if ($ma->isMaster()) { ?>
-																<div class="<? if ($section == $ma->id) echo 'active'; ?>menuitem"><a href="<?= $admin->baseUrl ?>/modules/<?= $module_id ?>/<?= $ma->id ?>/"><?= htmlentities(ucwords($ma->name)) ?> Details</a></div>
+																<div class="<? if (isset($section) && $section == $ma->id) echo 'active'; ?>menuitem"><a href="<?= $admin->baseUrl ?>/modules/<?= $module_id ?>/<?= $ma->id ?>/"><?= htmlentities(ucwords($ma->name)) ?> Details</a></div>
 															<? } else { ?>
-																<div class="<? if ($section == $ma->id) echo 'active'; ?>menuitem"><a href="<?= $admin->baseUrl ?>/modules/<?= $module_id ?>/<?= $ma->id ?>/"><?= htmlentities(ucwords($ma->pluralName)) ?></a></div>
+																<div class="<? if (isset($section) && $section == $ma->id) echo 'active'; ?>menuitem"><a href="<?= $admin->baseUrl ?>/modules/<?= $module_id ?>/<?= $ma->id ?>/"><?= htmlentities(ucwords($ma->pluralName)) ?></a></div>
 															<? }
 														}
 													}
@@ -189,7 +189,7 @@ if ($script) { ?>
 				<td valign="top">
 					<div id="page">
 						<?
-						if ($phperror)
+						if (isset($phperror))
 							$this->incl('phperror.tpl');
 						$this->incl($_template);
 						?>

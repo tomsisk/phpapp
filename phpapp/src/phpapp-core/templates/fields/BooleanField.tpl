@@ -1,4 +1,4 @@
-<? if ($field->options['options']) { ?>
+<? if (isset($field->options['options'])) { ?>
 <select
 	<? if ($inlineField) { ?>
 	name="_<?= $inlineField ?>_<?= $field->field ?>[]"

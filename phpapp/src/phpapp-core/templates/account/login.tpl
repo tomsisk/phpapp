@@ -1,6 +1,6 @@
 <h1>Login to <?= $admin->appName ?></h1>
 
-<? if ($error) { ?>
+<? if (isset($error)) { ?>
 	<div class="error"><?= $error ?></div>
 	<br />
 <? } ?>

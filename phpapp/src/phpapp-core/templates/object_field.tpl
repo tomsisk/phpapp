@@ -14,11 +14,14 @@
 			</td>
 			<td class="editField" id="fieldinput_<?= $fieldName ?>">
 				<?
-				if (($object->pk || !$field->options['required'] || isset($field->options['default']))
-						&& ($field->options['readonly'] || $modeladmin->fieldOptions[$fieldName]['readonly'])) {
+				if (($object->pk || !isset($field->options['required']) || !$field->options['required'] || isset($field->options['default']))
+						&& ((isset($field->options['readonly']) && $field->options['readonly'])
+							|| (isset($modeladmin->fieldOptions[$fieldName]['readonly']) && 
+								$modeladmin->fieldOptions[$fieldName]['readonly']))) {
 					echo $modeladmin->getFieldValueHTML($object, $field, 'html', false, 'None');
 				} elseif ($object[$field->field]
 						&& isset($modeladmin->fieldOptions[$fieldName])
+						&& isset($modeladmin->fieldOptions[$fieldName]['passedValue'])
 						&& $modeladmin->fieldOptions[$fieldName]['passedValue']) {
 					echo $modeladmin->getFieldValueHTML($object, $field, 'html', false, 'None'); ?>
 					<input type="hidden" name="<?= $fieldName ?>" value="<?= $object->getPrimitiveFieldValue($field->field) ?>"/>
@@ -34,6 +37,7 @@
 						<? } ?>
 					</span>
 					<? if (isset($modeladmin->fieldOptions[$fieldName])
+							&& isset($modeladmin->fieldOptions[$fieldName]['help'])
 							&& $modeladmin->fieldOptions[$fieldName]['help']) { ?>
 						<div class="fieldHelp"><?= $modeladmin->fieldOptions[$fieldName]['help'] ?></div>
 					<? }
