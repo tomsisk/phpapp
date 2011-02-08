@@ -682,6 +682,7 @@
 		 * @param Array $error A list of error message
 		 */
 		public function addFieldErrors($field, $errors) {
+			$this->_versionChanges++;
 			if (!$this->_fieldErrors) $this->_fieldErrors = array();
 			if (!isset($this->_fieldErrors[$field])) $this->_fieldErrors[$field] = array();
 			$this->_fieldErrors[$field] = array_merge($this->_fieldErrors[$field], $errors);
@@ -723,6 +724,7 @@
 		 * @param string $error The error message
 		 */
 		public function addError($error) {
+			$this->_versionChanges++;
 			if (!$this->_errors) $this->_errors = array();
 			$this->_errors[] = $error;
 		}
