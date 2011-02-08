@@ -29,7 +29,7 @@ if ($modeladmin->previewUrl && $object->pk) { ?>
 </div>
 <? } ?>
 
-<form action="<?= $sectionurl ?>/<? if (isset($popup) && $popup) echo 'savepopup'; else echo 'save'; ?>/<?= $pk ?>" method="post" class="focusonload validated" id="<?= $module->id?>_<?=$modeladmin->id?>_form" autocomplete="off">
+<form action="<?= $sectionurl ?>/<? if (isset($popup) && $popup) echo 'savepopup'; else echo 'save'; ?>/<?= $pk ?>" method="post" enctype="multipart/form-data" class="focusonload validated" id="<?= $module->id?>_<?=$modeladmin->id?>_form" autocomplete="off">
 	<input type="hidden" name="_filterstr" value="<?= $filterstr ?>"/>
 	<?
 	$hidden = array();
