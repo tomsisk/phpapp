@@ -877,7 +877,11 @@
 			else
 				$this->query['where']['sql'] = $expression;
 			if ($params)
-				$this->query['where']['params'] = array_merge((array)$this->query['where']['params'], $params);
+				$this->query['where']['params'] = array_merge(
+					isset($this->query['where']['params'])
+						? $this->query['where']['params']
+						: array(),
+					$params);
 
 		}
 
@@ -999,7 +1003,7 @@
 						$targetfield = $fieldobj->targetField;
 						$joins['`'.$joinmodel->_table.'` ON (`'.$joinmodel->_table.'`.`'.$joinfield.'` = `'.$model->_table.'`.`'.$model->_idField.'`)'] = $type.' JOIN';
 						$joins['`'.$relmodel->_table.'` ON (`'.$relmodel->_table.'`.`'.$relid.'` = `'.$joinmodel->_table.'`.`'.$targetfield.'`)'] = $type.' JOIN';
-					} elseif ($fieldobj->options['reverseJoin']) {
+					} elseif (isset($fieldobj->optinons['reverseJoin'])) {
 						$joinField = $fieldobj->options['reverseJoin'];
 						$joins['`'.$tname.'` ON (`'.$tname.'`.`'.$joinField.'` = `'.$model->_table.'`.`'.$model->_idField.'`)'] = $type.' JOIN';
 					} else {
@@ -1088,7 +1092,7 @@
 		 *
 		 * @see QueryFilter::slice()
 		 */
-		public function &applySlice($limit = 0, $offset = 0) {
+		public function applySlice($limit = 0, $offset = 0) {
 			$this->query['limit'] = $limit;
 			$this->query['offset'] = $offset;
 		}
@@ -1099,7 +1103,7 @@
 		 *
 		 * @see QueryFilter::distinct()
 		 */
-		public function &applyDistinct() {
+		public function applyDistinct() {
 			$this->query['distinct'] = true;
 		}
 
@@ -1109,7 +1113,7 @@
 		 *
 		 * @see QueryFilter::preload()
 		 */
-		public function &applyPreload($field) {
+		public function applyPreload($field) {
 			if ($field) {
 				list($joins, $relmodel) = $this->getFieldJoinInfo($this->model, $field);
 				if ($relmodel) {
@@ -1130,7 +1134,7 @@
 		 *
 		 * @see QueryFilter::debug()
 		 */
-		public function &applyDebug() {
+		public function applyDebug() {
 			$this->query['debug'][] = true;
 		}
 
@@ -1393,7 +1397,7 @@
 				if ($relfield) {
 					$fieldDefs[$fields[$i]] = $relmodel->_fields[$relfield];
 					$q['select'][$fields[$i]] = $realField;
-					$q['converters'][$name] = $relmodel->_fields[$relfield];
+					$q['converters'][$fields[$i]] = $relmodel->_fields[$relfield];
 					if (count($joins))
 						$q['tables'] = $this->mergeJoins((array)$q['tables'], $joins);
 					$values[$fields[$i]] = array();
@@ -1804,8 +1808,9 @@
 			$cascade = array();
 			foreach ($this->model->_fields as $field => $def)
 				if ($def instanceof ManyToOneField
+						&& isset($def->options['cascadeDelete'])
 						&& $def->options['cascadeDelete']
-						&& !$def->options['reverseJoin'])
+						&& !isset($def->options['reverseJoin']))
 					$cascade[$field] = array($def, array());
 			if (count($ordered) || count($cascade)) {
 				$models = $this->select();
@@ -1884,7 +1889,7 @@
 					if ($model instanceof Model) {
 
 						$previous = $model->getPreviousFieldValues();
-						$currorder = $previous[$field];
+						$currorder = isset($previous[$field]) ? $previous[$field] : 0;
 						$changedGroup = false;
 
 						if ($currorder)
@@ -2056,6 +2061,8 @@
 					if ($pq['offset'] && !$q['offset']) $q['offset'] = $pq['offset'];
 					if ($pq['distinct']) $q['distinct'] = true;
 				}
+
+				if ($pq['debug']) $q['debug'] = true;
 			}
 
 			if ($applyDefaults && !$q['order']) {
@@ -2093,8 +2100,6 @@
 					}
 				}
 			}
-
-			if ($pq['debug']) $q['debug'] = true;
 
 			$this->fullQuery = $q;
 
@@ -2215,7 +2220,7 @@
 			switch ($operator) {
 				case 'exact':
 					// Add to default field values for future insert
-					if (!$negate) $this->query['insert'][$field] = $value;
+					//if (!$negate) $this->query['insert'][$field] = $value;
 					$sql = '`'.$table.'`.`'.$field.'` = ?';
 					$params[] = $value;
 					break;
@@ -2338,7 +2343,7 @@
 		 *		query attempted to preload
 		 * @return Array A list of Model objects created from the result set
 		 */
-		public function createModels($result, $rawfields, $map = null, $preload = null) {
+		public function createModels($result, $rawfields, $map = null, $preload = null, $multimap = false) {
 			$models = array();
 			$lastid = null;
 			$pk = $this->model->_idField;
@@ -2526,7 +2531,8 @@
 					}
 					$record = $this->createHashFromRow($row, $model, $rawfields, $preload);
 				}
-				$lastid = $row[$pk];
+				if (isset($row[$pk]))
+					$lastid = $row[$pk];
 				if ($preload) {
 					foreach ($preload as $field) {
 						$fo = $model->_fields[$field];

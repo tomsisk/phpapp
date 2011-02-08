@@ -99,21 +99,30 @@
 		public function __construct($name, $options_ = null, $validators_ = null) {
 			$this->name = $name;
 			$this->type = get_class($this);
-			if ($options_ && array_key_exists('pk', $options_)) {
+			if ($options_ && isset($options_['pk'])) {
 				$options_ = array_merge(array(
 						'required' => true,
 						'editable' => false,
 						'blankisnull' => true,
 						'blank' => false), $options_);
 			}
-			$this->options = array_merge(array('editable' => true, 'blankisnull' => true), (array)$options_);
+			$this->options = array_merge(array(
+					'options' => null,
+					'maxlength' => null,
+					'minlength' => null,
+					'default' => null,
+					'required' => false,
+					'readonly' => false,
+					'editable' => true,
+					'blankisnull' => true),
+				$options_ ? $options_ : array());
 			$defaultValidators = array();
 			if ($options_) {
-				if ($this->options['required'])
+				if (isset($this->options['required']) && $this->options['required'])
 					$defaultValidators[] = array(new RequiredFieldValidator(), 'This field is required.');
-				if ($length = $this->options['maxlength'])
+				if (isset($this->options['maxlength']) && $length = $this->options['maxlength'])
 					$defaultValidators[] = array(new MaxLengthValidator($length), 'Field value is too long.  Maximum length is '.$length.' characters.');
-				if ($length = $this->options['minlength'])
+				if (isset($this->options['minlength']) && $length = $this->options['minlength'])
 					$defaultValidators[] = array(new MinLengthValidator($length), 'Field value is too short.  Minimum length is '.$length.' characters.');
 			}
 			$this->validators = array_merge($defaultValidators, (array)$validators_);
@@ -139,7 +148,7 @@
 		public function validate($value, $model) {
 			$this->errors = array();
 			$valid = true;
-			if (array_key_exists('options', $this->options)) {
+			if (isset($this->options['options'])) {
 				$validvals = array_keys($this->options['options']);
 				$valueList = is_array($value) ? $value : array($value);
 				foreach ($valueList as $v) {
@@ -222,7 +231,7 @@
 		public function toString($value) {
 			if (is_object($value) && method_exists($value, '__toString'))
 				return $value->__toString();
-			if (array_key_exists('options', $this->options))
+			if (isset($this->options['options']))
 				return strval($this->options['options'][$value]);
 			return strval($value);
 		}
@@ -527,7 +536,7 @@
 		 * @see ManyToOneField::getRelation()
 		 */
 		public function getRelation($model, $primitive = null) {
-			if ($this->options['reverseJoin']) {
+			if (isset($this->options['reverseJoin']) && $this->options['reverseJoin']) {
 				$mdef = $this->getRelationModel();
 				if ($model)
 					return $mdef->getQuery()->filter(
@@ -541,7 +550,7 @@
 		 * @see ManyToOneField::setRelation()
 		 */
 		public function setRelation($model, $value) {
-			if ($this->options['reverseJoin']) {
+			if (isset($this->options['reverseJoin']) && $this->options['reverseJoin']) {
 				if ($value instanceof Model) {
 					$value[$this->options['reverseJoin']] = $model->pk;
 					return $value->pk;
@@ -583,7 +592,7 @@
 		 */
 		public function __construct($name_, $relation_, $options_ = null, $validators_ = null) {
 			parent::__construct($name_, $relation_, $options_, $validators_);
-			$this->joinField = $this->options['joinField'];
+			$this->joinField = isset($this->options['joinField']) ? $this->options['joinField'] : null;
 		}
 		
 		/**
@@ -746,7 +755,7 @@
 		public function __construct($name_, $relation_, $joinModel_, $options_ = null, $validators_ = null) {
 			parent::__construct($name_, $relation_, $options_, $validators_);
 			$this->joinModel = $joinModel_;
-			$this->targetField = $this->options['targetField']
+			$this->targetField = isset($this->options['targetField'])
 				? $this->options['targetField']
 				: strtolower($relation_);
 		}
@@ -866,7 +875,7 @@
 		 * @param Array $validators_ An array of FieldValidator objects
 		 */
 		public function __construct($name_, $groupBy_ = null, $options_ = null, $validators_ = null) {
-			parent::__construct($name_, $options, $validators_);
+			parent::__construct($name_, $options_, $validators_);
 			$this->options['editable'] = false;
 			$this->groupBy = $groupBy_;
 		}
@@ -932,7 +941,7 @@
 		 */
 		public function __construct($name_, $options_ = null, $validators_ = null) {
 			parent::__construct($name_, $options_, $validators_);
-			if ($this->options['blank'] === false)
+			if (isset($this->options['blank']) && $this->options['blank'] === false)
 				$this->validators[] = array(new RequiredStringValidator(), 'Field cannot be blank.');
 		}
 
@@ -1088,6 +1097,20 @@
 	}
 
 	/**
+	 * Field contains a file path.
+	 */
+	class FileField extends CharField {
+
+		/**
+		 * @see ModelField::__construct()
+		 */
+		public function __construct($name, $options_ = null, $validators_ = null) {
+			parent::__construct($name, 200, $options_, $validators_);
+		}
+
+	}
+
+	/**
 	 * Field contains an image URL.
 	 */
 	class ImageField extends CharField {
@@ -1155,7 +1178,7 @@
 		}
 
 		public function toString($value) {
-			if (array_key_exists('options', $this->options))
+			if (isset($this->options['options']))
 				return strval($this->options['options'][$value]);
 			return $value ? 'Yes' : 'No';
 		}
@@ -1185,7 +1208,7 @@
 		}
 
 		public function convertToDbValue($value) {
-			if ($this->options['autoupdate'])
+			if (isset($this->options['autoupdate']) && $this->options['autoupdate'])
 				$value = time();
 			else
 				$value = $this->convertValue($value);
@@ -1201,7 +1224,7 @@
 		}
 
 		public function getDefaultValue() {
-			if (array_key_exists('default', $this->options)) {
+			if (isset($this->options['default'])) {
 				if ($this->options['default'] == CURRENT_TIMESTAMP)
 					return time();
 				else
@@ -1338,7 +1361,9 @@
 
 			if ($pairs && count($pairs) > 0) {
 				foreach ($pairs as $p) {
-					list($n, $v) = explode('=', $p);
+					$field = explode('=', $p);
+					$n = $field[0];
+					$v = isset($field[1]) ? $field[1] : null;
 					if (substr($n, -2) == '[]')
 						$n = substr($n, 0, -2);
 					$params[$n] = rawurldecode($v);

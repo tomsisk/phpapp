@@ -178,17 +178,17 @@
 		 * @param string $name The field name in the database
 		 * @param ModelField $field A field definition object
 		 */
-		protected function &addField($name, $field) {
+		protected function addField($name, $field) {
 			$field->factory =& $this->_query->factory;
 			$field->query =& $this->_query;
 			$field->field = $name;
 			if (!($field instanceof RelationSetField) 
-					&& !($field instanceof RelationField && $field->options['reverseJoin'])) {
-				if ($field->options['pk'])
+					&& !($field instanceof RelationField && isset($field->options['reverseJoin']) && $field->options['reverseJoin'])) {
+				if (isset($field->options['pk']) && $field->options['pk'])
 					$this->_idField = $name;
 				if ($field instanceof OrderedField)
 					$this->_orderedFields[$name] =& $field;
-				if ($field->options['unique'])
+				if (isset($field->options['unique']) && $field->options['unique'])
 					$field->addValidator(new UniqueFieldValidator($name), 'That '.strtolower($field->name).' is not available.');
 				$this->_dbFields[$name] =& $field;
 			}
@@ -351,6 +351,8 @@
 		public function getFieldValue($name) {
 			if ($name == 'pk')
 				$name = $this->_idField;
+			if (!$name || !isset($this->_fields[$name]))
+				return null;
 			$field = $this->_fields[$name];
 			if ($field) {
 				if ($field instanceof RelationField) {
@@ -681,7 +683,7 @@
 		 */
 		public function addFieldErrors($field, $errors) {
 			if (!$this->_fieldErrors) $this->_fieldErrors = array();
-			if (!$this->_fieldErrors[$field]) $this->_fieldErrors[$field] = array();
+			if (!isset($this->_fieldErrors[$field])) $this->_fieldErrors[$field] = array();
 			$this->_fieldErrors[$field] = array_merge($this->_fieldErrors[$field], $errors);
 		}
 
@@ -744,7 +746,7 @@
 		 * @see UPDATE_FORCE_BOOLEAN
 		 * @see UPDATE_FROM_DB
 		 */
-		public function &updateModel($params, $rawvalues = null, $flags = 0) {
+		public function updateModel($params, $rawvalues = null, $flags = 0) {
 			if ($params !== null) {
 				if (($flags & UPDATE_FROM_DB) && isset($params[$this->_idField]))
 					$this->_dbId = $params[$this->_idField];
@@ -753,7 +755,8 @@
 						continue;
 					if (array_key_exists($field, $params)) {
 						// Don't let users update readonly fields
-						if ($def->options['readonly']
+						if (isset($def->options['readonly'])
+								&& $def->options['readonly']
 								&& ($flags & UPDATE_FROM_FORM)
 								&& isset($params[$this->_idField]))
 							continue;
