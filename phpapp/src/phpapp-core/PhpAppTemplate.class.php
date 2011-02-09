@@ -185,7 +185,7 @@
 				$incFile = $this->templateContext->resolver->findTemplate($template);
 				$tpl = new PhpAppTemplate($incFile, $this->templateContext);
 				$tpl->render($context
-					? array_merge($this->localContext, context)
+					? array_merge($this->localContext, $context)
 					: $this->localContext);
 
 			} else {
