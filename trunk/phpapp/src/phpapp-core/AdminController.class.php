@@ -291,6 +291,7 @@
 			} catch (Exception $e) {
 				$context = array('modules' => $this->modules,
 						'title' => 'Error',
+						'exception' => $e,
 						'error' => $e->getMessage());
 				$this->renderTemplate('error.tpl', $context);
 			}
