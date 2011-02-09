@@ -780,15 +780,7 @@
 			}
 		}
 
-		public static function doObjectSave(&$id, $params, $modeladmin, $method) {
-			if (!$modeladmin->checkPermission(($id ? 'MODIFY' : 'CREATE'), ($id ? $id : 'ALL')))
-				throw new AccessDeniedException('You are not allowed to modify this item.');
-
-			$relatedErrors = array();
-			$relatedFieldErrors = array();
-			$inlineObjects = array();
-			$errors = array();
-			$fieldErrors = array();
+		public static function processFileUploads($id, &$params, $modeladmin, $method) {
 
 			$config = $modeladmin->getAdmin()->getApplication()->config;
 			$uploadDir = isset($config['file_upload_directory']) ? $config['file_upload_directory'] : null;
@@ -799,10 +791,8 @@
 
 				if ($def instanceof FileField) {
 
-					if (!$uploadDir) {
-						$errors[] = 'File uploads are not configured correctly on this server (no "file_upload_directory" configuration directive found.)';
-						break;
-					}
+					if (!$uploadDir)
+						throw new Exception('File uploads are not configured correctly on this server (no "file_upload_directory" configuration directive found.)');
 
 					if (isset($params[$f])
 							&& is_array($params[$f])
@@ -831,7 +821,7 @@
 					} elseif (isset($params['_remove_'.$f])) {
 
 						unset($params['_remove_'.$f]);
-						unset($params[$f]);
+						$params[$f] = null;
 						$removeFiles[] = $f;
 
 					} else {
@@ -841,6 +831,35 @@
 					}
 
 				}
+			}
+
+			// Clean up removed file uploads
+			if ($id && $uploadDir && count($removeFiles) > 0) {
+				$object = $modeladmin->getQuery()->get($id);
+				foreach ($removeFiles as $f) {
+					if (file_exists($uploadDir.'/'.$object->$f))
+						unlink($uploadDir.'/'.$object->$f);
+				}
+			}
+
+		}
+
+		public static function doObjectSave(&$id, $params, $modeladmin, $method) {
+			if (!$modeladmin->checkPermission(($id ? 'MODIFY' : 'CREATE'), ($id ? $id : 'ALL')))
+				throw new AccessDeniedException('You are not allowed to modify this item.');
+
+			$relatedErrors = array();
+			$relatedFieldErrors = array();
+			$inlineObjects = array();
+			$errors = array();
+			$fieldErrors = array();
+
+			try {
+				// Process uploads first since it changes param values after
+				// moving temp files
+				StockActions::processFileUploads($id, $params, $modeladmin, $method);
+			} catch(Exception $e) {
+				$errors[] = $e->getMessage();
 			}
 
 			try {
@@ -856,15 +875,6 @@
 						$object->addError($e);
 					}
 					$errors = array();
-				}
-
-				// Clean up removed file uploads
-				if ($uploadDir && count($removeFiles) > 0) {
-					foreach ($removeFiles as $f) {
-						if (file_exists($uploadDir.'/'.$object->$f))
-							unlink($uploadDir.'/'.$object->$f);
-						$object->$f = null;
-					}
 				}
 
 				// Check for one-to-one fields edited inline and update them
