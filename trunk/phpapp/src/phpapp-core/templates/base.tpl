@@ -189,9 +189,17 @@ if (isset($script)) { ?>
 				<td valign="top">
 					<div id="page">
 						<?
-						if (isset($phperror))
-							$this->incl('phperror.tpl');
-						$this->incl($_template);
+						try {
+							ob_start();
+							$this->incl($_template);
+							ob_end_flush();
+						} catch (Exception $e) {
+							ob_end_clean();
+							$this->incl('error.tpl', array(
+								'title' => 'Error',
+								'error' => $e->getMessage(),
+								'exception' => $e));
+						}
 						?>
 					</div>
 				</td>
