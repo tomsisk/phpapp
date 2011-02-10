@@ -38,7 +38,7 @@ endif;
 
 //$rootname = array_pop(explode("/", trim($uploadpath,"/")));
 $rootname = 'Home';
-$callback = isset($_REQUEST['callback']) ? $REQUEST['callback'] : null;
+$callback = isset($_REQUEST['callback']) ? $_REQUEST['callback'] : null;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
