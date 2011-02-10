@@ -57,7 +57,7 @@
 			if ($this->fallbackResolver)
 				return $this->fallbackResolver->findTemplate($name);
 
-			return null;
+			return $name;
 
 		}
 
