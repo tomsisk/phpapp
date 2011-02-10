@@ -2,7 +2,7 @@
 if (!isset($fieldName))
 	$fieldName = $field->field;
 if ($inlineField)
-	$fieldName = '_<?= $inlineField ?>_<?= $fieldName ?>[]';
+	$fieldName = '_'.$inlineField.'_'.$fieldName.'[]';
 ?>
 <? if (isset($object[$field->field]) && $object[$field->field]) { ?>
 	<div style="margin-bottom: 5px;">
