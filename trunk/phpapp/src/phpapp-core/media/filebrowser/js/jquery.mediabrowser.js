@@ -337,66 +337,63 @@ THE SOFTWARE.
 		
 		insertFile: function(){
 			
-			// Don't use in standalone mode
-			if (typeof(tinyMCE) != 'undefined') {
+			var URL = $("form#fileform input#file").val();
 
-				var URL = $("form#fileform input#file").val();
-				var tmSettings = tinyMCE.majorVersion == '2' ? tinyMCE : tinyMCEPopup;
-
+			if(URL != '') {
+			
 				if ($.MediaBrowser.baseUrl)
 					URL = $.MediaBrowser.baseUrl + URL;
-				
-				if(URL != '') {
-				
-					if ($.MediaBrowser.callback) {
+		
+				if ($.MediaBrowser.callback) {
 
-						try {
-							fn = eval('window.opener.'+$.MediaBrowser.callback);
-							if (fn)
-								fn(URL);
-						} catch (e) {
-							alert('No callback:' + e.message);
-						}
-
-						self.close();
-
-					} else {
-
-						try {
-							var win = tmSettings.getWindowArg("window");
-						} catch(err) {
-							$.MediaBrowser.showMessage(insert_cancelled);
-							return;
-						}
-						
-						// insert information now
-						win.document.getElementById(tmSettings.getWindowArg("input")).value = URL;
-				
-						// are we an image browser
-						if (typeof(win.ImageDialog) != "undefined") {
-							// we are, so update image dimensions...
-							if (win.ImageDialog.getImageData)
-								win.ImageDialog.getImageData();
-				
-							// ... and preview if necessary
-							if (win.ImageDialog.showPreviewImage)
-								win.ImageDialog.showPreviewImage(URL);
-						} else {
-							if (win.getImageData)
-								win.getImageData();
-							if (win.showPreviewImage) 
-								win.showPreviewImage(URL);
-						}
-			
-						// close popup window
-						tinyMCEPopup.close();
+					try {
+						fn = eval('window.opener.'+$.MediaBrowser.callback);
+						if (fn)
+							fn(URL);
+					} catch (e) {
+						alert('No callback:' + e.message);
 					}
 
-				} else {
+					self.close();
 
-					$.MediaBrowser.showMessage(select_one_file);	
+				} else if (typeof(tinyMCE) != 'undefined') {
+
+					var tmSettings = tinyMCE.majorVersion == '2' ? tinyMCE : tinyMCEPopup;
+
+					try {
+						var win = tmSettings.getWindowArg("window");
+					} catch(err) {
+						$.MediaBrowser.showMessage(insert_cancelled);
+						return;
+					}
+					
+					// insert information now
+					win.document.getElementById(tmSettings.getWindowArg("input")).value = URL;
+			
+					// are we an image browser
+					if (typeof(win.ImageDialog) != "undefined") {
+						// we are, so update image dimensions...
+						if (win.ImageDialog.getImageData)
+							win.ImageDialog.getImageData();
+			
+						// ... and preview if necessary
+						if (win.ImageDialog.showPreviewImage)
+							win.ImageDialog.showPreviewImage(URL);
+					} else {
+						if (win.getImageData)
+							win.getImageData();
+						if (win.showPreviewImage) 
+							win.showPreviewImage(URL);
+					}
+		
+					// close popup window
+					tinyMCEPopup.close();
 
 				}
+
+			} else {
+
+				$.MediaBrowser.showMessage(select_one_file);	
 
 			}
 
