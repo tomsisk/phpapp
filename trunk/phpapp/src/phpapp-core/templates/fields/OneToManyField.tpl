@@ -205,10 +205,10 @@ if (!$inlineField && $modeladmin->isInlineObject($field->field)) {
 		$rquery = $object[$field->field];
 		$hasmore = false;
 
-		if ($rquery->count() > 30) {
-			$rquery = $rquery->slice(30);
-			$hasmore = true;
-		}
+		//if ($rquery->count() > 30) {
+		//	$rquery = $rquery->slice(30);
+		//	$hasmore = true;
+		//}
 
 		foreach ($rquery as $related) {
 			$canmod = $fieldAdmin->checkPermission('MODIFY', $related->pk);
