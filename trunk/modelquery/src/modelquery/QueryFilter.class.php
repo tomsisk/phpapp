@@ -1003,7 +1003,7 @@
 						$targetfield = $fieldobj->targetField;
 						$joins['`'.$joinmodel->_table.'` ON (`'.$joinmodel->_table.'`.`'.$joinfield.'` = `'.$model->_table.'`.`'.$model->_idField.'`)'] = $type.' JOIN';
 						$joins['`'.$relmodel->_table.'` ON (`'.$relmodel->_table.'`.`'.$relid.'` = `'.$joinmodel->_table.'`.`'.$targetfield.'`)'] = $type.' JOIN';
-					} elseif (isset($fieldobj->optinons['reverseJoin'])) {
+					} elseif (isset($fieldobj->options['reverseJoin'])) {
 						$joinField = $fieldobj->options['reverseJoin'];
 						$joins['`'.$tname.'` ON (`'.$tname.'`.`'.$joinField.'` = `'.$model->_table.'`.`'.$model->_idField.'`)'] = $type.' JOIN';
 					} else {
