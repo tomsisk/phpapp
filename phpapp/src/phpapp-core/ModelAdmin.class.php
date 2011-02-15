@@ -157,7 +157,7 @@
 						if (array_key_exists($action, $this->actionPostHooks))
 							foreach ($this->actionPostHooks[$action] as $hook) {
 								$retval = call_user_func($hook, &$id, &$params, $this, $method);
-								if (is_string($retval))
+								if (is_string($retval) || $retval === FALSE)
 									$result = $retval;
 							}
 					if ($result && is_string($result))
