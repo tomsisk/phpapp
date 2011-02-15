@@ -21,7 +21,7 @@ $conn->autoCommit = false;
 $conn->Connect($host, $user, $pass, $dbname);
 
 // You can pass a list of model source directories
-$qf = new QueryFactory($conn, array('/my/model/directory'))
+$qf = new QueryFactory($conn, array('/my/model/directory'));
 }}}
 
 That's all there is to it.  Then to fetch a query handler, simply
