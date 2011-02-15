@@ -26,6 +26,8 @@
 	require_once('StockActions.class.php');
 
 	define('CHANGE_ONLY', 'CHANGE_ONLY');
+	define('SUCCESS', true);
+	define('FAILURE', false);
 
 	class ModelAdmin {
 
@@ -157,7 +159,7 @@
 						if (array_key_exists($action, $this->actionPostHooks))
 							foreach ($this->actionPostHooks[$action] as $hook) {
 								$retval = call_user_func($hook, &$id, &$params, $this, $method);
-								if (is_string($retval) || $retval === FALSE)
+								if (is_string($retval) || is_bool($retval))
 									$result = $retval;
 							}
 					if ($result && is_string($result))
