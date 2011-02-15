@@ -522,6 +522,12 @@ ul.sortable li, ul.prioritizable li, ul.sortablehandle .dragHandle {
 	border: 1px solid #CC9900;
 	padding: 4px 4px 4px 44px;
 }
+.warningSmall {
+	background: 4px 4px no-repeat url(../images/warning-small.png) #FFFF99;
+	min-height: 15px;
+	border: 1px solid #CC9900;
+	padding: 4px 4px 4px 22px;
+}
 .error {
 	margin-top: 10px;
 	background: 4px 4px no-repeat url(../images/error.png) #FFCCCC;
