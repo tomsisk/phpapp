@@ -26,6 +26,7 @@ CREATE TABLE films (
 ) ENGINE=InnoDB CHARSET=utf8;
 
 CREATE TABLE film_actors (
+    id int8 PRIMARY KEY AUTO_INCREMENT,
     film int8 NOT NULL,
     actor int8 NOT NULL,
     FOREIGN KEY (film) REFERENCES films(id) ON UPDATE CASCADE ON DELETE RESTRICT,
