@@ -111,6 +111,14 @@
 		}
 
 		/** 
+		 * Flush all cached entries.
+		 */
+		public function flush() {
+			$this->cache = array();
+			$this->lru->clear();
+		}
+
+		/** 
 		 * Get the current size of this cache.
 		 * @return int The cache size
 		 */
@@ -262,6 +270,12 @@
 				return $last->data;
 			}
 			return null;
+		}
+
+		public function clear() {
+			$this->_firstNode = NULL;
+			$this->_lastNode = NULL;
+			$this->_count = 0;
 		}
 
 		public function first() {

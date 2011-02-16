@@ -1538,9 +1538,6 @@
 		 * If you wish to only delete a single record, be sure you use a
 		 * QueryFilter::filter() call on the model's primary key.
 		 *
-		 * WARNING: calling this method on a QueryHandler object itself
-		 * will delete all records!
-		 *
 		 * @return bool TRUE if the delete succeeded
 		 */
 		public function delete() {
@@ -1670,17 +1667,6 @@
 			}
 
 			$sql .= ';';
-
-			if ($query['debug']) {
-				//echo '<pre>';
-				//print_r($query['filters']);
-				//echo '</pre>';
-				//echo "<br><br>\n\n";
-				print_r($sql);
-				echo "<br><br>\n\n";
-				print_r($params);
-				echo "<br><br>\n\n";
-			}
 
 			return $this->query($sql, $params);
 		}
@@ -2310,8 +2296,17 @@
 		 */
 		public function query($sql, $params) {
 
-			$c =& $this->queryhandler->getConnection();
+			if (!$this->fullQuery)
+				$this->mergedQuery(true);
+			if ($this->fullQuery['debug']) {
+				print_r($sql);
+				echo "<br><br>\n\n";
+				print_r($params);
+				echo "<br><br>\n\n";
+			}
+
 			$qf =& $this->queryhandler->factory;
+			$c =& $qf->getConnection();
 			if (!$qf->inTransaction())
 				$c->BeginTrans();
 			$stmt = $c->prepare($sql);
@@ -2343,7 +2338,7 @@
 		 *		query attempted to preload
 		 * @return Array A list of Model objects created from the result set
 		 */
-		public function createModels($result, $rawfields, $map = null, $preload = null, $multimap = false) {
+		public function &createModels($result, $rawfields, $map = null, $preload = null, $multimap = false) {
 			$models = array();
 			$lastid = null;
 			$pk = $this->model->_idField;

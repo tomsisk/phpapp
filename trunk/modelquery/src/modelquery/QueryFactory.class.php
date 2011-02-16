@@ -133,7 +133,7 @@
 		 * Get the shared database connection.
 		 * @return An ADODB database connection object
 		 */
-		public function getConnection() {
+		public function &getConnection() {
 			return $this->conn;
 		}
 
@@ -249,6 +249,19 @@
 		 */
 		public function cacheRemove($key) {
 			return $this->modelCache->remove($key);
+		}
+
+		/*!
+		 * Remove all models from the in-memory cache.
+		 *
+		 * This method is only intended for use for classes that are part of
+		 * the ModelQuery package.
+		 *
+		 * @param string $key A unique cache key
+		 * @return Model The previously cached model, if found
+		 */
+		public function cacheFlush() {
+			return $this->modelCache->flush();
 		}
 
 		/**
