@@ -36,23 +36,41 @@
 
 		protected $relationObj;
 		protected $field;
+		protected $persistent = false;
 
 		public function __construct($object, $field) {
 			$this->relationObj = $object;
 			$this->field = $field;
+			$this->relationData = array();
+			$this->relations = new ArrayIterator($this->relationData);
 		}
+
+		/**
+		 * Save any unlinked objects
+		 */
+		abstract public function save();
 
 		/**
 		 * Add an object to this relation set.
 		 * @param Model $object The new related object
 		 */
-		abstract public function add($object);
+		public function add($object) {
+			$this->relations[] = $object;
+		}
 
 		/**
 		 * Remove an object from this relation set.
 		 * @param Model $object The related object to remove
 		 */
-		abstract public function remove($object);
+		public function remove($object) {
+			foreach ($this->relations as $i => $r) {
+				if ($r == $object) {
+					unset($this->relations[$i]);
+					$this->relations = array_values($this->relations);
+					break;
+				}
+			}
+		}
 
 		/**
 		 * Set the complete list of related objects.
@@ -81,16 +99,6 @@
 		 */
 		public function preload($objects) {
 			$this->relations = $objects;
-		}
-
-		/**
-		 * Preload the object list, bypassing add triggers.  Only
-		 * for use internally by ModelQuery.
-		 */
-		public function preadd($object) {
-			if (!$this->relations)
-				$this->relations = array();
-			$this->relations[] = $object;
 		}
 
 		// Iterator
@@ -147,15 +155,6 @@
 			}
 		}
 
-		/**
-		 * Pass through other function calls to the underlying QueryFilter
-		 * object, so that this set can function as a QueryFilter.
-		 */
-		public function __call($func, $args) {
-			// Pass other function calls through to query object
-			return call_user_func_array(array($this->relations, $func), $args);
-		}
-
 		public function __toString() {
 			$strvals = array();
 			foreach ($this->relations as $item)
@@ -163,47 +162,96 @@
 			return implode(', ', $strvals);
 		}
 	
+		/**
+		 * Preload the object list, bypassing add triggers.  Only
+		 * for use internally by ModelQuery.
+		 *
+		 * @deprecated 2.0 Only used for preloading relations from QueryFilter::preload(),
+		 *		which now uses an alternate method.
+		 */
+		public function preadd($object) {
+			if (!$this->relations)
+				$this->relations = array();
+			$this->relations[] = $object;
+		}
+
+		/**
+		 * Pass through other function calls to the underlying QueryFilter
+		 * object, so that this set can function as a QueryFilter.
+		 *
+		 * @deprecated 2.0 Underlying object is not always a QueryFilter
+		 * 		for unsaved models
+		 */
+		public function __call($func, $args) {
+			// Pass other function calls through to query object
+			return call_user_func_array(array($this->relations, $func), $args);
+		}
+
 	}
 
 	class OneToManyRelationSet extends RelationSet {
 
 		public function __construct($object, $field) {
 			parent::__construct($object, $field);
-			$rq = $field->getRelationModel()->getQuery();
-			$this->relations = $rq->filter($field->joinField, $object->pk);
+			if ($object->pk) {
+				$this->persistent = true;
+				$this->relations = $this->getRelationQuery();
+			}
+		}
+
+		public function getRelationQuery() {
+			$rq = $this->field->getRelationModel()->getQuery();
+			return $rq->filter($this->field->joinField, $this->relationObj->pk);
 		}
 
 		public function add($object) {
-			$oid = $object instanceof Model ? $object->pk : $object;
+			if ($this->relationObj->pk) {
+				$oid = $object instanceof Model ? $object->pk : $object;
 
-			if (!$oid && $object instanceof Model) {
-				$object[$this->field->joinField] = $this->relationObj->pk;
-				$object->save();
-			} elseif ($oid) {
-				$rq = $this->field->getRelationModel()->getQuery();
-				$rq->filter('pk', $oid)->update(array($this->field->joinField => $this->relationObj->pk));
+				if ($object instanceof Model) {
+					$object[$this->field->joinField] = $this->relationObj;
+					$object->save();
+				} elseif ($oid) {
+					$rq = $this->field->getRelationModel()->getQuery();
+					$rq->filter('pk', $oid)->update(array($this->field->joinField => $this->relationObj->pk));
+				} else {
+					throw new InvalidParametersException('An object or id must be specified.');
+				}
+
+				if ($this->relations instanceof QueryFilter)
+					$this->relations->flush();
 			} else {
-				throw new InvalidParametersException('An object or id must be specified.');
+				parent::add($object);
 			}
-
-			if ($this->relations instanceof QueryFilter)
-				$this->relations->flush();
 		}
 
 		public function remove($object) {
-			$oid = $object instanceof Model ? $object->pk : $object;
-			if (!$oid)
-				throw new InvalidParametersException('That object does not exist.');
+			if ($this->relationObj->pk) {
+				$oid = $object instanceof Model ? $object->pk : $object;
+				if (!$oid)
+					throw new InvalidParametersException('That object does not exist.');
 
-			$rm = $this->field->getRelationModel();
-			$rq = $rm->getQuery();
-			if ($rm->_fields[$this->field->joinField]->options['required'])
-				$rq->get($oid)->delete();
-			else
-				$rq->filter('pk', $oid)->update(array($this->field->joinField => null));
+				$rm = $this->field->getRelationModel();
+				$rq = $rm->getQuery();
+				if ($rm->_fields[$this->field->joinField]->options['required'])
+					$rq->get($oid)->delete();
+				else
+					$rq->filter('pk', $oid)->update(array($this->field->joinField => null));
 
-			if ($this->relations instanceof QueryFilter)
-				$this->relations->flush();
+				if ($this->relations instanceof QueryFilter)
+					$this->relations->flush();
+			} else {
+				parent::remove($object);
+			}
+		}
+
+		public function save() {
+			if (!$this->persistent && $this->relationObj->pk) {
+				$this->persistent = true;
+				foreach ($this->relations as $r)
+					$this->add($r);
+				$this->relations = $this->getRelationQuery();
+			}
 		}
 
 	}
@@ -212,46 +260,71 @@
 
 		public function __construct($object, $field) {
 			parent::__construct($object, $field);
-			$rq = $field->getRelationModel()->getQuery();
-			$jt = $field->getJoinModel()->_table;
-			$join = array('`'.$jt.'` ON (`'.$jt.'`.`'.$field->targetField.'` = `'.$rq->tableName.'`.`'.$rq->model->_idField.'`)' => 'INNER JOIN');
-			$where = '`'.$jt.'`.`'.$field->joinField.'` = ?';
-			$params = array($object->pk);
-			$this->relations = $rq->join($join)->condition($where, $params);
+			if ($object->pk) {
+				$this->persistent = true;
+				$this->relations = $this->getRelationQuery();
+			}
+		}
+
+		public function getRelationQuery() {
+			$rq = $this->field->getRelationModel()->getQuery();
+			$jt = $this->field->getJoinModel()->_table;
+			$join = array('`'.$jt.'` ON (`'.$jt.'`.`'.$this->field->targetField.'` = `'.$rq->tableName.'`.`'.$rq->model->_idField.'`)' => 'INNER JOIN');
+			$where = '`'.$jt.'`.`'.$this->field->joinField.'` = ?';
+			$params = array($this->relationObj->pk);
+			return $rq->join($join)->condition($where, $params);
 		}
 
 		public function add($object) {
-			$oid = $object instanceof Model ? $object->pk : $object;
-			if (!$oid && !($object instanceof Model))
-				throw new InvalidParametersException('An object or id must be specified.');
+			if ($this->relationObj->pk) {
+				$oid = $object instanceof Model ? $object->pk : $object;
+				if (!$oid && !($object instanceof Model))
+					throw new InvalidParametersException('An object or id must be specified.');
 
-			if (!$oid && $object instanceof Model) {
-				$rq = $this->field->getRelationModel()->getQuery();
-				$rq->save($object);
-				$oid = $object->pk;
+				if (!$oid && $object instanceof Model) {
+					$rq = $this->field->getRelationModel()->getQuery();
+					$object->save();
+					$oid = $object->pk;
+				}
+
+				$jq = $this->field->getJoinModel()->getQuery();
+				$join = $jq->create(array($this->field->joinField => $this->relationObj->pk,
+										$this->field->targetField => $oid));
+				$join->save();
+
+				if ($this->relations instanceof QueryFilter)
+					$this->relations->flush();
+			} else {
+				parent::add($object);
 			}
-
-			$jq = $this->field->getJoinModel()->getQuery();
-			$join = $jq->create(array($this->field->joinField => $this->relationObj->pk,
-									$this->field->targetField => $oid));
-			$join->save();
-
-			if ($this->relations instanceof QueryFilter)
-				$this->relations->flush();
 		}
 
 		public function remove($object) {
-			$oid = $object instanceof Model ? $object->pk : $object;
-			if (!$oid)
-				throw new InvalidParametersException('That object does not exist.');
+			if ($this->relationObj->pk) {
+				$oid = $object instanceof Model ? $object->pk : $object;
+				if (!$oid)
+					throw new InvalidParametersException('That object does not exist.');
 
-			$jq = $this->field->getJoinModel()->getQuery();
-			$join = $jq->filter($this->field->joinField, $this->relationObj->pk,
-								$this->field->targetField, $oid)->one();
-			$join->delete();
+				$jq = $this->field->getJoinModel()->getQuery();
+				$join = $jq->filter($this->field->joinField, $this->relationObj->pk,
+									$this->field->targetField, $oid)->one();
+				$join->delete();
 
-			if ($this->relations instanceof QueryFilter)
-				$this->relations->flush();
+				if ($this->relations instanceof QueryFilter)
+					$this->relations->flush();
+			} else {
+				parent::add($object);
+			}
 		}
+
+		public function save() {
+			if (!$this->persistent && $this->relationObj->pk) {
+				$this->persistent = true;
+				foreach ($this->relations as $r)
+					$this->add($r);
+				$this->relations = $this->getRelationQuery();
+			}
+		}
+
 
 	}

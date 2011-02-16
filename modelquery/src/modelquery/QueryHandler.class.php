@@ -146,7 +146,7 @@
 		 * Get the current database connection.
 		 * @return ADOConnection The database connection
 		 */
-		public function getConnection() {
+		public function &getConnection() {
 			return $this->factory->getConnection();
 		}
 
@@ -196,7 +196,7 @@
 		public function select() {
 			// Block calling select() - we don't want queries cached in $this->models on
 			// the shared QueryHandler object.
-			throw new InvalidUsageException('Cannot call select() on the root query object (try calling all() first)');
+			throw new InvalidUsageException('Cannot call select() on the root query handler (try calling all() first)');
 		}
 
 		/**
@@ -208,7 +208,7 @@
 		public function hash() {
 			// Block calling select() - we don't want queries cached in $this->models on
 			// the shared QueryHandler object.
-			throw new InvalidUsageException('Cannot call hash() on the root query object (try calling all() first)');
+			throw new InvalidUsageException('Cannot call hash() on the root query handler (try calling all() first)');
 		}
 
 		/**
@@ -220,7 +220,17 @@
 		public function raw() {
 			// Block calling select() - we don't want queries cached in $this->models on
 			// the shared QueryHandler object.
-			throw new InvalidUsageException('Cannot call raw() on the root query object (try calling all() first)');
+			throw new InvalidUsageException('Cannot call raw() on the root query handler (try calling all() first)');
+		}
+
+		/**
+		 * This method is illegal on QueryHandler to avoid dumb mistakes.
+		 *
+		 * @throws InvalidUsageException Method is not valid on this object.
+		 */
+		public function delete() {
+			// Block calling delete() - avoid dumb mistakes trashing an entire table
+			throw new InvalidUsageException('Cannot call delete() on the root query handler (try calling all() first if you really want to do this)');
 		}
 
 	}

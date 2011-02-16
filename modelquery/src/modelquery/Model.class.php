@@ -356,12 +356,13 @@
 			$field = $this->_fields[$name];
 			if ($field) {
 				if ($field instanceof RelationField) {
-					if (!array_key_exists($name, $this->_fieldRelationValues))
+					if (!array_key_exists($name, $this->_fieldRelationValues)) {
 						try {
 							$this->_fieldRelationValues[$name] = $field->getRelation($this, $this->getPrimitiveFieldValue($name));
 						} catch (DoesNotExistException $dne) {
 							return null;
 						}
+					}
 					return $this->_fieldRelationValues[$name];
 				} else {
 					return $this->getPrimitiveFieldValue($name);
@@ -766,7 +767,9 @@
 						if ($def instanceof PasswordField && !$params[$field])
 							continue;
 						$v = $params[$field];
-						if (!($flags & UPDATE_FROM_DB))
+						if ($v instanceof Model)
+							$v = $v->pk;
+						elseif (!($flags & UPDATE_FROM_DB))
 							$v = $def->convertToDbValue($v);
 						$this->setPrimitiveFieldValue($field, $v, ($rawvalues && ($rawvalues == ALLFIELDS || in_array($field, $rawvalues))));
 						// Remove found fields
@@ -826,6 +829,7 @@
 				return $this->_dbId;
 
 			if ($this->validate()) {
+				$saverelated = false;
 				if ($this->_dbId) {
 					// Pulled from database originally
 					// (this is the only way to change the primary key)
@@ -836,9 +840,21 @@
 				} else {
 					$this->_dbId = $this->_query->insert($this);
 					$this->setFieldValue('pk', $this->_dbId);
+					$saverelated = true;
+					// Save unlinked relations
 				}
 				// Save to factory cache so we don't need to reload
 				$this->_query->factory->cachePut(get_class($this).':'.$this->pk, $this);
+				// Need to have this object in the cache before saving related objects
+				if ($saverelated) {
+					foreach ($this->_fieldRelationValues as $f => $v) {
+						if ($this->_fields[$f] instanceof RelationSetField) {
+							if (isset($this->_fieldRelationValues[$field]))
+								$this->_fieldRelationValues[$field]->save();
+						}
+					}
+				}
+
 				$this->resetChangeTracking();
 				return $this->_dbId;
 			} else {
