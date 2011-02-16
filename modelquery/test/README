@@ -1,0 +1,19 @@
+---------------------
+MODELQUERY UNIT TESTS
+---------------------
+
+In order run the unit tests, ModelQuery must have access to a MySQL database.
+Make sure you have the PHP MySQL module installed, and then customize the
+connection information for your test database by creating a file in this
+directory named "local.inc.php", which contains the following lines:
+
+<?php
+define('DB_HOST', <your-database-host>);
+define('DB_USER', <your-database-user>);
+define('DB_PASS', <your-database-pass>);
+define('DB_NAM', <your-database-name>);
+
+After configuring these settings, run the following command to run unit
+tests:
+
+	php test.php
