@@ -22,6 +22,10 @@
 	require_once('lib/phpunit.php');
 	require_once('lib/PlainTextTestResult.class.php');
 	require_once('AllTests.class.php');
+	require_once('lib/initdb.php');
+
+	$qf = init_modelquery_test_db();
+	load_modelquery_test_data($qf);
 
 	$suite = new TestSuite();
 	$suite->addTest(AllTests::suite());

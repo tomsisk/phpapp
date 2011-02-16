@@ -137,8 +137,9 @@
 				if (is_object($value)) {
 					if (method_exists($value, "toString") ) {
 						$translateValue = $value->toString();
-					}
-					else {
+					} elseif (method_exists($value, "__toString") ) {
+						$translateValue = $value->__toString();
+					} else {
 						$translateValue = serialize($value);
 					}
 				}
@@ -146,31 +147,29 @@
 					$translateValue = serialize($value);
 				}
 			}
-			$htmlValue = "<code class=\"$class\">"
-			. htmlspecialchars($translateValue) . "</code>";
+			$textValue = $class . ": " . $translateValue;
 			if (phpversion() >= '4.0.0') {
 				if (is_bool($value)) {
-					$htmlValue = $value ? "<i>true</i>" : "<i>false</i>";
+					$textValue = $value ? "true" : "false";
 				}
 				elseif (phpversion() >= '4.0.4' && is_null($value)) {
-					$htmlValue = "<i>null</i>";
+					$textValue = "null";
 				}
-				$htmlValue .= "&nbsp;&nbsp;&nbsp;<span class=\"typeinfo\">";
-				$htmlValue .= "type:" . gettype($value);
-				$htmlValue .= is_object($value) ? ", class:" . get_class($value) : "";
-				$htmlValue .= "</span>";
+				$textValue .= " (" . gettype($value);
+				if (is_object($value))
+					$textValue .= ":" . get_class($value);
+				$textValue .= ")";
 			}
-			return $htmlValue;
+			return $textValue;
 		}
 
 		function failNotEquals($expected, $actual, $expected_label, $message=0) {
 			// Private function for reporting failure to match.
 			$str = $message ? ($message . ' ') : '';
 			//$str .= "($expected_label/actual)<br>";
-			$str .= "<br>";
-			$str .= sprintf("%s<br>%s",
-			$this->_formatValue($expected, "expected"),
-			$this->_formatValue($actual, "actual"));
+			$str .= sprintf(" %s; %s",
+				$this->_formatValue($expected, "expected"),
+				$this->_formatValue($actual, "actual"));
 			$this->fail($str);
 		}
 	}

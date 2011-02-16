@@ -20,11 +20,14 @@
 	 */
 
 	require_once('lib/phpunit.php');
+	require_once('TestInit.class.php');
+	require_once('TestRelations.class.php');
 
 	class AllTests extends TestCase {
 		public function suite() {
 			$suite = new TestSuite();
-			//$suite->addTest(new TestSuite('TestModelQuery'));
+			$suite->addTest(new TestSuite('TestInit'));
+			$suite->addTest(new TestSuite('TestRelations'));
 			return $suite;
 		}
 	}
