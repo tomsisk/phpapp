@@ -19,8 +19,8 @@
 	 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	 */
 
-	require_once('phpunit.php');
-	require_once('PlainTextTestResult.class.php');
+	require_once('lib/phpunit.php');
+	require_once('lib/PlainTextTestResult.class.php');
 	require_once('AllTests.class.php');
 
 	$suite = new TestSuite();
