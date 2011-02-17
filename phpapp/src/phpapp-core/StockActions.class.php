@@ -158,7 +158,8 @@
 							$inuse = $filteradmin->distinct()->values($field);
 						} else {
 							$filteradmin = $modeladmin->getQuery(get_class($modelobj));
-							$inuse = $filteradmin->distinct()->values($fieldname);
+							$values = $filteradmin->distinct()->values($fieldname);
+							$inuse[$field] = $values[$fieldname];
 						}
 					}
 
