@@ -32,7 +32,7 @@
 	 */
 	abstract class RelationSet implements ArrayAccess, Countable, Iterator {
 
-		protected $relations;
+		public $relations;
 
 		protected $relationObj;
 		protected $field;

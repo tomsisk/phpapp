@@ -2306,6 +2306,7 @@
 			}
 
 			$qf =& $this->queryhandler->factory;
+			$qf->queryCount++;
 			$c =& $qf->getConnection();
 			if (!$qf->inTransaction())
 				$c->BeginTrans();
@@ -2345,9 +2346,20 @@
 			if ($map == 'pk')
 				$map = $pk;
 			$model = null;
+			$preloadFields = array();
 			while (!$result->EOF) {
 				if (!$preload || $result->fields[$pk] != $lastid) {
 					if ($model) {
+						if (count($preloadFields) > 0) {
+							foreach ($preloadFields as $field => $set) {
+								if ($model->_fields[$field] instanceof RelationSetField) {
+									$model->$field->relations->models = $set;
+								} elseif (isset($set[0])) {
+									$model->$field = $set[0];
+								}
+							}
+							$preloadFields = array();
+						}
 						if ($map) {
 							$mapval = $model->getPrimitiveFieldValue($map);
 							if ($multimap) {
@@ -2397,10 +2409,9 @@
 								$this->queryhandler->factory->cachePut(get_class($relobj).':'.$relobj->pk, $relobj);
 							}
 
-							if ($model->$field instanceof RelationSet)
-								$model->$field->preadd($relobj);
-							else
-								$model->$field = $relobj;
+							if (!isset($preloadFields[$field]))
+								$preloadFields[$field] = array();
+							$preloadFields[$field][] = $relobj;
 
 						}
 					}
@@ -2408,6 +2419,16 @@
 				$result->MoveNext();
 			}
 			if ($model) {
+				if (count($preloadFields) > 0) {
+					foreach ($preloadFields as $field => $set) {
+						if ($model->_fields[$field] instanceof RelationSetField) {
+							$model->$field->relations->models = $set;
+						} elseif (isset($set[0])) {
+							$model->$field = $set[0];
+						}
+					}
+					$preloadFields = array();
+				}
 				if ($map) {
 					$mapval = $model->getPrimitiveFieldValue($map);
 					if ($multimap) {
