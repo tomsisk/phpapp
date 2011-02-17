@@ -49,6 +49,8 @@
 		private $modelCache;
 		private $transOpen = false;
 		private $transFailed = false;
+
+		public $queryCount = 0;
 										
 		/**
 		 * Create a new QueryFactory.

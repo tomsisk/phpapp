@@ -25,6 +25,26 @@
 			}
 		}
 
+		public function testOneToManyPreload() {
+			$d = $this->qf->Director->preload('films')->any();
+			$ct = $this->qf->queryCount;
+			$this->assertEquals(1, $d->films->count());
+			foreach ($d->films as $f) {
+				$this->assert($f->pk > 0);
+			}
+			$this->assertEquals($ct, $this->qf->queryCount);
+		}
+
+		public function testManyToManyPreload() {
+			$f = $this->qf->Film->preload('actors')->any();
+			$ct = $this->qf->queryCount;
+			$this->assertEquals(1, $f->actors->count());
+			foreach ($f->actors as $a) {
+				$this->assert($a->pk > 0);
+			}
+			$this->assertEquals($ct, $this->qf->queryCount);
+		}
+
 		public function testM2MSaved() {
 			$actor = $this->qf->Actor->create(array('name' => 'Bernie Mac'));
 			$actor->save();
