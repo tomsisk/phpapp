@@ -205,10 +205,14 @@ if (!$inlineField && $modeladmin->isInlineObject($field->field)) {
 		$rquery = $object[$field->field];
 		$hasmore = false;
 
-		//if ($rquery->count() > 30) {
-		//	$rquery = $rquery->slice(30);
-		//	$hasmore = true;
-		//}
+		$maxshown = isset($modeladmin->fieldOptions[$field->field]['maxShown'])
+			? $modeladmin->fieldOptions[$field->field]['maxShown']
+			: 0;
+
+		if ($maxshown > 0 && $rquery->count() > $maxshown) {
+			$rquery = $rquery->slice($maxshown);
+			$hasmore = true;
+		}
 
 		foreach ($rquery as $related) {
 			$canmod = $fieldAdmin->checkPermission('MODIFY', $related->pk);
