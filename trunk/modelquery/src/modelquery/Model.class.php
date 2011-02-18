@@ -767,9 +767,9 @@
 						if ($def instanceof PasswordField && !$params[$field])
 							continue;
 						$v = $params[$field];
-						if ($v instanceof Model)
+						if ($v instanceof Model && $def instanceof RelationField)
 							$v = $v->pk;
-						elseif (!($flags & UPDATE_FROM_DB))
+						if (!($flags & UPDATE_FROM_DB))
 							$v = $def->convertToDbValue($v);
 						$this->setPrimitiveFieldValue($field, $v, ($rawvalues && ($rawvalues == ALLFIELDS || in_array($field, $rawvalues))));
 						// Remove found fields
