@@ -50,7 +50,7 @@
 		protected $modules = array();
 		protected $path;
 		protected $siteTemplate = 'templates/default.tpl';
-		protected $logs = array('debug' => array(),
+		public $logs = array('debug' => array(),
 						'info' => array(),
 						'warn' => array(),
 						'error' => array());
