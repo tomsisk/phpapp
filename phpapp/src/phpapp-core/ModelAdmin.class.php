@@ -78,6 +78,7 @@
 		public $mergeObjects;
 		public $fieldOptions;
 		public $deleteConfirm = false;
+		public $relativePath;
 
 		public function  __construct($modelClass, $module, $id = null, $subtypes = null) {
 			$this->modelClass = $modelClass;
@@ -85,6 +86,7 @@
 			$this->queryName = $modelClass;
 			$this->id = $id ? $id : strtolower($modelClass);
 			$this->permission = strtoupper($modelClass);
+			$this->relativePath = $this->id;
 
 			// Prime prototype; test for cache
 			$this->getPrototype();
@@ -328,11 +330,11 @@
 		}
 
 		public function relativeRedirect($url) {
-			$this->module->relativeRedirect('/'.$this->id.$url);
+			$this->module->relativeRedirect('/'.$this->relativePath.$url);
 		}
 
 		public function relativeUrl($url) {
-			return $this->module->relativeUrl('/'.$this->id.$url);
+			return $this->module->relativeUrl('/'.$this->relativePath.$url);
 		}
 
 		public function getQueryName() {
@@ -1139,6 +1141,7 @@
 			if (!$this->subtypeAdmins)
 				$this->subtypeAdmins = array();
 
+			$admin->relativeUrl = $this->id;
 			$admin->templateContext->context['section'] = $this->id;
 			$admin->templateContext->context['sectionurl'] = $this->relativeUrl('');
 			$this->subtypeAdmins[$modelClass] = $admin;
