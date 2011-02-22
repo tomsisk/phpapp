@@ -1141,7 +1141,7 @@
 			if (!$this->subtypeAdmins)
 				$this->subtypeAdmins = array();
 
-			$admin->relativeUrl = $this->id;
+			$admin->relativePath = $this->id;
 			$admin->templateContext->context['section'] = $this->id;
 			$admin->templateContext->context['sectionurl'] = $this->relativeUrl('');
 			$this->subtypeAdmins[$modelClass] = $admin;
