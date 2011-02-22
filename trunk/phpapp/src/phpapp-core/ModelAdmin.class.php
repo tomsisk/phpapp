@@ -1142,8 +1142,8 @@
 				$this->subtypeAdmins = array();
 
 			$admin->relativePath = $this->id;
-			$admin->templateContext->context['section'] = $this->id;
-			$admin->templateContext->context['sectionurl'] = $this->relativeUrl('');
+			$admin->addContext('section', $this->id);
+			$admin->addContext('sectionurl', $this->relativeUrl(''));
 			$this->subtypeAdmins[$modelClass] = $admin;
 
 		}
