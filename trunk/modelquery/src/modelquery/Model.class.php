@@ -294,14 +294,26 @@
 		 *
 		 * @see Model::toArray()
 		 */
-		public function &getFieldValues() {
+		public function &getFieldValues($primitive = true) {
+
 			if (!$this->_valuesConverted) {
 				// Prime the _fieldValues array
 				foreach ($this->_rawValues as $field => $val)
 					$this->getPrimitiveFieldValue($field);
 				$this->_valuesConverted = true;
 			}
-			return $this->_fieldValues;
+
+			if ($primitive) {
+				return $this->_fieldValues;
+			} else {
+				$values = array_merge($this->_fieldValues, $this->_extraValues);
+				foreach ($this->_fields as $f => $d) {
+					if ($d instanceof RelationField)
+						$values[$f] = $this->getFieldValue($f);
+				}
+				return $values;
+			}
+
 		}
 
 		
