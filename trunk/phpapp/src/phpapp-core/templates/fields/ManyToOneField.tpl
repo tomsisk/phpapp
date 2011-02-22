@@ -23,7 +23,7 @@ if ($style == 'radio') {
 			<? } ?>
 			value=""
 			<? if (!$object[$field->field]) echo 'checked'; ?>
-			/><label for="<?= $field->field ?>_id_none"><?= $modeladmin->fieldOptions[$fieldName]['nullLabel'] ? $modeladmin->fieldOptions[$fieldName]['nullLabel'] : 'None' ?></label><br />
+			/><label for="<?= $field->field ?>_id_none"><?= $modeladmin->fieldOptions[$fieldRef]['nullLabel'] ? $modeladmin->fieldOptions[$fieldRef]['nullLabel'] : 'None' ?></label><br />
 		<?
 		$idx = 0;
 		if (!$availcount) { ?>
@@ -66,7 +66,7 @@ if ($style == 'radio') {
 		<? if ($inputTitle) { ?>title="<?= $inputTitle ?>"<? } ?>
 		style="margin-bottom: 5px;"
 		>
-		<option value="" <? if (!$object[$field->field]) echo 'selected'; ?>><?= $modeladmin->fieldOptions[$fieldName]['nullLabel'] ? $modeladmin->fieldOptions[$fieldName]['nullLabel'] : 'None' ?></option>
+		<option value="" <? if (!$object[$field->field]) echo 'selected'; ?>><?= $modeladmin->fieldOptions[$fieldRef]['nullLabel'] ? $modeladmin->fieldOptions[$fieldRef]['nullLabel'] : 'None' ?></option>
 		<? foreach ($availrelated->cursor() as $related) { ?>
 			<option <? if ($object[$field->field]->$joinField == $related->$joinField) echo 'selected'; ?> value="<?= $related->$joinField ?>"><?= htmlentities($this->toString($related)) ?></option>
 		<? } ?>
@@ -87,7 +87,7 @@ if ($style == 'radio') {
 		<? if ($inputTitle) { ?>title="<?= $inputTitle ?>"<? } ?>
 		<? if ($inputClass) { ?>class="<?= $inputClass ?>"<? } ?>
 		>
-		<option value=""><?= isset($modeladmin->fieldOptions[$fieldName]['nullLabel']) ? $modeladmin->fieldOptions[$fieldName]['nullLabel'] : 'None' ?></option>
+		<option value=""><?= isset($modeladmin->fieldOptions[$fieldRef]['nullLabel']) ? $modeladmin->fieldOptions[$fieldRef]['nullLabel'] : 'None' ?></option>
 		<? foreach ($availrelated->cursor() as $related) { ?>
 			<option <? if ($object[$field->field] && $object[$field->field]->$joinField == $related->$joinField) echo 'selected'; ?> value="<?= $related->$joinField ?>"><?= htmlentities($this->toString($related)) ?></option>
 		<? } ?>
