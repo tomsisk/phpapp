@@ -767,7 +767,7 @@
 				if ($isFilter)
 					$modeladmin->getAdmin()->addFilter($modeladmin->getQueryName(), null);
 
-				if ($modeladmin->parent && $modeladmin->inlineOnly) {
+				if ($modeladmin->parent && $modeladmin->getInlineOnly()) {
 					$parent = $object[$modeladmin->parent];
 					$ma = $modeladmin->getAdmin()->findModelAdmin($parent);
 					return $ma->relativeUrl('/edit/'.$parent->pk);
@@ -1065,7 +1065,7 @@
 					return $modeladmin->relativeUrl('/add/'.($filterstr?'?'.$filterstr:''));
 				} else if (isset($params['_savecontinue'])) {
 					return $modeladmin->relativeUrl('/edit/'.$object->pk.($filterstr?'?'.$filterstr:''));
-				} else if ($modeladmin->parent && $modeladmin->inlineOnly) {
+				} else if ($modeladmin->parent && $modeladmin->getInlineOnly()) {
 					$parent = $object[$modeladmin->parent];
 					$ma = $modeladmin->getAdmin()->findModelAdmin($parent);
 					return $ma->relativeUrl('/edit/'.$parent->pk.($filterstr?'?'.$filterstr:''));

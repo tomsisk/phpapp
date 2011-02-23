@@ -78,7 +78,7 @@
 		public $mergeObjects;
 		public $fieldOptions;
 		public $deleteConfirm = false;
-		public $relativePath;
+		public $supertype;
 
 		public function  __construct($modelClass, $module, $id = null, $subtypes = null) {
 			$this->modelClass = $modelClass;
@@ -86,7 +86,6 @@
 			$this->queryName = $modelClass;
 			$this->id = $id ? $id : strtolower($modelClass);
 			$this->permission = strtoupper($modelClass);
-			$this->relativePath = $this->id;
 
 			// Prime prototype; test for cache
 			$this->getPrototype();
@@ -330,11 +329,17 @@
 		}
 
 		public function relativeRedirect($url) {
-			$this->module->relativeRedirect('/'.$this->relativePath.$url);
+			if ($this->supertype)
+				$this->supertype->relativeRedirect($url);
+			else
+				$this->module->relativeRedirect('/'.$this->id.$url);
 		}
 
 		public function relativeUrl($url) {
-			return $this->module->relativeUrl('/'.$this->relativePath.$url);
+			if ($this->supertype)
+				return $this->supertype->relativeUrl($url);
+			else
+				return $this->module->relativeUrl('/'.$this->id.$url);
 		}
 
 		public function getQueryName() {
@@ -756,6 +761,13 @@
 		public function setInlineOnly($inlineOnly) {
 			$this->inlineOnly = $inlineOnly;
 		}
+		public function getInlineOnly() {
+			if ($this->supertype)
+				return $this->supertype->inlineOnly;
+			else
+				return $this->inlineOnly;
+		}
+
 
 		public function setIcon($icon) {
 			if ($icon{0} == '/')
@@ -1141,8 +1153,8 @@
 			if (!$this->subtypeAdmins)
 				$this->subtypeAdmins = array();
 
-			$admin->relativePath = $this->id;
-			$admin->addContext('section', $this->id);
+			$admin->supertype = $this;
+			$admin->addContext('section', $this->supertype ? $this->supertype->id : $this->id);
 			$admin->addContext('sectionurl', $this->relativeUrl(''));
 			$this->subtypeAdmins[$modelClass] = $admin;
 
