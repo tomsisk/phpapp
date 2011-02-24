@@ -43,7 +43,7 @@
 		protected $user;
 		protected $preferences;
 		protected $authKey = 'VU@$FDSJLK7*(&sdf0989SD8^&fd@#$';
-		protected $startTime;
+		public $startTime;
 		protected $lastDebug;
 		protected $appRoot;
 		protected $baseUrl = '';
@@ -117,6 +117,9 @@
 					$this->query->precacheModels();
 					$this->setAppVar($this->id.'_queryFactory', serialize($this->query));
 				}
+
+				if (isset($config['debug']) && $config['debug'])
+					$this->query->logger = $this;
 				
 				if (isset($config['user_class']) && $config['user_class'])
 					$this->userQuery = $this->query->$config['user_class'];
