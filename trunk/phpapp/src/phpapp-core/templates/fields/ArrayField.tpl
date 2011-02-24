@@ -23,7 +23,7 @@ if ($modeladmin->fieldOptions[$fieldRef]['style'] == 'checkbox') {
 		<?
 		if ($ordered) echo '</li>';
 	} else {
-		if (count($options) > 10) { ?>
+		if (count($options) > 10 && !$ordered) { ?>
 			<div class="relcheckboxCont">
 		<? }
 		$idx = 0;
@@ -75,7 +75,7 @@ if ($modeladmin->fieldOptions[$fieldRef]['style'] == 'checkbox') {
 			}
 		}
 	}
-	if (count($options) > 10) { ?>
+	if (count($options) > 10 && !$ordered) { ?>
 		</div>
 	<? } ?>
 <? } elseif ($modeladmin->fieldOptions[$fieldRef]['style'] == 'multilist') { ?>
