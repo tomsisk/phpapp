@@ -51,6 +51,7 @@
 		private $transFailed = false;
 
 		public $queryCount = 0;
+		public $logger;
 										
 		/**
 		 * Create a new QueryFactory.
