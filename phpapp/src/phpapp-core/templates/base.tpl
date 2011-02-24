@@ -221,7 +221,18 @@ if (isset($script)) { ?>
 						<br />
 						Copyright &copy;<?= date('Y') ?> <a target="_blank" href="http://www.barchart.com">Barchart.com, Inc.</a>
 						<? if ($debug) { ?>
-							<div class="debug">TODO: DEBUG LOGS</div>
+							<div class="debug">
+							<hr />
+							<p><b>Debug Log:</b></p>
+							<?
+								$timestamp = date('H:i:s', $app->startTime).substr($app->startTime - intval($app->startTime), 1, 4);
+								print $timestamp.': Execution started<br />'."\n";
+								$app->logDebug('Execution finished: '.$app->elapsedTime($app->startTime).'s');
+								foreach ($app->logs['debug'] as $msg) {
+									echo $msg[0]."<br />\n";
+								}
+							?>
+							</div>
 						<? } ?>
 					</div>
 				</td>
