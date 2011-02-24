@@ -2298,20 +2298,39 @@
 
 			if (!$this->fullQuery)
 				$this->mergedQuery(true);
-			if ($this->fullQuery['debug']) {
-				print_r($sql);
-				echo "<br><br>\n\n";
-				print_r($params);
-				echo "<br><br>\n\n";
-			}
 
 			$qf =& $this->queryhandler->factory;
+			$start = microtime(true);
+
 			$qf->queryCount++;
 			$c =& $qf->getConnection();
 			if (!$qf->inTransaction())
 				$c->BeginTrans();
 			$stmt = $c->prepare($sql);
 			$result = $c->execute($stmt, $params);
+
+			if ($qf->logger) {
+				$elapsed = microtime(true) - $start;
+				if ($this->fullQuery['debug']) {
+					$fullsql = $sql;
+					$ppos = strpos($fullsql, '?');
+					$pct = 0;
+					while ($ppos !== FALSE) {
+						$param = is_string($params[$pct]) ? '\''.$params[$pct].'\'':strval($params[$pct]);
+						$fullsql = substr($fullsql, 0, $ppos).$param.substr($fullsql, $ppos + 1);
+						$ppos = strpos($fullsql, '?');
+						$pct++;
+					}
+					$qf->logger->logDebug('Query ('.round($elapsed*1000,2).'ms): '.$fullsql);
+				} else {
+					$qf->logger->logDebug('Query ('.round($elapsed*1000,2).'ms): '.substr($sql, 0, 100).(strlen($sql)>100?'... <i>(more)</i>':''));
+				}
+			} elseif ($this->fullQuery['debug']) {
+				print_r($sql);
+				echo "<br><br>\n\n";
+				print_r($params);
+				echo "<br><br>\n\n";
+			}
 
 			if ($result) {
 				if (!$qf->inTransaction())
