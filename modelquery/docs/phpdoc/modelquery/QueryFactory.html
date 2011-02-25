@@ -16,7 +16,8 @@
 	<div class="info-box-title">Description</div>
 	<div class="nav-bar">
 					<span class="disabled">Description</span> |
-															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+													<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
 						
 					</div>
 	<div class="info-box-body">
@@ -35,17 +36,43 @@
 
 
 
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$logger" title="details" class="var-name">$logger</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$queryCount" title="details" class="var-name">$queryCount</a>
+				</div>
+											</div>
+		</div>
+	</div>
 
 	<a name="sec-method-summary"></a>
 	<div class="info-box">
 		<div class="info-box-title">Method Summary</span></div>
 		<div class="nav-bar">
 			<a href="#sec-description">Description</a> |
-												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																																																				<div class="method-definition">
+																																																																																																																												<div class="method-definition">
 					static 						<span class="method-result">void</span>
 										<a href="#preloadModelClasses" title="details" class="method-name">preloadModelClasses</a>
 											(<span class="var-type">Array</span>&nbsp;<span class="var-name">$roots</span>)
@@ -65,6 +92,11 @@
 											<span class="method-result">bool</span>
 										<a href="#cacheExists" title="details" class="method-name">cacheExists</a>
 											(<span class="var-type">string</span>&nbsp;<span class="var-name">$key</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#cacheFlush" title="details" class="method-name">cacheFlush</a>
+										()
 									</div>
 																<div class="method-definition">
 											<span class="method-result"><a href="../modelquery/Model.html">Model</a></span>
@@ -103,7 +135,7 @@
 									</div>
 																<div class="method-definition">
 											<span class="method-result">An</span>
-										<a href="#getConnection" title="details" class="method-name">getConnection</a>
+										<a href="#getConnection" title="details" class="method-name">&amp;getConnection</a>
 										()
 									</div>
 																<div class="method-definition">
@@ -135,22 +167,81 @@
 		</div>
 	</div>		
 
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			<a name="var$logger" id="$logger"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$logger</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a54">54</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$queryCount" id="$queryCount"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$queryCount</span>
+			 = <span class="var-default"> 0</span>			(line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a53">53</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+						
+		</div>
+	</div>
 	
 	<a name="sec-methods"></a>
 	<div class="info-box">
 		<div class="info-box-title">Methods</div>
 		<div class="nav-bar">
 			<a href="#sec-description">Description</a> |
-																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
 						
 		</div>
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="methodpreloadModelClasses" id="preloadModelClasses"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">static method preloadModelClasses</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a299">299</a></span>)
+		<span class="method-title">static method preloadModelClasses</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a315">315</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -179,10 +270,10 @@
 	</div>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a62">62</a></span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a65">65</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -217,10 +308,10 @@
 			
 	</div>
 <a name="methodbegin" id="begin"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">begin</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a144">144</a></span>)
+		<span class="method-title">begin</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a147">147</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -242,10 +333,10 @@
 			
 	</div>
 <a name="methodcacheExists" id="cacheExists"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">cacheExists</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a237">237</a></span>)
+		<span class="method-title">cacheExists</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a240">240</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -272,11 +363,34 @@
 		
 			
 	</div>
+<a name="methodcacheFlush" id="cacheFlush"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">cacheFlush</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a266">266</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			cacheFlush
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
 <a name="methodcacheGet" id="cacheGet"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">cacheGet</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a224">224</a></span>)
+		<span class="method-title">cacheGet</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a227">227</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -307,7 +421,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">cachePut</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a211">211</a></span>)
+		<span class="method-title">cachePut</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a214">214</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -340,7 +454,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">cacheRemove</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a250">250</a></span>)
+		<span class="method-title">cacheRemove</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a253">253</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -368,7 +482,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">commit</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a156">156</a></span>)
+		<span class="method-title">commit</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a159">159</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -393,7 +507,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">complete</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a187">187</a></span>)
+		<span class="method-title">complete</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a190">190</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -418,7 +532,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">fail</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a177">177</a></span>)
+		<span class="method-title">fail</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a180">180</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -442,7 +556,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">get</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a80">80</a></span>)
+		<span class="method-title">get</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a83">83</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -474,7 +588,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getConnection</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a136">136</a></span>)
+		<span class="method-title">getConnection</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a139">139</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -487,7 +601,7 @@
 	<div class="method-signature">
 		<span class="method-result">An</span>
 		<span class="method-name">
-			getConnection
+			&amp;getConnection
 		</span>
 				()
 			</div>
@@ -499,7 +613,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">inTransaction</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a198">198</a></span>)
+		<span class="method-title">inTransaction</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a201">201</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -524,7 +638,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">precacheModels</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a117">117</a></span>)
+		<span class="method-title">precacheModels</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a120">120</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -549,7 +663,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">rollback</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a167">167</a></span>)
+		<span class="method-title">rollback</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a170">170</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -574,7 +688,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">setConnection</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a128">128</a></span>)
+		<span class="method-title">setConnection</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a131">131</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -603,7 +717,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">__get</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a105">105</a></span>)
+		<span class="method-title">__get</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a108">108</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -635,7 +749,7 @@
 
 
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 27 Jan 2011 12:29:23 -0600 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 25 Feb 2011 14:38:22 -0600 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

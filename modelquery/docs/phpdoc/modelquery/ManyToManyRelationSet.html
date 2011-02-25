@@ -24,7 +24,7 @@
         		<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">An iterable set of related objects.</p>
 		<p class="notes">
-			Located in <a class="field" href="_RelationSet.class.php.html">/RelationSet.class.php</a> (line <span class="field"><a href="../__filesource/fsource_modelquery__RelationSet.class.php.html#a211">211</a></span>)
+			Located in <a class="field" href="_RelationSet.class.php.html">/RelationSet.class.php</a> (line <span class="field"><a href="../__filesource/fsource_modelquery__RelationSet.class.php.html#a259">259</a></span>)
 		</p>
 		
 				
@@ -50,7 +50,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																												
+																																												
 												<div class="method-definition">
 											<span class="method-result">ManyToManyRelationSet</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
@@ -63,8 +63,18 @@
 									</div>
 																<div class="method-definition">
 											<span class="method-result">void</span>
+										<a href="#getRelationQuery" title="details" class="method-name">getRelationQuery</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
 										<a href="#remove" title="details" class="method-name">remove</a>
 											(<span class="var-type"></span>&nbsp;<span class="var-name">$object</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#save" title="details" class="method-name">save</a>
+										()
 									</div>
 								</div>
 		</div>
@@ -91,6 +101,9 @@
 								<span class="var-name"><a href="../modelquery/RelationSet.html#var$field">RelationSet::$field</a></span><br>
 							</span>
 													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/RelationSet.html#var$persistent">RelationSet::$persistent</a></span><br>
+							</span>
+													<span class="var-title">
 								<span class="var-name"><a href="../modelquery/RelationSet.html#var$relationObj">RelationSet::$relationObj</a></span><br>
 							</span>
 													<span class="var-title">
@@ -114,10 +127,10 @@
 			<A NAME='method_detail'></A>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__RelationSet.class.php.html#a213">213</a></span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__RelationSet.class.php.html#a261">261</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -150,10 +163,10 @@
 			
 	</div>
 <a name="methodadd" id="add"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">add</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__RelationSet.class.php.html#a223">223</a></span>)
+		<span class="method-title">add</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__RelationSet.class.php.html#a278">278</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -183,11 +196,34 @@
 					</dl>
 			
 	</div>
+<a name="methodgetRelationQuery" id="getRelationQuery"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getRelationQuery</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__RelationSet.class.php.html#a269">269</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getRelationQuery
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
 <a name="methodremove" id="remove"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">remove</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__RelationSet.class.php.html#a243">243</a></span>)
+		<span class="method-title">remove</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__RelationSet.class.php.html#a302">302</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -217,6 +253,35 @@
 					</dl>
 			
 	</div>
+<a name="methodsave" id="save"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">save</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__RelationSet.class.php.html#a320">320</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			save
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../modelquery/RelationSet.html#methodsave">RelationSet::save()</a></dt>
+						<dd>Save any unlinked objects</dd>
+					</dl>
+			
+	</div>
 							<h4>Inherited Methods</h4>
 				<a name='inherited_methods'><!-- --></a>	
 									<!-- =========== Summary =========== -->
@@ -237,6 +302,7 @@
 													<span class="method-name"><a href="../modelquery/RelationSet.html#methodpreload">RelationSet::preload()</a></span><br>
 													<span class="method-name"><a href="../modelquery/RelationSet.html#methodremove">RelationSet::remove()</a></span><br>
 													<span class="method-name"><a href="../modelquery/RelationSet.html#methodrewind">RelationSet::rewind()</a></span><br>
+													<span class="method-name"><a href="../modelquery/RelationSet.html#methodsave">RelationSet::save()</a></span><br>
 													<span class="method-name"><a href="../modelquery/RelationSet.html#methodset">RelationSet::set()</a></span><br>
 													<span class="method-name"><a href="../modelquery/RelationSet.html#methodvalid">RelationSet::valid()</a></span><br>
 													<span class="method-name"><a href="../modelquery/RelationSet.html#methodvalues">RelationSet::values()</a></span><br>
@@ -249,7 +315,7 @@
 
 
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 27 Jan 2011 12:29:29 -0600 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 25 Feb 2011 14:38:27 -0600 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
