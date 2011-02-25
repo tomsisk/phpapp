@@ -402,9 +402,15 @@
 			}
 		}
 
+		public function create($params, $flags = 0, $preloadRelations = false) {
+			$model = $this->getQuery()->queryhandler->create($params, null, $flags);
+			$this->updateModel($model, $params, $flags, $preloadRelations);
+			return $model;
+		}
+
 		public function getAndUpdate($id, $params, $flags = 0, $preloadRelations = false) {
+
 			$model = null;
-			$m2m = array();
 
 			try {
 				if ($id) {
@@ -420,6 +426,17 @@
 			} catch(DoesNotExistException $dne) {
 				$model = $this->getQuery()->queryhandler->create($params, null, $flags);
 			}
+
+			if ($model)
+				$this->updateModel($model, $params, $flags, $preloadRelations);
+
+			return $model;
+
+		}
+
+		public function updateModel($model, $params, $flags = 0, $preloadRelations = false) {
+
+			$m2m = array();
 
 			// Enforce access
 			$modelAccess = $this->getModelAccess();
@@ -509,13 +526,14 @@
 			}
 
 			$model->updateModel($params, null, $flags);
+
 			if (count($m2m) && $preloadRelations) {
 				// Pre-add many-to-many fields that are active filters
 				if (!$model->pk)
 					foreach ($m2m as $f => $v)
 						$model->$f->preload(array($v));
 			}
-			return $model;
+
 		}
 
 		public function getRelatedQuery($field, $object) {
