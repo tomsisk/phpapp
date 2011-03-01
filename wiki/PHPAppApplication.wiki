@@ -94,7 +94,7 @@ you are using, but the API is the same:
 
   * [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#setUserVar set/getUserVar()]: cache a value for the user's current session.
   * [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#setSessionVar set/getSessionVar()]: cache a value for the current session (not linked to a user.)
-  * [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#setAppVar set/getAppVar()]: cache a value globally (across requests).  Only works if you a supported cache provider is installed (currently XCache.)
+  * [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#setAppVar set/getAppVar()]: cache a value globally (across requests).  Only works as expected if a supported cache provider is installed (currently XCache.)
 
 ==Sending Emails==
 
