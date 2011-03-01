@@ -22,7 +22,7 @@ class FilmAdmin extends ModelAdmin {
         parent::__construct($model, $module);
         $this->setName('Film');
         $this->setDescription('Edit film records');
-        $this->setIcon($module->getMediaURL('film.png'));
+        $this->setIcon($module->getMediaURL('film.jpg'));
 
         // Fields to display in the model index view
         $this->setDisplayFields(array('title', 'released', 'director.name'));
@@ -80,7 +80,7 @@ class ActorAdmin extends ModelAdmin {
         parent::__construct($model, $module);
         $this->setName('Actor');
         $this->setDescription('Edit actor records');
-        $this->setIcon($module->getMediaURL('actor.png'));
+        $this->setIcon($module->getMediaURL('actor.jpg'));
 
         $this->setDisplayFields(array('name'));
         $this->setSearchFields(array('name'));
@@ -102,7 +102,7 @@ class DirectorAdmin extends ModelAdmin {
         parent::__construct($model, $module);
         $this->setName('Director');
         $this->setDescription('Edit director records');
-        $this->setIcon($module->getMediaURL('director.png'));
+        $this->setIcon($module->getMediaURL('director.jpg'));
 
         $this->setDisplayFields(array('name'));
         $this->setSearchFields(array('name'));
@@ -146,6 +146,11 @@ $config['modules'] = array(
 );
 }}}
 
+The last step is to provide a nice user experience by copying over the
+graphical icons references in the definitions (via `$this->setIcon()`).
+[http://home.jongsma.org/software/phpapp/icons.zip Download the icon set]
+and unzip them into your modules _media_ directory (`lib/example/modules/films/media`).
+
 Open your admin site and login.  You should now see a new "Films" module
 in the sidebar.  Take a look around and notice how PHPApp creates different
 input fields depending on the Model's field type.
@@ -173,10 +178,14 @@ films
  | |- DirectorAdmin.class.php
  | \- FilmAdmin.class.php
  \- media
-   |- actor.png
-   |- director.png
-   \- film.png
+   |- actor.jpg
+   |- director.jpg
+   \- film.jpg
 }}}
+
+If your application is not functioning correctly at this point,
+[http://home.jongsma.org/software/phpapp/icons.zip download the module source]
+we created for this tutorial and compare it to your code.
 
 ==Advanced Configuration==
 
