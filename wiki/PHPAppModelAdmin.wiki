@@ -149,7 +149,8 @@ $config['modules'] = array(
 The last step is to provide a nice user experience by copying over the
 graphical icons references in the definitions (via `$this->setIcon()`).
 [http://home.jongsma.org/software/phpapp/icons.zip Download the icon set]
-and unzip them into your modules _media_ directory (`lib/example/modules/films/media`).
+and unzip them into your module's _media_ directory
+(`lib/example/modules/films/media`).
 
 Open your admin site and login.  You should now see a new "Films" module
 in the sidebar.  Take a look around and notice how PHPApp creates different
