@@ -1,6 +1,22 @@
 <?php
 	// NOTE: Requests are routed to this controller via the .htaccess file in this directory
 
+	/*
+		Most of the complexity of this file comes from need to figure out
+		if the user is making a media request, since we don't want to go
+		through the full overhead of initializing the AdminController
+		infrastructure to serve static media.  If you are not concerned
+		about this performance optimization, you can replace this entire
+		file with the following lines:
+
+		<?php
+		require_once('lib/common.inc.php');
+		require_once('phpapp-core/AdminController.class.php');
+		$admin = new AdminController($app, isset($app->config['admin_path'])
+			? $app->config['admin_path'] : null);
+		$admin->handleRequest();
+	*/
+
 	// Load config to determine media path
 	$config = array();
 	$root = dirname(dirname(__FILE__));
@@ -19,7 +35,7 @@
 		require_once('phpapp-core/MediaHandler.php');
 		handleMediaRequest($mediaPath, $config);
 	} else {
-		// Non-media request, initialize AdminController
+		// Non-static request, initialize AdminController
 		require_once('lib/common.inc.php');
 		require_once('phpapp-core/AdminController.class.php');
 		$admin = new AdminController($app, isset($app->config['admin_path'])
