@@ -29,9 +29,9 @@ example
 
  * PHP 5
  * php5-mysql
- * ADODB
+ * [http://adodb.sourceforge.net/ ADODB]
  * ModelQuery
- * Mail, Mail_Mime, Net_SMTP (from PEAR)
+ * Mail, !Mail_Mime, Net_SMTP (from [http://pear.php.net/manual/en/guide.users.commandline.installing.php PEAR])
  * Apache (w/ mod_rewrite)
 
 ===Installation===
