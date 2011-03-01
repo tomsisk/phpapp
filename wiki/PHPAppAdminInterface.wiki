@@ -6,24 +6,22 @@ easy to use administration interfaces.
 _If you have copied the example app, this section is just
 for reference - your admin site should already be up a running._
 
-Let's look at the directory that will serve as our admin
-root.  In the example app, this is the
-[http://code.google.com/p/phpapp/source/browse/trunk#trunk%2Fphpapp%2Fexample%2Fadmin admin]
-directory.  For your own admin site, you should copy the contents of that
-directory into your own web application root.  The function of each file
-is described below:
-
+The admin site root should contain two files:
   # *.htaccess*: Contains Apache rewrite rules for properly routing requests through the admin controller
   # *index.php*: The main PHP script that process all requests
 
-You can view an example of configuring Apache to host the admin site
-in [http://code.google.com/p/phpapp/source/browse/trunk/phpapp/example/apache/phpapp-example.conf phpapp-example.conf].
+These can be found in the
+[http://code.google.com/p/phpapp/source/browse/trunk#trunk%2Fphpapp%2Fexample%2Fadmin admin]
+directory of the sample app.  For your own admin site, you should copy the contents
+of that directory into your own web application root.
 
+All that's left is to configure Apache to host the admin site.  You can view
+an Apache configuration example in [http://code.google.com/p/phpapp/source/browse/trunk/phpapp/example/apache/phpapp-example.conf phpapp-example.conf].
 Once you've added your virtual host to Apache and loaded the initial database
 data from [http://code.google.com/p/phpapp/source/browse/trunk/phpapp/example/sql/phpapp-example.sql phpapp-example.sql],
 you should be able to login with admin / password and start editing users
 and groups.
 
-So setting up an admin site with pre-configured modules is a snap.
+Setting up an admin site with pre-configured modules is a snap.
 Configuring your content modules for the admin interface is a bit more
 complex, so let's go ahead and [PHPAppModelAdmin configure our ModelAdmin definitions].
