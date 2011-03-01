@@ -25,6 +25,15 @@ example
 
 ==Setting Up a New Application==
 
+===Prerequisites===
+
+ * PHP 5
+ * php5-mysql
+ * ADODB
+ * ModelQuery
+ * Mail, Mail_Mime, Net_SMTP (from PEAR)
+ * Apache (w/ mod_rewrite)
+
  # Copy all directory contents to a new location.  Note that there are some hidden files in some directories (i.e. www/.htaccess).
  # Create a new MySQL database for your application, and load the SQL script "sql/phpapp-example.sql" into your new database.
  # Configure "config/default.inc.php" to use your database settings.
