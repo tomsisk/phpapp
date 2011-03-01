@@ -28,8 +28,11 @@ example
  # Copy all directory contents to a new location.  Note that there are some hidden files in some directories (i.e. www/.htaccess).
  # Create a new MySQL database for your application, and load the SQL script "sql/phpapp-example.sql" into your new database.
  # Configure "config/default.inc.php" to use your database settings.
- # Customize the Apache configuration (apache/phpapp-example.conf) to point to the correct directories, and add the new virtual host to your Apache installation.
- # Go to http://your-domain.com/admin and login as "admin" / "password"
+ # Customize the Apache configuration (apache/phpapp-example.conf):
+   # Update php_value include_path directives to point to the correct directories
+   # Use the correct ServerName for your machine (defaults to localhost)
+ # Add the following directive to your main Apache configuration: `Include /path/to/phpapp/example/apache/phpapp-example.conf`
+ # Go to http://localhost/admin and login as "admin" / "password"
 
 If the admin site comes up in your browser, your application is ready to
 customize, so let's [PHPAppModules create a content module].
