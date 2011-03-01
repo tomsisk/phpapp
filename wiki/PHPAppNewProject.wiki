@@ -29,8 +29,8 @@ example
  # Create a new MySQL database for your application, and load the SQL script "sql/phpapp-example.sql" into your new database.
  # Configure "config/default.inc.php" to use your database settings.
  # Customize the Apache configuration (apache/phpapp-example.conf):
-   # Update php_value include_path directives to point to the correct directories
-   # Use the correct ServerName for your machine (defaults to localhost)
+   * Update php_value include_path directives to point to the correct directories
+   * Use the correct !ServerName for your machine (defaults to localhost)
  # Add the following directive to your main Apache configuration: `Include /path/to/phpapp/example/apache/phpapp-example.conf`
  # Go to http://localhost/admin and login as "admin" / "password"
 
