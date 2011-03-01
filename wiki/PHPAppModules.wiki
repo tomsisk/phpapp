@@ -34,7 +34,7 @@ We'll look in detail at what each of these do in later sections.
 For now, just create a "models/" subdirectory in your new module,
 and copy all of your Model definitions into it.  Move your new
 module into the modules path that you created in the last step
-(probably _lib/yourappname/modules_).
+(_lib/example/modules_).
 
 Now that we have a basic module created, let's take a look at what's
 going on inside the example application, starting with configuring
