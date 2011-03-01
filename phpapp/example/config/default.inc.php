@@ -17,9 +17,8 @@ $config['mail_replyto'] = 'nodody@example.com';
 $config['mail_bounces'] = 'nodody@example.com';
 
 $config['modules'] = array(
-	// Should change this to a more unique path, like:
-	// 'users' => 'myappname/modules/users',
-	'users' => 'modules/users',
+	// Change "example" to your project's namespace
+	'users' => 'example/modules/users',
 	);
 
 // Additional models that need to be in the path
