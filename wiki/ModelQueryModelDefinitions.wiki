@@ -28,10 +28,16 @@ Let's take a simple example, from the "actors" table from the previous step:
 
 {{{
 class Actor extends Model {
+
     public function configure() {
         $this->id = new IntegerField('ID', array('pk' => true));
         $this->name = new CharField('Name', 255, array('required' => true));
     }
+
+    public function __toString() {
+        return strval($this->name);
+    }
+
 }
 }}}
 

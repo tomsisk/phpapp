@@ -12,6 +12,7 @@ in the module's _admin_ subdirectory:
 
 `films/admin/FilmAdmin.class.php`:
 {{{
+<?
 require_once('phpapp-core/ModelAdmin.class.php');
 
 class FilmAdmin extends ModelAdmin {
@@ -24,16 +25,16 @@ class FilmAdmin extends ModelAdmin {
         $this->setIcon($module->getMediaURL('film.png'));
 
         // Fields to display in the model index view
-        $this->setDisplayFields(array('title', 'released', 'director.name'))
+        $this->setDisplayFields(array('title', 'released', 'director.name'));
 
         // Fields to display as available search filters in the sidebar
-        $this->setFilterFields(array('released', 'nominated'));
+        $this->setFilterFields(array('director', 'nominated'));
 
         // Fields to query for searches
         $this->setSearchFields(array('title'));
 
         // Set a field display option for the actors list
-        $this->setFieldOption('actors', 'style', 'multilist')
+        $this->setFieldOption('actors', 'style', 'multilist');
 
         // By default, all fields will be displayed on the form,
         // in one table.  If you want to customize displayed
@@ -69,6 +70,7 @@ Let's create the remaining !ModelAdmin definitions:
 
 `films/admin/ActorAdmin.class.php`:
 {{{
+<?
 require_once('phpapp-core/ModelAdmin.class.php');
 
 class ActorAdmin extends ModelAdmin {
@@ -84,11 +86,13 @@ class ActorAdmin extends ModelAdmin {
         $this->setSearchFields(array('name'));
     
     }
+
 }
 }}}
 
 `films/admin/DirectorAdmin.class.php`:
 {{{
+<?
 require_once('phpapp-core/ModelAdmin.class.php');
 
 class DirectorAdmin extends ModelAdmin {
@@ -106,10 +110,11 @@ class DirectorAdmin extends ModelAdmin {
         // Not interested in displaying many-to-many 'films' field on form
         $this->setFieldGroups(array(
                 array('name' => null,
-                    'fields' = array('name'))
+                    'fields' => array('name'))
             ));
     
     }
+
 }
 }}}
 
@@ -131,7 +136,15 @@ $module->addModel('Director', 'DirectorAdmin');
 
 Once you have this new module configured, drop it into your application's
 `modules` directory, and make sure it is added to `$config['modules']` in
-your application's configuration file.
+your application's configuration file (`config/default.inc.php`):
+
+{{{
+$config['modules'] = array(
+    // Change "example" to your project's namespace
+    'users' => 'example/modules/users',
+    'films' => 'example/modules/films'
+);
+}}}
 
 Open your admin site and login.  You should now see a new "Films" module
 in the sidebar.  Take a look around and notice how PHPApp creates different
