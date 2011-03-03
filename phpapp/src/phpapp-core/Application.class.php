@@ -264,6 +264,16 @@
 			return null;
 		}
 
+		function getLocalCache($url, $timeout = 600) {
+			$filename = md5($url);
+			$cache = $this->getCachePath('download', true).'/'.$filename;
+			if (!file_exists($cache) || filemtime($cache) < (time() - $timeout))
+				$this->fetchCacheFile($cache, $url);
+			if (file_exists($cache))
+				return $cache;
+			return null;
+		}
+
 		public function fetchCacheFile($cachedfile, $url) {
 			file_put_contents($cachedfile, fopen($url, 'r'));
 		}
