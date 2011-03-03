@@ -244,6 +244,17 @@
 					$this->relativeRedirect('/account/login?redirect='.rawurlencode($_SERVER['REQUEST_URI']));
 					return;
 				}
+			} elseif (!$this->app->getUser()->staff) {
+				$this->app->logout();
+				unset($this->templateContext->context['user']);
+				if (count($path) > 0 && $path[0] == 'media') {
+					// Pass
+				} elseif (count($path) > 1 && $path[0] == 'account' && $path[1] == 'login') {
+					// Pass
+				} else {
+					$this->relativeRedirect('/account/login?redirect='.rawurlencode($_SERVER['REQUEST_URI']));
+					return;
+				}
 			}
 
 			foreach ($params as $k => $v)
@@ -305,10 +316,12 @@
 					$redirect = null;
 					if (isset($params['redirect']))
 						$redirect = $params['redirect'];
+					if (substr($redirect, 0, 8 + strlen($this->prefix)) == $this->prefix.'/account')
+						$redirect = null;
 					if ($method == 'post') {
 						if ($this->app->query->User->model->_fields['password'] instanceof PasswordField)
 							$params['password'] = md5($params['password']);
-						if ($this->app->login($params['username'], $params['password'], isset($params['remember']) ? true : false)) {
+						if (($user = $this->app->login($params['username'], $params['password'], isset($params['remember']) ? true : false)) && $this->app->getUser()->staff) {
 							if ($this->baseFilter) {
 								$query = $this->baseFilter->getQuery()->all();
 								if ($query->count() == 1)
