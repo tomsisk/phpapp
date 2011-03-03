@@ -104,7 +104,7 @@
  		 * 
 		 * Allows alternate syntax for fetching a QueryHandler object.  The calls
 		 * $qf->User and $qf->get('User') are equivalent.
-		*/
+		 */
 		public function &__get($name) {
 			return $this->get($name);
 		}
@@ -116,11 +116,14 @@
 		 * Because instantiating large numbers of QueryHandler objects can be
 		 * expensive, this method is useful to prepare a QueryFactory instance
 		 * for adding to a shared application cache.
+		 *
+		 * @return int The last modified timestamp
 		 */
 		public function precacheModels() {
 			$classes = QueryFactory::getModelClasses($this->modelRoots);
 			foreach ($classes as $c => $f)
 				$this->get($c);
+			return QueryFactory::getLastUpdated($classes);
 		}
 
 		/**
@@ -254,7 +257,7 @@
 			return $this->modelCache->remove($key);
 		}
 
-		/*!
+		/**
 		 * Remove all models from the in-memory cache.
 		 *
 		 * This method is only intended for use for classes that are part of
@@ -311,11 +314,13 @@
 		 * any class loading errors.
 		 *
 		 * @param Array $roots A list of directories to search for models in
-		*/
+		 * @return int The last modified timestamp
+		 */
 		public static function preloadModelClasses($roots) {
 			$classes = QueryFactory::getModelClasses($roots);
 			foreach ($classes as $c => $f)
 				require_once($f);
+			return QueryFactory::getLastUpdated($classes);
 		}
 
 		/**
@@ -331,12 +336,33 @@
 				if (is_dir($dir)) {
 					$d = opendir($dir);
 					while ($f = readdir($d))
-						if (substr($f, -10) == '.class.php')
-							$classes[substr($f, 0, -10)] = $dir.'/'.$f;
+						if (substr($f, -10) == '.class.php') {
+							$modelName = substr($f, 0, -10);
+							if (!isset($classes[$modelName]))
+								$classes[$modelName] = $dir.'/'.$f;
+						}
 					closedir($d);
 				}
 			}
 			return $classes;
+		}
+
+		/**
+		 * Return the timestamp of the model most recently modified.
+		 *
+		 * This is useful information for refreshing the model cache.
+		 *
+		 * @param Array A name => value array of model name => filename
+		 * @return int The last modified timestamp
+		 */
+		private static function getLastUpdated($models) {
+			$latest = 0;
+			foreach ($models as $m => $f) {
+				$modified = filemtime($f);
+				if ($modified > $latest)
+					$latest = $modified;
+			}
+			return $latest;
 		}
 
 	}
