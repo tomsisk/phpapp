@@ -25,9 +25,10 @@
 
 	require_once('adodb/adodb.inc.php');
 	require_once('modelquery2/QueryFactory.class.php');
+	require_once('PhpAppTemplate.class.php');
+	require_once('smarty/Smarty.class.php');
 	require_once('Mail.php');
 	require_once('Mail/mime.php');
-	require_once('smarty/Smarty.class.php');
 
 	class Application {
 		
@@ -35,7 +36,7 @@
 		protected $name;
 		protected $config;
 		protected $smarty;
-		protected $isRendering = false;
+		protected $templateFactory;
 		protected $permCache = array();
 		protected $fileCache = array();
 		protected $query;
@@ -49,7 +50,6 @@
 		protected $baseUrl = '';
 		protected $modules = array();
 		protected $path;
-		protected $siteTemplate = 'templates/default.tpl';
 		public $logs = array('debug' => array(),
 						'info' => array(),
 						'warn' => array(),
@@ -108,14 +108,16 @@
 						$roots[] = $mdir;
 
 				$qfSrc = $this->getAppVar($this->id.'_queryFactory');
-				if ($qfSrc) {
-					QueryFactory::preloadModelClasses($roots);
+				$qfTS = $this->getAppVar($this->id.'_queryFactory_timestamp');
+				$updated = QueryFactory::preloadModelClasses($roots);
+				if ($qfSrc && $qfTS >= $updated) {
 					$this->query = unserialize($qfSrc);
 					$this->query->setConnection($db);
 				} else {
 					$this->query = new QueryFactory($db, $roots);
-					$this->query->precacheModels();
+					$updated = $this->query->precacheModels();
 					$this->setAppVar($this->id.'_queryFactory', serialize($this->query));
+					$this->setAppVar($this->id.'_queryFactory_timestamp', $updated);
 				}
 
 				if (isset($config['debug']) && $config['debug'])
@@ -599,6 +601,23 @@
 			if (is_object($variable) && method_exists($variable, '__toString'))
 				return $variable->__toString();
 			return strval($variable);
+		}
+
+		private function getTemplateFactory($resolver = null) {
+
+			 if (!$this->templateFactory) {
+				 // Require on demand to reduce overhead
+				 $this->templateFactory = new PhpAppTemplateFactory(
+					 new PhpAppTemplateResolver(array($this->appRoot)));
+				 $this->templateFactory->setContext(array(
+							 'app' => $this,
+							 'user' => $app->getUser()));
+			 }
+
+			 if ($resolver)
+				 return $this->templateFactory->getChildFactory($resolver);
+			 else
+				 return $this->templateFactory;
 		}
 
 		private function initSmarty() {

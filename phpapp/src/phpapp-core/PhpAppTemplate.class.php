@@ -23,6 +23,48 @@
 	 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	 */
 
+	class PhpAppTemplateFactory {
+
+		protected $templateContext;
+		protected $resolver;
+
+		public function __construct($resolver = null, $templateContext = null) {
+			$this->resolver = $resolver;
+			if ($templateContext) {
+				$this->templateContext->resolver = $resolver;
+				$this->templateContext = $templateContext;
+			} else
+				$this->templateContext = new PhpAppTemplateContext(null, $resolver);
+		}
+
+		public function setContext($values) {
+			$this->templateContext->context = $values;
+		}
+
+		public function addContext($name, $value) {
+			$this->templateContext->context[$name] = $value;
+		}
+
+		public function getContext() {
+			return $this->templateContext->getContext();
+		}
+
+		public function getTemplate($template) {
+			return $this->templateContext->getTemplate($template);
+		}
+
+		// For nesting contexts
+		public function getChildFactory($resolver = null) {
+			if ($resolver)
+				$resolver->setFallback($this->resolver);
+			else
+				$resolver = $this->resolver;
+			$tctx = new PhpAppTemplateContext($this->templateContext, $resolver);
+			return new PhpAppTemplateFactory($resolver, $tctx);
+		}
+
+	}
+
 	class PhpAppTemplateResolver {
 		
 		private $includePath;
@@ -94,6 +136,10 @@
 
 		public function addPath($search) {
 			$this->searchPath[] = $search;
+		}
+
+		public function setFallback($resolver) {
+			$this->fallbackResolver = $resolver;
 		}
 
 	}
