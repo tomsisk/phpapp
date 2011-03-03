@@ -875,6 +875,10 @@
 		 * @param Array $validators_ An array of FieldValidator objects
 		 */
 		public function __construct($name_, $groupBy_ = null, $options_ = null, $validators_ = null) {
+			// Skip required validator, since ModelQuery automatically
+			// sets this value on save (after validation)
+			if (isset($options_['required']))
+				unset($options_['required']);
 			parent::__construct($name_, $options_, $validators_);
 			$this->options['editable'] = false;
 			$this->groupBy = $groupBy_;
