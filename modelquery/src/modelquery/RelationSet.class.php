@@ -178,13 +178,13 @@
 		/**
 		 * Pass through other function calls to the underlying QueryFilter
 		 * object, so that this set can function as a QueryFilter.
-		 *
-		 * @deprecated 2.0 Underlying object is not always a QueryFilter
-		 * 		for unsaved models
 		 */
 		public function __call($func, $args) {
-			// Pass other function calls through to query object
-			return call_user_func_array(array($this->relations, $func), $args);
+			if ($this->relations instanceof QueryFilter)
+				// Pass other function calls through to query object
+				return call_user_func_array(array($this->relations, $func), $args);
+			else
+				throw new UnsupportedOperationException('Relation set must be saved before querying.');
 		}
 
 	}
