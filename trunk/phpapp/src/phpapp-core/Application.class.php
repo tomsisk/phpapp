@@ -603,7 +603,7 @@
 			return strval($variable);
 		}
 
-		private function getTemplateFactory($resolver = null) {
+		public function getTemplateFactory($resolver = null) {
 
 			 if (!$this->templateFactory) {
 				 // Require on demand to reduce overhead
@@ -611,7 +611,7 @@
 					 new PhpAppTemplateResolver(array($this->appRoot)));
 				 $this->templateFactory->setContext(array(
 							 'app' => $this,
-							 'user' => $app->getUser()));
+							 'user' => $this->getUser()));
 			 }
 
 			 if ($resolver)
