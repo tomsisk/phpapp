@@ -492,7 +492,9 @@
 			if ($username && $password) {
 				$u = $this->query->User;
 				try {
-					$user = $u->filter('username', $username, 'password', $password)->one();
+					$user = $u->filter(
+						'username', $username,
+						'password', $password)->one();
 					if ($remember)
 						setcookie('autologin', $user->pk.':'.md5($user->username.$user->password), time() + 30*86400, '/');
 					$this->_createSession($user);
@@ -525,7 +527,8 @@
 						}
 					}
 				}
-			} elseif ($this->getPermissions() === null) {
+			}
+			if ($this->getPermissions() === null) {
 				// Load default permissions
 				$this->_createSession(null);
 			}
