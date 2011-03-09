@@ -138,6 +138,10 @@
 			$this->searchPath[] = $search;
 		}
 
+		public function prependPath($search) {
+			array_unshift($this->searchPath, $search);
+		}
+
 		public function setFallback($resolver) {
 			$this->fallbackResolver = $resolver;
 		}
@@ -172,6 +176,11 @@
 				? $this->resolver->findTemplate($template)
 				: $template;
 			return new PhpAppTemplate($f, $this);
+		}
+
+		public function renderTemplate($template, $context = null) {
+			$t = $this->getTemplate($template);
+			$t->render($context);
 		}
 
 	}
