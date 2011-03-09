@@ -293,7 +293,7 @@
 		 */
 		private static function find_file_in_path($file) {
 			if (file_exists($file))
-				return TRUE;
+				return $file;
 			if (!QueryFactory::$path)
 				QueryFactory::$path = explode(':', ini_get('include_path'));
 			foreach(QueryFactory::$path as $dir)
