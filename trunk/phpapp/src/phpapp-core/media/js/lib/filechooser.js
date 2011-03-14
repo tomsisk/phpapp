@@ -38,7 +38,8 @@ Control.FileChooser.prototype = {
 		this.button.title = 'Select a file';
 		var topOffset = /MSIE/.test(navigator.userAgent) ? '1px' : '3px';
 		Element.setStyle(this.button, {'position': 'relative', 'left': '-24px', 'top': topOffset});
-		Element.insertAfter(this.button, this.element);
+		if (this.element.nextSibling) this.element.parentNode.insertBefore(this.button, this.element.nextSibling);
+		else this.element.parentNode.appendChild(this.button);
 
 		this.element.style.paddingRight = '26px';
 
