@@ -478,3 +478,13 @@ function postBackForm(form) {
 	form.method = 'get';
 	form.submit();
 }
+
+function copyObject(source, properties) {
+	var copy = {};
+	for (property in source)
+		copy[property] = source[property];
+	if (properties)
+		for (property in properties)
+			copy[property] = properties[property];
+	return copy;
+}

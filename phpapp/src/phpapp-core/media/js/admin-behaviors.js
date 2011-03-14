@@ -141,13 +141,13 @@ if (typeof(tinyMCE) != 'undefined') {
 		stdOptions['external_link_list_url'] = urlList;
 	}
 
-	tinyMCE.init(Object.copy(stdOptions));
-	tinyMCE.init(Object.copy(stdOptions, {
+	tinyMCE.init(copyObject(stdOptions));
+	tinyMCE.init(copyObject(stdOptions, {
 			editor_selector: 'htmlrichtext',
 			theme_advanced_buttons1 : 'formatselect,fontselect,fontsizeselect,bold,italic,underline,separator,justifyleft,justifycenter,justifyright,justifyfull',
 			theme_advanced_buttons2 : 'numlist,bullist,outdent,indent,separator,undo,redo,separator,link,unlink,anchor,separator,forecolor,backcolor,separator,hr,image,table,media,separator,spellchecker,removeformat,cleanup,separator,code'
 		}));
-	tinyMCE.init(Object.copy(stdOptions, {
+	tinyMCE.init(copyObject(stdOptions, {
 			editor_selector: 'simplerichtext',
 			theme_advanced_buttons1 : 'bold,italic,underline,separator,removeformat'
 		}));
