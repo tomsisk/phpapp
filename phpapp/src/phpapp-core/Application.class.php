@@ -133,7 +133,6 @@
 
 		public function start($autoLogin = true) {
 			// Load classes that are likely to be cached in session
-			$this->query->User;
 			$this->startTime = microtime(true);
 			session_start();
 			if ($autoLogin)
@@ -168,7 +167,7 @@
 			if (!$this->user) {
 				$userid = $this->getUserId();
 				if ($userid)
-					$this->user = $this->query->User->get($userid);
+					$this->user = $this->getUserById($userid);
 			}
 			return $this->user;
 		}
@@ -280,10 +279,8 @@
 
 		public function &getPreferences($reload = false) {
 			if (!$this->preferences || $reload) {
-				if ($this->isLoggedIn()) {
-					$up = $this->query->UserPreference;
-					$this->preferences = $up->filter('user', $this->getUserId())->select();
-				}
+				if ($this->isLoggedIn())
+					$this->preferences = $this->getUserPreferences($this->getUser());
 			}
 			return $this->preferences;
 		}
@@ -502,13 +499,10 @@
 
 		public function login($username, $password, $remember = false) {
 			if ($username && $password) {
-				$u = $this->query->User;
 				try {
-					$user = $u->filter(
-						'username', $username,
-						'password', $password)->one();
+					$user = $this->getUserByUsername($username, $password);
 					if ($remember)
-						setcookie('autologin', $user->pk.':'.md5($user->username.$user->password), time() + 30*86400, '/');
+						setcookie('autologin', $user['id'].':'.md5($user['username'].$user['password']), time() + 30*86400, '/');
 					$this->_createSession($user);
 					return $user;
 				} catch (DoesNotExistException $dne) {
@@ -530,8 +524,7 @@
 			if (!$this->isLoggedIn() && array_key_exists('autologin', $_COOKIE) && $_COOKIE['autologin']) {
 				list($uid, $hash) = explode(':', $_COOKIE['autologin']);
 				if ($uid) {
-					$u = $this->query->User;
-					$user = $u->get($uid);
+					$user = $this->getUserById($uid);
 					if ($user) {
 						if ($user && md5($user['username'].$user['password']) == $hash) {
 							$this->_createSession($user);
@@ -546,6 +539,54 @@
 			}
 			return false;
 		}
+
+		/**
+		 * Extend these next functions to override user authentication.
+		 */
+		public function getUserById($id) {
+			$u = $this->userQuery;
+			return $u->get($id);
+		}
+
+		public function getUserByUsername($username, $password = null) {
+			$uq = $this->userQuery->filter('username', $username);
+			if ($password)
+				$uq = $uq->filter('password', $password);
+			return $uq->one();
+		}
+
+		public function getUserPreferences($user) {
+			$up = $this->query->UserPreference;
+			return $up->filter('user', $user['id'])->select();
+		}
+
+		public function getUserPermissions($user) {
+			$userid = $user ? $user['id'] : null;
+			$up = $this->query->UserPermission;
+			$params = array();
+			$sql = 'SELECT module, type, instance, action FROM user_permissions up ';
+			$sql .= 'WHERE ';
+			if ($userid) {
+				$sql .= 'up.user = ? OR ';
+				$params[] = $userid;
+			}
+			$sql .= 'up.user IS NULL ';
+			$sql .= 'UNION ';
+			$sql .= 'SELECT module, type, instance, action FROM role_permissions rp ';
+			$sql .= ' INNER JOIN user_roles ur ON (rp.role = ur.role) ';
+			$sql .= ' WHERE ';
+			if ($userid) {
+				$sql .= 'ur.user = ? OR ';
+				$params[] = $userid;
+			}
+			$sql .= 'ur.user IS NULL';
+			$result = $up->query($sql, $params);
+			$perms = $up->createHash($result, null);
+			return $this->_parsePermissions($perms);
+		}
+		/*
+		 * End authentication customization
+		 */
 
 		public function randomToken($length) {
 			$pattern = "1234567890abcdefghijklmnopqrstuvwxyz";
@@ -570,28 +611,7 @@
 
 		public function _refreshPermissions() {
 			$user = $this->getUser();
-			$userid = $user ? $user->pk : null;
-			$up = $this->query->UserPermission;
-			$params = array();
-			$sql = 'SELECT module, type, instance, action FROM user_permissions up ';
-			$sql .= 'WHERE ';
-			if ($userid) {
-				$sql .= 'up.user = ? OR ';
-				$params[] = $userid;
-			}
-			$sql .= 'up.user IS NULL ';
-			$sql .= 'UNION ';
-			$sql .= 'SELECT module, type, instance, action FROM role_permissions rp ';
-			$sql .= ' INNER JOIN user_roles ur ON (rp.role = ur.role) ';
-			$sql .= ' WHERE ';
-			if ($userid) {
-				$sql .= 'ur.user = ? OR ';
-				$params[] = $userid;
-			}
-			$sql .= 'ur.user IS NULL';
-			$result = $up->query($sql, $params);
-			$perms = $up->createHash($result, null);
-			$_SESSION[$this->id]['permissions'] = $this->_parsePermissions($perms);
+			$_SESSION[$this->id]['permissions'] = $this->getUserPermissions($user);
 		}
 
 		public function _destroySession() {
@@ -704,10 +724,10 @@
 
 			if (!$recip) {
 				$user = $this->getUser();
-				if ($user->firstname)
-					$recip = $user->firstname.' '.$user->lastname.' <'.$user->email.'>';
+				if ($user['firstname'])
+					$recip = $user['firstname'].' '.$user['lastname'].' <'.$user['email'].'>';
 				else
-					$recip = $user->email;
+					$recip = $user['email'];
 			}
 
 			if (!$sender) {
