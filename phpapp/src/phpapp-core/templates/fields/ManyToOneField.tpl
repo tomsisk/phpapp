@@ -94,5 +94,5 @@ if ($style == 'radio') {
 	</select>
 <? }
 if (!$inlineField) {
-	echo $modeladmin->getDependencyHTML($field, isset($popup) ? $popup : false);
+	echo $modeladmin->getDependencyHTML($field, isset($popup) && $popup, $fieldName);
 }
