@@ -23,9 +23,8 @@ if (isset($stylesheet)) { ?>
 			var urlList = '<?= $_SESSION['fileManager']['urlList'] ?>';
 			var userLocale = 'en_iso8601';
 		</script>
-		<script type="text/javascript" language="javascript" src="<?= $admin->mediaRoot ?>/js/lib/prototype-1.6.0.2.js"></script>
-		<script type="text/javascript" language="javascript" src="<?= $admin->mediaRoot ?>/js/lib/scriptaculous/scriptaculous.js"></script>
-		<script type="text/javascript" language="javascript" src="<?= $admin->mediaRoot ?>/js/lib/prototype-base-extensions.js"></script>
+		<script type="text/javascript" language="javascript" src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.0.0/prototype.js"></script>
+		<script type="text/javascript" language="javascript" src="https://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.3/scriptaculous.js"></script>
 		<script type="text/javascript" language="javascript" src="<?= $admin->mediaRoot ?>/js/lib/prototype-date-extensions.js"></script>
 		<script type="text/javascript" language="javascript" src="<?= $admin->mediaRoot ?>/js/lib/prototype-form-extensions.js"></script>
 		<script type="text/javascript" language="javascript" src="<?= $admin->mediaRoot ?>/js/lib/behaviour.js"></script>
