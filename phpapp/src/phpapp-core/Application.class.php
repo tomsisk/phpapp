@@ -499,14 +499,12 @@
 
 		public function login($username, $password, $remember = false) {
 			if ($username && $password) {
-				try {
-					$user = $this->getUserByUsername($username, $password);
+				$user = $this->getUserByUsername($username, $password);
+				if ($user) {
 					if ($remember)
 						setcookie('autologin', $user['id'].':'.md5($user['username'].$user['password']), time() + 30*86400, '/');
 					$this->_createSession($user);
 					return $user;
-				} catch (DoesNotExistException $dne) {
-					return false;
 				}
 			}
 			return false;
@@ -552,7 +550,7 @@
 			$uq = $this->userQuery->filter('username', $username);
 			if ($password !== null)
 				$uq = $uq->filter('password', $password);
-			return $uq->one();
+			return $uq->any();
 		}
 
 		public function getUserPreferences($user) {
@@ -603,7 +601,7 @@
 		}
 
 		public function _createSession($user = null) {	
-			$session = $user ? array('user' => $user->pk) : array();
+			$session = $user ? array('user' => $user['id']) : array();
 			$this->user = $user;
 			$_SESSION[$this->id] = $session;
 			$this->_refreshPermissions();
