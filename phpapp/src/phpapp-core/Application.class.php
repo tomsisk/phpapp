@@ -550,7 +550,7 @@
 
 		public function getUserByUsername($username, $password = null) {
 			$uq = $this->userQuery->filter('username', $username);
-			if ($password)
+			if ($password !== null)
 				$uq = $uq->filter('password', $password);
 			return $uq->one();
 		}
