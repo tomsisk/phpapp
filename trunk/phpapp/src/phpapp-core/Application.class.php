@@ -181,7 +181,7 @@
 
 		public function setUser(&$user) {
 			$curruser = $this->getUserId();
-			if ($curruser && (!$user || $user->pk != $curruser))
+			if ($curruser && (!$user || $user['id'] != $curruser))
 				$this->logout();
 			if ($user)
 				$this->_createSession($user);
@@ -300,7 +300,7 @@
 				$prefs =& $this->getPreferences();
 				$user =& $this->getUser();
 				$up = $this->query->UserPreference;
-				$newpref = $up->create(array('pref_name' => $name, 'user' => $user->pk));
+				$newpref = $up->create(array('pref_name' => $name, 'user' => $user['id']));
 				foreach ($prefs as $pref) {
 					if ($pref['pref_name'] == $name) {
 						$newpref = $pref;
