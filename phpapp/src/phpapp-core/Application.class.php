@@ -134,7 +134,8 @@
 		public function start($autoLogin = true) {
 			// Load classes that are likely to be cached in session
 			$this->startTime = microtime(true);
-			session_start();
+			if (!session_id())
+				session_start();
 			if ($autoLogin)
 				$this->autoLogin();
 		}
