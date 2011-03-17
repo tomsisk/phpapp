@@ -99,9 +99,11 @@
 				'host' => $_SERVER['HTTP_HOST'],
 				'defScripts' => $jsIncludes,
 				'defStylesheets' => $cssIncludes,
-				'popup' => false,
-				'publichost' => $this->app->config['public_host']
+				'popup' => false
 				);
+			if (isset($this->app->config['public_host']))
+				$this->templateContext->context['publichost'] =
+					$this->app->config['public_host'];
 
 		}
 
