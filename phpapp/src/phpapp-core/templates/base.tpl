@@ -20,7 +20,7 @@ if (isset($stylesheet)) { ?>
 		<script language="javascript">
 			var mediaRoot = '<?= $admin->mediaRoot ?>';
 			var baseUrl = '<?= $admin->baseUrl ?>';
-			var urlList = '<?= $_SESSION['fileManager']['urlList'] ?>';
+			var urlList = '<?= isset($_SESSION['fileManager']['urlList']) ? $_SESSION['fileManager']['urlList'] : '' ?>';
 			var userLocale = 'en_iso8601';
 		</script>
 		<script type="text/javascript" language="javascript" src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.0.0/prototype.js"></script>
