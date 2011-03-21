@@ -53,7 +53,7 @@
 			$this->baseDir = $baseDir;
 
 			$this->templateContext = new PhpAppTemplateContext($admin->templateContext);
-			if ($baseDir)
+			if ($this->baseDir)
 				$this->templateContext->resolver->addPath($this->baseDir.'/templates');
 
 			$this->templateContext->context = array(
