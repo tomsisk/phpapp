@@ -116,6 +116,7 @@ if (typeof(tinyMCE) != 'undefined') {
 		force_p_newlines: true,
 		force_br_newlines: false,
 		relative_urls: false,
+		convert_urls: false,
 		file_browser_callback: 'filebrowser',
 		//onchange_callback: 'mceFieldChanged',
 		plugins : 'table,paste,advhr,advlink,insertdatetime,preview,advimage,media,searchreplace,print,contextmenu,fullscreen',
