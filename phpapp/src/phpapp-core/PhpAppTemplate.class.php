@@ -45,6 +45,10 @@
 			$this->templateContext->context[$name] = $value;
 		}
 
+		public function registerFunction($name, $callback) {
+			$this->templateContext->functions[$name] = $callback;
+		}
+
 		public function getContext() {
 			return $this->templateContext->getContext();
 		}
@@ -152,6 +156,7 @@
 
 		public $context = array();
 		public $resolver;
+		public $functions = array();
 
 		protected $parent;
 		
@@ -171,6 +176,12 @@
 			return $this->context;
 		}
 
+		public function getFunctions() {
+			if ($this->parent)
+				return array_merge($this->parent->getFunctions(), $this->functions);
+			return $this->functions;
+		}
+
 		public function getTemplate($template) {
 			$f = $this->resolver
 				? $this->resolver->findTemplate($template)
@@ -188,13 +199,19 @@
 	class PhpAppTemplate {
 		
 		protected $file;
+		protected $functions = array();
 		protected $context;
 		protected $localContext;
 		protected $templateContext;
 
 		public function __construct($file, $templateContext = null) {
+
 			$this->file = $file;
 			$this->templateContext = $templateContext;
+
+			if ($templateContext)
+				$this->functions =  $templateContext->getFunctions();
+
 		}
 
 		public function render($context = null) {
@@ -215,12 +232,43 @@
 		}
 
 		public function fetch($context = null) {
-
 			ob_start();
 			$this->render($context);
 			$contents = ob_get_contents();
 			ob_end_clean();
 			return $contents;
+		}
+
+		public function renderAsJS($context = null) {
+			ob_start(array($this, 'convertToJS'), 1, TRUE);
+			$this->render($context);
+			ob_end_flush();
+		}
+
+		public function convertToJS($text) {
+
+			$lines = explode("\n", $text);
+			$js = '';
+
+			$search = array("\\", "'", '<script', '</script');
+			$replace = array("\\\\", "\\'", '<scr\' + \'ipt', '</scr\' + \'ipt');
+
+			if ($lines)
+				$last = array_pop($lines);
+
+			foreach ($lines as $line)
+				$js .= 'document.write(\''
+					.str_replace($search, $replace, $line)
+					."\\n');\n";
+
+			// Last line is not blank; we didn't end on a newline, 
+			// so don't spit one out
+			if ($last)
+				$js .= 'document.write(\''
+					.str_replace($search, $replace, $last)
+					."');\n";
+
+			return $js;
 
 		}
 
@@ -396,6 +444,12 @@
 
 			return substr($value, 0, $lastChar);
 			
+		}
+
+		public function __call($method, $args) {
+			if (isset($this->functions[$method]))
+				return call_user_func_array($this->functions[$method], $args);
+			trigger_error('Unknown function: '.$method, E_USER_WARNING);
 		}
 
 	}
