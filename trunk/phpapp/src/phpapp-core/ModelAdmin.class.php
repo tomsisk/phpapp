@@ -56,6 +56,7 @@
 		public $templateContext;
 		public $allowImport = true;
 		public $allowExport = true;
+		public $showEditLinks = true;
 		public $saveNew = false;
 		public $saveAndAdd = false;
 
@@ -599,7 +600,7 @@
 			if ($field instanceof RelationField) {
 				$targetadmin = $this->getAdmin()->findModelAdmin($field->relationName);
 				if ($targetadmin) {
-					if ($targetadmin->checkPermission('CREATE') && !$popup) {
+					if ($targetadmin->checkPermission('CREATE') && !$popup && $this->showEditLinks) {
 						$url = $targetadmin->relativeUrl('/addpopup/');
 						$html = '<a title="Add new '.strtolower($field->name).'" href="" onclick="popupField=\''.($fieldName ? $fieldName : $field->field).'\';popup(\''.$url.'\', 700, 700); return false;"><img src="'.$this->getAdmin()->getMediaRoot().'/images/blue_add.gif"/></a>';
 					}
