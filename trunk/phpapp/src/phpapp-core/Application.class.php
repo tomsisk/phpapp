@@ -107,17 +107,21 @@
 					foreach ($config['models'] as $mdir)
 						$roots[] = $mdir;
 
-				$qfSrc = $this->getAppVar($this->id.'_queryFactory');
-				$qfTS = $this->getAppVar($this->id.'_queryFactory_timestamp');
-				$updated = QueryFactory::preloadModelClasses($roots);
-				if ($qfSrc && $qfTS >= $updated) {
-					$this->query = unserialize($qfSrc);
-					$this->query->setConnection($db);
+				if (!isset($config['cache_models']) || $config['cache_models']) {
+					$qfSrc = $this->getAppVar($this->id.'_queryFactory');
+					$qfTS = $this->getAppVar($this->id.'_queryFactory_timestamp');
+					$updated = QueryFactory::preloadModelClasses($roots);
+					if ($qfSrc && $qfTS >= $updated) {
+						$this->query = unserialize($qfSrc);
+						$this->query->setConnection($db);
+					} else {
+						$this->query = new QueryFactory($db, $roots);
+						$updated = $this->query->precacheModels();
+						$this->setAppVar($this->id.'_queryFactory', serialize($this->query));
+						$this->setAppVar($this->id.'_queryFactory_timestamp', $updated);
+					}
 				} else {
 					$this->query = new QueryFactory($db, $roots);
-					$updated = $this->query->precacheModels();
-					$this->setAppVar($this->id.'_queryFactory', serialize($this->query));
-					$this->setAppVar($this->id.'_queryFactory_timestamp', $updated);
 				}
 
 				if (isset($config['debug']) && $config['debug'])
