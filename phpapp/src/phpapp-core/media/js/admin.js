@@ -53,6 +53,7 @@ function addPopupValue(value, desc) {
 		cont.appendChild(document.createTextNode(desc));
 		cont.appendChild(new Element('br'));
 	}
+	fieldChanged(popupField);
 	popupField = null;
 }
 
