@@ -540,7 +540,7 @@
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="modelquery/RelationSet.html#methodadd">RelationSet::add()</a> in RelationSet.class.php</div>
-							<div class="index-item-description">Add an object to this relation set.</div>
+							<div class="index-item-description">Add an object to this relation set. If the parent  object is already persistent (it exists in the database),  this will also invoke $object-&gt;save().</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">add</span>
@@ -798,6 +798,7 @@
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="modelquery/QueryFactory.html#methodcacheFlush">QueryFactory::cacheFlush()</a> in QueryFactory.class.php</div>
+							<div class="index-item-description">Remove all models from the in-memory cache.</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">cacheGet</span>
@@ -2791,7 +2792,7 @@
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="modelquery/RelationSet.html#methodremove">RelationSet::remove()</a> in RelationSet.class.php</div>
-							<div class="index-item-description">Remove an object from this relation set.</div>
+							<div class="index-item-description">Remove an object from this relation set.  If the  child $object is not allowed to exist without a  parent, the object will also be removed from the  database.</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">removeFirst</span>
@@ -2916,7 +2917,7 @@
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="modelquery/RelationSet.html#methodsave">RelationSet::save()</a> in RelationSet.class.php</div>
-							<div class="index-item-description">Save any unlinked objects</div>
+							<div class="index-item-description">Save any changes to this set. This is automatically  invoked when Model::save() is called on the relation  set's owner, and should never need to be called by  user code.</div>
 					</dd>
 			<dt class="field">
 						<span class="method-title">save</span>

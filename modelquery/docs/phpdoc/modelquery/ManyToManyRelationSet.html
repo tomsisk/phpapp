@@ -24,7 +24,7 @@
         		<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">An iterable set of related objects.</p>
 		<p class="notes">
-			Located in <a class="field" href="_RelationSet.class.php.html">/RelationSet.class.php</a> (line <span class="field"><a href="../__filesource/fsource_modelquery__RelationSet.class.php.html#a259">259</a></span>)
+			Located in <a class="field" href="_RelationSet.class.php.html">/RelationSet.class.php</a> (line <span class="field"><a href="../__filesource/fsource_modelquery__RelationSet.class.php.html#a274">274</a></span>)
 		</p>
 		
 				
@@ -130,7 +130,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__RelationSet.class.php.html#a261">261</a></span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__RelationSet.class.php.html#a276">276</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -166,7 +166,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">add</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__RelationSet.class.php.html#a278">278</a></span>)
+		<span class="method-title">add</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__RelationSet.class.php.html#a293">293</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -192,7 +192,7 @@
 		<div class="notes">Redefinition of:</div>
 		<dl>
 			<dt><a href="../modelquery/RelationSet.html#methodadd">RelationSet::add()</a></dt>
-						<dd>Add an object to this relation set.</dd>
+						<dd>Add an object to this relation set. If the parent  object is already persistent (it exists in the database),  this will also invoke $object-&gt;save().</dd>
 					</dl>
 			
 	</div>
@@ -200,7 +200,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getRelationQuery</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__RelationSet.class.php.html#a269">269</a></span>)
+		<span class="method-title">getRelationQuery</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__RelationSet.class.php.html#a284">284</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -223,7 +223,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">remove</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__RelationSet.class.php.html#a302">302</a></span>)
+		<span class="method-title">remove</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__RelationSet.class.php.html#a317">317</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -249,7 +249,7 @@
 		<div class="notes">Redefinition of:</div>
 		<dl>
 			<dt><a href="../modelquery/RelationSet.html#methodremove">RelationSet::remove()</a></dt>
-						<dd>Remove an object from this relation set.</dd>
+						<dd>Remove an object from this relation set.  If the  child $object is not allowed to exist without a  parent, the object will also be removed from the  database.</dd>
 					</dl>
 			
 	</div>
@@ -257,7 +257,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">save</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__RelationSet.class.php.html#a320">320</a></span>)
+		<span class="method-title">save</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__RelationSet.class.php.html#a335">335</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -278,7 +278,7 @@
 		<div class="notes">Redefinition of:</div>
 		<dl>
 			<dt><a href="../modelquery/RelationSet.html#methodsave">RelationSet::save()</a></dt>
-						<dd>Save any unlinked objects</dd>
+						<dd>Save any changes to this set. This is automatically  invoked when Model::save() is called on the relation  set's owner, and should never need to be called by  user code.</dd>
 					</dl>
 			
 	</div>
@@ -315,7 +315,7 @@
 
 
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 25 Feb 2011 14:38:27 -0600 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Tue, 29 Mar 2011 14:23:29 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
