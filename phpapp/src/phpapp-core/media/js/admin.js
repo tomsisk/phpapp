@@ -39,21 +39,23 @@ function popup(url, width, height) {
 
 var popupField = null;
 function addPopupValue(value, desc) {
-	var lists = $$('select[name='+popupField+']');
-	if (lists.length) {
-		lists[0].appendChild(new Element('option', { 'value' : value }).update(desc));
-		lists[0].selectedIndex = lists[0].options.length - 1;
+	var matches = $$('select[name='+popupField+']');
+	var field = null;
+	if (matches.length) {
+		field = matches[0];
+		field.appendChild(new Element('option', { 'value' : value }).update(desc));
+		field.selectedIndex = field.options.length - 1;
 	} else {
 		// Try radio/checkbox list
-		var radio = $$('input[name='+popupField+']');
-		if (radio && Object.isArray(radio))
-			radio = radio[0];
-		var cont = radio.parentNode;
-		cont.appendChild(new Element('input', {'type': radio.type, 'checked': true, 'value': value }));
+		field = $$('input[name='+popupField+']');
+		if (field && Object.isArray(field))
+			field = field[0];
+		var cont = field.parentNode;
+		cont.appendChild(new Element('input', {'type': field.type, 'checked': true, 'value': value }));
 		cont.appendChild(document.createTextNode(desc));
 		cont.appendChild(new Element('br'));
 	}
-	fieldChanged(popupField);
+	fieldChanged(field);
 	popupField = null;
 }
 
