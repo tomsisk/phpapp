@@ -63,6 +63,8 @@
 		 * this will also invoke $object->save().
 		 *
 		 * @param Model $object The new related object
+		 * @throws ValidationException If validation fails on an
+		 *		unsaved $object
 		 */
 		public function add($object) {
 			$this->relations[] = $object;
