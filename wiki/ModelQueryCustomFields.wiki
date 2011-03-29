@@ -1,7 +1,7 @@
 =Custom Field Types=
 
 In addition to the standard field types (defined in
-[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/_ModelFields.php.html ModelFields.php]),
+[http://jongsma.org/software/modelquery/docs/phpdoc/modelquery/_ModelFields.php.html ModelFields.php]),
 ModelQuery allows you to create your own custom field types.  The main role
 of a field definition object to to convert values to different
 formats:
@@ -10,7 +10,7 @@ formats:
   # Convert a value from a text representation (i.e. web form submissions) to a PHP type
   # Convert a value from a PHP type to the database format
 
-This is accomplished by extended [http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/ModelField.html ModelField]
+This is accomplished by extended [http://jongsma.org/software/modelquery/docs/phpdoc/modelquery/ModelField.html ModelField]
 and overriding the conversion methods:
 
 ===convertValue()===
@@ -26,7 +26,7 @@ and overriding the conversion methods:
   This method converts from the value format returned by the database
   driver into a native PHP type.  For example, with the MySQL driver, all
   date fields are returned as a string.  So,
-  [http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/DateTimeField.html DateTimeField]
+  [http://jongsma.org/software/modelquery/docs/phpdoc/modelquery/DateTimeField.html DateTimeField]
   parses that string and converts it to a UNIX timestamp to make it useful
   in PHP date functions.
 
@@ -42,7 +42,7 @@ and overriding the conversion methods:
 
 Let's say we want to create a custom field specifically for storing URLs.
 A URL is just stored as text, so we will extend
-[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/TextField.html TextField]:
+[http://jongsma.org/software/modelquery/docs/phpdoc/modelquery/TextField.html TextField]:
 
 {{{
 class URLField extends TextField {
@@ -59,7 +59,7 @@ to the database.  That is done with a !FieldValidator.
 ==Creating Validators for Custom Fields==
 
 Creating a custom validator for a field is done by defining a
-class that implements [http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/FieldValidator.html FieldValidator].
+class that implements [http://jongsma.org/software/modelquery/docs/phpdoc/modelquery/FieldValidator.html FieldValidator].
 
 {{{
 class URLValidator implements FieldValidator {
@@ -90,7 +90,7 @@ class URLValidator implements FieldValidator {
 Now that we have a validator defined for our field, we need to tell
 ModelQuery to use it when validating the model.  We'll do that in our
 field constructor, by calling
-[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/ModelField.html#addValidator ModelField::addValidator()]:
+[http://jongsma.org/software/modelquery/docs/phpdoc/modelquery/ModelField.html#addValidator ModelField::addValidator()]:
 
 {{{
 class URLField extends TextField {

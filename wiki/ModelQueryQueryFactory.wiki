@@ -1,6 +1,6 @@
 =Configure the Query Factory=
 
-[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/QueryFactory.html QueryFactory]
+[http://jongsma.org/software/modelquery/docs/phpdoc/modelquery/QueryFactory.html QueryFactory]
 is your entry point to ModelQuery.  All operations in ModelQuery start with getting a
 query handler from !QueryFactory.
 

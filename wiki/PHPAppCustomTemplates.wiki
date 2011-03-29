@@ -41,7 +41,7 @@ use your customized form. Or, to customize the module overview page:
 The following screenshot shows a customized `object_list.tpl` template that
 was created for a menu model instead of the standard paginated table:
 
-[http://home.jongsma.org/software/phpapp/docs/images/phpapp-admin-customtemplate.png http://home.jongsma.org/software/phpapp/docs/images/phpapp-admin-customtemplate-thumb.png]
+[http://jongsma.org/software/phpapp/docs/images/phpapp-admin-customtemplate.png http://jongsma.org/software/phpapp/docs/images/phpapp-admin-customtemplate-thumb.png]
 
 ==Useful Templates Variables and Methods==
 
@@ -63,7 +63,7 @@ Templates have several useful variables at their disposal during execution:
 || *$sectionurl* || The base URL of the current section (same as $modeladmin->relativeUrl('')) ||
 
 Since a template is executed in the context of a
-[http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/PhpAppTemplate.html PhpAppTemplate]
+[http://jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/PhpAppTemplate.html PhpAppTemplate]
 object, it also has access to several useful member methods:
 
 || Method || Purpose ||

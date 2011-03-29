@@ -1,6 +1,6 @@
 =Using the Application Object=
 
-The [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html Application]
+The [http://jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html Application]
 object is the central interface for interacting with your PHPApp
 application.  The Application object provides services such as:
 
@@ -39,7 +39,7 @@ $user = $userQuery->filter('username', 'jjongsma')->one()
 ==User Authentication==
 
 Authenticating a user is as simple as calling the
-[http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#login login()]
+[http://jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#login login()]
 method:
 
 {{{
@@ -82,9 +82,9 @@ $app->checkPermission() takes 4 parameters:
 There are several other useful methods for checking aggregate permissions over
 larger groups of objects:
 
-  * [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#checkModule checkModule()]: check if a user has any permissions within the specified module
-  * [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#checkAction checkAction()]: check if a user has permissions for a specific action on any object within the specified module
-  * [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#checkAccess checkAccess()]: check if a user has any permissions within the specified module, model or object
+  * [http://jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#checkModule checkModule()]: check if a user has any permissions within the specified module
+  * [http://jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#checkAction checkAction()]: check if a user has permissions for a specific action on any object within the specified module
+  * [http://jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#checkAccess checkAccess()]: check if a user has any permissions within the specified module, model or object
 
 ==Content Caching==
 
@@ -92,15 +92,15 @@ Application provides mechanisms to cache data by user, by current session,
 or globally.  How that cache mechanism works depends on the cache provider
 you are using, but the API is the same:
 
-  * [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#setUserVar set/getUserVar()]: cache a value for the user's current session.
-  * [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#setSessionVar set/getSessionVar()]: cache a value for the current session (not linked to a user.)
-  * [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#setAppVar set/getAppVar()]: cache a value globally (across requests).  Only works as expected if a supported cache provider is installed (currently XCache.)
+  * [http://jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#setUserVar set/getUserVar()]: cache a value for the user's current session.
+  * [http://jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#setSessionVar set/getSessionVar()]: cache a value for the current session (not linked to a user.)
+  * [http://jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#setAppVar set/getAppVar()]: cache a value globally (across requests).  Only works as expected if a supported cache provider is installed (currently XCache.)
 
 ==Sending Emails==
 
 If you've setup your mail server info in your configuration file, you can
 send emails using 
-[http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#authMail authMail()].
+[http://jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#authMail authMail()].
 
 {{{
 $app->authMail($to, $from, $subject, $message, $extraheaders);
@@ -111,17 +111,17 @@ The first four parameters are pretty self-explanatory.  The fifth,
 header names and values to add to the email.
 
 A shortcut for sending preconfigured email templates is available via
-[http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#sendMailTemplate sendMailTemplate()].
+[http://jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#sendMailTemplate sendMailTemplate()].
 
 ==Logging==
 
 You can also write log messages using the Application object, using the
 following methods:
 
-  * [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#logDebug logDebug()].
-  * [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#logInfo logInfo()].
-  * [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#logWarning logWarning()].
-  * [http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#logError logError()].
+  * [http://jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#logDebug logDebug()].
+  * [http://jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#logInfo logInfo()].
+  * [http://jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#logWarning logWarning()].
+  * [http://jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html#logError logError()].
 
 At this point, you should be ready to use the Application object as you
 build the public interface for your web application.

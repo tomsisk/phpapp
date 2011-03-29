@@ -148,7 +148,7 @@ $config['modules'] = array(
 
 The last step is to provide a nice user experience by copying over the
 graphical icons references in the definitions (via `$this->setIcon()`).
-[http://home.jongsma.org/software/phpapp/icons.zip Download the icon set]
+[http://jongsma.org/software/phpapp/icons.zip Download the icon set]
 and unzip them into your module's _media_ directory
 (`lib/example/modules/films/media`).
 
@@ -185,7 +185,7 @@ films
 }}}
 
 If your application is not functioning correctly at this point,
-[http://home.jongsma.org/software/phpapp/icons.zip download the module source]
+[http://jongsma.org/software/phpapp/icons.zip download the module source]
 we created for this tutorial and compare it to your code.
 
 ==Advanced Configuration==

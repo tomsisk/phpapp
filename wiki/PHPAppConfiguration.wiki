@@ -1,7 +1,7 @@
 =Application Configuration=
 
 To use PHPApp, you will need to create an
-[http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html Application]
+[http://jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Application.html Application]
 object for your app.
 
 _If you have copied the example app, this section is just for
@@ -47,7 +47,7 @@ uses the directory _config_ in the project root.)
 
 There is one main requirement for creating an Application instance:
 you must include a module that provides a User model, which extends
-[http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-modules/BaseUser.html BaseUser].
+[http://jongsma.org/software/phpapp/docs/phpdoc/phpapp-modules/BaseUser.html BaseUser].
 If you do not need to extend the default user model, you can just include the
 _phpapp-modules/users_ module itself (as in the example above).  For
 information on extending the default User model, see

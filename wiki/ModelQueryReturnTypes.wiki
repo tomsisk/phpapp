@@ -61,7 +61,7 @@ Disadvantages:
 A cursor is a pointer that allows you to iterate through results
 from the database one at a time, without loading the entire set
 into memory at once.  It returns a
-[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/CursorIterator.html CursorIterator]
+[http://jongsma.org/software/modelquery/docs/phpdoc/modelquery/CursorIterator.html CursorIterator]
 object, which can be treated like an array in foreach loops, but only loads
 records one at a time as they are accessed.
 

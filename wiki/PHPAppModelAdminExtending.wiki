@@ -41,8 +41,8 @@ Parameters:
 Return Value: The return value of your action is a string specifying
 the URL you want to redirect to (useful functions to help you generate
 a redirect URL:
-[http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/ModelAdmin.html#relativeUrl ModelAdmin::relativeUrl()],
-[http://home.jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Module.html#relativeUrl Module::relativeUrl()].)
+[http://jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/ModelAdmin.html#relativeUrl ModelAdmin::relativeUrl()],
+[http://jongsma.org/software/phpapp/docs/phpdoc/phpapp-core/Module.html#relativeUrl Module::relativeUrl()].)
 
 ==Default Actions==
 

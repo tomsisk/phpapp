@@ -54,7 +54,7 @@ This example specifies that the "Site" model is the master model for this
 module.  Now, when you go to the "Site Content" module, things look a little
 different:
 
-http://home.jongsma.org/software/phpapp/docs/images/drill-down-sidebar.png
+http://jongsma.org/software/phpapp/docs/images/drill-down-sidebar.png
 
 First, notice that the module sidebar now has a heading, naming the currently
 active model filter ("Test 2"), followed by some links to allow you to add a
@@ -62,7 +62,7 @@ new site or select another site to work with.  If you click "Select another
 site", you will be presented with a popup window to choose a new site to work
 on:
 
-http://home.jongsma.org/software/phpapp/docs/images/drill-down-filter-popup.png
+http://jongsma.org/software/phpapp/docs/images/drill-down-filter-popup.png
 
 Second, where the "Sites" model usually would be displayed, it now says
 "Site Details".  If you click on it, instead of seeing a list of all
@@ -118,11 +118,11 @@ _Note: if a user only has permission to access to a single instance of
 the base filter (in this case Account), it will be automatically
 selected for them and does not require this step._
 
-http://home.jongsma.org/software/phpapp/docs/images/drill-down-base-filter.png
+http://jongsma.org/software/phpapp/docs/images/drill-down-base-filter.png
 
 Once the customer is selected, then all available modules are displayed,
 including our Site Content module:
 
-http://home.jongsma.org/software/phpapp/docs/images/drill-down-base-filter-selected.png
+http://jongsma.org/software/phpapp/docs/images/drill-down-base-filter-selected.png
 
 Now when you click on the Site Content module, you can select a site as before.

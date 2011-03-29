@@ -4,4 +4,4 @@ ModelQuery is a easy-to-use database API.  Key features include data validation,
 
   * [ModelQueryFeatures Features]
   * [ModelQueryTutorial Tutorial]
-  * [http://home.jongsma.org/software/modelquery/docs/phpdoc/ API Reference]
+  * [http://jongsma.org/software/modelquery/docs/phpdoc/ API Reference]

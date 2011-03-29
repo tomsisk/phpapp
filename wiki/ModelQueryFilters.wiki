@@ -24,7 +24,7 @@ $film = $fq->get(1);
 
 Queries in ModelQuery work using a _chain of query filters_.  Many query methods
 add a filter, and returns a new
-[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/QueryFilter.html QueryFilter]
+[http://jongsma.org/software/modelquery/docs/phpdoc/modelquery/QueryFilter.html QueryFilter]
 object at the end of the filter chain.
 
 A !QueryFilter represents the current state of the query; it does not actually
@@ -55,7 +55,7 @@ The following methods are usually the most frequently used in queries:
   * get()
 
 For details on their parameters, and a full list of other filter methods, see the API docs for
-[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/QueryFilter.html QueryFilter].
+[http://jongsma.org/software/modelquery/docs/phpdoc/modelquery/QueryFilter.html QueryFilter].
 
 ==Filter Chaining==
 
@@ -106,7 +106,7 @@ This filter uses a modifier (_gte_) that tells ModelQuery to filter by all
 films that have a release date _greater than or equal to_ Jan 1, 2001.
 
 For a full list of available modifiers, see the API docs for
-[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/QueryFilter.html#methodfilter QueryFilter::filter()].
+[http://jongsma.org/software/modelquery/docs/phpdoc/modelquery/QueryFilter.html#methodfilter QueryFilter::filter()].
 
 ==Filters Referencing Related Objects==
 
@@ -130,7 +130,7 @@ Although lazy-loading is a nice default feature to prevent excessive
 queries and joins when they're not needed, there will be times when
 you _know_ you will need access to a related object immediately, and
 you don't want to make unnecessary queries to the database.  This is what
-[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/QueryFilter.html#methodpreload QueryFilter::preload()]
+[http://jongsma.org/software/modelquery/docs/phpdoc/modelquery/QueryFilter.html#methodpreload QueryFilter::preload()]
 is for.
 
 When you call preload(), ModelQuery will attempt to make the necessary

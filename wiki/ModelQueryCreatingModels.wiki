@@ -23,7 +23,7 @@ $actor->save();
 echo $actor->id;
 }}}
 
-The [http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/QueryHandler.html#create create()]
+The [http://jongsma.org/software/modelquery/docs/phpdoc/modelquery/QueryHandler.html#create create()]
 method has several optional parameters that help you create and populate
 a model with one call:
 
@@ -61,7 +61,7 @@ $actor->save();
 }}}
 
 If you have a model already loaded that you want to update, these methods internally just call 
-[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/Model.html#updateModel Model::updateModel()],
+[http://jongsma.org/software/modelquery/docs/phpdoc/modelquery/Model.html#updateModel Model::updateModel()],
 which you can also call manually.
 
 Now that we know how to create new models, let's add a few to our database:

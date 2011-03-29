@@ -42,7 +42,7 @@ class Actor extends Model {
 }}}
 
 All of your model definitions will extend the base class
-[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/Model.html Model].
+[http://jongsma.org/software/modelquery/docs/phpdoc/modelquery/Model.html Model].
 When ModelQuery initializes your model definitions, it calls the configure()
 method to setup the object, which you must override in your model definition.
 This is where all the configuration happens.
@@ -59,10 +59,10 @@ All field objects take an "options" parameter.  This is an array of configuratio
 options for the field.  The positioning of this parameter depends on the field type.
 For !IntegerField, it is the second parameter; for !CharField, it is the third.  For
 standard options available to all fields, see the 
-[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/ModelField.html ModelField API docs].
+[http://jongsma.org/software/modelquery/docs/phpdoc/modelquery/ModelField.html ModelField API docs].
 
 For a complete list of available fields, see the 
-[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/_ModelFields.php.html ModelFields API docs]
+[http://jongsma.org/software/modelquery/docs/phpdoc/modelquery/_ModelFields.php.html ModelFields API docs]
 
 _IMPORTANT NOTE:_ By default, ModelQuery maps models to table names using the following
 rules:
@@ -100,7 +100,7 @@ class Film extends Model {
 In addition to using some new field types, this model introduces the concept of
 a _relation field_.  A relation field represents a link between two objects.  In
 database terms, a
-[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/ManyToOneField.html ManyToOneField]
+[http://jongsma.org/software/modelquery/docs/phpdoc/modelquery/ManyToOneField.html ManyToOneField]
 maps to a FOREIGN KEY field. The first parameter is a human-readable
 description (as always). The second parameter is the name of the model that this field
 links to (Director).
@@ -143,7 +143,7 @@ class Director extends Model {
 }
 }}}
 
-A [http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/OneToManyField.html OneToManyField]
+A [http://jongsma.org/software/modelquery/docs/phpdoc/modelquery/OneToManyField.html OneToManyField]
 is just the inverse of a !ManyToOneField.  In the field definition above,
 we are telling ModelQuery to query for the set of Films linked to this director by
 looking at the "Film" model definition, and selecting all films where the "director"
@@ -155,7 +155,7 @@ at `Film::$director`.  If you need to override the join field name, use the
 "joinField" option in !OneToManyField's options array.
 
 Accessing this field (`$director->films`) returns a
-[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/RelationSet.html RelationSet]
+[http://jongsma.org/software/modelquery/docs/phpdoc/modelquery/RelationSet.html RelationSet]
 object that contains all Film instances that are linked to this Director
 object (lazy-loaded, again).  You can treat it just like an array for iteration in a
 foreach loop, but it also has `add()` and `remove()` methods for managing the related
@@ -208,7 +208,7 @@ class Film extends Model {
 }}}
 
 The first parameter of
-[http://home.jongsma.org/software/modelquery/docs/phpdoc/modelquery/ManyToManyField.html ManyToManyField]
+[http://jongsma.org/software/modelquery/docs/phpdoc/modelquery/ManyToManyField.html ManyToManyField]
 is the human-readable description, the second is the name of the model
 we are linking to, and the third is the name of the "glue" model.  The expected join field
 names in the glue model are just the model names, in underscore-notation (see top of page).
