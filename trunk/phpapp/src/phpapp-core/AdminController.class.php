@@ -39,12 +39,13 @@
 		public $filters;
 		public $filterObjects;
 		public $plugins = array();
+		public $forceAccessFilter = false;
 
 		public $templateContext;
 
 		private $modelCache = array();
 
-		public function __construct(&$app, $prefix = '') {
+		public function __construct(&$app, $prefix = '', $public = false) {
 
 			$this->app =& $app;
 			$this->prefix = $prefix;
@@ -56,6 +57,8 @@
 			$this->appName = $app->getName();
 			$this->filters = $app->getUserVar('adminFilters');
 			if (!$this->filters) $this->filters = array();
+
+			$this->forceAccessFilter = $public;
 
 			$mods = $app->getModules();
 

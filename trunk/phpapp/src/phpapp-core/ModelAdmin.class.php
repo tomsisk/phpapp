@@ -80,6 +80,7 @@
 		public $fieldOptions;
 		public $deleteConfirm = false;
 		public $supertype;
+		public $forceAccessFilter = false;
 
 		public function  __construct($modelClass, $module, $id = null, $subtypes = null) {
 			$this->modelClass = $modelClass;
@@ -90,6 +91,9 @@
 
 			// Prime prototype; test for cache
 			$this->getPrototype();
+
+			// Strip out ADMIN privileges for bypassing model access filters
+			$this->forceAccessFilter = $module->admin->forceAccessFilter;
 
 			$this->registerActionHandler(null, array('StockActions', 'showObjectList'));
 			$this->registerActionHandler('add', array('StockActions', 'doObjectAdd'));
@@ -960,7 +964,7 @@
 				$user = $this->getUser();
 				foreach ($this->modelAccess as $field => $userpath) {
 					$relation = $user;
-					$relmodel = null;
+					$relmodel = get_class($user);
 					if ($userpath) {
 						$path = explode('.', $userpath);
 						foreach ($path as $rel) {
@@ -968,10 +972,12 @@
 							$relation = $relation->$rel;
 						}
 					}
-					if ($relmodel == $this->module->requiredFilter)
+					if ($relmodel == $this->module->requiredFilter
+							&& $this->module->admin->getFilter($relmodel)) {
 						$access[$field] = $this->module->admin->getFilter($relmodel);
-					elseif ($relation && !$this->checkPermission('ADMIN'))
+					} elseif ($this->forceAccessFilter || ($relation && !$this->checkPermission('ADMIN'))) {
 						$access[$field] = $relation->pk;
+					}
 				}
 				$this->resolvedModelAccess = $access;
 			}
