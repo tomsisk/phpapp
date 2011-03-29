@@ -227,6 +227,8 @@
 			if (!$object) $object = $this->getPrototype();
 			$field = null;
 			$prefix = null;
+			$eparent = null;
+			$eprefix = null;
 			if (strpos($fieldname, '.') !== false) {
 				$fieldpath = explode('.', $fieldname);
 				for ($i = 0; $i < count($fieldpath); ++$i) {
@@ -236,6 +238,10 @@
 						if ($field instanceof RelationSetField) {
 							$object = $field->getRelationModel();
 						} else {
+							if ($object->$fieldname instanceof EmbeddedModel) {
+								$eparent = $object;
+								$eprefix = implode('.', array_slice($fieldpath, $i));
+							}
 							$object = $object->$fieldname;
 							if (!$object && $field instanceof RelationField)
 								$object = $field->getRelationModel();
@@ -246,7 +252,7 @@
 			} else {
 				$field = $object->_fields[$fieldname];
 			}
-			return array($field, $object, $prefix);
+			return array($field, $object, $prefix, $eparent, $eprefix);
 		}
 
 		public function findField($fieldname, $object = null) {
@@ -1152,11 +1158,15 @@
 			$orig = $object;
 
 			if (!is_object($field))
-				list($field, $object, $prefix) = $this->findFieldAndObject($field, $object);
-			
-			$fieldName = $field->field;
-			if ($orig !== $object)
-				$modeladmin = $this->getAdmin()->findModelAdmin($object);
+				list($field, $object, $prefix, $eparent, $efield) = $this->findFieldAndObject($field, $object);
+
+			$fieldName = $efield ? $efield : $field->field;
+			if ($orig !== $object) {
+				if ($eparent)
+					$parent = $eparent;
+				else
+					$modeladmin = $this->getAdmin()->findModelAdmin($object);
+			}
 
 			if ((isset($field->options['editable']) && $field->options['editable'])
 					|| (isset($field->options['readonly']) && $field->options['readonly']))
