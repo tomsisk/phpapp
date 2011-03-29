@@ -23,7 +23,7 @@
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
 		<p class="notes">
-			Located in <a class="field" href="_phpapp-core---PhpAppTemplate.class.php.html">/phpapp-core/PhpAppTemplate.class.php</a> (line <span class="field">101</span>)
+			Located in <a class="field" href="_phpapp-core---PhpAppTemplate.class.php.html">/phpapp-core/PhpAppTemplate.class.php</a> (line <span class="field">155</span>)
 		</p>
 		
 				
@@ -46,9 +46,13 @@
 								</div>
 		<div class="info-box-body">
 			<div class="var-summary">
-																																								<div class="var-title">
+																																																<div class="var-title">
 					<span class="var-type">mixed</span>
 					<a href="#$context" title="details" class="var-name">$context</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$functions" title="details" class="var-name">$functions</a>
 				</div>
 																<div class="var-title">
 					<span class="var-type">mixed</span>
@@ -74,7 +78,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																												
+																																												
 												<div class="method-definition">
 											<span class="method-result">PhpAppTemplateContext</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
@@ -87,8 +91,18 @@
 									</div>
 																<div class="method-definition">
 											<span class="method-result">void</span>
+										<a href="#getFunctions" title="details" class="method-name">getFunctions</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
 										<a href="#getTemplate" title="details" class="method-name">getTemplate</a>
 											(<span class="var-type"></span>&nbsp;<span class="var-name">$template</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#renderTemplate" title="details" class="method-name">renderTemplate</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$template</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$context</span> = <span class="var-default">null</span>])
 									</div>
 								</div>
 		</div>
@@ -108,13 +122,34 @@
 					</div>
 		<div class="info-box-body">
 			<a name="var$context" id="$context"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$context</span>
-			 = <span class="var-default">array()</span>			(line <span class="line-number">103</span>)
+			 = <span class="var-default">array()</span>			(line <span class="line-number">157</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$functions" id="$functions"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$functions</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number">159</span>)
 		</span>
 	</div>
 
@@ -135,7 +170,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$parent</span>
-						(line <span class="line-number">106</span>)
+						(line <span class="line-number">161</span>)
 		</span>
 	</div>
 
@@ -156,7 +191,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$resolver</span>
-						(line <span class="line-number">104</span>)
+						(line <span class="line-number">158</span>)
 		</span>
 	</div>
 
@@ -190,7 +225,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">108</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">163</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -221,7 +256,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getContext</span> (line <span class="line-number">118</span>)
+		<span class="method-title">getContext</span> (line <span class="line-number">173</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -240,11 +275,34 @@
 		
 			
 	</div>
-<a name="methodgetTemplate" id="getTemplate"><!-- --></a>
+<a name="methodgetFunctions" id="getFunctions"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getTemplate</span> (line <span class="line-number">124</span>)
+		<span class="method-title">getFunctions</span> (line <span class="line-number">179</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getFunctions
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetTemplate" id="getTemplate"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getTemplate</span> (line <span class="line-number">185</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -268,13 +326,44 @@
 		
 			
 	</div>
+<a name="methodrenderTemplate" id="renderTemplate"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">renderTemplate</span> (line <span class="line-number">192</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			renderTemplate
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$template</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$context</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$template</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$context</span>			</li>
+				</ul>
+		
+			
+	</div>
 						
 		</div>
 	</div>
 
 
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 25 Feb 2011 14:37:07 -0600 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Tue, 29 Mar 2011 14:25:07 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
