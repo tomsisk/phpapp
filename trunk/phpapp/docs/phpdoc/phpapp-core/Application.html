@@ -23,7 +23,7 @@
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
 		<p class="notes">
-			Located in <a class="field" href="_phpapp-core---Application.class.php.html">/phpapp-core/Application.class.php</a> (line <span class="field"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a32">32</a></span>)
+			Located in <a class="field" href="_phpapp-core---Application.class.php.html">/phpapp-core/Application.class.php</a> (line <span class="field"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a33">33</a></span>)
 		</p>
 		
 				
@@ -46,7 +46,7 @@
 								</div>
 		<div class="info-box-body">
 			<div class="var-summary">
-																																																																																																																																																																																<div class="var-title">
+																																																																																																																																																																								<div class="var-title">
 					<span class="var-type">mixed</span>
 					<a href="#$appRoot" title="details" class="var-name">$appRoot</a>
 				</div>
@@ -69,10 +69,6 @@
 																<div class="var-title">
 					<span class="var-type">mixed</span>
 					<a href="#$id" title="details" class="var-name">$id</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">mixed</span>
-					<a href="#$isRendering" title="details" class="var-name">$isRendering</a>
 				</div>
 																<div class="var-title">
 					<span class="var-type">mixed</span>
@@ -108,15 +104,15 @@
 				</div>
 																<div class="var-title">
 					<span class="var-type">mixed</span>
-					<a href="#$siteTemplate" title="details" class="var-name">$siteTemplate</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">mixed</span>
 					<a href="#$smarty" title="details" class="var-name">$smarty</a>
 				</div>
 																<div class="var-title">
 					<span class="var-type">mixed</span>
 					<a href="#$startTime" title="details" class="var-name">$startTime</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$templateFactory" title="details" class="var-name">$templateFactory</a>
 				</div>
 																<div class="var-title">
 					<span class="var-type">mixed</span>
@@ -142,7 +138,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
 												<div class="method-definition">
 											<span class="method-result">Application</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
@@ -245,6 +241,11 @@
 									</div>
 																<div class="method-definition">
 											<span class="method-result">void</span>
+										<a href="#getLocalCache" title="details" class="method-name">getLocalCache</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$url</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$timeout</span> = <span class="var-default">600</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
 										<a href="#getLogTimestamp" title="details" class="method-name">getLogTimestamp</a>
 											([<span class="var-type"></span>&nbsp;<span class="var-name">$basetime</span> = <span class="var-default">null</span>])
 									</div>
@@ -290,13 +291,38 @@
 									</div>
 																<div class="method-definition">
 											<span class="method-result">void</span>
+										<a href="#getTemplateFactory" title="details" class="method-name">getTemplateFactory</a>
+											([<span class="var-type"></span>&nbsp;<span class="var-name">$resolver</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
 										<a href="#getUser" title="details" class="method-name">getUser</a>
 										()
 									</div>
 																<div class="method-definition">
 											<span class="method-result">void</span>
+										<a href="#getUserById" title="details" class="method-name">getUserById</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#getUserByUsername" title="details" class="method-name">getUserByUsername</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$username</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$password</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
 										<a href="#getUserId" title="details" class="method-name">getUserId</a>
 										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#getUserPermissions" title="details" class="method-name">getUserPermissions</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$user</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#getUserPreferences" title="details" class="method-name">getUserPreferences</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$user</span>)
 									</div>
 																<div class="method-definition">
 											<span class="method-result">void</span>
@@ -471,13 +497,13 @@
 					</div>
 		<div class="info-box-body">
 			<a name="var$appRoot" id="$appRoot"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$appRoot</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a48">48</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a49">49</a></span>)
 		</span>
 	</div>
 
@@ -492,13 +518,13 @@
 
 </div>
 <a name="var$authKey" id="$authKey"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$authKey</span>
-			 = <span class="var-default"> 'VU@$FDSJLK7*(&amp;sdf0989SD8^&amp;fd@#$'</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a45">45</a></span>)
+			 = <span class="var-default"> 'VU@$FDSJLK7*(&amp;sdf0989SD8^&amp;fd@#$'</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a46">46</a></span>)
 		</span>
 	</div>
 
@@ -513,13 +539,13 @@
 
 </div>
 <a name="var$baseUrl" id="$baseUrl"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$baseUrl</span>
-			 = <span class="var-default"> ''</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a49">49</a></span>)
+			 = <span class="var-default"> ''</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a50">50</a></span>)
 		</span>
 	</div>
 
@@ -534,13 +560,13 @@
 
 </div>
 <a name="var$config" id="$config"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$config</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a36">36</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a37">37</a></span>)
 		</span>
 	</div>
 
@@ -555,13 +581,13 @@
 
 </div>
 <a name="var$fileCache" id="$fileCache"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$fileCache</span>
-			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a40">40</a></span>)
+			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a41">41</a></span>)
 		</span>
 	</div>
 
@@ -576,34 +602,13 @@
 
 </div>
 <a name="var$id" id="$id"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>
-			<span class="var-name">$id</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a34">34</a></span>)
-		</span>
-	</div>
-
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-			</ul>
-	
-	
-		
-		
-
-</div>
-<a name="var$isRendering" id="$isRendering"><!-- --></A>
 <div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
-			<span class="var-name">$isRendering</span>
-			 = <span class="var-default"> false</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a38">38</a></span>)
+			<span class="var-name">$id</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a35">35</a></span>)
 		</span>
 	</div>
 
@@ -624,7 +629,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$lastDebug</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a47">47</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a48">48</a></span>)
 		</span>
 	</div>
 
@@ -666,7 +671,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$modules</span>
-			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a50">50</a></span>)
+			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a51">51</a></span>)
 		</span>
 	</div>
 
@@ -687,7 +692,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$name</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a35">35</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a36">36</a></span>)
 		</span>
 	</div>
 
@@ -708,7 +713,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$path</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a51">51</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a52">52</a></span>)
 		</span>
 	</div>
 
@@ -729,7 +734,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$permCache</span>
-			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a39">39</a></span>)
+			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a40">40</a></span>)
 		</span>
 	</div>
 
@@ -750,7 +755,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$preferences</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a44">44</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a45">45</a></span>)
 		</span>
 	</div>
 
@@ -771,28 +776,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$query</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a41">41</a></span>)
-		</span>
-	</div>
-
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-			</ul>
-	
-	
-		
-		
-
-</div>
-<a name="var$siteTemplate" id="$siteTemplate"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>
-			<span class="var-name">$siteTemplate</span>
-			 = <span class="var-default"> 'templates/default.tpl'</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a52">52</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a42">42</a></span>)
 		</span>
 	</div>
 
@@ -807,13 +791,13 @@
 
 </div>
 <a name="var$smarty" id="$smarty"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$smarty</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a37">37</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a38">38</a></span>)
 		</span>
 	</div>
 
@@ -828,19 +812,40 @@
 
 </div>
 <a name="var$startTime" id="$startTime"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$startTime</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a46">46</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a47">47</a></span>)
 		</span>
 	</div>
 
 	<!-- ========== Info from phpDoc block ========= -->
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$templateFactory" id="$templateFactory"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$templateFactory</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a39">39</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
 			</ul>
 	
 	
@@ -855,7 +860,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$user</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a43">43</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a44">44</a></span>)
 		</span>
 	</div>
 
@@ -876,7 +881,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$userQuery</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a42">42</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a43">43</a></span>)
 		</span>
 	</div>
 
@@ -947,7 +952,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">authMail</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a633">633</a></span>)
+		<span class="method-title">authMail</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a688">688</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -987,7 +992,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">autoLogin</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a515">515</a></span>)
+		<span class="method-title">autoLogin</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a526">526</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1010,7 +1015,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">checkAccess</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a349">349</a></span>)
+		<span class="method-title">checkAccess</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a363">363</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1044,7 +1049,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">checkAction</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a327">327</a></span>)
+		<span class="method-title">checkAction</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a341">341</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1078,7 +1083,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">checkMailAuth</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a694">694</a></span>)
+		<span class="method-title">checkMailAuth</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a749">749</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1109,7 +1114,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">checkModule</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a322">322</a></span>)
+		<span class="method-title">checkModule</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a336">336</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1137,7 +1142,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">checkMultiPermission</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a381">381</a></span>)
+		<span class="method-title">checkMultiPermission</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a395">395</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1174,7 +1179,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">checkPermission</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a363">363</a></span>)
+		<span class="method-title">checkPermission</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a377">377</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1211,7 +1216,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">clearPreference</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a307">307</a></span>)
+		<span class="method-title">clearPreference</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a321">321</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1239,7 +1244,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">elapsedTime</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a748">748</a></span>)
+		<span class="method-title">elapsedTime</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a803">803</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1267,7 +1272,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">fetchCacheFile</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a265">265</a></span>)
+		<span class="method-title">fetchCacheFile</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a281">281</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1298,7 +1303,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">fileExistsInPath</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a717">717</a></span>)
+		<span class="method-title">fileExistsInPath</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a772">772</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1326,7 +1331,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">findFileInPath</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a726">726</a></span>)
+		<span class="method-title">findFileInPath</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a781">781</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1354,7 +1359,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getActionPermissions</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a439">439</a></span>)
+		<span class="method-title">getActionPermissions</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a453">453</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1388,7 +1393,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getAppRoot</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a161">161</a></span>)
+		<span class="method-title">getAppRoot</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a167">167</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1411,7 +1416,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getAppVar</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a228">228</a></span>)
+		<span class="method-title">getAppVar</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a234">234</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1439,7 +1444,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getBaseUrl</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a157">157</a></span>)
+		<span class="method-title">getBaseUrl</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a163">163</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1462,7 +1467,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getCacheFile</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a254">254</a></span>)
+		<span class="method-title">getCacheFile</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a260">260</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1490,7 +1495,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getCachePath</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a236">236</a></span>)
+		<span class="method-title">getCachePath</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a242">242</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1517,11 +1522,39 @@
 		
 			
 	</div>
-<a name="methodgetLogTimestamp" id="getLogTimestamp"><!-- --></a>
+<a name="methodgetLocalCache" id="getLocalCache"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getLogTimestamp</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a755">755</a></span>)
+		<span class="method-title">getLocalCache</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a271">271</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getLocalCache
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$url</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$timeout</span> = <span class="var-default">600</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$url</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$timeout</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetLogTimestamp" id="getLogTimestamp"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getLogTimestamp</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a810">810</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1546,10 +1579,10 @@
 			
 	</div>
 <a name="methodgetMailAuth" id="getMailAuth"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getMailAuth</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a698">698</a></span>)
+		<span class="method-title">getMailAuth</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a753">753</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1574,10 +1607,10 @@
 			
 	</div>
 <a name="methodgetModules" id="getModules"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getModules</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a149">149</a></span>)
+		<span class="method-title">getModules</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a155">155</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1597,10 +1630,10 @@
 			
 	</div>
 <a name="methodgetName" id="getName"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getName</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a145">145</a></span>)
+		<span class="method-title">getName</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a151">151</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1620,10 +1653,10 @@
 			
 	</div>
 <a name="methodgetObjectPermissions" id="getObjectPermissions"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getObjectPermissions</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a451">451</a></span>)
+		<span class="method-title">getObjectPermissions</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a465">465</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1654,10 +1687,10 @@
 			
 	</div>
 <a name="methodgetPermissions" id="getPermissions"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getPermissions</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a316">316</a></span>)
+		<span class="method-title">getPermissions</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a330">330</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1677,10 +1710,10 @@
 			
 	</div>
 <a name="methodgetPreference" id="getPreference"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getPreference</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a279">279</a></span>)
+		<span class="method-title">getPreference</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a293">293</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1708,10 +1741,10 @@
 			
 	</div>
 <a name="methodgetPreferences" id="getPreferences"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getPreferences</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a269">269</a></span>)
+		<span class="method-title">getPreferences</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a285">285</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1736,10 +1769,10 @@
 			
 	</div>
 <a name="methodgetSessionVar" id="getSessionVar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getSessionVar</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a195">195</a></span>)
+		<span class="method-title">getSessionVar</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a201">201</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1766,11 +1799,39 @@
 		
 			
 	</div>
+<a name="methodgetTemplateFactory" id="getTemplateFactory"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getTemplateFactory</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a639">639</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getTemplateFactory
+		</span>
+					([<span class="var-type"></span>&nbsp;<span class="var-name">$resolver</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$resolver</span>			</li>
+				</ul>
+		
+			
+	</div>
 <a name="methodgetUser" id="getUser"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getUser</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a165">165</a></span>)
+		<span class="method-title">getUser</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a171">171</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1789,11 +1850,71 @@
 		
 			
 	</div>
+<a name="methodgetUserById" id="getUserById"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getUserById</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a549">549</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Extend these next functions to override user authentication.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getUserById
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$id</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetUserByUsername" id="getUserByUsername"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getUserByUsername</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a554">554</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getUserByUsername
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$username</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$password</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$username</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$password</span>			</li>
+				</ul>
+		
+			
+	</div>
 <a name="methodgetUserId" id="getUserId"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getUserId</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a174">174</a></span>)
+		<span class="method-title">getUserId</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a180">180</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1812,11 +1933,67 @@
 		
 			
 	</div>
+<a name="methodgetUserPermissions" id="getUserPermissions"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getUserPermissions</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a566">566</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getUserPermissions
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$user</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$user</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetUserPreferences" id="getUserPreferences"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getUserPreferences</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a561">561</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getUserPreferences
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$user</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$user</span>			</li>
+				</ul>
+		
+			
+	</div>
 <a name="methodgetUserVar" id="getUserVar"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getUserVar</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a210">210</a></span>)
+		<span class="method-title">getUserVar</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a216">216</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1847,7 +2024,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">hasCreateOrEditPermission</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a481">481</a></span>)
+		<span class="method-title">hasCreateOrEditPermission</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a495">495</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1881,7 +2058,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">isLoggedIn</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a507">507</a></span>)
+		<span class="method-title">isLoggedIn</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a518">518</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1904,7 +2081,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">logDebug</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a762">762</a></span>)
+		<span class="method-title">logDebug</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a817">817</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1935,7 +2112,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">logError</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a777">777</a></span>)
+		<span class="method-title">logError</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a832">832</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1966,7 +2143,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">login</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a491">491</a></span>)
+		<span class="method-title">login</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a505">505</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2000,7 +2177,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">logInfo</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a769">769</a></span>)
+		<span class="method-title">logInfo</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a824">824</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2031,7 +2208,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">logout</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a544">544</a></span>)
+		<span class="method-title">logout</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a603">603</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2054,7 +2231,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">logWarning</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a773">773</a></span>)
+		<span class="method-title">logWarning</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a828">828</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2085,7 +2262,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">pluralize</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a586">586</a></span>)
+		<span class="method-title">pluralize</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a624">624</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2113,7 +2290,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">randomToken</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a535">535</a></span>)
+		<span class="method-title">randomToken</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a594">594</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2141,7 +2318,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">relativeRedirect</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a709">709</a></span>)
+		<span class="method-title">relativeRedirect</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a764">764</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2169,7 +2346,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">relativeUrl</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a713">713</a></span>)
+		<span class="method-title">relativeUrl</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a768">768</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2197,7 +2374,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">requireLogin</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a511">511</a></span>)
+		<span class="method-title">requireLogin</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a522">522</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2220,7 +2397,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">sendMailTemplate</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a656">656</a></span>)
+		<span class="method-title">sendMailTemplate</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a711">711</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2263,7 +2440,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">setAppVar</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a219">219</a></span>)
+		<span class="method-title">setAppVar</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a225">225</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2294,7 +2471,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">setBaseUrl</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a153">153</a></span>)
+		<span class="method-title">setBaseUrl</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a159">159</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2322,7 +2499,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">setPreference</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a289">289</a></span>)
+		<span class="method-title">setPreference</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a303">303</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2353,7 +2530,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">setSessionVar</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a189">189</a></span>)
+		<span class="method-title">setSessionVar</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a195">195</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2384,7 +2561,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">setUser</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a181">181</a></span>)
+		<span class="method-title">setUser</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a187">187</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2412,7 +2589,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">setUserVar</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a202">202</a></span>)
+		<span class="method-title">setUserVar</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a208">208</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2443,7 +2620,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">start</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a132">132</a></span>)
+		<span class="method-title">start</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a138">138</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2471,7 +2648,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">stop</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a141">141</a></span>)
+		<span class="method-title">stop</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a147">147</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2494,7 +2671,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">toString</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a595">595</a></span>)
+		<span class="method-title">toString</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a633">633</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2522,7 +2699,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">_checkObjectPermission</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a423">423</a></span>)
+		<span class="method-title">_checkObjectPermission</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a437">437</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2559,7 +2736,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">_createSession</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a549">549</a></span>)
+		<span class="method-title">_createSession</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a608">608</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2587,7 +2764,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">_destroySession</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a582">582</a></span>)
+		<span class="method-title">_destroySession</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a620">620</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2610,7 +2787,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">_getObjectActions</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a430">430</a></span>)
+		<span class="method-title">_getObjectActions</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a444">444</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2644,7 +2821,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">_parsePermissions</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a467">467</a></span>)
+		<span class="method-title">_parsePermissions</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a481">481</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2672,7 +2849,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">_refreshPermissions</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a556">556</a></span>)
+		<span class="method-title">_refreshPermissions</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a615">615</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2695,7 +2872,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">__get</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a702">702</a></span>)
+		<span class="method-title">__get</span> (line <span class="line-number"><a href="../__filesource/fsource_phpapp-core__phpapp-coreApplication.class.php.html#a757">757</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2725,7 +2902,7 @@
 
 
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 25 Feb 2011 14:37:02 -0600 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Tue, 29 Mar 2011 14:25:03 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
