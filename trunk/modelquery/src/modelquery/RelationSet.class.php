@@ -46,12 +46,22 @@
 		}
 
 		/**
-		 * Save any unlinked objects
+		 * Save any changes to this set. This is automatically
+		 * invoked when Model::save() is called on the relation
+		 * set's owner, and should never need to be called by
+		 * user code.
+		 *
+		 * Note that if the set owner has been previously saved to
+		 * the database, add() and remove() calls are instantaneous,
+		 * and this method does nothing.
 		 */
 		abstract public function save();
 
 		/**
-		 * Add an object to this relation set.
+		 * Add an object to this relation set. If the parent
+		 * object is already persistent (it exists in the database),
+		 * this will also invoke $object->save().
+		 *
 		 * @param Model $object The new related object
 		 */
 		public function add($object) {
@@ -59,7 +69,11 @@
 		}
 
 		/**
-		 * Remove an object from this relation set.
+		 * Remove an object from this relation set.  If the
+		 * child $object is not allowed to exist without a
+		 * parent, the object will also be removed from the
+		 * database.
+		 *
 		 * @param Model $object The related object to remove
 		 */
 		public function remove($object) {
@@ -74,6 +88,7 @@
 
 		/**
 		 * Set the complete list of related objects.
+		 *
 		 * @param Array $objects An array of related Model instances
 		 */
 		public function set($objects) {
