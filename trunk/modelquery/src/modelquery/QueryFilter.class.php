@@ -1859,6 +1859,8 @@
 				$filters = is_array($updateFilters) ? $updateFilters : array();
 				$first = true;
 				foreach ($fields as $f) {
+					if ($f == $idField)
+						continue;
 					if (!$first) $sql .= ', ';
 					$sql .= '`'.$f.'` = ';
 					if (isset($filters[$f])) {
