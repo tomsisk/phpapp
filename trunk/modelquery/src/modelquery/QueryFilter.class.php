@@ -398,6 +398,13 @@
 		 * <code>
 		 * $query->condition('price > earnings * ?', array($peratio));
 		 * </code>
+		 *
+		 * Simple ternary expressions can also be used, in the form
+		 * test ! value-if-true : value-if-false:
+		 *
+		 * <code>
+		 * $query->condition('price > earnings ! 1 : 0')
+		 * </code>
 		 * 
 		 * @param string $expression The conditional expression.
 		 * @param Array $params An array of parameters to bind to the query.
@@ -844,6 +851,50 @@
 		}
 
 		/**
+		 * Evaluate a conditional expression to the query that
+		 * is not limited to one field.
+		 *
+		 * @see QueryFilter::condition()
+		 */
+		private function evalCondition($expression) {
+			
+			$joins = array();
+			$offset = 0;
+
+			if (strpos($expression, '`') !== FALSE)
+				// Fields already explicitly specified in database
+				// form, no need to parse
+				return array($expression, $joins);
+
+			$matches = array();
+			// Check if expression uses related fields
+			$matchct = preg_match_all("/[a-zA-Z][a-zA-Z0-9_\.]+/",
+				$expression, $matches, PREG_OFFSET_CAPTURE);
+			if ($matchct > 0) {
+				foreach ($matches[0] as $matchField) {
+					if ($matchField[1] > 0 && $expression{$matchFields[1]-1} == '%')
+						continue;
+					list ($realField, $fieldJoins, $relmodel, $relfield) = $this->getJoinInfo($matchField[0]);
+					// Add any necessary table joins
+					if (count($fieldJoins))
+						$joins = $this->mergeJoins($joins, $fieldJoins);
+					// Replace dot-notation names with real SQL names
+					$start = $matchField[1] + $offset;
+					$expression = substr($expression, 0, $start) . $realField
+						. substr($expression, $start + strlen($matchField[0]));
+					$offset += strlen($realField) - strlen($matchField[0]);
+				}
+				if (strpos($expression, '!') !== FALSE) {
+					$expression = 'IF('.str_replace(array('!',':'),
+						array(',',','), $expression).')';
+				}
+			}
+
+			return array($expression, $joins);
+
+		}
+
+		/**
 		 * Add a more complex conditional expression to the query that
 		 * is not limited to one field.
 		 *
@@ -851,31 +902,17 @@
 		 */
 		public function applyCondition($expression, $params = null) {
 
-			// strpos() prequalifies the more intensive preg_match_all()
-			// check so we don't do a lot of unnecessary regular expression
-			// matching.
-			if (strpos($expression, '.') !== FALSE) {
-				$matches = array();
-				// Check if expression uses related fields
-				$matchct = preg_match_all("/[a-zA-Z0-9_]+\.[a-zA-Z0-9_\.]+/",
-					$expression, $matches);
-				if ($matchct > 0) {
-					foreach ($matches[0] as $matchField) {
-						list ($realField, $joins, $relmodel, $relfield) = $this->getJoinInfo($matchField);
-						// Add any necessary table joins
-						if (count($joins))
-							$this->query['tables'] = $this->mergeJoins((array)$this->query['tables'], $joins);
-						// Replace dot-notation names with real SQL names
-						$expression = str_replace($matchField, $realField, $expression);
-					}
-				}
-			}
+			list($expression, $joins) = $this->evalCondition($expression);
 
-			// Add SQL where expression to the query
+			if ($joins && count($joins) > 0)
+				$this->query['tables'] = $this->mergeJoins(
+					(array)$this->query['tables'], $joins);
+
 			if (isset($this->query['where']['sql']))
 				$this->query['where']['sql'] = $this->query['where']['sql'].' AND ('.$expression.')';
 			else
 				$this->query['where']['sql'] = $expression;
+
 			if ($params)
 				$this->query['where']['params'] = array_merge(
 					isset($this->query['where']['params'])
@@ -1522,12 +1559,20 @@
 		 * $uq->insert(array('username' => 'newuser', 'site' => 5));
 		 * </code>
 		 *
-		 * @param mixed $values A field name/value hash array, as an array
-		 *		or Model
+		 * @param mixed $values A Model or hash array of field/value
+		 *		pairs, or an array of the same for bulk inserts.
+		 * @param mixed $updateFilters Tells ModelQuery to execute an
+		 *		update instead if a key conflict is encountered. If
+		 *		this parameter is TRUE, it will update with the passed
+		 *		values. Alternately, it can be a hash array of field =>
+		 *		condition statements. The special value %v can be used
+		 *		in a condition statement to represent the value of the
+		 *		field in $values.
 		 * @return mixed The new record's primary key
+		 * @see QueryFilter::condition()
 		 */
-		public function insert($model) {
-			return $this->doInsert($model);
+		public function insert($model, $updateFilters = null) {
+			return $this->doInsert($model, $updateFilters);
 		}
 
 		/**
@@ -1740,38 +1785,92 @@
 		 * Insert a new record into the data store.
 		 * @see QueryFilter::insert()
 		 */
-		private function doInsert($model) {
+		private function doInsert($model, $updateFilters = null) {
 
-			// Automatically set ordered fields
-			$this->adjustOrders($model);
-
-			$dbmodel = $this->convertToDBModel($model);
-			$idField = $this->model->_idField;
+			$dbmodels = array();
+			$fields = array();
+			$bindparams = array();
 
 			// Merge with any ":exact" query filter values
 			$q = $this->mergedQuery(true);
-			if ($q['insert'])
-				$dbmodel = array_merge($this->convertToDBModel($q['insert']), $dbmodel);
 
-			$bindparams = array();
+			// Check if model is a list of models
+			if ($model instanceof Model ||
+					(is_array($model) && array_keys($model) !== range(0, count($model) - 1))) {
+
+				// Automatically set ordered fields
+				$this->adjustOrders($model);
+
+				$dbmodel = $this->convertToDBModel($model);
+				if ($q['insert'])
+					$dbmodel = array_merge($this->convertToDBModel($q['insert']), $dbmodel);
+				// Single object, only insert specified fields
+				foreach ($dbmodel as $key => $value)
+					$fields[] = $key;
+				$dbmodels[] = $dbmodel;
+			} else {
+
+				foreach ($model as $m) {
+
+					// Automatically set ordered fields
+					$this->adjustOrders($m);
+
+					$dbmodel = $this->convertToDBModel($m);
+					if ($q['insert'])
+						$dbmodel = array_merge($this->convertToDBModel($q['insert']), $dbmodel);
+					$dbmodels[] = $dbmodel;
+					// Check which fields are used
+					foreach ($dbmodel as $key => $value)
+						if (!in_array($key, $fields))
+							$fields[] = $key;
+				}
+			}
+
+			$values = array();
+			foreach ($dbmodels as $dbmodel) {
+				$vsql = '(';
+				for ($i = 0; $i < sizeof($fields); ++$i) {
+					$vsql .= '?';
+					if ($i != sizeof($fields) - 1) $vsql .= ', ';
+					if (array_key_exists($fields[$i], $q['insert']))
+						$bindparams[] = $q['insert'][$fields[$i]];
+					else
+						$bindparams[] = $dbmodel[$fields[$i]];
+				}
+				$vsql .= ')';
+				$values[] = $vsql;
+			}
+
+			$idField = $this->model->_idField;
 
 			$sql = 'INSERT INTO '.$this->tableName.' (';
 			$first = true;
-			foreach ($dbmodel as $key => $value) {
+			foreach ($fields as $key) {
 				if (!$first) $sql .= ', ';
 				$sql .= '`'.$key.'`';
-				if (array_key_exists($key, $q['insert']))
-					$bindparams[] = $q['insert'][$key];
-				else
-					$bindparams[] = $value;
 				$first = false;
 			}
-			$sql .= ') VALUES (';
-			for ($i = 0; $i < sizeof($bindparams); ++$i) {
-				$sql .= '?';
-				if ($i != sizeof($bindparams) - 1) $sql .= ', ';
+			$sql .= ') VALUES ';
+
+			$sql .= implode(',', $values);
+
+			if ($updateFilters) {
+				$sql .= ' ON DUPLICATE KEY UPDATE ';
+				$filters = is_array($updateFilters) ? $updateFilters : array();
+				$first = true;
+				foreach ($fields as $f) {
+					if (!$first) $sql .= ', ';
+					$sql .= '`'.$f.'` = ';
+					if (isset($filters[$f])) {
+						$condition = $this->evalCondition($filters[$f]);
+						$expression = str_replace('%v', 'VALUES(`'.$f.'`)', $condition[0]);
+						$sql .= $expression;
+					} else {
+						$sql .= 'VALUES(`'.$f.'`)';
+					}
+					$first = false;
+				}
 			}
-			$sql .= ');';
 
 			$result = $this->query($sql, $bindparams);
 			if ($this->affectedRows() > -1) {
