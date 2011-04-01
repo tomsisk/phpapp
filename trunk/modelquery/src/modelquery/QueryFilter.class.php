@@ -1858,9 +1858,10 @@
 
 			$sql .= implode(',', $values);
 
-			if ($updateFilters) {
+			if ($updateFilters !== null) {
 				$sql .= ' ON DUPLICATE KEY UPDATE ';
 				$filters = is_array($updateFilters) ? $updateFilters : array();
+				$keep = ($updateFilters === false);
 				$first = true;
 				foreach ($fields as $f) {
 					if ($f == $idField)
@@ -1871,6 +1872,8 @@
 						$condition = $this->evalCondition($filters[$f]);
 						$expression = str_replace('%v', 'VALUES(`'.$f.'`)', $condition[0]);
 						$sql .= $expression;
+					} elseif ($keep) {
+						$sql .= '`'.$f.'`';
 					} else {
 						$sql .= 'VALUES(`'.$f.'`)';
 					}
