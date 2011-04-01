@@ -861,6 +861,8 @@
 			$joins = array();
 			$offset = 0;
 
+			$skip = array('VALUES', 'OR', 'AND', 'NULL', 'NOT', 'IS', 'IN');
+
 			if (strpos($expression, '`') !== FALSE)
 				// Fields already explicitly specified in database
 				// form, no need to parse
@@ -873,6 +875,8 @@
 			if ($matchct > 0) {
 				foreach ($matches[0] as $matchField) {
 					if ($matchField[1] > 0 && $expression{$matchFields[1]-1} == '%')
+						continue;
+					if (in_array($matchField[0], $skip))
 						continue;
 					list ($realField, $fieldJoins, $relmodel, $relfield) = $this->getJoinInfo($matchField[0]);
 					// Add any necessary table joins
