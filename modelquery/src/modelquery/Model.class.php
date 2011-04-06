@@ -204,6 +204,14 @@
 		}
 
 		/**
+		 * Set the query handler for this model. Useful after
+		 * deserializing models.
+		 */
+		public function setQuery($query) {
+			$this->_query = $query;
+		}
+
+		/**
 		 * Retrieve the QueryFactory associated with this model.
 		 * @return QueryFactory The query factory
 		 */
