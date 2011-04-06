@@ -272,11 +272,11 @@
 				$handler = array_shift($path);
 				if ($handler == 'account') {
 					header('Content-Type: text/html; charset=UTF-8');
-					return $this->doAccountAction($path, $params, $method);
+					$this->doAccountAction($path, $params, $method);
 				} elseif ($handler == 'media') {
-					return $this->sendMedia($path, $params, $method);
+					$this->sendMedia($path, $params, $method);
 				} elseif ($handler == 'thumb') {
-					return $this->sendThumbnail($path, $params, $method);
+					$this->sendThumbnail($path, $params, $method);
 				} elseif (!$handler || $handler == 'modules') {
 					header('Content-Type: text/html; charset=UTF-8');
 					if (sizeof($path) == 0) {
@@ -349,8 +349,11 @@
 					break;
 				case 'heartbeat':
 					header('Content-Type: image/gif');
-					echo "\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x80\x00\x00\xff\xff\xff\x00\x00\x00\x21\xf9\x04\x00\x00\x00\x00\x00\x2c\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02\x44\x01\x00\x3b";
-					return true;
+					// Invisible image bytes
+					echo "\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x80\x00\x00\xff\xff\xff\x00\x00"
+						."\x00\x21\xf9\x04\x00\x00\x00\x00\x00\x2c\x00\x00\x00\x00\x01\x00\x01\x00"
+						."\x00\x02\x02\x44\x01\x00\x3b";
+					break;
 				case 'save':
 					$user = $this->app->getUser();
 					$pass1 = $params['password1'];
@@ -365,10 +368,11 @@
 						else $user->addError('Passwords do not match');
 					}
 					$user['email'] = $params['email'];
-					$user['first_name'] = $params['first_name'];
-					$user['last_name'] = $params['last_name'];
+					$user['firstname'] = $params['firstname'];
+					$user['lastname'] = $params['lastname'];
 					try {
 						$user->save();
+						$this->app->setUser($user);
 						$this->relativeRedirect('/account/saved');
 					} catch (ValidationException $ve) {
 						$context = array('errors' => $user->getErrors(),
