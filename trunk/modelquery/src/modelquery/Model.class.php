@@ -209,6 +209,10 @@
 		 */
 		public function setQuery($query) {
 			$this->_query = $query;
+			foreach ($this->_fields as &$field) {
+				$field->query =& $this->_query;
+				$field->factory =& $this->_query->factory;
+			}
 		}
 
 		/**

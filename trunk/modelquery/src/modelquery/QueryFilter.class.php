@@ -199,7 +199,7 @@
 								'preload' => array(),
 								'groupby' => array(),
 								'converters' => array(),
-								'debug' => false);
+								'debug' => true);
 		}
 
 		/**
@@ -2417,27 +2417,28 @@
 			$stmt = $c->prepare($sql);
 			$result = $c->execute($stmt, $params);
 
-			if ($qf->logger) {
-				$elapsed = microtime(true) - $start;
-				if ($this->fullQuery['debug']) {
-					$fullsql = $sql;
+			if ($this->fullQuery['debug']) {
+				$fullsql = $sql;
+				$ppos = strpos($fullsql, '?');
+				$pct = 0;
+				while ($ppos !== FALSE) {
+					$param = is_string($params[$pct])
+						? '\''.$params[$pct].'\''
+						: ($params[$pct] === null ? 'NULL' : strval($params[$pct]));
+					$fullsql = substr($fullsql, 0, $ppos).$param.substr($fullsql, $ppos + 1);
 					$ppos = strpos($fullsql, '?');
-					$pct = 0;
-					while ($ppos !== FALSE) {
-						$param = is_string($params[$pct]) ? '\''.$params[$pct].'\'':strval($params[$pct]);
-						$fullsql = substr($fullsql, 0, $ppos).$param.substr($fullsql, $ppos + 1);
-						$ppos = strpos($fullsql, '?');
-						$pct++;
-					}
+					$pct++;
+				}
+				if ($qf->logger) {
+					$elapsed = microtime(true) - $start;
 					$qf->logger->logDebug('Query ('.round($elapsed*1000,2).'ms): '.$fullsql);
 				} else {
-					$qf->logger->logDebug('Query ('.round($elapsed*1000,2).'ms): '.substr($sql, 0, 100).(strlen($sql)>100?'... <i>(more)</i>':''));
+					print_r($fullsql);
+					echo "<br><br>\n\n";
 				}
-			} elseif ($this->fullQuery['debug']) {
-				print_r($sql);
-				echo "<br><br>\n\n";
-				print_r($params);
-				echo "<br><br>\n\n";
+			} elseif ($qf->logger) {
+				$elapsed = microtime(true) - $start;
+				$qf->logger->logDebug('Query ('.round($elapsed*1000,2).'ms): '.substr($sql, 0, 100).(strlen($sql)>100?'... <i>(more)</i>':''));
 			}
 
 			if ($result) {
