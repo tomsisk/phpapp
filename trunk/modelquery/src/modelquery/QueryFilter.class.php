@@ -199,7 +199,7 @@
 								'preload' => array(),
 								'groupby' => array(),
 								'converters' => array(),
-								'debug' => true);
+								'debug' => false);
 		}
 
 		/**
