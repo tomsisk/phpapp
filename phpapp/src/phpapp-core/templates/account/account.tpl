@@ -30,11 +30,11 @@
 		</tr>
 		<tr>
 			<td class="editLabel">First Name</td>
-			<td class="editField"><input type="text" class="editInput" name="first_name" value="<?= $user->first_name ?>" style="width:300px"/></td>
+			<td class="editField"><input type="text" class="editInput" name="firstname" value="<?= $user->firstname ?>" style="width:300px"/></td>
 		</tr>
 		<tr>
 			<td class="editLabel">Last Name</td>
-			<td class="editField"><input type="text" class="editInput" name="last_name" value="<?= $user->last_name ?>" style="width:300px"/></td>
+			<td class="editField"><input type="text" class="editInput" name="lastname" value="<?= $user->lastname ?>" style="width:300px"/></td>
 		</tr>
 	</table>
 	<br />

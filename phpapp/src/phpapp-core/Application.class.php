@@ -169,10 +169,26 @@
 		}
 
 		public function getUser() {
+			if (!$this->user && isset($_SESSION[$this->id])
+					&& isset($_SESSION[$this->id]['userobj'])) {
+				$user = unserialize($_SESSION[$this->id]['userobj']);
+				// Reset handler that probably points to a non-existent object
+				if ($user instanceof Model)
+					$user->setQuery($this->userQuery);
+				$this->user = $user;
+			}
 			if (!$this->user) {
 				$userid = $this->getUserId();
-				if ($userid)
-					$this->user = $this->getUserById($userid);
+				if ($userid) {
+					$user = $this->getUserById($userid);
+					if ($user instanceof Model) {
+						$query = $user->getQuery();
+						$user->setQuery(null);
+						$_SESSION[$this->id]['userobj'] = serialize($user);
+						$user->setQuery($query);
+					}
+					$this->user = $user;
+				}
 			}
 			return $this->user;
 		}
