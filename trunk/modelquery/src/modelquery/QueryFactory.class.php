@@ -29,6 +29,9 @@
 	require_once('QueryHandler.class.php');
 	require_once('LRUCache.class.php');
 
+	// Maintain backwards compatibility, don't require
+	@include_once('adodb/adodb.inc.php');
+
 	/**
 	 * Entry point for all interaction with the ModelQuery API.
 	 *
@@ -42,6 +45,7 @@
 		private static $path;
 
 		private $conn;
+		private $connParams;
 		private $appName;
 		private $modelRoots = array();
 
@@ -56,14 +60,15 @@
 		/**
 		 * Create a new QueryFactory.
 		 *
-		 * @param ADOConnection $conn An ADODB database connection object
+		 * @param Array $conn An array of connection parameters: array('host' => ...,
+		 *		'user' => ..., 'password' => ..., 'database' => ...)
 		 * @param Array $modelRoot A list of directories that contain model definitions
 		 * @param string $appName An application name that also serves as the default
 		 *			table prefix
 		 * @param int $cacheSize The default size of the model cache
 		 */
 		public function __construct($conn, $modelRoot, $appName = null, $cacheSize = 100) {
-			$this->conn = $conn;
+			$this->setConnection($conn);
 			$this->appName = $appName;
 			$this->modelRoots = is_array($modelRoot) ? $modelRoot : array($modelRoot);
 			$this->modelCache = new LRUCache($cacheSize);
@@ -132,7 +137,14 @@
 		 * @param $conn An ADODB database connection object
 		 */
 		public function setConnection($conn) {
-			$this->conn = $conn;
+			if ($this->conn)
+				$this->conn->Close();
+			if (is_array($conn)) {
+				$this->connParams = $conn;
+				$this->conn = null;
+			} else
+				// Backwards compatibility: use given ADODB connection object
+				$this->conn = $conn;
 		}
 
 		/**
@@ -140,7 +152,26 @@
 		 * @return An ADODB database connection object
 		 */
 		public function &getConnection() {
+			if (!$this->conn && $p = $this->connParams) {
+				$c = ADONewConnection('mysqlt');
+				$c->setFetchMode(ADODB_FETCH_ASSOC);
+				$c->autoCommit = false;
+				$c->Connect($p['host'], $p['user'], $p['password'], $p['database']);
+				$this->conn = $c;
+			}
 			return $this->conn;
+		}
+
+		/**
+		 * Close the shared database connection. This should usually not be called
+		 * by user code. If getConnection() is called in the future the connection
+		 * will be re-opened.
+		 */
+		public function closeConnection() {
+			if ($this->conn) {
+				$this->conn->Close();
+				$this->conn = null;
+			}
 		}
 
 		/**
@@ -152,7 +183,7 @@
 				throw new TransactionException('A transaction is already in progress.');
 			$this->transOpen = true;
 			$this->transFailed = false;
-			$this->conn->BeginTrans();
+			$this->getConnection()->BeginTrans();
 		}
 
 		/**
@@ -162,7 +193,7 @@
 		public function commit() {
 			if (!$this->transOpen)
 				throw new TransactionException('No transaction is in progress.');
-			$this->conn->CommitTrans();
+			$this->getConnection()->CommitTrans();
 			$this->transOpen = false;
 		}
 
@@ -173,7 +204,7 @@
 		public function rollback() {
 			if (!$this->transOpen)
 				throw new TransactionException('No transaction is in progress.');
-			$this->conn->RollbackTrans();
+			$this->getConnection()->RollbackTrans();
 			$this->transOpen = false;
 		}
 
