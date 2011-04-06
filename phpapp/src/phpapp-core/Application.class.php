@@ -23,7 +23,6 @@
 	 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	 */
 
-	require_once('adodb/adodb.inc.php');
 	require_once('modelquery2/QueryFactory.class.php');
 	require_once('PhpAppTemplate.class.php');
 	require_once('smarty/Smarty.class.php');
@@ -94,10 +93,10 @@
 
 				$this->modules = $config['modules'];
 
-				$db= ADONewConnection('mysqlt');
-				$db->setFetchMode(ADODB_FETCH_ASSOC);
-				$db->autoCommit = false;
-				$db->Connect($this->config['db_host'], $this->config['db_user'], $this->config['db_pass'], $this->config['db_name']);
+				$connParams = array('host' => $this->config['db_host'],
+						'user' => $this->config['db_user'],
+						'password' => $this->config['db_pass'],
+						'database' => $this->config['db_name']);
 
 				$roots = array();
 				foreach ($config['modules'] as $mdir)
@@ -113,15 +112,15 @@
 					$updated = QueryFactory::preloadModelClasses($roots);
 					if ($qfSrc && $qfTS >= $updated) {
 						$this->query = unserialize($qfSrc);
-						$this->query->setConnection($db);
+						$this->query->setConnection($connParams);
 					} else {
-						$this->query = new QueryFactory($db, $roots);
+						$this->query = new QueryFactory($connParams, $roots);
 						$updated = $this->query->precacheModels();
 						$this->setAppVar($this->id.'_queryFactory', serialize($this->query));
 						$this->setAppVar($this->id.'_queryFactory_timestamp', $updated);
 					}
 				} else {
-					$this->query = new QueryFactory($db, $roots);
+					$this->query = new QueryFactory($connParams, $roots);
 				}
 
 				if (isset($config['debug']) && $config['debug'])
