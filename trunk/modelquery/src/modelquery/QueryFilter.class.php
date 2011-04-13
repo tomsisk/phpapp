@@ -164,7 +164,7 @@
 		 */
 		protected $fullQuery;
 
-		private $models;
+		private $models = null;
 
 		/**
 		 * Create a new QueryFilter object.
@@ -1604,6 +1604,14 @@
 		 */
 		public function flush() {
 			$this->models = null;
+		}
+
+		/**
+		 * Check if this query has been executed.
+		 * @return boolean True if the query has been executed
+		 */
+		public function executed() {
+			return ($this->models !== null);
 		}
 
 		/**

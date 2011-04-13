@@ -262,12 +262,15 @@
 			}
 		}
 
-		public function save() {
+		public function save($skip = null) {
 			if (!$this->persistent && $this->relationObj->pk) {
 				$this->persistent = true;
 				foreach ($this->relations as $r)
 					$this->add($r);
 				$this->relations = $this->getRelationQuery();
+			} elseif ($this->relations instanceof QueryFilter && $this->relations->executed()) {
+				foreach ($this->relations as $r)
+					$r->saveInternal($skip, true);
 			}
 		}
 
@@ -334,12 +337,15 @@
 			}
 		}
 
-		public function save() {
+		public function save($skip = null) {
 			if (!$this->persistent && $this->relationObj->pk) {
 				$this->persistent = true;
 				foreach ($this->relations as $r)
 					$this->add($r);
 				$this->relations = $this->getRelationQuery();
+			} elseif ($this->relations instanceof QueryFilter && $this->relations->executed()) {
+				foreach ($this->relations as $r)
+					$r->saveInternal($skip, true);
 			}
 		}
 
