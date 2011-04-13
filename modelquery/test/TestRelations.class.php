@@ -189,4 +189,18 @@
 			$newdirector->delete();
 		}
 
+		public function testO2MCascadeExisting() {
+
+			$director = $this->qf->Director->any();
+			$film = $director->films[0];
+			$title = $film->title;
+
+			$film->title = 'New Title';
+			$director->saveCascade();
+			$this->qf->cacheFlush();
+			
+			$film = $this->qf->Film->get($film->pk);
+			$this->assertEquals($film->title, 'New Title');
+		}
+
 	}

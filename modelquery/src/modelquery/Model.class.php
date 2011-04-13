@@ -824,14 +824,19 @@
 		 * Persists the current model data to the data store.
 		 *
 		 * Validates the current model data, and attempts to save it
-		 * to the data store, including any dependent relations that have
-		 * been changed.
+		 * to the data store, including many-to-one relations that
+		 * have changed.
 		 *
 		 * @param Array $skip A list of field names to ignore during
 		 * 		cascading saves of related objects
+		 * @param boolean $saverelated Cascade-save all related
+		 *		*-to-many relation sets that have changed.  This is a
+		 *		convenience operation that only goes down one level; if
+		 *		you have children of children that need saving, you
+		 *		should save them manually.
 		 * @throws ValidationException If data validation fails
 		 */
-		public function save($skip = null) {
+		public function saveInternal($skip = null, $saverelated = false) {
 			// Cascade-save all unsaved related fields first
 			if (!$skip) $skip = array();
 			$skip[] = $this;
@@ -841,40 +846,40 @@
 							&& !$this->getFieldValue($field)
 							&& !in_array($this->_fieldRelationValues[$field], $skip)) {
 						if ($this->_fieldRelationValues[$field])
-							$relid = $this->_fieldRelationValues[$field]->save($skip);
+							$relid = $this->_fieldRelationValues[$field]->saveInternal($skip, $saverelated);
 						if ($relid)
 							$this->setPrimitiveFieldValue($field, $relid);
 					}
 				}
 			}
 
-			// Don't save again if no changes were made
-			if ($this->_versionChanges == 0)
-				return $this->_dbId;
+			if ($saverelated || $this->validate()) {
 
-			if ($this->validate()) {
-				$saverelated = false;
-				if ($this->_dbId) {
-					// Pulled from database originally
-					// (this is the only way to change the primary key)
-					$this->_query->update($this, $this->_dbId);
-				} elseif ($this->pk && $this->_query->filter('pk', $this->pk)->count()) {
-					// If id specified, check for existence first
-					$this->_dbId = $this->_query->update($this, $this->pk);
-				} else {
-					$this->_dbId = $this->_query->insert($this);
-					$this->setFieldValue('pk', $this->_dbId);
-					$saverelated = true;
-					// Save unlinked relations
+				// Don't save again if no changes were made
+				if ($this->_versionChanges > 0) {
+					if ($this->_dbId) {
+						// Pulled from database originally
+						// (this is the only way to change the primary key)
+						$this->_query->update($this, $this->_dbId);
+					} elseif ($this->pk && $this->_query->filter('pk', $this->pk)->count()) {
+						// If id specified, check for existence first
+						$this->_dbId = $this->_query->update($this, $this->pk);
+					} else {
+						$this->_dbId = $this->_query->insert($this);
+						$this->setFieldValue('pk', $this->_dbId);
+						// Save any unlinked relations
+						$saverelated = true;
+					}
+					// Save to factory cache so we don't need to reload
+					$this->_query->factory->cachePut(get_class($this).':'.$this->pk, $this);
 				}
-				// Save to factory cache so we don't need to reload
-				$this->_query->factory->cachePut(get_class($this).':'.$this->pk, $this);
+
 				// Need to have this object in the cache before saving related objects
 				if ($saverelated) {
 					foreach ($this->_fieldRelationValues as $f => $v) {
 						if ($this->_fields[$f] instanceof RelationSetField) {
 							if (isset($this->_fieldRelationValues[$field]))
-								$this->_fieldRelationValues[$field]->save();
+								$this->_fieldRelationValues[$field]->save($skip);
 						}
 					}
 				}
@@ -884,6 +889,32 @@
 			} else {
 				throw new ValidationException(get_class($this).' could not be saved (did you forget some required fields?)', $this);
 			}
+		}
+
+		/**
+		 * Persists the current model data to the data store.
+		 *
+		 * Validates the current model data, and attempts to save it
+		 * to the data store.
+		 *
+		 * @throws ValidationException If data validation fails
+		 */
+		public function save() {
+			return $this->saveInternal();
+		}
+
+		/**
+		 * Persists the current model data to the data store, and
+		 * saves all child relations that have changed.
+		 *
+		 * Validates the current model data, and attempts to save it
+		 * to the data store, including any dependent relations that have
+		 * been changed.
+		 *
+		 * @throws ValidationException If data validation fails
+		 */
+		public function saveCascade() {
+			return $this->saveInternal(null, true);
 		}
 
 		/**
