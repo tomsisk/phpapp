@@ -156,7 +156,7 @@
 				$c = ADONewConnection('mysqlt');
 				$c->setFetchMode(ADODB_FETCH_ASSOC);
 				$c->autoCommit = false;
-				$c->Connect($p['host'], $p['user'], $p['password'], $p['database']);
+				$c->NConnect($p['host'], $p['user'], $p['password'], $p['database']);
 				$this->conn = $c;
 			}
 			return $this->conn;
