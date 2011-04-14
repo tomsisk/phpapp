@@ -591,7 +591,7 @@
 			$sql .= 'up.user IS NULL ';
 			$sql .= 'UNION ';
 			$sql .= 'SELECT module, type, instance, action FROM role_permissions rp ';
-			$sql .= ' INNER JOIN user_roles ur ON (rp.role = ur.role) ';
+			$sql .= ' LEFT OUTER JOIN user_roles ur ON (rp.role = ur.role) ';
 			$sql .= ' WHERE ';
 			if ($userid) {
 				$sql .= 'ur.user = ? OR ';
