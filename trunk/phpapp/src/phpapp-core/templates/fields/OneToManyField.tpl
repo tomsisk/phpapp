@@ -259,9 +259,7 @@ if (!$inlineField && $modeladmin->isInlineObject($field->field)) {
 			echo '<img src="'.$admin->mediaRoot.'/images/blue_add.gif" />';
 			echo '</a>';
 			echo ' <a href="'.$fieldAdmin->relativeUrl('/add');
-			if ($orderField) {
-				echo '?'.$orderField->groupBy[0].'='.$object->pk;
-			}
+			echo '?'.$field->joinField.'='.$object->pk;
 			echo '">';
 			echo '<i>Add a new '.strtolower($fieldAdmin->name).'</i>';
 			echo '</a>';
