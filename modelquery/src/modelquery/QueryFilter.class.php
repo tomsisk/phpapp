@@ -1543,21 +1543,7 @@
 		 * Insert a new record into the data store.
 		 *
 		 * The field values are specified as either a name/value hash
-		 * array or a Model object.  If the current query contains any
-		 * ":exact" filters, it will use the filter value as the default
-		 * value for those fields, but will be overridden by any fields
-		 * set in the $model parameter.
-		 *
-		 * For example, the following code would create a new user with
-		 * a "site" field equal to "5", because of the previous filter:
-		 *
-		 * <code>
-		 * $uq->filter('site', 5)->insert(array('username' => 'newuser'));
-		 * </code>
-		 *
-		 * The more typical use will be specifying all field values from
-		 * a call on the QueryHandler object itself, rather than using
-		 * filters.
+		 * array or a Model object.
 		 *
 		 * <code>
 		 * $uq->insert(array('username' => 'newuser', 'site' => 5));
