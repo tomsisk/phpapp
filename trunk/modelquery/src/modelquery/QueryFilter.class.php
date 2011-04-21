@@ -1546,7 +1546,7 @@
 		 * array or a Model object.
 		 *
 		 * <code>
-		 * $uq->insert(array('username' => 'newuser', 'site' => 5));
+		 * $id = $uq->insert(array('username' => 'newuser', 'site' => 5));
 		 * </code>
 		 *
 		 * @param mixed $values A Model or hash array of field/value
