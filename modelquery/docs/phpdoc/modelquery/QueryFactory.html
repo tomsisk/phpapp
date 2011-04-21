@@ -25,7 +25,7 @@
 <p class="short-description">Entry point for all interaction with the ModelQuery API.</p>
 <p class="description"><p>Handles locating, loading and configuring Model objects, and provides  database connection and caching services to models.</p></p>
 		<p class="notes">
-			Located in <a class="field" href="_QueryFactory.class.php.html">/QueryFactory.class.php</a> (line <span class="field"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a40">40</a></span>)
+			Located in <a class="field" href="_QueryFactory.class.php.html">/QueryFactory.class.php</a> (line <span class="field"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a43">43</a></span>)
 		</p>
 		
 				
@@ -72,7 +72,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																																																												<div class="method-definition">
+																																																																																																																																				<div class="method-definition">
 					static 						<span class="method-result">int</span>
 										<a href="#preloadModelClasses" title="details" class="method-name">preloadModelClasses</a>
 											(<span class="var-type">Array</span>&nbsp;<span class="var-name">$roots</span>)
@@ -81,7 +81,7 @@
 												<div class="method-definition">
 											<span class="method-result">QueryFactory</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
-											(<span class="var-type">ADOConnection</span>&nbsp;<span class="var-name">$conn</span>, <span class="var-type">Array</span>&nbsp;<span class="var-name">$modelRoot</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$appName</span> = <span class="var-default">null</span>], [<span class="var-type">int</span>&nbsp;<span class="var-name">$cacheSize</span> = <span class="var-default">100</span>])
+											(<span class="var-type">Array</span>&nbsp;<span class="var-name">$conn</span>, <span class="var-type">Array</span>&nbsp;<span class="var-name">$modelRoot</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$appName</span> = <span class="var-default">null</span>], [<span class="var-type">int</span>&nbsp;<span class="var-name">$cacheSize</span> = <span class="var-default">100</span>])
 									</div>
 																<div class="method-definition">
 											<span class="method-result">void</span>
@@ -112,6 +112,11 @@
 											<span class="method-result">void</span>
 										<a href="#cacheRemove" title="details" class="method-name">cacheRemove</a>
 											(<span class="var-type"></span>&nbsp;<span class="var-name">$key</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#closeConnection" title="details" class="method-name">closeConnection</a>
+										()
 									</div>
 																<div class="method-definition">
 											<span class="method-result">void</span>
@@ -181,13 +186,13 @@
 					</div>
 		<div class="info-box-body">
 			<a name="var$logger" id="$logger"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$logger</span>
-						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a54">54</a></span>)
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a58">58</a></span>)
 		</span>
 	</div>
 
@@ -202,13 +207,13 @@
 
 </div>
 <a name="var$queryCount" id="$queryCount"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$queryCount</span>
-			 = <span class="var-default"> 0</span>			(line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a53">53</a></span>)
+			 = <span class="var-default"> 0</span>			(line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a57">57</a></span>)
 		</span>
 	</div>
 
@@ -238,10 +243,10 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="methodpreloadModelClasses" id="preloadModelClasses"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">static method preloadModelClasses</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a319">319</a></span>)
+		<span class="method-title">static method preloadModelClasses</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a350">350</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -271,10 +276,10 @@
 	</div>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a65">65</a></span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a70">70</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -288,13 +293,13 @@
 		<span class="method-name">
 			__construct
 		</span>
-					(<span class="var-type">ADOConnection</span>&nbsp;<span class="var-name">$conn</span>, <span class="var-type">Array</span>&nbsp;<span class="var-name">$modelRoot</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$appName</span> = <span class="var-default">null</span>], [<span class="var-type">int</span>&nbsp;<span class="var-name">$cacheSize</span> = <span class="var-default">100</span>])
+					(<span class="var-type">Array</span>&nbsp;<span class="var-name">$conn</span>, <span class="var-type">Array</span>&nbsp;<span class="var-name">$modelRoot</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$appName</span> = <span class="var-default">null</span>], [<span class="var-type">int</span>&nbsp;<span class="var-name">$cacheSize</span> = <span class="var-default">100</span>])
 			</div>
 	
 			<ul class="parameters">
 					<li>
-				<span class="var-type">ADOConnection</span>
-				<span class="var-name">$conn</span><span class="var-description">: An ADODB database connection object</span>			</li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$conn</span><span class="var-description">: An array of connection parameters: array('host' =&gt; ...,         'user' =&gt; ..., 'password' =&gt; ..., 'database' =&gt; ...)</span>			</li>
 					<li>
 				<span class="var-type">Array</span>
 				<span class="var-name">$modelRoot</span><span class="var-description">: A list of directories that contain model definitions</span>			</li>
@@ -309,10 +314,10 @@
 			
 	</div>
 <a name="methodbegin" id="begin"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">begin</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a150">150</a></span>)
+		<span class="method-title">begin</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a181">181</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -334,10 +339,10 @@
 			
 	</div>
 <a name="methodcacheExists" id="cacheExists"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">cacheExists</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a243">243</a></span>)
+		<span class="method-title">cacheExists</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a274">274</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -365,10 +370,10 @@
 			
 	</div>
 <a name="methodcacheFlush" id="cacheFlush"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">cacheFlush</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a269">269</a></span>)
+		<span class="method-title">cacheFlush</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a300">300</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -396,10 +401,10 @@
 			
 	</div>
 <a name="methodcacheGet" id="cacheGet"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">cacheGet</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a230">230</a></span>)
+		<span class="method-title">cacheGet</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a261">261</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -427,10 +432,10 @@
 			
 	</div>
 <a name="methodcachePut" id="cachePut"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">cachePut</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a217">217</a></span>)
+		<span class="method-title">cachePut</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a248">248</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -460,10 +465,10 @@
 			
 	</div>
 <a name="methodcacheRemove" id="cacheRemove"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">cacheRemove</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a256">256</a></span>)
+		<span class="method-title">cacheRemove</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a287">287</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -487,11 +492,35 @@
 		
 			
 	</div>
+<a name="methodcloseConnection" id="closeConnection"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">closeConnection</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a170">170</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Close the shared database connection. This should usually not be called  by user code. If getConnection() is called in the future the connection  will be re-opened.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			closeConnection
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
 <a name="methodcommit" id="commit"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">commit</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a162">162</a></span>)
+		<span class="method-title">commit</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a193">193</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -516,7 +545,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">complete</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a193">193</a></span>)
+		<span class="method-title">complete</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a224">224</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -541,7 +570,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">fail</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a183">183</a></span>)
+		<span class="method-title">fail</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a214">214</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -565,7 +594,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">get</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a83">83</a></span>)
+		<span class="method-title">get</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a88">88</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -597,7 +626,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getConnection</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a142">142</a></span>)
+		<span class="method-title">getConnection</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a154">154</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -622,7 +651,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">inTransaction</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a204">204</a></span>)
+		<span class="method-title">inTransaction</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a235">235</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -647,7 +676,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">precacheModels</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a122">122</a></span>)
+		<span class="method-title">precacheModels</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a127">127</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -673,7 +702,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">rollback</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a173">173</a></span>)
+		<span class="method-title">rollback</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a204">204</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -698,7 +727,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">setConnection</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a134">134</a></span>)
+		<span class="method-title">setConnection</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a139">139</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -727,7 +756,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">__get</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a108">108</a></span>)
+		<span class="method-title">__get</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFactory.class.php.html#a113">113</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -759,7 +788,7 @@
 
 
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 29 Mar 2011 14:36:12 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 21 Apr 2011 16:01:30 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
