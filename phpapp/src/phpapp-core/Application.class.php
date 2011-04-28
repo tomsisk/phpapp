@@ -185,6 +185,8 @@
 						$user->setQuery(null);
 						$_SESSION[$this->id]['userobj'] = serialize($user);
 						$user->setQuery($query);
+					} else {
+						$_SESSION[$this->id]['userobj'] = serialize($user);
 					}
 					$this->user = $user;
 				}
