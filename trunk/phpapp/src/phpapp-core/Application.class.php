@@ -337,6 +337,7 @@
 
 		public function clearPreference($name) {
 			if ($this->isLoggedIn()) {
+				$prefs =& $this->getPreferences();
 				foreach ($prefs as $pref)
 					if ($pref['name'] == $name)
 						return $pref->delete();
