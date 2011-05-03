@@ -312,7 +312,7 @@
 				$prefs =& $this->getPreferences();
 				if ($prefs)
 					foreach ($prefs as $pref)
-						if ($pref['pref_name'] == $name) return $pref['pref_value'];
+						if ($pref['name'] == $name) return $pref['value'];
 			}
 			return $defaultval;
 		}
@@ -322,14 +322,14 @@
 				$prefs =& $this->getPreferences();
 				$user =& $this->getUser();
 				$up = $this->query->UserPreference;
-				$newpref = $up->create(array('pref_name' => $name, 'user' => $user['id']));
+				$newpref = $up->create(array('name' => $name, 'user' => $user['id']));
 				foreach ($prefs as $pref) {
-					if ($pref['pref_name'] == $name) {
+					if ($pref['name'] == $name) {
 						$newpref = $pref;
 						break;
 					}
 				}
-				$newpref['pref_value'] = $value;
+				$newpref['value'] = $value;
 				return $newpref->save();
 			}
 			return false;
@@ -338,7 +338,7 @@
 		public function clearPreference($name) {
 			if ($this->isLoggedIn()) {
 				foreach ($prefs as $pref)
-					if ($pref['pref_name'] == $name)
+					if ($pref['name'] == $name)
 						return $pref->delete();
 			}
 			return false;
