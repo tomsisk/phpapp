@@ -38,13 +38,22 @@ function popup(url, width, height) {
 }
 
 var popupField = null;
+
 function addPopupValue(value, desc) {
 	var matches = $$('select[name='+popupField+']');
 	var field = null;
 	if (matches.length) {
 		field = matches[0];
-		field.appendChild(new Element('option', { 'value' : value }).update(desc));
-		field.selectedIndex = field.options.length - 1;
+		var existing = $A(field.options).find(function(o) { return o.value == value; });
+		if (existing) {
+			existing.update(desc);
+			existing.selected = true;
+		} else {
+			var opt = new Element('option', { 'value' : value }).update(desc);
+			opt.selected = true;
+			field.appendChild(opt);
+			//field.selectedIndex = field.options.length - 1;
+		}
 	} else {
 		// Try radio/checkbox list
 		field = $$('input[name='+popupField+']');

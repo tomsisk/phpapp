@@ -717,6 +717,22 @@
 			return true;
 		}
 
+		public static function doObjectEditPopup($id, $params, $modeladmin, $method) {
+			if (!$modeladmin->checkPermission('MODIFY'))
+				throw new AccessDeniedException('You are not allowed to edit this item.');
+
+			$params = StockActions::groupEmbeddedParams($params, $modeladmin); 
+			$object = $modeladmin->getAndUpdate($id, $params, UPDATE_FROM_FORM, true);
+			$modeladmin = $modeladmin->getTypeAdmin($object);
+
+			$context = array('pk' => $id,
+							'object' => $object,
+							'popup' => true,
+							'filterstr' => StockActions::getFilterString($object, $modeladmin, $params));
+			$modeladmin->renderTemplate('object_form.tpl', $context, 'popup.tpl');
+			return true;
+		}
+
 		public static function doObjectAutocomplete($id, $params, $modeladmin, $method) {
 			$search = $params['search'];
 			$limit = 10;
