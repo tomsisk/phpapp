@@ -94,5 +94,17 @@ if ($style == 'radio') {
 	</select>
 <? }
 if (!$inlineField) {
-	echo $modeladmin->getDependencyHTML($field, isset($popup) && $popup, $fieldName);
+	$targetadmin = $modeladmin->getAdmin()->findModelAdmin($field->relationName);
+	if ($targetadmin) {
+		if ($targetadmin->checkPermission('CREATE') && !$popup && $modeladmin->showEditLinks) {
+			$url = $targetadmin->relativeUrl('/addpopup/');
+			echo '<a title="Add new '.strtolower($field->name).'" href="" onclick="popupField=\''.($fieldName ? $fieldName : $field->field).'\';popup(\''.$url.'\', 700, 700); return false;"><img src="'.$modeladmin->getAdmin()->getMediaRoot().'/images/blue_add.gif"/></a>';
+		}
+		if ($targetadmin->checkPermission('MODIFY') && !$popup && $modeladmin->showEditLinks) {
+			$url = $targetadmin->relativeUrl('/editpopup/');
+			echo '<br />';
+			echo '<a title="Edit selected '.strtolower($field->name).'" href="" onclick="var val = $(this).up(\'form\').serialize(true)[\''.$fieldName.'\'];console.log(val);popupField=\''.($fieldName ? $fieldName : $field->field).'\';popup(\''.$url.'\'+val, 700, 700); return false;">Edit selected '.strtolower($field->name).'</a>';
+		}
+		echo $modeladmin->getRelatedJavascript($field, $targetadmin);
+	}
 }

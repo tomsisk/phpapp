@@ -102,6 +102,7 @@
 			$this->registerActionHandler('delete', array('StockActions', 'doObjectDelete'));
 			$this->registerActionHandler('deleteconfirm', array('StockActions', 'showObjectDeleteConfirm'));
 			$this->registerActionHandler('edit', array('StockActions', 'doObjectEdit'));
+			$this->registerActionHandler('editpopup', array('StockActions', 'doObjectEditPopup'));
 			$this->registerActionHandler('export', array('StockActions', 'exportObjectList'));
 			$this->registerActionHandler('filter', array('StockActions', 'showObjectFilter'));
 			$this->registerActionHandler('import', array('StockActions', 'doObjectImport'));
@@ -605,6 +606,7 @@
 			return $this->module->admin;
 		}
 
+		// Deprecated
 		public function getDependencyHTML($field, $popup, $fieldName = null) {
 			$html = '';
 			if ($field instanceof RelationField) {
@@ -612,13 +614,14 @@
 				if ($targetadmin) {
 					if ($targetadmin->checkPermission('CREATE') && !$popup && $this->showEditLinks) {
 						$url = $targetadmin->relativeUrl('/addpopup/');
-						$html = '<a title="Add new '.strtolower($field->name).'" href="" onclick="popupField=\''.($fieldName ? $fieldName : $field->field).'\';popup(\''.$url.'\', 700, 700); return false;"><img src="'.$this->getAdmin()->getMediaRoot().'/images/blue_add.gif"/></a>';
+						$html .= ' <a title="Add new '.strtolower($field->name).'" href="" onclick="popupField=\''.($fieldName ? $fieldName : $field->field).'\';popup(\''.$url.'\', 700, 700); return false;"><img src="'.$this->getAdmin()->getMediaRoot().'/images/blue_add.gif"/></a>';
 					}
 					$html .= $this->getRelatedJavascript($field, $targetadmin);
 				}
 			}
 			return $html;
 		}
+
 		public function getRelatedJavascript($field, $modeladmin) {
 			$script = '';
 			if ($modeladmin && isset($field->options['filter']) && $filter = $field->options['filter']) {
