@@ -357,6 +357,23 @@
 	}
 
 	/**
+	 * Validate by regular expression pattern
+	 */
+	class PatternValidator implements FieldValidator {
+
+		private $pattern;
+
+		public function __construct($pattern = null) {
+			$this->pattern = $pattern;
+		}
+
+		public function validate($value, $model) {
+			return !$this->pattern || preg_match($this->pattern, $value) > 0;
+		}
+
+	}
+
+	/**
 	 * Require a valid email address format.
 	 */
 	class EmailValidator implements FieldValidator {
