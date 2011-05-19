@@ -566,7 +566,11 @@
 		 */
 		public function getUserById($id) {
 			$u = $this->userQuery;
-			return $u->get($id);
+			try {
+				return $u->get($id);
+			} catch (DoesNotExistException $dne) {
+				return null;
+			}
 		}
 
 		public function getUserByUsername($username, $password = null) {
