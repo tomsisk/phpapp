@@ -1176,7 +1176,7 @@
 		 * @see QueryFilter::debug()
 		 */
 		public function applyDebug() {
-			$this->query['debug'][] = true;
+			$this->query['debug'] = true;
 		}
 
 		/**
