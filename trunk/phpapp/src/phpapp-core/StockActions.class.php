@@ -1180,24 +1180,25 @@
 				// Update relations
 				foreach ($object->_fields as $name => $field) {
 					if ($field instanceof RelationSetField) {
-						$relations = array_key_exists($name, $params) ? $params[$name] : array();
-						$add = $relations;
-						$remove = array();
+						if ($modeladmin->isInlineObject($field->field)) {
+							$relations = array_key_exists($name, $params) ? $params[$name] : array();
+							$add = $relations;
+							$remove = array();
 
-						foreach($object->$name as $rel)
-							if (!in_array($rel->pk, $relations))
-								$remove[] = $rel;
-							else
-								$add = array_diff($add, array($rel->pk));
+							foreach($object->$name as $rel)
+								if (!in_array($rel->pk, $relations))
+									$remove[] = $rel;
+								else
+									$add = array_diff($add, array($rel->pk));
 
-						try {
-							foreach ($remove as $rel)
-								$object->$name->remove($rel);
-							foreach ($add as $rel)
-								$object->$name->add($rel);
-						} catch (Exception $e) {
+							try {
+								foreach ($remove as $rel)
+									$object->$name->remove($rel);
+								foreach ($add as $rel)
+									$object->$name->add($rel);
+							} catch (Exception $e) {
+							}
 						}
-
 					}
 				}
 
