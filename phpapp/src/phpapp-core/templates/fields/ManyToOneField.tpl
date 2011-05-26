@@ -103,7 +103,7 @@ if (!$inlineField) {
 		if ($targetadmin->checkPermission('MODIFY') && !$popup && $modeladmin->showEditLinks) {
 			$url = $targetadmin->relativeUrl('/editpopup/');
 			echo '<br />';
-			echo '<a title="Edit selected '.strtolower($field->name).'" href="" onclick="var val = $(this).up(\'form\').serialize(true)[\''.$fieldName.'\'];console.log(val);popupField=\''.($fieldName ? $fieldName : $field->field).'\';popup(\''.$url.'\'+val, 700, 700); return false;">Edit selected '.strtolower($field->name).'</a>';
+			echo '<a title="Edit selected '.strtolower($field->name).'" href="" onclick="var val = $(this).up(\'form\').serialize(true)[\''.$fieldName.'\'];popupField=\''.($fieldName ? $fieldName : $field->field).'\';popup(\''.$url.'\'+val, 700, 700); return false;">Edit selected '.strtolower($field->name).'</a>';
 		}
 		echo $modeladmin->getRelatedJavascript($field, $targetadmin);
 	}
