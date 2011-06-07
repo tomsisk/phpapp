@@ -203,13 +203,17 @@
 		public function includeScript($script) {
 			$real = $this->module->admin->mediaRoot . '/modules/'
 				. $this->module->id . '/' .$script;
-			$this->templateContext->context['script'] = $real;
+			if (!$this->templateContext->context['scripts'])
+				$this->templateContext->context['scripts'] = array();
+			$this->templateContext->context['scripts'][] = $real;
 		}
 
 		public function includeStylesheet($stylesheet) {
 			$real = $this->module->admin->mediaRoot . '/modules/'
 				. $this->module->id . '/' .$stylesheet;
-			$this->templateContext->context['stylesheet'] = $real;
+			if (!$this->templateContext->context['stylesheets'])
+				$this->templateContext->context['stylesheets'] = array();
+			$this->templateContext->context['stylesheets'][] = $real;
 		}
 
 		private function spacify($name) {
