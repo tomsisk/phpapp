@@ -2848,8 +2848,13 @@
 
 			// Offset/limit screws up SQL COUNT
 			if (isset($this->fullQuery['limit'])
-					|| isset($this->fullQuery['offset']))
-				$this->select();
+					|| isset($this->fullQuery['offset'])) {
+				try {
+					$this->select();
+				} catch (InvalidUsageException $e) {
+					// Can't select from root filter
+				}
+			}
 
 			if ($this->models) {
 				// Already executed a query, return actual results
