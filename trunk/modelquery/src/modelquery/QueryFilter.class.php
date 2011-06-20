@@ -2842,6 +2842,15 @@
 		 * @see QueryFilter::sqlcount()
 		 */
 		public function count() {
+
+			if (!$this->fullQuery)
+				$this->mergedQuery(true);
+
+			// Offset/limit screws up SQL COUNT
+			if (isset($this->fullQuery['limit'])
+					|| isset($this->fullQuery['offset']))
+				$this->select();
+
 			if ($this->models) {
 				// Already executed a query, return actual results
 				return count($this->models);
@@ -2849,6 +2858,7 @@
 				// Use SQL COUNT() function to get row count without modifying current query
 				return $this->sqlcount();
 			}
+
 		}
 
 		/**
