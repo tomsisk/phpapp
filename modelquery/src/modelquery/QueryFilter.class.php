@@ -2847,8 +2847,8 @@
 				$this->mergedQuery(true);
 
 			// Offset/limit screws up SQL COUNT
-			if (isset($this->fullQuery['limit'])
-					|| isset($this->fullQuery['offset'])) {
+			if ($this->fullQuery['limit']
+					|| $this->fullQuery['offset']) {
 				try {
 					$this->select();
 				} catch (InvalidUsageException $e) {
