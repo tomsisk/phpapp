@@ -1206,9 +1206,9 @@
 		public function convertValue($value) {
 			if ($value === '' || $value === null)
 				return null;
-			if ($value !== null && is_string($value) && ($t = strtotime($value)))
-				return $t;
-			return intval($value);
+			if (is_numeric($value))
+				return intval($value);
+			return strtotime($value);
 		}
 
 		public function convertToDbValue($value) {
