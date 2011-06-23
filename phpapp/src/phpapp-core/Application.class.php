@@ -604,7 +604,7 @@
 				$sql .= 'ur.user = ? OR ';
 				$params[] = $userid;
 			}
-			$sql .= 'ur.user IS NULL';
+			$sql .= 'rp.role IS NULL';
 			$result = $up->query($sql, $params);
 			$perms = $up->createHash($result, null);
 			return $this->_parsePermissions($perms);
