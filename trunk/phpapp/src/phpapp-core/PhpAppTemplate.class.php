@@ -250,8 +250,8 @@
 			$lines = explode("\n", $text);
 			$js = '';
 
-			$search = array("\\", "'", '<script', '</script');
-			$replace = array("\\\\", "\\'", '<scr\' + \'ipt', '</scr\' + \'ipt');
+			$search = array("\r", "\\", "'", '<script', '</script');
+			$replace = array("", "\\\\", "\\'", '<scr\' + \'ipt', '</scr\' + \'ipt');
 
 			if ($lines)
 				$last = array_pop($lines);
