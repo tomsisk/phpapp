@@ -19,6 +19,7 @@ $config['mail_bounces'] = 'nodody@example.com';
 $config['modules'] = array(
 	// Change "example" to your project's namespace
 	'users' => 'example/modules/users',
+	'films' => 'example/modules/films',
 	);
 
 // Additional models that need to be in the path

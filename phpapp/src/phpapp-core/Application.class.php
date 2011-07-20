@@ -675,6 +675,12 @@
 				 return $this->templateFactory;
 		}
 
+		public function renderTemplate($template, $context) {
+			$t = $this->getTemplateFactory()->getTemplate($template);
+			if ($t)
+				$t->render($context);
+		}
+
 		private function initSmarty() {
 
 			$this->smarty = new Smarty();
