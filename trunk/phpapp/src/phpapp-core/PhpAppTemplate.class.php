@@ -103,7 +103,7 @@
 			if ($this->fallbackResolver)
 				return $this->fallbackResolver->findTemplate($name);
 
-			return $name;
+			return null;
 
 		}
 
@@ -186,7 +186,9 @@
 			$f = $this->resolver
 				? $this->resolver->findTemplate($template)
 				: $template;
-			return new PhpAppTemplate($f, $this);
+			if ($f)
+				return new PhpAppTemplate($f, $this);
+			return null;
 		}
 
 		public function renderTemplate($template, $context = null) {
@@ -287,16 +289,18 @@
 				
 				$incFile = $this->templateContext->resolver->findTemplate($template);
 				$tpl = new PhpAppTemplate($incFile, $this->templateContext);
-				$tpl->render($context
-					? array_merge($this->localContext, $context)
-					: $this->localContext);
+				if ($tpl)
+					$tpl->render($context
+						? array_merge($this->localContext, $context)
+						: $this->localContext);
 
 			} else {
 
 				$tpl = new PhpAppTemplate($template);
-				$tpl->render($context
-					? array_merge($this->context, context)
-					: $this->context);
+				if ($tpl)
+					$tpl->render($context
+						? array_merge($this->context, context)
+						: $this->context);
 
 			}
 
