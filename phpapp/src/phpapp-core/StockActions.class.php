@@ -1202,7 +1202,9 @@
 					}
 				}
 
-				echo '<script language="javascript">self.opener.addPopupValue(\''.$object->pk.'\', \''.$modeladmin->getAdmin()->getApplication()->toString($object).'\');self.close();</script>';
+				$oname = $modeladmin->getAdmin()->getApplication()->toString($object);
+				$oname = str_replace("'", "\\'",str_replace("\\", "\\\\", $oname));
+				echo '<script language="javascript">self.opener.addPopupValue(\''.$object->pk.'\', \''.$oname.'\');self.close();</script>';
 				return true;
 			} catch (ValidationException $ve) {
 				$context = array('pk' => $id,
