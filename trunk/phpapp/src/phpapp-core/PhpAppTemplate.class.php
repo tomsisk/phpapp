@@ -80,7 +80,8 @@
 		private $templateCache = array();
 
 		public function __construct($searchPath, $fallbackResolver = null) {
-			$this->searchPath = $searchPath ? $searchPath : array();
+			$this->searchPath = array_merge(array('.'),
+				 $searchPath ? $searchPath : array());
 			$this->fallbackResolver = $fallbackResolver;
 		}
 
@@ -89,15 +90,20 @@
 			if (isset($this->templateCache[$name]))
 				return $this->templateCache[$name];
 
-			foreach ($this->searchPath as $spath) {
+			if ($name{0} == '/') {
+				if (file_exists($name))
+					return $name;
+			} else {
+				foreach ($this->searchPath as $spath) {
 
-				$full = $this->findFileInPath($spath.'/'.$name);
+					$full = $this->findFileInPath($spath.'/'.$name);
 
-				if ($full) {
-					$this->templateCache[$name] = $full;
-					return $full;
+					if ($full) {
+						$this->templateCache[$name] = $full;
+						return $full;
+					}
+
 				}
-
 			}
 
 			if ($this->fallbackResolver)
@@ -288,19 +294,21 @@
 			if ($this->templateContext && $this->templateContext->resolver) {
 				
 				$incFile = $this->templateContext->resolver->findTemplate($template);
-				$tpl = new PhpAppTemplate($incFile, $this->templateContext);
-				if ($tpl)
+				if ($incFile) {
+					$tpl = new PhpAppTemplate($incFile, $this->templateContext);
 					$tpl->render($context
 						? array_merge($this->localContext, $context)
 						: $this->localContext);
+				} else {
+					throw new Exception("Template not found: $template");
+				}
 
 			} else {
 
 				$tpl = new PhpAppTemplate($template);
-				if ($tpl)
-					$tpl->render($context
-						? array_merge($this->context, context)
-						: $this->context);
+				$tpl->render($context
+					? array_merge($this->context, context)
+					: $this->context);
 
 			}
 
