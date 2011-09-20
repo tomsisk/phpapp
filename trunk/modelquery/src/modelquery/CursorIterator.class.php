@@ -159,7 +159,8 @@
 				$model = $queryhandler->factory->cacheGet($cacheKey);
 			} else {
 				$model = $queryhandler->create($fields, $raw, UPDATE_FROM_DB);
-				$queryhandler->factory->cachePut($cacheKey, $model);
+				// Don't cache things dumbass, the whole purpose is to save memory.
+				//$queryhandler->factory->cachePut($cacheKey, $model);
 			}
 
 			return $model;
