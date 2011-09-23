@@ -22,12 +22,14 @@
 	require_once('lib/phpunit.php');
 	require_once('TestInit.class.php');
 	require_once('TestRelations.class.php');
+	require_once('TestCache.class.php');
 
 	class AllTests extends TestCase {
 		public function suite() {
 			$suite = new TestSuite();
 			$suite->addTest(new TestSuite('TestInit'));
 			$suite->addTest(new TestSuite('TestRelations'));
+			$suite->addTest(new TestSuite('TestCache'));
 			return $suite;
 		}
 	}
