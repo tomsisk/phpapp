@@ -1134,8 +1134,8 @@
 		 * @see QueryFilter::slice()
 		 */
 		public function applySlice($limit = 0, $offset = 0) {
-			$this->query['limit'] = $limit;
-			$this->query['offset'] = $offset;
+			$this->query['limit'] = intval($limit);
+			$this->query['offset'] = intval($offset);
 		}
 
 		/**
