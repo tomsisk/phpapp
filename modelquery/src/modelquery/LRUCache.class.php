@@ -57,6 +57,8 @@
 		 * @param mixed $data The item to cache
 		 */
 		public function put($key, $data) {
+			if ($this->capacity == 0)
+				return;
 			$key = strval($key);
 			if (isset($this->cache[$key]))
 				$this->lru->remove($key);
