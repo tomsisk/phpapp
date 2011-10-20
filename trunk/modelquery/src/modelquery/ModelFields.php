@@ -86,8 +86,8 @@
 		public $name;
 		public $type;
 
-		protected $validators;
-		protected $errors;
+		public $validators;
+		public $errors;
 
 		/**
 		 * Configure a new ModelField instance.

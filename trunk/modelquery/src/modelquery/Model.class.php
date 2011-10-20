@@ -566,13 +566,17 @@
 				}
 			}
 			// Individual field validations
-			foreach ($this->_fields as $field => $def) {
-				if (($field != $this->_idField || array_key_exists($this->_idField, $this->getFieldValues())) && !$def->validate($this->getFieldValue($field), $this)) {
+			foreach ($this->_fields as $field => &$def) {
+				if (($field != $this->_idField
+							|| array_key_exists($this->_idField, $this->getFieldValues(true)))
+						&& count($def->validators)
+						&& !$def->validate($this->getFieldValue($field), $this)) {
 					$errors = $def->validationErrors();
 					if ($errors && count($errors))
 						$this->addFieldErrors($field, $def->validationErrors());
 					$valid = false;
 				}
+
 			}
 			// Full object validations (multi-field dependencies)
 			foreach ($this->_validators as $validator) {
