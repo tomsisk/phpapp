@@ -675,7 +675,7 @@
 				 return $this->templateFactory;
 		}
 
-		public function renderTemplate($template, $context) {
+		public function renderTemplate($template, $context = null) {
 			$t = $this->getTemplateFactory()->getTemplate($template);
 			if ($t)
 				$t->render($context);
