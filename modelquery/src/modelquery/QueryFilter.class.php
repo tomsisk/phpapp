@@ -1561,8 +1561,8 @@
 		 * @return mixed The new record's primary key
 		 * @see QueryFilter::condition()
 		 */
-		public function insert($model, $updateFilters = null) {
-			return $this->doInsert($model, $updateFilters);
+		public function insert($model, $updateFilters = null, $async = false) {
+			return $this->doInsert($model, $updateFilters, $async);
 		}
 
 		/**
@@ -1783,7 +1783,7 @@
 		 * Insert a new record into the data store.
 		 * @see QueryFilter::insert()
 		 */
-		private function doInsert($model, $updateFilters = null) {
+		private function doInsert($model, $updateFilters = null, $async = false) {
 
 			$dbmodels = array();
 			$fields = array();
@@ -1841,7 +1841,7 @@
 
 			$idField = $this->model->_idField;
 
-			$sql = 'INSERT INTO '.$this->tableName.' (';
+			$sql = 'INSERT '.($async ? 'DELAYED ' : '').'INTO '.$this->tableName.' (';
 			$first = true;
 			foreach ($fields as $key) {
 				if (!$first) $sql .= ', ';
