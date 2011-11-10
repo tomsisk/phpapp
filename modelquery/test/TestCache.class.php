@@ -18,21 +18,28 @@
 		}
 
 		public function testSetMemberCache() {
+			$newfilm = $this->qf->Film->create(array(
+				'title' => 'Ocean\'s 12',
+				'director' => 1,
+				'released' => mktime(0,0,0,12,7,2001)));
+			$newfilm->save();
+			$this->qf->cacheFlush();
 			$oct = $this->qf->queryCount;
-			$actors = $this->qf->Actor->all()->preload('films');
-			$actors->select();
+			$directors = $this->qf->Director->all()->preload('films');
+			$directors->select();
 			$this->assertEquals($oct + 1, $this->qf->queryCount);
-			foreach ($actors as $a) {
-				foreach ($a->films as $f) {
+			foreach ($directors as $d) {
+				foreach ($d->films as $f) {
 					// Just loop to make sure everything is loaded
 				}
 			}
 			$this->assertEquals($oct + 1, $this->qf->queryCount);
 			// Test single object cache
-			$actor = $actors->get(1);
+			$director = $directors->get(1);
 			$this->assertEquals($oct + 1, $this->qf->queryCount);
 			// Test dependent object cache
-			$film = $actor->films->get(1);
+			$film = $director->films->get(1);
+			$film = $director->films->get(1);
 			$this->assertEquals($oct + 1, $this->qf->queryCount);
 		}
 
