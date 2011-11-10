@@ -1082,6 +1082,28 @@
 	}
 
 	/**
+	 * Field contains sensitive data and should be masked before display
+	 * in the browser.
+	 *
+	 * This field is useful for displaying items like credit card numbers.
+	 */
+	class MaskedField extends CharField {
+
+		public function getMasked($value) {
+			if ($value) {
+				$masked = '';
+				$maskLength = strlen($value) > 8 ? strlen($value) - 4 : strlen($value);
+				for ($i = 0; $i < $maskLength; $i++)
+					$masked .= '*';
+				$masked .= substr($value, $maskLength);
+				return $masked;
+			}
+			return $value;
+		}
+
+	}
+
+	/**
 	 * Field contains an HTML color code, such as "#EEEEEE".
 	 */
 	class ColorField extends CharField {

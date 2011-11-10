@@ -203,4 +203,20 @@
 			$this->assertEquals($film->title, 'New Title');
 		}
 
+		public function testNewRelations() {
+			$director = $this->qf->Director->create(array('name' => 'Director 1'));
+			$director->save();
+			$film = $this->qf->Film->create(array(
+				'title' => 'Movie 1',
+				'director' => $director,
+				'released' => mktime(0,0,0,7,8,2009)));
+			$film->save();
+			$film = $this->qf->Film->create(array(
+				'title' => 'Movie 2',
+				'director' => $director,
+				'released' => mktime(0,0,0,7,8,2010)));
+			$film->save();
+			$director->films->all()->preload('actors');
+		}
+
 	}
