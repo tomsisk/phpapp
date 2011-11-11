@@ -99,6 +99,7 @@
 				'user' => $this->app->getUser(),
 				'debug' => isset($this->app->config['debug']) && $this->app->config['debug'],
 				'modules' => $this->modules,
+				'moduleGroups' => $this->app->config['moduleGroups'],
 				'host' => $_SERVER['HTTP_HOST'],
 				'defScripts' => $jsIncludes,
 				'defStylesheets' => $cssIncludes,
@@ -280,8 +281,12 @@
 				} elseif (!$handler || $handler == 'modules') {
 					header('Content-Type: text/html; charset=UTF-8');
 					if (sizeof($path) == 0) {
-						// Module index
-						$this->renderTemplate('module_list.tpl', array('modules' => $this->modules));
+						if (isset($this->app->config['defaultModule']))
+							// Default module
+							$this->relativeRedirect('/modules/'.$this->app->config['defaultModule'].'/');
+						else
+							// Module index
+							$this->renderTemplate('module_list.tpl', array('modules' => $this->modules));
 					} else {
 						$moduleid = array_shift($path);
 						$module = $this->modules[$moduleid];

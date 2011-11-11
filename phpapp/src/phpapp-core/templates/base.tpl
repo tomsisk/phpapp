@@ -117,8 +117,26 @@ if (isset($script)) { ?>
 									<hr style="clear:left;" />
 								<? } ?>
 							<? }
-							foreach ($modules as $module_id => $mod) {
-								if ($mod->checkAvailable()) { ?>
+							$grouped = array();
+							if ($moduleGroups) {
+								foreach ($moduleGroups as $groupName => $modList) {
+									$grouped[$groupName] = 'HEADER';
+									foreach ($modList as $mod) {
+										$grouped[$mod] = $modules[$mod];
+									}
+								}
+							}
+							$first = true;
+							foreach (($moduleGroups ? $grouped : $modules) as $module_id => $mod) {
+								if ($mod == 'HEADER') {
+									if (!$first || $module_id) {
+										$first = false;
+										?>
+										<br />
+										<b><?= $module_id; ?></b>
+										<hr />
+									<? }
+								} elseif ($mod->checkAvailable()) { ?>
 									<div class="menumodule">
 										<?
 										$filter = $mod->master;
