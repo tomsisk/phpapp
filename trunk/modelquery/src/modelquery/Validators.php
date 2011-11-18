@@ -141,14 +141,19 @@
 
 		public function validate($object) {
 			$query = $object->getQuery();
+			$changed = false;
 			if ($object->pk)
 				$query = $query->exclude('pk', $object->pk);
 			foreach ($this->fields as $field) {
+				if ($object->getPreviousFieldValue($field) != $object->$field)
+					$changed = true;
 				if ($object->$field === null)
 					$query = $query->filter($field.':isnull', true);
 				else
 					$query = $query->filter($field, $object->$field);
 			}
+			if (!$changed)
+				return true;
 			$usedct = $query->count();
 			return $usedct == 0;
 		}
@@ -252,9 +257,13 @@
 
 		public function validate($value, $model) {
 			$query = $model->getQuery();
-			// Exclude current item if committed to database
-			if ($model->isPersistent())
+			if ($model->isPersistent()) {
+				// Value has not changed, don't bother checking
+				if ($model->getPreviousFieldValue($this->field) == $model[$this->field])
+					return true;
+				// Exclude current item if committed to database
 				$query = $query->exclude('pk', $model->pk);
+			}
 			$usedct = $query->filter($this->field, $value)->count();
 			return $usedct == 0;
 		}
