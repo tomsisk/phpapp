@@ -204,6 +204,17 @@
 	}
 
 	/** 
+	 * Required that a text field be only alphnumeric characters
+	 */
+	class AlphaNumericValidator implements FieldValidator {
+
+		public function validate($value, $model) {
+			return ctype_alnum($value);
+		}
+
+	}
+
+	/** 
 	 * Required that a text field have a maximum length.
 	 */
 	class MaxLengthValidator implements FieldValidator {
