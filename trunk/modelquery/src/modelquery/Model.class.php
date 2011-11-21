@@ -802,6 +802,8 @@
 						$this->setPrimitiveFieldValue($field, $v, ($rawvalues && ($rawvalues == ALLFIELDS || in_array($field, $rawvalues))));
 						// Remove found fields
 						unset($params[$field]);
+					} elseif ($def instanceof ArrayField && ($flags & UPDATE_FORCE_BOOLEAN)) {
+						$this->setPrimitiveFieldValue($field, array());
 					} elseif ($def instanceof BooleanField && ($flags & UPDATE_FORCE_BOOLEAN)) {
 						$this->setPrimitiveFieldValue($field, $def->convertToDbValue(false));
 					} elseif (!array_key_exists($field, $this->_rawValues) && $field != $this->_idField) {
