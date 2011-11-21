@@ -532,7 +532,7 @@
 			if ($flags & UPDATE_FORCE_BOOLEAN) {
 				$displayedFields = $this->getFlattenedFieldGroups();
 				foreach ($model->_fields as $n => $f)
-					if ($f instanceof BooleanField)
+					if ($f instanceof BooleanField || $f instanceof ArrayField)
 						if (!in_array($n, $displayedFields)) {
 							if ($model->pk)
 								$params[$n] = $model->$n;
