@@ -290,8 +290,13 @@ function findListEntry(text, list, lastIdx) {
 		list.selectedIndex = 0;
 }
 
-function removeInlineRow(row, noheader) {
-	if (row.parentNode.select('tr').length <= (noheader ? 2 : 3)) {
+function removeInlineRow(row, noheader, nolink) {
+	var minrows = 3;
+	if (noheader)
+		minrows--;
+	if (nolink)
+		minrows--;
+	if (row.parentNode.select('tr').length <= minrows) {
 		var newrow = cloneRow(row);
 		Element.removeClassName(newrow, 'even');
 		Element.addClassName(newrow, 'odd');
@@ -499,4 +504,26 @@ function copyObject(source, properties) {
 		for (property in properties)
 			copy[property] = properties[property];
 	return copy;
+}
+
+function autoExpand(field) {
+	var tr = $(field).up('tr');
+	var last = $(tr.parentNode).childElements().last();
+	if (field.value && tr == last) {
+		cloneRow(tr);
+		field.focus();
+		AjaxValidatedForm.refreshParent(tr);
+	}
+}
+
+function autoContract(field) {
+	var rows = $(field).up('table').select('tr');
+	var last = rows.last();
+	rows.each(function(r) {
+		if (r != last) {
+			var input = r.down('input');
+			if (!input.value)
+				removeInlineRow(r, true, true);
+		}
+	});
 }
