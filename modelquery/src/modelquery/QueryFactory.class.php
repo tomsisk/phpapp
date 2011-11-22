@@ -306,7 +306,7 @@
 		 * @param string $file The file/relative path to search for
 		 * @return TRUE if the file is found and able to be included
 		 */
-		private static function file_exists_in_path($file) {
+		public static function file_exists_in_path($file) {
 			if (file_exists($file))
 				return TRUE;
 			if (!QueryFactory::$path)
@@ -322,7 +322,7 @@
 		 * @param string $file The file/relative path to search for
 		 * @return string The full path of the file, if found
 		 */
-		private static function find_file_in_path($file) {
+		public static function find_file_in_path($file) {
 			if (file_exists($file))
 				return $file;
 			if (!QueryFactory::$path)
