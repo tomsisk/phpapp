@@ -7,7 +7,38 @@ if (isset($field->options['relation'])) {
 		$options = $rq->map('pk');
 } else
 	$options = $field->options['options'];
-if ($modeladmin->fieldOptions[$fieldRef]['style'] == 'checkbox') {
+if (!$options || count($options) == 0) { ?>
+	<table cellpadding="0" cellspacing="0" border="0">
+	<?
+	$rowClass = 'odd';
+	$needBlank = true;
+	if ($object[$field->field]) {
+		foreach ($object[$field->field] as $value) { ?>
+			<tr class="<?= $rowClass; ?>">
+				<td width="1">
+				</td>
+				<td>
+					<input name="<?= $fieldName; ?>[]" value="<?= $value ?>" onkeypress="autoExpand(this);" onblur="autoContract(this);" />
+				</td>
+			</tr>
+			<?
+			$rowClass = $rowClass == 'odd' ? 'even' : 'odd';
+		}
+		if (!$object[$field->field][count($object[$field->field])-1])
+			$needBlank = false;
+	}
+	if ($needBlank) { ?>
+		<tr class="<?= $rowClass; ?>">
+			<td width="1">
+			</td>
+			<td>
+				<input onkeypress="autoExpand(this);" onblur="autoContract(this);" name="<?= $fieldName; ?>[]" value="" />
+			</td>
+		</tr>
+	<? } ?>
+	</table>
+	<?
+} elseif ($modeladmin->fieldOptions[$fieldRef]['style'] == 'checkbox') {
 
 	$ordered = isset($modeladmin->fieldOptions[$fieldRef]['ordered'])
 		&& $modeladmin->fieldOptions[$fieldRef]['ordered'];
