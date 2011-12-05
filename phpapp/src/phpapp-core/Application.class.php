@@ -97,6 +97,7 @@
 						'user' => $this->config['db_user'],
 						'password' => $this->config['db_pass'],
 						'database' => $this->config['db_name']);
+				$tablePrefix = $this->config['db_prefix'];
 
 				$roots = array();
 				foreach ($config['modules'] as $mdir)
@@ -114,13 +115,13 @@
 						$this->query = unserialize($qfSrc);
 						$this->query->setConnection($connParams);
 					} else {
-						$this->query = new QueryFactory($connParams, $roots);
+						$this->query = new QueryFactory($connParams, $roots, $tablePrefix);
 						$updated = $this->query->precacheModels();
 						$this->setAppVar($this->id.'_queryFactory', serialize($this->query));
 						$this->setAppVar($this->id.'_queryFactory_timestamp', $updated);
 					}
 				} else {
-					$this->query = new QueryFactory($connParams, $roots);
+					$this->query = new QueryFactory($connParams, $roots, $tablePrefix);
 				}
 
 				if (isset($config['debug']) && $config['debug'])
