@@ -314,6 +314,15 @@
 
 		}
 
+		// Like incl(), but return a string
+		public function load($template, $context = null) {
+			ob_start();
+			$this->incl($template, $context);
+			$contents = ob_get_contents();
+			ob_end_clean();
+			return $contents;
+		}
+
 		// URL parameter modifier
 		public function selfurl($name, $value = null, $addSeparator = false) {
 
