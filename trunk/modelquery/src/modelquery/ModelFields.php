@@ -148,7 +148,9 @@
 		public function validate($value, $model) {
 			$this->errors = array();
 			$valid = true;
-			if (isset($this->options['options'])) {
+			if (isset($this->options['options'])
+					&& (!isset($this->options['allowCustomValue'])
+						|| !$this->options['allowCustomValue'])) {
 				$validvals = array_keys($this->options['options']);
 				$valueList = is_array($value) ? $value : array($value);
 				foreach ($valueList as $v) {
