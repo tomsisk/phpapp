@@ -228,6 +228,16 @@
 		 *
 		 * @throws InvalidUsageException Method is not valid on this object.
 		 */
+		public function update($values, $pk = null) {
+			// Block calling update() - avoid dumb mistakes trashing an entire table
+			throw new InvalidUsageException('Cannot call update() on the root query handler (try calling all() first if you really want to do this)');
+		}
+
+		/**
+		 * This method is illegal on QueryHandler to avoid dumb mistakes.
+		 *
+		 * @throws InvalidUsageException Method is not valid on this object.
+		 */
 		public function delete() {
 			// Block calling delete() - avoid dumb mistakes trashing an entire table
 			throw new InvalidUsageException('Cannot call delete() on the root query handler (try calling all() first if you really want to do this)');
