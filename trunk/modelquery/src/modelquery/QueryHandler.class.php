@@ -230,7 +230,10 @@
 		 */
 		public function update($values, $pk = null) {
 			// Block calling update() - avoid dumb mistakes trashing an entire table
-			throw new InvalidUsageException('Cannot call update() on the root query handler (try calling all() first if you really want to do this)');
+			if (!$pk)
+				throw new InvalidUsageException('Cannot call update() on the root query handler without an object ID (try calling all() first if you really want to do this)');
+			else
+				parent::update($values, $pk);
 		}
 
 		/**
