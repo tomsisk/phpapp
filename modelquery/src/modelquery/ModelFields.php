@@ -806,6 +806,14 @@
 			return intval($value);
 		}
 
+		public function convertToDbValue($value) {
+			if ($value === '' || $value === null)
+				return null;
+			// MySQL returns all fields as strings in the driver, so
+			// we need to return strings for version comparisons
+			return strval($value);
+		}
+
 	}
 
 	/**
@@ -907,6 +915,14 @@
 			return floatval($value);
 		}
 
+		public function convertToDbValue($value) {
+			if ($value === '' || $value === null)
+				return null;
+			// MySQL returns all fields as strings in the driver, so
+			// we need to return strings for version comparisons
+			return strval($value);
+		}
+
 	}
 
 	/**
@@ -921,6 +937,14 @@
 			if (is_string($value))
 				$value = str_replace(array(',', '$'), '', $value);
 			return parent::convertValue($value);
+		}
+
+		public function convertToDbValue($value) {
+			if (is_string($value))
+				$value = str_replace(array(',', '$'), '', $value);
+			// MySQL returns all fields as strings in the driver, so
+			// we need to return strings for version comparisons
+			return parent::convertToDbValue($value);
 		}
 
 		public function toString($value) {
@@ -1299,6 +1323,12 @@
 			if ($value < 2147483647)
 				$value *= 1000;
 			return $value;
+		}
+
+		public function convertToDbValue($value) {
+			// MySQL returns all fields as strings in the driver, so
+			// we need to return strings for version comparisons
+			return parent::convertToDbValue($this->convertValue($value));
 		}
 
 		public function toString($value) {

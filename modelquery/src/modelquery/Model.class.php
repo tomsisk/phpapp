@@ -483,9 +483,11 @@
 				if ($name == 'pk')
 					$name = $this->_idField;
 				if (array_key_exists($name, $this->_versionValues)) {
-					$this->_rawValues[$name] = $this->_versionValues[$name];
-					unset($this->_fieldValues[$name]);
-					$this->_versionChanges--;
+					if ($this->_rawValues[$name] !== $this->_versionValues[$name]) {
+						$this->_rawValues[$name] = $this->_versionValues[$name];
+						unset($this->_fieldValues[$name]);
+						$this->_versionChanges--;
+					}
 				} else if (array_key_exists($name, $this->_rawValues)) {
 					unset($this->_rawValues[$name]);
 					$this->_versionChanges--;
