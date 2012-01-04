@@ -1494,4 +1494,8 @@
 
 		}
 
+		public function serialize($value) {
+			return rawurldecode($this->convertToDbValue($value));
+		}
+
 	}
