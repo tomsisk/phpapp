@@ -807,11 +807,9 @@
 		}
 
 		public function convertToDbValue($value) {
-			if ($value === '' || $value === null)
-				return null;
 			// MySQL returns all fields as strings in the driver, so
 			// we need to return strings for version comparisons
-			return strval($value);
+			return strval($this->convertValue($value));
 		}
 
 	}
@@ -916,11 +914,7 @@
 		}
 
 		public function convertToDbValue($value) {
-			if ($value === '' || $value === null)
-				return null;
-			// MySQL returns all fields as strings in the driver, so
-			// we need to return strings for version comparisons
-			return strval($value);
+			return strval($this->convertValue($value));
 		}
 
 	}
