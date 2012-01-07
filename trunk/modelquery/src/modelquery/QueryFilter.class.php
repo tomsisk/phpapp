@@ -1188,14 +1188,14 @@
 		public function applyGrouping($groupby, $select = false) {
 
 			if ($groupby) {
-
+				
 				for ($i = 0; $i < count($groupby); ++$i) {
 					$gf = $groupby[$i];
 					if (strpos($gf, '.') !== FALSE) {
 						$ji = $this->getJoinInfo($gf);
 						$gf = $ji[0];
 					} else {
-						$gf = '`'.$this->tableName.'`.`'.$ji[0].'`';
+						$gf = '`'.$this->tableName.'`.`'.$gf.'`';
 					}
 					if ($select)
 						$this->query['select'][$groupby[$i]] = $gf;
