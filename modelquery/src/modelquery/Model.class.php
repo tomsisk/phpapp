@@ -375,7 +375,8 @@
 		public function getFieldValue($name) {
 			if ($name == 'pk')
 				$name = $this->_idField;
-			if (!$name || !isset($this->_fields[$name]))
+			if (!$name || (!isset($this->_fields[$name])
+					&& !isset($this->_extraValues[$name])))
 				return null;
 			$field = $this->_fields[$name];
 			if ($field) {
