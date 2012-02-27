@@ -1248,6 +1248,16 @@
 			
 		}
 
+		// Debug function for retrieving SQL for the current filter.
+		public function sql() {
+			$q = $this->mergedQuery(true);
+			// Aggregate queries don't mix with preloads
+			if (count($q['aggregates']))
+				$q = $this->mergedQuery(true, true);
+			list($sql, $params) = $this->buildSQL($q);
+			return $this->replaceSQLParams($sql, $params);
+		}
+
 		/*
 		 * Methods that execute a query and return the results
 		 */
@@ -1628,16 +1638,16 @@
 		 */
 
 		/**
-		 * Executes the current query, parses the results into Model objects,
-		 * and caches them internally.
+		 * Return a SQL statement and parameters for use by query().
 		 *
 		 * @param Array $query The query specification array
 		 * @param bool $selectAllFields If true, will select all model fields.
 		 *		Otherwise, it will only select fields specified in the query
 		 *		'select' option.
-		 * @return ADORecordSet The record set results from ADODB
+		 * @return Array a length-2 array or $sql, $params for passing to query()
 		 */
-		private function doSelect($query, $selectAllFields = true) {
+		private function buildSQL($query, $selectAllFields = true) {
+
 			$selectAllFields = $selectAllFields && !count($query['aggregates']);
 			$fields = $this->model->_dbFields;
 			$params = array();
@@ -1711,6 +1721,21 @@
 
 			$sql .= ';';
 
+			return array($sql, $params);
+		}
+
+		/**
+		 * Executes the current query, parses the results into Model objects,
+		 * and caches them internally.
+		 *
+		 * @param Array $query The query specification array
+		 * @param bool $selectAllFields If true, will select all model fields.
+		 *		Otherwise, it will only select fields specified in the query
+		 *		'select' option.
+		 * @return ADORecordSet The record set results from ADODB
+		 */
+		private function doSelect($query, $selectAllFields = true) {
+			list($sql, $params) = $this->buildSQL($query, $selectAllFields);
 			return $this->query($sql, $params);
 		}
 
@@ -2412,17 +2437,7 @@
 			$result = $c->execute($stmt, $params);
 
 			if ($this->fullQuery['debug']) {
-				$fullsql = $sql;
-				$ppos = strpos($fullsql, '?');
-				$pct = 0;
-				while ($ppos !== FALSE) {
-					$param = is_string($params[$pct])
-						? '\''.$params[$pct].'\''
-						: ($params[$pct] === null ? 'NULL' : strval($params[$pct]));
-					$fullsql = substr($fullsql, 0, $ppos).$param.substr($fullsql, $ppos + 1);
-					$ppos = strpos($fullsql, '?');
-					$pct++;
-				}
+				$fullsql = $this->replaceSQLParams($sql, $params);
 				if ($qf->logger) {
 					$elapsed = microtime(true) - $start;
 					$qf->logger->logDebug('Query ('.round($elapsed*1000,2).'ms): '.$fullsql);
@@ -2448,6 +2463,21 @@
 				throw new SQLException('Database query failed: '.$error);
 			}
 
+		}
+
+		private function replaceSQLParams($sql, $params) {
+			$fullsql = $sql;
+			$ppos = strpos($fullsql, '?');
+			$pct = 0;
+			while ($ppos !== FALSE) {
+				$param = is_string($params[$pct])
+					? '\''.$params[$pct].'\''
+					: ($params[$pct] === null ? 'NULL' : strval($params[$pct]));
+				$fullsql = substr($fullsql, 0, $ppos).$param.substr($fullsql, $ppos + 1);
+				$ppos = strpos($fullsql, '?');
+				$pct++;
+			}
+			return $fullsql;
 		}
 
 		/**
