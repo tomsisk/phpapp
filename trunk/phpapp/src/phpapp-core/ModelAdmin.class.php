@@ -459,6 +459,7 @@
 			$master = $this->module->master;
 			$requiredFilter = $this->module->requiredFilter;
 			$filteredMaster = false;
+			$restrictedFields = array();
 
 			foreach ($model->_fields as $field => $def) {
 				if ($access = $this->getMatchedFields($field)) {
@@ -475,6 +476,8 @@
 
 				if (isset($this->fieldRestrictions[$field]) && $restricted = $this->fieldRestrictions[$field]) {
 					if (!$this->checkPermission($restricted[1])) { 
+						if ($restricted[0] == CHANGE_ONLY)
+							$restrictedFields[] = $field;
 						unset($params[$field]);
 						$def->options['editable'] = false;
 					}
@@ -533,7 +536,7 @@
 				$displayedFields = $this->getFlattenedFieldGroups();
 				foreach ($model->_fields as $n => $f)
 					if ($f instanceof BooleanField || $f instanceof ArrayField)
-						if (!in_array($n, $displayedFields)) {
+						if (!in_array($n, $displayedFields) || in_array($n, $restrictedFields)) {
 							if ($model->pk)
 								$params[$n] = $model->$n;
 							else
