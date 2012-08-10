@@ -46,6 +46,8 @@
 
 		private $conn;
 		private $connParams;
+		private $readConn;
+		private $readConnParams;
 		private $appName;
 		private $modelRoots = array();
 
@@ -145,6 +147,7 @@
 			} else
 				// Backwards compatibility: use given ADODB connection object
 				$this->conn = $conn;
+
 		}
 
 		/**
@@ -163,6 +166,43 @@
 		}
 
 		/**
+		 * Set the shared database connection for QueryHandler objects.
+		 *
+		 * @param $conn An ADODB database connection object
+		 */
+		public function setReadConnection($readConn) {
+			if ($this->readConn)
+				$this->readConn->Close();
+			if (is_array($readConn)) {
+				$this->readConnParams = $readConn;
+				$this->readConn = null;
+			} else
+				// Backwards compatibility: use given ADODB connection object
+				$this->readConn = $readConn;
+		}
+
+		/**
+		 * Get the shared database connection.
+		 * @return An ADODB database connection object
+		 */
+		public function &getReadConnection() {
+
+			if (!$this->readConn && $p = $this->readConnParams) {
+				$c = ADONewConnection('mysqlt');
+				$c->setFetchMode(ADODB_FETCH_ASSOC);
+				$c->autoCommit = false;
+				$c->NConnect($p['host'], $p['user'], $p['password'], $p['database']);
+				$this->readConn = $c;
+			}
+
+			if ($this->readConn)
+				return $this->readConn;
+
+			return $this->getConnection();
+
+		}
+
+		/**
 		 * Close the shared database connection. This should usually not be called
 		 * by user code. If getConnection() is called in the future the connection
 		 * will be re-opened.
@@ -171,6 +211,10 @@
 			if ($this->conn) {
 				$this->conn->Close();
 				$this->conn = null;
+			}
+			if ($this->readConn) {
+				$this->readConn->Close();
+				$this->readConn = null;
 			}
 		}
 
