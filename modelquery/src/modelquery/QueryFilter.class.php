@@ -1736,7 +1736,7 @@
 		 */
 		private function doSelect($query, $selectAllFields = true) {
 			list($sql, $params) = $this->buildSQL($query, $selectAllFields);
-			return $this->query($sql, $params);
+			return $this->query($sql, $params, true);
 		}
 
 		/**
@@ -2421,7 +2421,7 @@
 		 * @return ADORecordSet The record set object from ADODB
 		 * @throws SQLException if the query fails
 		 */
-		public function query($sql, $params) {
+		public function query($sql, $params, $read = false) {
 
 			if (!$this->fullQuery)
 				$this->mergedQuery(true);
@@ -2430,7 +2430,11 @@
 			$start = microtime(true);
 
 			$qf->queryCount++;
-			$c =& $qf->getConnection();
+			$c = null;
+			if ($read)
+				$c =& $qf->getReadConnection();
+			else
+				$c =& $qf->getConnection();
 			if (!$qf->inTransaction())
 				$c->BeginTrans();
 			$stmt = $c->prepare($sql);

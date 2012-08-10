@@ -151,6 +151,14 @@
 		}
 
 		/**
+		 * Get the current database read connection.
+		 * @return ADOConnection The database connection
+		 */
+		public function &getReadConnection() {
+			return $this->factory->getReadConnection();
+		}
+
+		/**
 		 * Get the application name (from QueryFactory).
 		 * @return string The application name
 		 */
