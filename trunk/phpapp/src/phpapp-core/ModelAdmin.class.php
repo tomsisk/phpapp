@@ -1109,7 +1109,7 @@
 			$value = '';
 			if ($link) {
 				$value = '<a href="';
-				if ($this->checkPermission('MODIFY'))
+				if ($this->checkPermission('MODIFY', $object->pk))
 					$value .= $this->relativeUrl('/edit/');
 				else
 					$value .= $this->relativeUrl('/view/');

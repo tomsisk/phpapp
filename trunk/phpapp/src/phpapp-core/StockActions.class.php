@@ -73,8 +73,9 @@
 						}
 						$filteredFields[$ff] = $params[$ff];
 					}
-
-			if (!$modeladmin->checkPermission('VIEW'))
+			
+			//if (!$modeladmin->checkPermission('VIEW')) 
+			if (!$modeladmin->checkAccess())
 				throw new AccessDeniedException('You are not allowed to view this section.');
 
 			$query = $modeladmin->getQuery();
