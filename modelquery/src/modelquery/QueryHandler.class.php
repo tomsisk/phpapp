@@ -201,7 +201,7 @@
 		 *
 		 * @throws InvalidUsageException Method is not valid on this object.
 		 */
-		public function select() {
+		public function select($map = null, $multimap = false) {
 			// Block calling select() - we don't want queries cached in $this->models on
 			// the shared QueryHandler object.
 			throw new InvalidUsageException('Cannot call select() on the root query handler (try calling all() first)');
@@ -213,7 +213,7 @@
 		 *
 		 * @throws InvalidUsageException Method is not valid on this object.
 		 */
-		public function hash() {
+		public function hash($map = null, $multimap = false) {
 			// Block calling select() - we don't want queries cached in $this->models on
 			// the shared QueryHandler object.
 			throw new InvalidUsageException('Cannot call hash() on the root query handler (try calling all() first)');
@@ -225,7 +225,7 @@
 		 *
 		 * @throws InvalidUsageException Method is not valid on this object.
 		 */
-		public function raw() {
+		public function raw($map = null, $multimap = false) {
 			// Block calling select() - we don't want queries cached in $this->models on
 			// the shared QueryHandler object.
 			throw new InvalidUsageException('Cannot call raw() on the root query handler (try calling all() first)');
