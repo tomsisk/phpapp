@@ -123,7 +123,7 @@ if (typeof(tinyMCE) != 'undefined') {
 		plugins : 'table,paste,advhr,advlink,insertdatetime,preview,advimage,media,searchreplace,print,contextmenu,fullscreen',
 		plugin_insertdate_dateFormat : '%m/%d/%Y',
 		plugin_insertdate_timeFormat : '%H:%M:%S',
-		extended_valid_elements : 'a[name|href|target|title|onclick|class],img[id|src|class|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name|usemap],hr[class|width|size|noshade],font[face|size|color|style],span[id|class|align|style],marquee[*],iframe[*],map[name|id],area[coords|href|title],script[*],form[*],input[*],select[*]',
+		extended_valid_elements : 'a[name|href|target|title|onclick|class],img[id|src|class|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name|usemap],hr[class|width|size|noshade],font[face|size|color|style],span[id|class|align|style],marquee[*],iframe[*],map[name|id],area[coords|href|title],script[*],form[*],input[*],select[*],option[*]',
 		paste_auto_cleanup_on_paste : isIE,
 		paste_convert_headers_to_strong : isIE,
 		setup: function(ed) {
