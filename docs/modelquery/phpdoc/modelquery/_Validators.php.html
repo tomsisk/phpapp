@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs for page Validators.php</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="file-name">/Validators.php</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-classes">Classes</a>
+														</div>
+	<div class="info-box-body">	
+		<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">filesource:</span> <a href="../__filesource/fsource_modelquery__Validators.php.html">Source Code for this file</a></li>
+			</ul>
+		
+			</div>
+</div>
+		
+	<a name="sec-classes"></a>	
+	<div class="info-box">
+		<div class="info-box-title">Classes</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Classes</span>
+																	</div>
+		<div class="info-box-body">	
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; vertical-align: top">
+						<a href="../modelquery/ModelValidator.html">ModelValidator</a>
+					</td>
+					<td>
+											A validator that validates the entire model as a whole, rather  than limited to individual fields.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; vertical-align: top">
+						<a href="../modelquery/ConditionalRequiredStringValidator.html">ConditionalRequiredStringValidator</a>
+					</td>
+					<td>
+											Requires that if one field has a non-empty value, another field must  also have a non-empty value.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; vertical-align: top">
+						<a href="../modelquery/FieldsMatchValidator.html">FieldsMatchValidator</a>
+					</td>
+					<td>
+											Requires that two fields have matching values.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; vertical-align: top">
+						<a href="../modelquery/OneOrMoreValidator.html">OneOrMoreValidator</a>
+					</td>
+					<td>
+											Require that one or more of the listed fields have non-empty  values.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; vertical-align: top">
+						<a href="../modelquery/UniqueFieldsValidator.html">UniqueFieldsValidator</a>
+					</td>
+					<td>
+											Require that a set of fields be unique within all model instances.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; vertical-align: top">
+						<a href="../modelquery/FieldValidator.html">FieldValidator</a>
+					</td>
+					<td>
+											A validator that checks individual field values.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; vertical-align: top">
+						<a href="../modelquery/RequiredFieldValidator.html">RequiredFieldValidator</a>
+					</td>
+					<td>
+											Required that a field have a non-null value.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; vertical-align: top">
+						<a href="../modelquery/MinLengthValidator.html">MinLengthValidator</a>
+					</td>
+					<td>
+											Required that a text field have a minimum length.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; vertical-align: top">
+						<a href="../modelquery/MaxLengthValidator.html">MaxLengthValidator</a>
+					</td>
+					<td>
+											Required that a text field have a maximum length.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; vertical-align: top">
+						<a href="../modelquery/UniqueFieldValidator.html">UniqueFieldValidator</a>
+					</td>
+					<td>
+											Require that a field value be unique among all model instances.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; vertical-align: top">
+						<a href="../modelquery/RequiredStringValidator.html">RequiredStringValidator</a>
+					</td>
+					<td>
+											Require that a string have a non-empty value.  This differs  from RequiredFieldValidator in that while RequiredFieldValidator  will accept an empty string as a non-null value, this validator  will not.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; vertical-align: top">
+						<a href="../modelquery/NumericValidator.html">NumericValidator</a>
+					</td>
+					<td>
+											Require that a field value be numeric.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; vertical-align: top">
+						<a href="../modelquery/PasswordValidator.html">PasswordValidator</a>
+					</td>
+					<td>
+											Imposes certain character requirements on password fields.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; vertical-align: top">
+						<a href="../modelquery/NonEmptyArrayValidator.html">NonEmptyArrayValidator</a>
+					</td>
+					<td>
+											Require that an array field have a least one item in it.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; vertical-align: top">
+						<a href="../modelquery/DateValidator.html">DateValidator</a>
+					</td>
+					<td>
+											Required a valid date.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; vertical-align: top">
+						<a href="../modelquery/EmailValidator.html">EmailValidator</a>
+					</td>
+					<td>
+											Require a valid email address format.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; vertical-align: top">
+						<a href="../modelquery/ConditionalValidator.html">ConditionalValidator</a>
+					</td>
+					<td>
+											Conditionally includes a model validator depending on  another field value.  If the specified field matches  the required value, then the additional validator will  be added to the validation stack.
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+	
+	
+	
+	
+	<p class="notes" id="credit">
+		Documentation generated on Thu, 21 Apr 2011 16:32:40 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

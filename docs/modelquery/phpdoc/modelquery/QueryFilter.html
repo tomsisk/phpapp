@@ -1,0 +1,3377 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class QueryFilter</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class QueryFilter</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|											<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+                <p class="implements">
+            Implements interfaces:
+            <ul>
+                <li>ArrayAccess (internal interface)</li><li>Iterator (internal interface)</li><li>Countable (internal interface)</li>            </ul>
+        </p>
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Core class for query creation in ModelQuery.</p>
+<p class="description"><p>All queries constructed with ModelQuery use a chain of one or  more QueryFilter objects.</p><p><strong>Basic Usage Examples</strong>  <div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Get&nbsp;the&nbsp;User&nbsp;QueryHandler&nbsp;object&nbsp;(which&nbsp;is&nbsp;also&nbsp;a&nbsp;QueryFilter)&nbsp;from&nbsp;our&nbsp;QueryFactory</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$uq&nbsp;</span>=&nbsp;<span class="src-var">$qf</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodget">get</a><span class="src-sym">(</span><span class="src-str">'User'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Get&nbsp;all&nbsp;users</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$users&nbsp;</span>=&nbsp;<span class="src-var">$uq</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodall">all</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Get&nbsp;all&nbsp;users,&nbsp;sorted&nbsp;by&nbsp;username</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$users&nbsp;</span>=&nbsp;<span class="src-var">$uq</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodorder">order</a><span class="src-sym">(</span><span class="src-str">'username'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Get&nbsp;all&nbsp;verified&nbsp;users</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$users&nbsp;</span>=&nbsp;<span class="src-var">$uq</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodfilter">filter</a><span class="src-sym">(</span><span class="src-str">'verified'</span><span class="src-sym">,&nbsp;</span><span class="src-id">true</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Delete&nbsp;all&nbsp;unverified&nbsp;users&nbsp;created&nbsp;before&nbsp;Jan&nbsp;1</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$uq</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodfilter">filter</a><span class="src-sym">(</span><span class="src-str">'verified'</span><span class="src-sym">,&nbsp;</span><span class="src-id">false</span><span class="src-sym">,&nbsp;</span><span class="src-str">'created:lte'</span><span class="src-sym">,&nbsp;</span><a href="http://www.php.net/mktime">mktime</a><span class="src-sym">(</span><span class="src-num">0</span><span class="src-sym">,</span><span class="src-num">0</span><span class="src-sym">,</span><span class="src-num">0</span><span class="src-sym">,</span><span class="src-num">1</span><span class="src-sym">,</span><span class="src-num">1</span><span class="src-sym">,</span><span class="src-num">2008</span><span class="src-sym">))</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methoddelete">delete</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Get&nbsp;an&nbsp;array&nbsp;of&nbsp;emails&nbsp;for&nbsp;all&nbsp;unverified&nbsp;users&nbsp;with&nbsp;non-null&nbsp;email&nbsp;addresses</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$values&nbsp;</span>=&nbsp;<span class="src-var">$uq</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodfilter">filter</a><span class="src-sym">(</span><span class="src-str">'verified'</span><span class="src-sym">,&nbsp;</span><span class="src-id">true</span><span class="src-sym">,&nbsp;</span><span class="src-str">'email:isnull'</span><span class="src-sym">,&nbsp;</span><span class="src-id">false</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodvalues">values</a><span class="src-sym">(</span><span class="src-str">'email'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Get&nbsp;a&nbsp;list&nbsp;of&nbsp;all&nbsp;users&nbsp;with&nbsp;gmail.com&nbsp;email&nbsp;addresses</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$users&nbsp;</span>=&nbsp;<span class="src-var">$uq</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodfilter">filter</a><span class="src-sym">(</span><span class="src-str">'email:endswith'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'@gmail.com'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Get&nbsp;all&nbsp;unverified&nbsp;users&nbsp;except&nbsp;those&nbsp;in&nbsp;group&nbsp;5</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$values&nbsp;</span>=&nbsp;<span class="src-var">$uq</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodfilter">filter</a><span class="src-sym">(</span><span class="src-str">'verified'</span><span class="src-sym">,&nbsp;</span><span class="src-id">false</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodexclude">exclude</a><span class="src-sym">(</span><span class="src-str">'group'</span><span class="src-sym">,&nbsp;</span><span class="src-num">5</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Set&nbsp;all&nbsp;users&nbsp;in&nbsp;group&nbsp;5&nbsp;to&nbsp;verified</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$uq</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodfilter">filter</a><span class="src-sym">(</span><span class="src-str">'group'</span><span class="src-sym">,&nbsp;</span><span class="src-num">5</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodupdate">update</a><span class="src-sym">(</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'verified'</span><span class="src-sym">,&nbsp;</span><span class="src-id">true</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Get&nbsp;the&nbsp;current&nbsp;user&nbsp;count</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$count&nbsp;</span>=&nbsp;<span class="src-var">$uq</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodcount">count</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+</ol></div></p><p><strong>Filter Chaining</strong></p><p>You will notice that except for methods that return immediate  query results (hash(), select(), raw(), delete(), get(), etc),  most filtering methods in this class (filter(), exclude(),  slice(), order(), etc) return a new QueryFilter object that  chains to the one it was called from, without altering its  original state or executing a query against the database.  Chaining filters in this way allows you to branch in several  different directions with a query without having to start  over again.</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Base&nbsp;query&nbsp;is&nbsp;limited&nbsp;to&nbsp;only&nbsp;users&nbsp;in&nbsp;group&nbsp;5</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$query&nbsp;</span>=&nbsp;<span class="src-var">$uq</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodfilter">filter</a><span class="src-sym">(</span><span class="src-str">'group'</span><span class="src-sym">,&nbsp;</span><span class="src-num">5</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Get&nbsp;total&nbsp;number&nbsp;of&nbsp;users&nbsp;in&nbsp;group&nbsp;5</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$total&nbsp;</span>=&nbsp;<span class="src-var">$query</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodcount">count</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;...but&nbsp;only&nbsp;load&nbsp;the&nbsp;first&nbsp;10</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$users&nbsp;</span>=&nbsp;<span class="src-var">$query</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodslice">slice</a><span class="src-sym">(</span><span class="src-num">10</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+</ol></div></p><p><strong>Accessing the Result Set</strong></p><p>As mentioned above, most of the filter methods return a QueryFilter object,  but no query is actually executed against the database yet. So how do we get  the actual query results?</p><p>Just start accessing it as a regular PHP array. As soon as you call it  in an array context (either as part of a foreach loop, or by trying to directly  access an array index on it), the underlying query is executed on the database  and the result set is created.</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Filter&nbsp;applied,&nbsp;but&nbsp;no&nbsp;query&nbsp;execution&nbsp;yet</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$users&nbsp;</span>=&nbsp;<span class="src-var">$uq</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodfilter">filter</a><span class="src-sym">(</span><span class="src-str">'group'</span><span class="src-sym">,&nbsp;</span><span class="src-num">5</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;foreach&nbsp;loop&nbsp;forces&nbsp;query&nbsp;execution</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-key">foreach&nbsp;</span><span class="src-sym">(</span><span class="src-var">$users&nbsp;</span><span class="src-key">as&nbsp;</span><span class="src-var">$user</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Like&nbsp;QueryFilter,&nbsp;Model&nbsp;instances&nbsp;can&nbsp;also&nbsp;be&nbsp;accessed&nbsp;as&nbsp;objects&nbsp;or&nbsp;arrays:</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;<span class="src-var">$user</span><span class="src-sym">-&gt;</span><span class="src-id">username</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;...&nbsp;is&nbsp;equivalent&nbsp;to:</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;<span class="src-var">$user</span><span class="src-sym">[</span><span class="src-str">'username'</span><span class="src-sym">]</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-sym">}</span></div></li>
+</ol></div></p><p><strong>Cursors</strong></p><p>If you have too many rows to load in memory, you can also use a database  cursor:</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Get&nbsp;a&nbsp;CursorIterator&nbsp;object&nbsp;for&nbsp;this&nbsp;query</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$users&nbsp;</span>=&nbsp;<span class="src-var">$uq</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodfilter">filter</a><span class="src-sym">(</span><span class="src-str">'group'</span><span class="src-sym">,&nbsp;</span><span class="src-num">5</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodcursor">cursor</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;CursorIterator&nbsp;can&nbsp;also&nbsp;be&nbsp;used&nbsp;normally&nbsp;as&nbsp;an&nbsp;array,&nbsp;but&nbsp;it&nbsp;keeps&nbsp;the&nbsp;database</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;connection&nbsp;open&nbsp;and&nbsp;loads&nbsp;rows&nbsp;as&nbsp;needed:</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-key">foreach&nbsp;</span><span class="src-sym">(</span><span class="src-var">$users&nbsp;</span><span class="src-key">as&nbsp;</span><span class="src-var">$user</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Do&nbsp;something</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Manually&nbsp;close&nbsp;down&nbsp;the&nbsp;cursor</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$users</span><span class="src-sym">-&gt;</span><span class="src-id">close</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+</ol></div></p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/CursorIterator.html">CursorIterator</a></li>
+				<li><span class="field">see:</span> <a href="../modelquery/QueryHandler.html">QueryHandler</a></li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_QueryFilter.class.php.html">/QueryFilter.class.php</a> (line <span class="field"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a144">144</a></span>)
+		</p>
+		
+				
+		<pre></pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|												<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../modelquery/QueryHandler.html">QueryHandler</a></td>
+					<td>
+											The root query object for a specific model.
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																																																																																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$factory" title="details" class="var-name">$factory</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$fullQuery" title="details" class="var-name">$fullQuery</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$model" title="details" class="var-name">$model</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$modelquery" title="details" class="var-name">$modelquery</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$parentFilter" title="details" class="var-name">$parentFilter</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$query" title="details" class="var-name">$query</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$queryhandler" title="details" class="var-name">$queryhandler</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$tableName" title="details" class="var-name">$tableName</a>
+				</div>
+											</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												
+												<div class="method-definition">
+											<span class="method-result">QueryFilter</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											(<span class="var-type"><a href="../modelquery/QueryHandler.html">QueryHandler</a></span>&nbsp;<span class="var-name">&$queryhandler_</span>, [<span class="var-type"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>&nbsp;<span class="var-name">&$parentFilter_</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addAggregate" title="details" class="method-name">addAggregate</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$name</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$field</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$fn</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+										<a href="#aggregate" title="details" class="method-name">aggregate</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$fn</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+										<a href="#all" title="details" class="method-name">&amp;all</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/Model.html">Model</a></span>
+										<a href="#any" title="details" class="method-name">any</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#applyCondition" title="details" class="method-name">applyCondition</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$expression</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#applyDebug" title="details" class="method-name">applyDebug</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#applyDistinct" title="details" class="method-name">applyDistinct</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#applyExclude" title="details" class="method-name">applyExclude</a>
+											(<span class="var-type">Array</span>&nbsp;<span class="var-name">$filters</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#applyExcludeOr" title="details" class="method-name">applyExcludeOr</a>
+											(<span class="var-type">Array</span>&nbsp;<span class="var-name">$filters</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#applyExtra" title="details" class="method-name">applyExtra</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$select</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$where</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#applyFilter" title="details" class="method-name">applyFilter</a>
+											(<span class="var-type">Array</span>&nbsp;<span class="var-name">$filters</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#applyFilterOr" title="details" class="method-name">applyFilterOr</a>
+											(<span class="var-type">Array</span>&nbsp;<span class="var-name">$filters</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#applyGrouping" title="details" class="method-name">applyGrouping</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$groupby</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$select</span> = <span class="var-default">false</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#applyJoin" title="details" class="method-name">applyJoin</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$joins</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#applyOrder" title="details" class="method-name">applyOrder</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#applyPreload" title="details" class="method-name">applyPreload</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$field</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#applyRandom" title="details" class="method-name">applyRandom</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#applySlice" title="details" class="method-name">applySlice</a>
+											([<span class="var-type"></span>&nbsp;<span class="var-name">$limit</span> = <span class="var-default">0</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$offset</span> = <span class="var-default">0</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">mixed</span>
+										<a href="#avg" title="details" class="method-name">avg</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+										<a href="#avgfield" title="details" class="method-name">avgfield</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+										<a href="#condition" title="details" class="method-name">condition</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$expression</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#count" title="details" class="method-name">count</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+										<a href="#countfield" title="details" class="method-name">countfield</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$field</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#createHash" title="details" class="method-name">createHash</a>
+											(<span class="var-type">ADORecordSet</span>&nbsp;<span class="var-name">$result</span>, <span class="var-type">Array</span>&nbsp;<span class="var-name">$rawfields</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$map</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$preload</span> = <span class="var-default">null</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$multimap</span> = <span class="var-default">false</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#createHashFromRow" title="details" class="method-name">createHashFromRow</a>
+											(<span class="var-type">$row</span>&nbsp;<span class="var-name">$row</span>, <span class="var-type">$model</span>&nbsp;<span class="var-name">$model</span>, [<span class="var-type">$rawfields</span>&nbsp;<span class="var-name">$rawfields</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$preload</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#createModels" title="details" class="method-name">&amp;createModels</a>
+											(<span class="var-type">ADORecordSet</span>&nbsp;<span class="var-name">$result</span>, <span class="var-type">Array</span>&nbsp;<span class="var-name">$rawfields</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$map</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$preload</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$multimap</span> = <span class="var-default">false</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#createRawHash" title="details" class="method-name">createRawHash</a>
+											(<span class="var-type">ADORecordSet</span>&nbsp;<span class="var-name">$result</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$map</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$preload</span> = <span class="var-default">null</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$multimap</span> = <span class="var-default">false</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#current" title="details" class="method-name">current</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/CursorIterator.html">CursorIterator</a></span>
+										<a href="#cursor" title="details" class="method-name">cursor</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+										<a href="#debug" title="details" class="method-name">&amp;debug</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">bool</span>
+										<a href="#delete" title="details" class="method-name">delete</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+										<a href="#distinct" title="details" class="method-name">&amp;distinct</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+										<a href="#exclude" title="details" class="method-name">&amp;exclude</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+										<a href="#excludeor" title="details" class="method-name">&amp;excludeor</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">boolean</span>
+										<a href="#executed" title="details" class="method-name">executed</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+										<a href="#extra" title="details" class="method-name">&amp;extra</a>
+											([<span class="var-type">Array</span>&nbsp;<span class="var-name">$select</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$where</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+										<a href="#filter" title="details" class="method-name">&amp;filter</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+										<a href="#filteror" title="details" class="method-name">&amp;filteror</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#flush" title="details" class="method-name">flush</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/Model.html">Model</a></span>
+										<a href="#get" title="details" class="method-name">get</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$id</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryHandler.html">QueryHandler</a></span>
+										<a href="#getHandler" title="details" class="method-name">getHandler</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFactory.html">QueryFactory</a></span>
+										<a href="#getQueryFactory" title="details" class="method-name">getQueryFactory</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+										<a href="#group" title="details" class="method-name">group</a>
+											(<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#hash" title="details" class="method-name">hash</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$map</span> = <span class="var-default">null</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$multimap</span> = <span class="var-default">false</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/HashCursorIterator.html">HashCursorIterator</a></span>
+										<a href="#hashCursor" title="details" class="method-name">hashCursor</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">mixed</span>
+										<a href="#insert" title="details" class="method-name">insert</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$model</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$updateFilters</span> = <span class="var-default">null</span>], <span class="var-type">mixed</span>&nbsp;<span class="var-name">$values</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+										<a href="#join" title="details" class="method-name">&amp;join</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$joins</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#key" title="details" class="method-name">key</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#map" title="details" class="method-name">map</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$key</span> = <span class="var-default">null</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$multimap</span> = <span class="var-default">false</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">mixed</span>
+										<a href="#max" title="details" class="method-name">max</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+										<a href="#maxfield" title="details" class="method-name">maxfield</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#mergedQuery" title="details" class="method-name">mergedQuery</a>
+											([<span class="var-type">bool</span>&nbsp;<span class="var-name">$applyDefaults</span> = <span class="var-default">false</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$skipPreload</span> = <span class="var-default">false</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">mixed</span>
+										<a href="#min" title="details" class="method-name">min</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+										<a href="#minfield" title="details" class="method-name">minfield</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#next" title="details" class="method-name">next</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#offsetExists" title="details" class="method-name">offsetExists</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$index</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#offsetGet" title="details" class="method-name">offsetGet</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$index</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#offsetSet" title="details" class="method-name">offsetSet</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$index</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$value</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#offsetUnset" title="details" class="method-name">offsetUnset</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$index</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/Model.html">Model</a></span>
+										<a href="#one" title="details" class="method-name">one</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+										<a href="#order" title="details" class="method-name">&amp;order</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#pluck" title="details" class="method-name">pluck</a>
+											(<span class="var-type">$field</span>&nbsp;<span class="var-name">$field</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+										<a href="#preload" title="details" class="method-name">&amp;preload</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">ADORecordSet</span>
+										<a href="#query" title="details" class="method-name">query</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$sql</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$params</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+										<a href="#random" title="details" class="method-name">&amp;random</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#raw" title="details" class="method-name">raw</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$map</span> = <span class="var-default">null</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$multimap</span> = <span class="var-default">false</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">mixed</span>
+										<a href="#returnAggregate" title="details" class="method-name">returnAggregate</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$fn</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$convert</span> = <span class="var-default">false</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#rewind" title="details" class="method-name">rewind</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#select" title="details" class="method-name">select</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$map</span> = <span class="var-default">null</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$multimap</span> = <span class="var-default">false</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+										<a href="#slice" title="details" class="method-name">&amp;slice</a>
+											([<span class="var-type">int</span>&nbsp;<span class="var-name">$limit</span> = <span class="var-default">0</span>], [<span class="var-type">int</span>&nbsp;<span class="var-name">$offset</span> = <span class="var-default">0</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">mixed</span>
+										<a href="#sqlcount" title="details" class="method-name">sqlcount</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$field</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">mixed</span>
+										<a href="#sum" title="details" class="method-name">sum</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+										<a href="#sumfield" title="details" class="method-name">sumfield</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">mixed</span>
+										<a href="#update" title="details" class="method-name">update</a>
+											(<span class="var-type">Array</span>&nbsp;<span class="var-name">$values</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$pk</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#valid" title="details" class="method-name">valid</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#values" title="details" class="method-name">values</a>
+											(<span class="var-type">$field</span>&nbsp;<span class="var-name">0</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#where_params" title="details" class="method-name">where_params</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#where_sql" title="details" class="method-name">where_sql</a>
+										()
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			<a name="var$factory" id="$factory"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$factory</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a153">153</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The QueryFactory associated with this query</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$fullQuery" id="$fullQuery"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$fullQuery</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a165">165</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Merged filter details from all filters above this one in the  filter chain. Cached on first call to QueryFilter::mergedQuery().</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$model" id="$model"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$model</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a151">151</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The Model prototype to clone for creating results</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$modelquery" id="$modelquery"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$modelquery</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a149">149</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Backwards-compatible reference  to queryhandler - deprecated</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$parentFilter" id="$parentFilter"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$parentFilter</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a158">158</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The next filter up the filter chain</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$query" id="$query"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$query</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a160">160</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Filter details for this chain of the query</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$queryhandler" id="$queryhandler"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$queryhandler</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a147">147</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The QueryHandler object that created this query</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$tableName" id="$tableName"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$tableName</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a155">155</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The main database table to query against</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+						
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a178">178</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a new QueryFilter object.</p>
+<p class="description"><p>This should not be called by non-ModelQuery code; it is called  internally for creating filter chains.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">QueryFilter</span>
+		<span class="method-name">
+			__construct
+		</span>
+					(<span class="var-type"><a href="../modelquery/QueryHandler.html">QueryHandler</a></span>&nbsp;<span class="var-name">&$queryhandler_</span>, [<span class="var-type"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>&nbsp;<span class="var-name">&$parentFilter_</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../modelquery/QueryHandler.html">QueryHandler</a></span>
+				<span class="var-name">&$queryhandler_</span><span class="var-description">: The QueryHandler that created this query</span>			</li>
+					<li>
+				<span class="var-type"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+				<span class="var-name">&$parentFilter_</span><span class="var-description">: The QueryFilter object that created this filter</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../modelquery/QueryHandler.html#method__construct">QueryHandler::__construct()</a>
+								: Create a new query object.
+							</li>
+				</ul>
+	</div>
+<a name="methodaddAggregate" id="addAggregate"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">addAggregate</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1216">1216</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add an aggregate field to the current object, rather than  creating a new QueryFilter and adding to the end of the chain.</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodaggregate">QueryFilter::aggregate()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addAggregate
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$name</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$field</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$fn</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$name</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$field</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$fn</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$groupby</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaggregate" id="aggregate"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">aggregate</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a647">647</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add an aggregate field to the query.</p>
+<p class="description"><p>This groups the query records together by the given $groupby fields,  and then returns models with a SQL aggregate value of the field  specified for each group (defined by $fn - MIN, MAX, AVG, etc).</p><p>The following example, querying a table of employees, would  add an artificial field &quot;total_employees&quot; to the results that  represents the number of employees from each state:</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-var">$query</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodaggregate">aggregate</a><span class="src-sym">(</span><span class="src-str">'total_employees'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'id'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'COUNT'</span><span class="src-sym">,&nbsp;</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'state'</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+</ol></div></p><p>The models returned are artificial; they are read-only and cannot  be saved to the database.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The new QueryFilter at the end of the filter chain</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+		<span class="method-name">
+			aggregate
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$fn</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: The model field name the aggregate result will use</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$field</span><span class="var-description">: The real field to compute an aggregate value for</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$groupby</span><span class="var-description">: A list of fields to group the aggregate by</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$fn</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodall" id="all"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">all</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a213">213</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Passthrough filter that returns all models.</p>
+<p class="description"><p>Useful for calling on the root QueryHandler object to retrieve all  models, since you cannot call select() or hash() on it directly.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The new QueryFilter at the end of the filter chain</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+		<span class="method-name">
+			&amp;all
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodany" id="any"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">any</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1519">1519</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Execute the current query and return the first record, or  null if none exists.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The first Model that matches the current query,         or null if none were found</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/Model.html">Model</a></span>
+		<span class="method-name">
+			any
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodapplyCondition" id="applyCondition"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">applyCondition</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a907">907</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a more complex conditional expression to the query that  is not limited to one field.</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodcondition">QueryFilter::condition()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			applyCondition
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$expression</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$expression</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$params</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodapplyDebug" id="applyDebug"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">applyDebug</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1178">1178</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Applies a debug directive to the current object, rather than  creating a new QueryFilter and adding to the end of the chain.</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methoddebug">QueryFilter::debug()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			applyDebug
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodapplyDistinct" id="applyDistinct"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">applyDistinct</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1147">1147</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Apply unique record filtering to the current filter, rather than  creating a new QueryFilter and adding to the end of the chain.</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methoddistinct">QueryFilter::distinct()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			applyDistinct
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodapplyExclude" id="applyExclude"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">applyExclude</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a818">818</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Applies an exclusion filter to the current filter, rather than  creating a new QueryFilter and adding to the end of the chain.</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodexclude">QueryFilter::exclude()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			applyExclude
+		</span>
+					(<span class="var-type">Array</span>&nbsp;<span class="var-name">$filters</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$filters</span><span class="var-description">: A hash array of field =&gt; value pairs</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodapplyExcludeOr" id="applyExcludeOr"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">applyExcludeOr</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a829">829</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Applies an exclusion filter to the current filter, rather than  creating a new QueryFilter and adding to the end of the chain.</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodexcludeor">QueryFilter::excludeor()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			applyExcludeOr
+		</span>
+					(<span class="var-type">Array</span>&nbsp;<span class="var-name">$filters</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$filters</span><span class="var-description">: A hash array of field =&gt; value pairs</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodapplyExtra" id="applyExtra"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">applyExtra</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a839">839</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Adds extra fields from related tables to the results  of this query, to reduce additional queries.</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodextra">QueryFilter::extra()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			applyExtra
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$select</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$where</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$select</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$where</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$params</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodapplyFilter" id="applyFilter"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">applyFilter</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a796">796</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Applies a filter to the current filter, rather than creating a new  QueryFilter and adding to the end of the chain.</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodfilter">QueryFilter::filter()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			applyFilter
+		</span>
+					(<span class="var-type">Array</span>&nbsp;<span class="var-name">$filters</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$filters</span><span class="var-description">: A hash array of field =&gt; value pairs</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodapplyFilterOr" id="applyFilterOr"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">applyFilterOr</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a807">807</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Applies a filter to the current filter, rather than creating a new  QueryFilter and adding to the end of the chain.</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodfilteror">QueryFilter::filteror()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			applyFilterOr
+		</span>
+					(<span class="var-type">Array</span>&nbsp;<span class="var-name">$filters</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$filters</span><span class="var-description">: A hash array of field =&gt; value pairs</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodapplyGrouping" id="applyGrouping"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">applyGrouping</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1188">1188</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Applies a grouping clause to the current object, rather than  creating a new QueryFilter and adding to the end of the chain.</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodgroup">QueryFilter::group()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			applyGrouping
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$groupby</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$select</span> = <span class="var-default">false</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$groupby</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$select</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodapplyJoin" id="applyJoin"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">applyJoin</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a934">934</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manually join tables.</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodjoin">QueryFilter::join()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			applyJoin
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$joins</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$joins</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodapplyOrder" id="applyOrder"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">applyOrder</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a958">958</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Applies ordering to the current filter, rather than creating a new  QueryFilter and adding to the end of the chain.</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodorder">QueryFilter::order()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			applyOrder
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodapplyPreload" id="applyPreload"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">applyPreload</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1157">1157</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Applies a preload directive to the current object, rather than  creating a new QueryFilter and adding to the end of the chain.</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodpreload">QueryFilter::preload()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			applyPreload
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$field</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$field</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodapplyRandom" id="applyRandom"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">applyRandom</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a945">945</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Applies random ordering to the current filter, rather than creating a new  QueryFilter and adding to the end of the chain.</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodrandom">QueryFilter::random()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			applyRandom
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodapplySlice" id="applySlice"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">applySlice</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1136">1136</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Applies a subset slice to the current filter, rather than creating a new  QueryFilter and adding to the end of the chain.</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodslice">QueryFilter::slice()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			applySlice
+		</span>
+					([<span class="var-type"></span>&nbsp;<span class="var-name">$limit</span> = <span class="var-default">0</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$offset</span> = <span class="var-default">0</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$limit</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$offset</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodavg" id="avg"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">avg</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a703">703</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get a average field value and return the result immediately.</p>
+<p class="description"><p>This call is identical to:</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-var">$query</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodreturnAggregate">returnAggregate</a><span class="src-sym">(</span><span class="src-var">$field</span><span class="src-sym">,&nbsp;</span><span class="src-var">$field</span><span class="src-sym">,&nbsp;</span><span class="src-str">'AVG'</span><span class="src-sym">,&nbsp;</span><span class="src-var">$groupby</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+</ol></div></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The average field value of a group</li>
+				<li><span class="field">see:</span> QueryFilter-&gt;returnAggregate()</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			avg
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$field</span><span class="var-description">: The field to aggregate</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$groupby</span><span class="var-description">: A list of fields to group results by</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodavgfield" id="avgfield"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">avgfield</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a588">588</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a average field to the query.</p>
+<p class="description"><p>Groups the query records together by the given $groupby fields, and  then returns a average value of the field specified for each group.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The new QueryFilter at the end of the filter chain</li>
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodaggregate">QueryFilter::aggregate()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+		<span class="method-name">
+			avgfield
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: The new field name</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$field</span><span class="var-description">: The field to aggregate (must be numeric)</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$groupby</span><span class="var-description">: The list of fields to group by</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodcondition" id="condition"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">condition</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a414">414</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a more complex conditional expression to the query that  is not limited to one field.</p>
+<p class="description"><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-var">$query</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodcondition">condition</a><span class="src-sym">(</span><span class="src-str">'close&nbsp;&gt;&nbsp;open'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+</ol></div></p><p>The expression is parsed to evaluate dot-notation paths to  related objects, so conditions are not just limited to fields  available on the current model.</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-var">$query</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodcondition">condition</a><span class="src-sym">(</span><span class="src-str">'current.price&nbsp;&gt;&nbsp;previous.price'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+</ol></div></p><p>If the condition contains variable parameters that may required  escaping, use the &quot;?&quot; token as a placeholder, and pass the  associated variable values as an array in the second parameter.</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-var">$query</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodcondition">condition</a><span class="src-sym">(</span><span class="src-str">'price&nbsp;&gt;&nbsp;earnings&nbsp;*&nbsp;?'</span><span class="src-sym">,&nbsp;</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-var">$peratio</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+</ol></div></p><p>Simple ternary expressions can also be used, in the form  test ! value-if-true : value-if-false:</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-var">$query</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodcondition">condition</a><span class="src-sym">(</span><span class="src-str">'price&nbsp;&gt;&nbsp;earnings&nbsp;!&nbsp;1&nbsp;:&nbsp;0'</span><span class="src-sym">)</span></div></li>
+</ol></div></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The new QueryFilter at the end of the filter chain</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+		<span class="method-name">
+			condition
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$expression</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$expression</span><span class="var-description">: The conditional expression.</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$params</span><span class="var-description">: An array of parameters to bind to the query.         if any are specified in the $expression parameter (using the ? token).</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodcount" id="count"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">count</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2844">2844</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the number of matching rows for the current query.</p>
+<p class="description"><p>If the query has been executed already, it will return the  number of records in the local cache.  Otherwise, it will  query the database to determine the total number of matching  records (with QueryFilter::sqlcount()).</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The matching record count</li>
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodsqlcount">QueryFilter::sqlcount()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			count
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>Countable::count</dt>
+					</dl>
+			
+	</div>
+<a name="methodcountfield" id="countfield"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">countfield</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a620">620</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a count field to the query.</p>
+<p class="description"><p>Groups the query records together by the given $groupby fields, and  then returns the count of all records contained in each group.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The new QueryFilter at the end of the filter chain</li>
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodaggregate">QueryFilter::aggregate()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+		<span class="method-name">
+			countfield
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$field</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: The new field name</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$field</span><span class="var-description">: The field to aggregate</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$groupby</span><span class="var-description">: The list of fields to group by</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodcreateHash" id="createHash"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">createHash</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2643">2643</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a type-converted hash array from a query result.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> A list of hash arrays created from the result set</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			createHash
+		</span>
+					(<span class="var-type">ADORecordSet</span>&nbsp;<span class="var-name">$result</span>, <span class="var-type">Array</span>&nbsp;<span class="var-name">$rawfields</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$map</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$preload</span> = <span class="var-default">null</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$multimap</span> = <span class="var-default">false</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">ADORecordSet</span>
+				<span class="var-name">$result</span><span class="var-description">: The record set result from ADODB</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$rawfields</span><span class="var-description">: A list of fields to skip during type conversion</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$map</span><span class="var-description">: The field value to use as an array index if the         results should be returned as a mapped hash array</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$preload</span><span class="var-description">: A list of related object fields that the calling         query attempted to preload</span>			</li>
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$multimap</span><span class="var-description">: If a $map parameter is specified,          make the returned map values an array of hash arrays.         Useful if you want to map by a field value that is not         unique across records.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodcreateHashFromRow" id="createHashFromRow"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">createHashFromRow</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2723">2723</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a hash array representation a single query record.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> A hash array created from the result row</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			createHashFromRow
+		</span>
+					(<span class="var-type">$row</span>&nbsp;<span class="var-name">$row</span>, <span class="var-type">$model</span>&nbsp;<span class="var-name">$model</span>, [<span class="var-type">$rawfields</span>&nbsp;<span class="var-name">$rawfields</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$preload</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$preload</span><span class="var-description">: A list of related object fields that the calling         query attempted to preload</span>			</li>
+					<li>
+				<span class="var-type">$row</span>
+				<span class="var-name">$row</span><span class="var-description">: A row array from ADODB</span>			</li>
+					<li>
+				<span class="var-type">$model</span>
+				<span class="var-name">$model</span><span class="var-description">: The prototype model to use for field type conversion</span>			</li>
+					<li>
+				<span class="var-type">$rawfields</span>
+				<span class="var-name">$rawfields</span><span class="var-description">: A list of fields to skip during type conversion</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodcreateModels" id="createModels"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">createModels</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2464">2464</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a set of Model objects from a query result.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> A list of Model objects created from the result set</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			&amp;createModels
+		</span>
+					(<span class="var-type">ADORecordSet</span>&nbsp;<span class="var-name">$result</span>, <span class="var-type">Array</span>&nbsp;<span class="var-name">$rawfields</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$map</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$preload</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$multimap</span> = <span class="var-default">false</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">ADORecordSet</span>
+				<span class="var-name">$result</span><span class="var-description">: The record set result from ADODB</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$rawfields</span><span class="var-description">: A list of fields to skip during type conversion</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$map</span><span class="var-description">: The field value to use as an array index if the         results should be returned as a mapped hash array</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$preload</span><span class="var-description">: A list of related object fields that the calling         query attempted to preload</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$multimap</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodcreateRawHash" id="createRawHash"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">createRawHash</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2582">2582</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a raw hash array from a query result.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> A list of hash arrays created from the result set</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			createRawHash
+		</span>
+					(<span class="var-type">ADORecordSet</span>&nbsp;<span class="var-name">$result</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$map</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$preload</span> = <span class="var-default">null</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$multimap</span> = <span class="var-default">false</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">ADORecordSet</span>
+				<span class="var-name">$result</span><span class="var-description">: The record set result from ADODB</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$map</span><span class="var-description">: The field value to use as an array index if the         results should be returned as a mapped hash array</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$preload</span><span class="var-description">: A list of related object fields that the calling         query attempted to preload</span>			</li>
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$multimap</span><span class="var-description">: If a $map parameter is specified,          make the returned map values an array of hash arrays.         Useful if you want to map by a field value that is not         unique across records.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodcurrent" id="current"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">current</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2801">2801</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			current
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>Iterator::current</dt>
+					</dl>
+			
+	</div>
+<a name="methodcursor" id="cursor"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">cursor</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1369">1369</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Execute current query and return the results as a database cursor.</p>
+<p class="description"><p>Performs the same purpose as QueryFilter::select(),  except that Model objects are loaded on demand as they are  iterated over, which avoids loading the entire result set  into memory.</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Get&nbsp;a&nbsp;CursorIterator&nbsp;object&nbsp;for&nbsp;this&nbsp;query</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$users&nbsp;</span>=&nbsp;<span class="src-var">$uq</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodfilter">filter</a><span class="src-sym">(</span><span class="src-str">'group'</span><span class="src-sym">,&nbsp;</span><span class="src-num">5</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodcursor">cursor</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;CursorIterator&nbsp;can&nbsp;also&nbsp;be&nbsp;used&nbsp;normally&nbsp;as&nbsp;an&nbsp;array,&nbsp;but&nbsp;it&nbsp;keeps&nbsp;the&nbsp;database</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;connection&nbsp;open&nbsp;and&nbsp;loads&nbsp;rows&nbsp;as&nbsp;needed:</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-key">foreach&nbsp;</span><span class="src-sym">(</span><span class="src-var">$users&nbsp;</span><span class="src-key">as&nbsp;</span><span class="src-var">$user</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Do&nbsp;something</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Manually&nbsp;close&nbsp;down&nbsp;the&nbsp;cursor</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$users</span><span class="src-sym">-&gt;</span><span class="src-id">close</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+</ol></div></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> A database cursor to iterate over</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/CursorIterator.html">CursorIterator</a></span>
+		<span class="method-name">
+			cursor
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methoddebug" id="debug"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">debug</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a538">538</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Output debug info for this query.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The new QueryFilter at the end of the filter chain</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+		<span class="method-name">
+			&amp;debug
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methoddelete" id="delete"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">delete</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1578">1578</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Delete all records that match the current query.</p>
+<p class="description"><p>Note that this method does not take any parameters - the current  query filters are used to determine which records to delete.  If you wish to only delete a single record, be sure you use a  QueryFilter::filter() call on the model's primary key.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> TRUE if the delete succeeded</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool</span>
+		<span class="method-name">
+			delete
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../modelquery/QueryHandler.html#methoddelete">QueryHandler::delete()</a>
+								: This method is illegal on QueryHandler to avoid dumb mistakes.
+							</li>
+				</ul>
+	</div>
+<a name="methoddistinct" id="distinct"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">distinct</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a487">487</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Only return unique records.</p>
+<p class="description"><p>Useful for situations where complicated query joins would  otherwise return duplicate objects.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The new QueryFilter at the end of the filter chain</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+		<span class="method-name">
+			&amp;distinct
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodexclude" id="exclude"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">exclude</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a307">307</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Filter models by excluding a field value.</p>
+<p class="description"><p>Behaves like QueryFilter::filter(), except instead of matching  against the given field values, it excludes any records that match  the field value.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The new QueryFilter at the end of the filter chain</li>
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodfilter">QueryFilter::filter()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+		<span class="method-name">
+			&amp;exclude
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodexcludeor" id="excludeor"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">excludeor</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a324">324</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Filter models by excluding a field value.</p>
+<p class="description"><p>Behaves like QueryFilter::exclude(), but if multiple pairs of parameters  are given, records only have to match ONE of the filters specified to  be excluded.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The new QueryFilter at the end of the filter chain</li>
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodfilter">QueryFilter::filter()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+		<span class="method-name">
+			&amp;excludeor
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodexecuted" id="executed"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">executed</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1599">1599</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Check if this query has been executed.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> True if the query has been executed</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">boolean</span>
+		<span class="method-name">
+			executed
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodextra" id="extra"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">extra</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a372">372</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Adds extra fields from related tables to the results  of this query, to reduce additional queries.</p>
+<p class="description"><p>The parameter is of the form &quot;reference_name&quot; =&gt; &quot;field_name&quot;,  where reference_name is the name of the field as it will be  named in the query result object, and field_name is the  original field name (or path, if you are pulling in a field  from a related object).</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-var">$user&nbsp;</span>=&nbsp;<span class="src-var">$uq</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodextra">extra</a><span class="src-sym">(</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'homepage'&nbsp;</span>=&gt;&nbsp;<span class="src-str">'preferences.homepage'</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;echo&nbsp;<span class="src-var">$user</span><span class="src-sym">-&gt;</span><span class="src-id">homepage</span>:</div></li>
+</ol></div></p><p>While the original user object did not have a &quot;homepage&quot;  field, the query results now include the value of that  field from the related &quot;preferences&quot; object.  This value  could also be retrieved with $user-&gt;preferences-&gt;homepage,  but it would require an additional database query since  the entire preferences object would be loaded on demand.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The new QueryFilter at the end of the filter chain</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+		<span class="method-name">
+			&amp;extra
+		</span>
+					([<span class="var-type">Array</span>&nbsp;<span class="var-name">$select</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$where</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$select</span><span class="var-description">: A hash array of additional fields to include.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$where</span><span class="var-description">: <em>Deprecated, use QueryFilter::condition()</em>.</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$params</span><span class="var-description">: <em>Deprecated, use QueryFilter::condition()</em>.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodfilter" id="filter"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">filter</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a273">273</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Filter models by a field value.</p>
+<p class="description"><p>This method takes an arbitrary number of parameters, but they  must come in pairs, such as:</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-var">$uq</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodfilter">filter</a><span class="src-sym">(</span><span class="src-str">&quot;username:exact&quot;</span><span class="src-sym">,&nbsp;</span><span class="src-str">&quot;jjongsma&quot;</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$uq</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodfilter">filter</a><span class="src-sym">(</span><span class="src-str">&quot;verified&quot;</span><span class="src-sym">,&nbsp;</span><span class="src-id">true</span><span class="src-sym">,&nbsp;</span><span class="src-str">&quot;created:gte&quot;</span><span class="src-sym">,&nbsp;</span><a href="http://www.php.net/mktime">mktime</a><span class="src-sym">(</span><span class="src-num">0</span><span class="src-sym">,</span><span class="src-num">0</span><span class="src-sym">,</span><span class="src-num">0</span><span class="src-sym">,</span><span class="src-num">1</span><span class="src-sym">,</span><span class="src-num">1</span><span class="src-sym">,</span><span class="src-num">2008</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+</ol></div></p><p>The first parameter of a pair consists of a field name, and an  optional modifier separated by a colon (:).  The second parameter  of a pair is the field value to filter by.  The type of the second  parameter depends on the field type and the modifier used.  For  example, for a date field, you would pass in a numeric timestamp.  For an :in modifier (see below), you would pass in an array of values  as the second parameter.  If no modifier is specified, &quot;exact&quot; is  assumed.</p><p>If multiple pairs of parameters are given, records must match  ALL of the filters specified.</p><p><strong>Available modifiers:</strong><br />  <em>exact</em>: Match records exactly against the given field value<br />  <em>iexact</em>: Match records exactly against the given field value, case-insensitive<br />  <em>contains</em>: Match records that contain the given value anywhere in the field<br />  <em>icontains</em>: Match records that contain the given value anywhere in the field, case-insensitive<br />  <em>gt</em>: Match records that have a value greater than the given value<br />  <em>gte</em>: Match records that have a value greater than or equal to the given value<br />  <em>lt</em>: Match records that have a value less than the given value<br />  <em>lte</em>: Match records that have a value less than or equal to the given value<br />  <em>in</em>: Match records that have a value that matches any value in the given array<br />  <em>startswith</em>: Match records with a value that starts with the given string<br />  <em>istartswith</em>: Match records with a value that starts with the given string, case-insensitive<br />  <em>endswith</em>: Match records with a value that ends with the given string<br />  <em>iendswith</em>: Match records with a value that ends with the given string, case-insensitive<br />  <em>range</em>: Match records within the specified range (given as a 2-item array), inclusive<br />  <em>isnull</em>: Match records with null values (if parameter is TRUE) or non-null values (if FALSE)</p><p>In addition to filtering by fields that are part of the original model,  you can also filter by related objects.  For example, if the User model  has a ManyToOneField called &quot;preferences&quot;, you could filter on:</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-var">$uq</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodfilter">filter</a><span class="src-sym">(</span><span class="src-str">'preferences.homepage'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'/news/finance.php'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+</ol></div>
+ This would filter on the &quot;homepage&quot; field belonging to the Preferences model  linked to each User record.  You can follow relations as far as they go using  this dot notation, not just a single level; QueryFilter will add all the  necessary joins.</p><p></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The new QueryFilter at the end of the filter chain</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+		<span class="method-name">
+			&amp;filter
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodfilteror" id="filteror"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">filteror</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a290">290</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Filter models by a field value.</p>
+<p class="description"><p>Behaves like QueryFilter::filter(), but if multiple pairs of parameters  are given, records only have to match ONE of the filters specified.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The new QueryFilter at the end of the filter chain</li>
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodfilter">QueryFilter::filter()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+		<span class="method-name">
+			&amp;filteror
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodflush" id="flush"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">flush</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1591">1591</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Clear the local query cache.</p>
+<p class="description"><p>When a query is executed (either with select() or by using a  QueryFilter object as an iterator), the query results are cached  in the QueryFilter object.  If for any reason you need to refresh  the results from the database, you must call flush() first to  clear the cached results.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			flush
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodget" id="get"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">get</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1476">1476</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Execute the current query and return a single record.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The single Model that matches the current query</li>
+				<li><span class="field">throws:</span> DoesNotExistException if no matching records were found</li>
+				<li><span class="field">throws:</span> TooManyResultsException if more than one matching record          was found</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/Model.html">Model</a></span>
+		<span class="method-name">
+			get
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$id</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$id</span><span class="var-description">: The unique primary key of the object to fetch.         Not required if the current filter would only return a         single object. (i.e. $query-&gt;filter('id', 1)-&gt;get())</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetHandler" id="getHandler"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getHandler</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2858">2858</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the underlying QueryHandler object for this filter.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The root query handler</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryHandler.html">QueryHandler</a></span>
+		<span class="method-name">
+			getHandler
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetQueryFactory" id="getQueryFactory"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getQueryFactory</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2866">2866</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the underlying QueryFactory object for this filter.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The query factory</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFactory.html">QueryFactory</a></span>
+		<span class="method-name">
+			getQueryFactory
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgroup" id="group"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">group</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a501">501</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a group clause to the query.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The new QueryFilter at the end of the filter chain</li>
+				<li><span class="field">deprecated:</span> 2.0 group() is unnecessary with the addition         of aggregate methods (min(), max(), etc).</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+		<span class="method-name">
+			group
+		</span>
+					(<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$groupby</span><span class="var-description">: A list of fields to group results by</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodhash" id="hash"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">hash</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1291">1291</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Execute the current query and return results as a set of  hash arrays.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> An array of name/value hash arrays for records         matching the query.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			hash
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$map</span> = <span class="var-default">null</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$multimap</span> = <span class="var-default">false</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$map</span><span class="var-description">: Return a hash array mapped by the specified         field's value, rather than a numerically-indexed list</span>			</li>
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$multimap</span><span class="var-description">: If a $map parameter is specified,          make the returned map values an array of records.         Useful if you want to map by a field value that is not         unique across records.</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../modelquery/QueryHandler.html#methodhash">QueryHandler::hash()</a>
+								: This method is illegal on QueryHandler to avoid query caching in the  base object.
+							</li>
+				</ul>
+	</div>
+<a name="methodhashCursor" id="hashCursor"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">hashCursor</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1390">1390</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Execute current query and return the results as a database  cursor.</p>
+<p class="description"><p>Performs the same purpose as QueryFilter::select(),  except that records are loaded on demand as they are  iterated over, which avoids loading the entire result set  into memory.</p><p>Differs from cursor() in that records are returned as  name/value hash arrays rather than Model objects.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> A database cursor to iterate over</li>
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodcursor">QueryFilter::cursor()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/HashCursorIterator.html">HashCursorIterator</a></span>
+		<span class="method-name">
+			hashCursor
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodinsert" id="insert"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">insert</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1564">1564</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Insert a new record into the data store.</p>
+<p class="description"><p>The field values are specified as either a name/value hash  array or a Model object.</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-var">$uq</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodinsert">insert</a><span class="src-sym">(</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'username'&nbsp;</span>=&gt;&nbsp;<span class="src-str">'newuser'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'site'&nbsp;</span>=&gt;&nbsp;<span class="src-num">5</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+</ol></div></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The new record's primary key</li>
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodcondition">QueryFilter::condition()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			insert
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$model</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$updateFilters</span> = <span class="var-default">null</span>], <span class="var-type">mixed</span>&nbsp;<span class="var-name">$values</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$values</span><span class="var-description">: A Model or hash array of field/value         pairs, or an array of the same for bulk inserts.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$updateFilters</span><span class="var-description">: Tells ModelQuery to execute an         update instead if a key conflict is encountered. If         this parameter is TRUE, it will update with the passed         values. Alternately, it can be a hash array of field =&gt;         condition statements. The special value %v can be used         in a condition statement to represent the value of the         field in $values.</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$model</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodjoin" id="join"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">join</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a430">430</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manually join tables to this query.</p>
+<p class="description"><p>This is only intended for internal ModelQuery usage, or  as a last resort for custom `condition()` clauses that  work with fields not defined in a Model.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The new QueryFilter at the end of the filter chain</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+		<span class="method-name">
+			&amp;join
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$joins</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$joins</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodkey" id="key"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">key</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2805">2805</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			key
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>Iterator::key</dt>
+					</dl>
+			
+	</div>
+<a name="methodmap" id="map"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">map</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1339">1339</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Execute the current query and return results as a set of  Model instances, mapped by the given field.  Identical  to calling QueryFilter::select($key), except that it  defaults to the primary key field if no key is given.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> An array of Models for recordsmatching the query.</li>
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodselect">QueryFilter::select()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			map
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$key</span> = <span class="var-default">null</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$multimap</span> = <span class="var-default">false</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$key</span><span class="var-description">: The field to map values by. Defaults to the         model's primary key.</span>			</li>
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$multimap</span><span class="var-description">: If a $map parameter is specified,          make the returned map values an array of records.         Useful if you want to map by a field value that is not         unique across records.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodmax" id="max"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">max</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a667">667</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get a maximum field value and return the result immediately.</p>
+<p class="description"><p>This call is identical to:</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-var">$query</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodreturnAggregate">returnAggregate</a><span class="src-sym">(</span><span class="src-var">$field</span><span class="src-sym">,&nbsp;</span><span class="src-var">$field</span><span class="src-sym">,&nbsp;</span><span class="src-str">'MAX'</span><span class="src-sym">,&nbsp;</span><span class="src-var">$groupby</span><span class="src-sym">,&nbsp;</span><span class="src-id">true</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+</ol></div></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The maximum field value of a group</li>
+				<li><span class="field">see:</span> QueryFilter-&gt;returnAggregate()</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			max
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$field</span><span class="var-description">: The field to aggregate</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$groupby</span><span class="var-description">: A list of fields to group results by</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodmaxfield" id="maxfield"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">maxfield</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a556">556</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a maximum field to the query.</p>
+<p class="description"><p>Groups the query records together by the given $groupby fields, and  then returns a maximum value of the field specified for each group.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The new QueryFilter at the end of the filter chain</li>
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodaggregate">QueryFilter::aggregate()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+		<span class="method-name">
+			maxfield
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: The new field name</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$field</span><span class="var-description">: The field to aggregate</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$groupby</span><span class="var-description">: The list of fields to group by</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodmergedQuery" id="mergedQuery"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">mergedQuery</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2117">2117</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Returns a complete query specification object for this filter chain.</p>
+<p class="description"><p>Each query filter stores its own filter state.  During query execution,  mergedQuery() walks up the filter chain and correctly merges all filters  contained in any ancestor filters.</p><p>This method should never need to be called by external code.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The complete query filter chain specification</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			mergedQuery
+		</span>
+					([<span class="var-type">bool</span>&nbsp;<span class="var-name">$applyDefaults</span> = <span class="var-default">false</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$skipPreload</span> = <span class="var-default">false</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$applyDefaults</span><span class="var-description">: Whether to apply any default parameters         specified in the Model definition (such as field ordering)</span>			</li>
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$skipPreload</span><span class="var-description">: Whether to include preload() filters</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodmin" id="min"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">min</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a685">685</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get a minimum field value and return the result immediately.</p>
+<p class="description"><p>This call is identical to:</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-var">$query</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodreturnAggregate">returnAggregate</a><span class="src-sym">(</span><span class="src-var">$field</span><span class="src-sym">,&nbsp;</span><span class="src-var">$field</span><span class="src-sym">,&nbsp;</span><span class="src-str">'MIN'</span><span class="src-sym">,&nbsp;</span><span class="src-var">$groupby</span><span class="src-sym">,&nbsp;</span><span class="src-id">true</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+</ol></div></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The minimum field value of a group</li>
+				<li><span class="field">see:</span> QueryFilter-&gt;returnAggregate()</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			min
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$field</span><span class="var-description">: The field to aggregate</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$groupby</span><span class="var-description">: A list of fields to group results by</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodminfield" id="minfield"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">minfield</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a572">572</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a minimum field to the query.</p>
+<p class="description"><p>Groups the query records together by the given $groupby fields, and  then returns a minimum value of the field specified for each group.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The new QueryFilter at the end of the filter chain</li>
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodaggregate">QueryFilter::aggregate()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+		<span class="method-name">
+			minfield
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: The new field name</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$field</span><span class="var-description">: The field to aggregate</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$groupby</span><span class="var-description">: The list of fields to group by</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodnext" id="next"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">next</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2809">2809</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			next
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>Iterator::next</dt>
+					</dl>
+			
+	</div>
+<a name="methodoffsetExists" id="offsetExists"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">offsetExists</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2829">2829</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			offsetExists
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$index</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$index</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>ArrayAccess::offsetExists</dt>
+					</dl>
+			
+	</div>
+<a name="methodoffsetGet" id="offsetGet"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">offsetGet</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2825">2825</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			offsetGet
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$index</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$index</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>ArrayAccess::offsetGet</dt>
+					</dl>
+			
+	</div>
+<a name="methodoffsetSet" id="offsetSet"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">offsetSet</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2822">2822</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			offsetSet
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$index</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$value</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$index</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$value</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>ArrayAccess::offsetSet</dt>
+					</dl>
+			
+	</div>
+<a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">offsetUnset</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2819">2819</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			offsetUnset
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$index</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$index</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>ArrayAccess::offsetUnset</dt>
+					</dl>
+			
+	</div>
+<a name="methodone" id="one"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">one</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1505">1505</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Execute the current query and return the first record.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The first Model that matches the current query</li>
+				<li><span class="field">throws:</span> DoesNotExistException if no matching records were found</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/Model.html">Model</a></span>
+		<span class="method-name">
+			one
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodorder" id="order"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">order</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a458">458</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Sort the results of this query by the given fields.</p>
+<p class="description"><p>This function takes an arbitrary number of arguments, each of  which is a string containing an (optional) order specifier  of <em>+</em> or <em>-</em> and a field name.</p><p>i.e. $query-&gt;order('+author.surname', '-published');</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The new QueryFilter at the end of the filter chain</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+		<span class="method-name">
+			&amp;order
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodpluck" id="pluck"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">pluck</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1409">1409</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Execute the current query, and return an array of values  of a single field from each record in the result set.</p>
+<p class="description"><p>Example:  <div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Returns&nbsp;a&nbsp;simple&nbsp;list&nbsp;of&nbsp;all&nbsp;active&nbsp;usernames</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$active&nbsp;</span>=&nbsp;<span class="src-var">$users</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodfilter">filter</a><span class="src-sym">(</span><span class="src-str">'active'</span><span class="src-sym">,&nbsp;</span><span class="src-id">true</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodpluck">pluck</a><span class="src-sym">(</span><span class="src-str">'username'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+</ol></div></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> An array of field values</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			pluck
+		</span>
+					(<span class="var-type">$field</span>&nbsp;<span class="var-name">$field</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">$field</span>
+				<span class="var-name">$field</span><span class="var-description">: The field to get values for</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodpreload" id="preload"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">preload</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a528">528</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Request to pre-emptively load related objects in a single  query.</p>
+<p class="description"><p>If you know you will be needing to access a related  object from all models in this result set, you can load it  as part of this query, avoiding an extra query for each  Model that usually would occur with lazy reference loading.</p><p>Important notes:  <ol><li>You may preload as many ManyToOne fields as you like,
+     but you may only preload a single ManyToMany/OneToMany
+     due to the way joining works in SQL</li><li>Applying this filter for a ManyToMany/OneToMany field
+     will result in inaccurate sqlcount() calls</li></ol></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The new QueryFilter at the end of the filter chain</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+		<span class="method-name">
+			&amp;preload
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$field</span><span class="var-description">: The field name linking the related object</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodquery" id="query"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">query</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2399">2399</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Execute an arbitrary query on the databse table associated with  this model.</p>
+<p class="description"><p>Bind parameters are specified with a &quot;?&quot; in the SQL string.</p><p>Since this returns an ADORecordSet object, you will want to manually  convert the result to a usable set of objects using createModels() or  createRawHash().</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The record set object from ADODB</li>
+				<li><span class="field">throws:</span> SQLException if the query fails</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">ADORecordSet</span>
+		<span class="method-name">
+			query
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$sql</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$params</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$sql</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$params</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodrandom" id="random"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">random</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a441">441</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Sort the results of this query randomly.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The new QueryFilter at the end of the filter chain</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+		<span class="method-name">
+			&amp;random
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodraw" id="raw"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">raw</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1315">1315</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Execute the current query and return results as a set of  hash arrays, <em>without performing any type conversion</em>.</p>
+<p class="description"><p>This is the fastest way to query if you're trying to squeeze  every bit of performance out of ModelQuery.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> An array of name/value hash arrays for records         matching the query.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			raw
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$map</span> = <span class="var-default">null</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$multimap</span> = <span class="var-default">false</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$map</span><span class="var-description">: Return a hash array mapped by the specified         field's value, rather than a numerically-indexed list</span>			</li>
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$multimap</span><span class="var-description">: If a $map parameter is specified,          make the returned map values an array of records.         Useful if you want to map by a field value that is not         unique across records.</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../modelquery/QueryHandler.html#methodraw">QueryHandler::raw()</a>
+								: This method is illegal on QueryHandler to avoid query caching in the  base object.
+							</li>
+				</ul>
+	</div>
+<a name="methodreturnAggregate" id="returnAggregate"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">returnAggregate</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a772">772</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get an aggregate field value and return the results immediately.</p>
+<p class="description"><p>The following two statements are equivalent:</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-var">$query</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodaddAggregate">addAggregate</a><span class="src-sym">(</span><span class="src-str">'id'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'id'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'MAX'</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodone">one</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><span class="src-id">id</span><span class="src-sym">;</span></div></li>
+</ol></div>  and:  <div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-var">$query</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodreturnAggregate">returnAggregate</a><span class="src-sym">(</span><span class="src-str">'id'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'id'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'MAX'</span><span class="src-sym">,&nbsp;</span><span class="src-id">null</span><span class="src-sym">,&nbsp;</span><span class="src-id">true</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+</ol></div></p><p>This only returns a single value, so if you are specifying  fields to group by, make sure you are also filtering to  get the correct group, or you will only get the first  value of a result set.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The aggregate field value</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			returnAggregate
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$fn</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$convert</span> = <span class="var-default">false</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: The new field name</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$field</span><span class="var-description">: The field name to aggregate</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$fn</span><span class="var-description">: The SQL aggregate function (MIN, MAX, etc)</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$groupby</span><span class="var-description">: A list of fields to group results by</span>			</li>
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$convert</span><span class="var-description">: Whether to type-convert the resulting value.             For example, if you are computing an average of integer             fields, you probably don't want to convert the resulting             float value to an integer.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodrewind" id="rewind"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">rewind</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2797">2797</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			rewind
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>Iterator::rewind</dt>
+					</dl>
+			
+	</div>
+<a name="methodselect" id="select"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">select</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1267">1267</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Execute the current query and return results as a set of  Model instances.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> An array of Model instances matching the query.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			select
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$map</span> = <span class="var-default">null</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$multimap</span> = <span class="var-default">false</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$map</span><span class="var-description">: Return a hash array mapped by the specified         field's value, rather than a numerically-indexed list</span>			</li>
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$multimap</span><span class="var-description">: If a $map parameter is specified,          make the returned map values an array of Model objects.         Useful if you want to map by a field value that is not         unique across records.</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../modelquery/QueryHandler.html#methodselect">QueryHandler::select()</a>
+								: This method is illegal on QueryHandler to avoid query caching in the  base object.
+							</li>
+				</ul>
+	</div>
+<a name="methodslice" id="slice"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">slice</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a472">472</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return only a subset of the total matching records.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The new QueryFilter at the end of the filter chain</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+		<span class="method-name">
+			&amp;slice
+		</span>
+					([<span class="var-type">int</span>&nbsp;<span class="var-name">$limit</span> = <span class="var-default">0</span>], [<span class="var-type">int</span>&nbsp;<span class="var-name">$offset</span> = <span class="var-default">0</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">int</span>
+				<span class="var-name">$limit</span><span class="var-description">: The number of records to return</span>			</li>
+					<li>
+				<span class="var-type">int</span>
+				<span class="var-name">$offset</span><span class="var-description">: The record number to start at</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsqlcount" id="sqlcount"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">sqlcount</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a740">740</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the total count of all matching records and return the  result immediately.</p>
+<p class="description"><p>This call is identical to:</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-var">$query</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodreturnAggregate">returnAggregate</a><span class="src-sym">(</span><span class="src-var">$field</span><span class="src-sym">,&nbsp;</span><span class="src-var">$field</span><span class="src-sym">,&nbsp;</span><span class="src-str">'COUNT'</span><span class="src-sym">,&nbsp;</span><span class="src-var">$groupby</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+</ol></div></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The total number of records per group</li>
+				<li><span class="field">see:</span> QueryFilter-&gt;returnAggregate()</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			sqlcount
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$field</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$field</span><span class="var-description">: The field to aggregate</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$groupby</span><span class="var-description">: A list of fields to group results by</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsum" id="sum"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">sum</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a721">721</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the sum of all field values and return the result immediately.</p>
+<p class="description"><p>This call is identical to:</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-var">$query</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodreturnAggregate">returnAggregate</a><span class="src-sym">(</span><span class="src-var">$field</span><span class="src-sym">,&nbsp;</span><span class="src-var">$field</span><span class="src-sym">,&nbsp;</span><span class="src-str">'SUM'</span><span class="src-sym">,&nbsp;</span><span class="src-var">$groupby</span><span class="src-sym">,&nbsp;</span><span class="src-id">true</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+</ol></div></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The sum of all field values in a group</li>
+				<li><span class="field">see:</span> QueryFilter-&gt;returnAggregate()</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			sum
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$field</span><span class="var-description">: The field to aggregate</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$groupby</span><span class="var-description">: A list of fields to group results by</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsumfield" id="sumfield"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">sumfield</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a604">604</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a sum field to the query.</p>
+<p class="description"><p>Groups the query records together by the given $groupby fields, and  then returns a sum of all field values contained in each group.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The new QueryFilter at the end of the filter chain</li>
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFilter.html#methodaggregate">QueryFilter::aggregate()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFilter.html">QueryFilter</a></span>
+		<span class="method-name">
+			sumfield
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupby</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: The new field name</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$field</span><span class="var-description">: The field to aggregate (must be numeric)</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$groupby</span><span class="var-description">: The list of fields to group by</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodupdate" id="update"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">update</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1538">1538</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Bulk-update the set of records that matches the current query  filters.</p>
+<p class="description"><p>The fields to update are specified as a name/value hash array.  As  a shortcut, you can use the optional second paramtere to update  a single object by primary key.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The updated record's primary key (if specified)</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			update
+		</span>
+					(<span class="var-type">Array</span>&nbsp;<span class="var-name">$values</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$pk</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$values</span><span class="var-description">: A field name/value hash array</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$pk</span><span class="var-description">: The primary key of the object to update</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodvalid" id="valid"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">valid</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a2813">2813</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			valid
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>Iterator::valid</dt>
+					</dl>
+			
+	</div>
+<a name="methodvalues" id="values"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">values</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1430">1430</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Execute the current query, and return an array of values  of the specified fields from each record in the result set.</p>
+<p class="description"><p>Example:  <div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Returns&nbsp;a&nbsp;simple&nbsp;list&nbsp;of&nbsp;all&nbsp;active&nbsp;usernames</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$active&nbsp;</span>=&nbsp;<span class="src-var">$users</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodfilter">filter</a><span class="src-sym">(</span><span class="src-str">'active'</span><span class="src-sym">,&nbsp;</span><span class="src-id">true</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><a href="../modelquery/QueryFilter.html#methodvalues">values</a><span class="src-sym">(</span><span class="src-str">'id'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'username'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Returns&nbsp;an&nbsp;array&nbsp;of&nbsp;the&nbsp;format:</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;array('id'&nbsp;=&gt;&nbsp;array(1,&nbsp;5,&nbsp;12,&nbsp;13),</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'username'&nbsp;=&gt;&nbsp;array('admin',&nbsp;'alice',&nbsp;'bob',&nbsp;'brian'));</span></div></li>
+</ol></div></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> A hash array of field name =&gt; values</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			values
+		</span>
+					(<span class="var-type">$field</span>&nbsp;<span class="var-name">0</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">$field</span>
+				<span class="var-name">0</span><span class="var-description">: The field to get values for</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodwhere_params" id="where_params"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">where_params</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1619">1619</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Shortcut to just return the SQL WHERE clause parameter list from this  query object.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The WHERE clause parameter list</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			where_params
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodwhere_sql" id="where_sql"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">where_sql</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__QueryFilter.class.php.html#a1607">1607</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Shortcut to just return the SQL WHERE clause from this query object.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The WHERE clause</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			where_sql
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+						
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Thu, 21 Apr 2011 16:32:39 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

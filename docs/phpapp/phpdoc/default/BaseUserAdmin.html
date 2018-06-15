@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class BaseUserAdmin</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class BaseUserAdmin</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|											<a href="#sec-vars">Vars</a>
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+		<p class="notes">
+			Located in <a class="field" href="_phpapp-modules---users---admin---BaseUserAdmin.class.php.html">/phpapp-modules/users/admin/BaseUserAdmin.class.php</a> (line <span class="field">4</span>)
+		</p>
+		
+				
+		<pre><a href="../default/ModelAdmin.html">ModelAdmin</a>
+   |
+   --BaseUserAdmin</pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|												<a href="#sec-vars">Vars</a>
+								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../default/UserAdmin.html">UserAdmin</a></td>
+					<td>
+											
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+																		<a href="#sec-vars">Vars</a>
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																				
+												<div class="method-definition">
+											<span class="method-result">BaseUserAdmin</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$model</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$module</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#getPermsJSON" title="details" class="method-name">getPermsJSON</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$params</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$modeladmin</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$method</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#postSave" title="details" class="method-name">postSave</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">&$id</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$params</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$modeladmin</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$method</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#preEdit" title="details" class="method-name">preEdit</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$params</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$modeladmin</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$method</span>)
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+										<h4>Inherited Variables</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../default/ModelAdmin.html">ModelAdmin</a></span></p>
+					<blockquote>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$actionHandlers">ModelAdmin::$actionHandlers</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$actionPostHooks">ModelAdmin::$actionPostHooks</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$actionPreHooks">ModelAdmin::$actionPreHooks</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$allowExport">ModelAdmin::$allowExport</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$allowImport">ModelAdmin::$allowImport</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$boundTo">ModelAdmin::$boundTo</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$customFilters">ModelAdmin::$customFilters</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$deleteConfirm">ModelAdmin::$deleteConfirm</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$description">ModelAdmin::$description</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$displayFields">ModelAdmin::$displayFields</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$downloadUrl">ModelAdmin::$downloadUrl</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$fieldGroups">ModelAdmin::$fieldGroups</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$fieldNames">ModelAdmin::$fieldNames</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$fieldOptions">ModelAdmin::$fieldOptions</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$fieldRestrictions">ModelAdmin::$fieldRestrictions</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$fieldTemplates">ModelAdmin::$fieldTemplates</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$filterFields">ModelAdmin::$filterFields</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$icon">ModelAdmin::$icon</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$id">ModelAdmin::$id</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$inlineObjects">ModelAdmin::$inlineObjects</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$inlineOnly">ModelAdmin::$inlineOnly</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$instructions">ModelAdmin::$instructions</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$matchedFields">ModelAdmin::$matchedFields</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$mergeObjects">ModelAdmin::$mergeObjects</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$modelAccess">ModelAdmin::$modelAccess</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$modelClass">ModelAdmin::$modelClass</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$module">ModelAdmin::$module</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$name">ModelAdmin::$name</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$paginated">ModelAdmin::$paginated</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$parent">ModelAdmin::$parent</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$permission">ModelAdmin::$permission</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$pluralName">ModelAdmin::$pluralName</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$previewUrl">ModelAdmin::$previewUrl</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$prototype">ModelAdmin::$prototype</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$query">ModelAdmin::$query</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$queryFilter">ModelAdmin::$queryFilter</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$queryName">ModelAdmin::$queryName</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$readonly">ModelAdmin::$readonly</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$resolvedModelAccess">ModelAdmin::$resolvedModelAccess</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$saveAndAdd">ModelAdmin::$saveAndAdd</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$saveNew">ModelAdmin::$saveNew</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$searchFields">ModelAdmin::$searchFields</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$sortable">ModelAdmin::$sortable</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$subtypeAdmins">ModelAdmin::$subtypeAdmins</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../default/ModelAdmin.html#var$templateContext">ModelAdmin::$templateContext</a></span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+															<a href="#sec-vars">Vars</a>
+																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">6</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">BaseUserAdmin</span>
+		<span class="method-name">
+			__construct
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$model</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$module</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$model</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$module</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../default/ModelAdmin.html#method__construct">ModelAdmin::__construct()</a></dt>
+					</dl>
+			
+	</div>
+<a name="methodgetPermsJSON" id="getPermsJSON"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getPermsJSON</span> (line <span class="line-number">104</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getPermsJSON
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$params</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$modeladmin</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$method</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$id</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$params</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$modeladmin</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$method</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodpostSave" id="postSave"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">postSave</span> (line <span class="line-number">79</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			postSave
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">&$id</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$params</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$modeladmin</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$method</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">&$id</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$params</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$modeladmin</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$method</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodpreEdit" id="preEdit"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">preEdit</span> (line <span class="line-number">57</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			preEdit
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$params</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$modeladmin</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$method</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$id</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$params</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$modeladmin</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$method</span>			</li>
+				</ul>
+		
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../default/ModelAdmin.html">ModelAdmin</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../default/ModelAdmin.html#method__construct">ModelAdmin::__construct()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodaddContext">ModelAdmin::addContext()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodaddFieldRestriction">ModelAdmin::addFieldRestriction()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodaddInlineObject">ModelAdmin::addInlineObject()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodaddQueryFilter">ModelAdmin::addQueryFilter()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodaddTypeAdmin">ModelAdmin::addTypeAdmin()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodcheckAccess">ModelAdmin::checkAccess()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodcheckAction">ModelAdmin::checkAction()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodcheckDisplayCondition">ModelAdmin::checkDisplayCondition()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodcheckPermission">ModelAdmin::checkPermission()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodexecute">ModelAdmin::execute()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodfetchTemplate">ModelAdmin::fetchTemplate()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodfindField">ModelAdmin::findField()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodfindFieldAndObject">ModelAdmin::findFieldAndObject()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodflush">ModelAdmin::flush()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodformatField">ModelAdmin::formatField()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetAdmin">ModelAdmin::getAdmin()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetAndUpdate">ModelAdmin::getAndUpdate()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetDependencyHTML">ModelAdmin::getDependencyHTML()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetDisplayFields">ModelAdmin::getDisplayFields()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetDisplayJavascript">ModelAdmin::getDisplayJavascript()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetFieldContext">ModelAdmin::getFieldContext()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetFieldGroups">ModelAdmin::getFieldGroups()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetFieldInputHtml">ModelAdmin::getFieldInputHtml()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetFieldName">ModelAdmin::getFieldName()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetFieldRowHtml">ModelAdmin::getFieldRowHtml()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetFieldTemplate">ModelAdmin::getFieldTemplate()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetFieldValueHtml">ModelAdmin::getFieldValueHtml()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetFilterFields">ModelAdmin::getFilterFields()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetFlattenedFieldGroups">ModelAdmin::getFlattenedFieldGroups()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetId">ModelAdmin::getId()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetManyToManyList">ModelAdmin::getManyToManyList()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetMatchedFields">ModelAdmin::getMatchedFields()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetMergeFields">ModelAdmin::getMergeFields()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetModelAccess">ModelAdmin::getModelAccess()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetModule">ModelAdmin::getModule()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetName">ModelAdmin::getName()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetOrderField">ModelAdmin::getOrderField()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetPaginated">ModelAdmin::getPaginated()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetPermission">ModelAdmin::getPermission()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetPlural">ModelAdmin::getPlural()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetPreloadFields">ModelAdmin::getPreloadFields()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetPrototype">ModelAdmin::getPrototype()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetQuery">ModelAdmin::getQuery()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetQueryName">ModelAdmin::getQueryName()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetRelatedJavascript">ModelAdmin::getRelatedJavascript()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetRelatedQuery">ModelAdmin::getRelatedQuery()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetSearchFields">ModelAdmin::getSearchFields()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetTypeAdmin">ModelAdmin::getTypeAdmin()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodgetUser">ModelAdmin::getUser()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodincludeScript">ModelAdmin::includeScript()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodincludeStylesheet">ModelAdmin::includeStylesheet()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodisAccessFiltered">ModelAdmin::isAccessFiltered()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodisFieldDisplayed">ModelAdmin::isFieldDisplayed()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodisFilter">ModelAdmin::isFilter()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodisInlineObject">ModelAdmin::isInlineObject()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodisMaster">ModelAdmin::isMaster()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodmatchesMaster">ModelAdmin::matchesMaster()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodmergeWith">ModelAdmin::mergeWith()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodregisterActionHandler">ModelAdmin::registerActionHandler()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodregisterActionPostHook">ModelAdmin::registerActionPostHook()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodregisterActionPreHook">ModelAdmin::registerActionPreHook()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodrelativeRedirect">ModelAdmin::relativeRedirect()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodrelativeUrl">ModelAdmin::relativeUrl()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodrenderTemplate">ModelAdmin::renderTemplate()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodsetCustomFilter">ModelAdmin::setCustomFilter()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodsetDeleteConfirm">ModelAdmin::setDeleteConfirm()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodsetDescription">ModelAdmin::setDescription()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodsetDisplayFields">ModelAdmin::setDisplayFields()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodsetDownloadUrl">ModelAdmin::setDownloadUrl()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodsetFieldGroups">ModelAdmin::setFieldGroups()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodsetFieldName">ModelAdmin::setFieldName()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodsetFieldOption">ModelAdmin::setFieldOption()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodsetFieldOptions">ModelAdmin::setFieldOptions()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodsetFieldTemplate">ModelAdmin::setFieldTemplate()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodsetFilterFields">ModelAdmin::setFilterFields()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodsetIcon">ModelAdmin::setIcon()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodsetId">ModelAdmin::setId()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodsetInlineOnly">ModelAdmin::setInlineOnly()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodsetInstructions">ModelAdmin::setInstructions()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodsetMatchedField">ModelAdmin::setMatchedField()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodsetModelAccess">ModelAdmin::setModelAccess()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodsetName">ModelAdmin::setName()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodsetPaginated">ModelAdmin::setPaginated()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodsetPlural">ModelAdmin::setPlural()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodsetPreviewUrl">ModelAdmin::setPreviewUrl()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodsetReadOnly">ModelAdmin::setReadOnly()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodsetSearchFields">ModelAdmin::setSearchFields()</a></span><br>
+													<span class="method-name"><a href="../default/ModelAdmin.html#methodsetSortable">ModelAdmin::setSortable()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 24 Jan 2011 10:49:21 -0600 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

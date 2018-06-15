@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class OrderedField</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class OrderedField</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+													<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Field contains an ordered integer.</p>
+<p class="description"><p>OrderedField fields get special handling, because ModelQuery needs  to manage the ordering to ensure there are no gaps or duplicates  in the data store.</p><p>Example:  <div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-key">class&nbsp;</span><span class="src-id">Portfolio&nbsp;</span><span class="src-key">extends&nbsp;</span><a href="../modelquery/Model.html">Model</a>&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><span class="src-id">configure</span><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">id&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../modelquery/IntegerField.html">IntegerField</a></span><span class="src-sym">(</span><span class="src-str">'ID'</span><span class="src-sym">,&nbsp;</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'pk'&nbsp;</span>=&gt;&nbsp;<span class="src-id">true</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">user&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../modelquery/ManyToOneField.html">ManyToOneField</a></span><span class="src-sym">(</span><span class="src-str">'User'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'User'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">sort_order&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../modelquery/OrderedField.html">OrderedField</a></span><span class="src-sym">(</span><span class="src-str">'Sort&nbsp;Order'</span><span class="src-sym">,&nbsp;</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'user'</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">name&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../modelquery/CharField.html">CharField</a></span><span class="src-sym">(</span><span class="src-str">'ID'</span><span class="src-sym">,&nbsp;</span><span class="src-num">100</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Start&nbsp;with&nbsp;a&nbsp;user</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$user1&nbsp;</span>=&nbsp;<span class="src-var">$uq</span><span class="src-sym">-&gt;</span><span class="src-id">get</span><span class="src-sym">(</span><span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Create&nbsp;a&nbsp;few&nbsp;portofolios.&nbsp;&nbsp;As&nbsp;we&nbsp;add&nbsp;them,&nbsp;ModelQuery&nbsp;assigns</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;the&nbsp;sort_order&nbsp;field&nbsp;automatically.</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$up1&nbsp;</span>=&nbsp;<span class="src-var">$pq</span><span class="src-sym">-&gt;</span><span class="src-id">create</span><span class="src-sym">(</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'user'&nbsp;</span>=&gt;&nbsp;<span class="src-var">$user1</span><span class="src-sym">,&nbsp;</span><span class="src-str">'title'&nbsp;</span>=&nbsp;<span class="src-str">'U1P1'</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$up1</span><span class="src-sym">-&gt;</span><span class="src-id">save</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;$up1-&gt;sort_order&nbsp;is&nbsp;now&nbsp;&quot;1&quot;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$up2&nbsp;</span>=&nbsp;<span class="src-var">$pq</span><span class="src-sym">-&gt;</span><span class="src-id">create</span><span class="src-sym">(</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'user'&nbsp;</span>=&gt;&nbsp;<span class="src-var">$user1</span><span class="src-sym">,&nbsp;</span><span class="src-str">'title'&nbsp;</span>=&nbsp;<span class="src-str">'U1P2'</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$up2</span><span class="src-sym">-&gt;</span><span class="src-id">save</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;$up2-&gt;sort_order&nbsp;is&nbsp;now&nbsp;&quot;2&quot;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$up3&nbsp;</span>=&nbsp;<span class="src-var">$pq</span><span class="src-sym">-&gt;</span><span class="src-id">create</span><span class="src-sym">(</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'user'&nbsp;</span>=&gt;&nbsp;<span class="src-var">$user1</span><span class="src-sym">,&nbsp;</span><span class="src-str">'title'&nbsp;</span>=&nbsp;<span class="src-str">'U1P3'</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$up3</span><span class="src-sym">-&gt;</span><span class="src-id">save</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;$up3-&gt;sort_order&nbsp;is&nbsp;now&nbsp;&quot;3&quot;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;What&nbsp;happens&nbsp;if&nbsp;we&nbsp;rearrange?</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$up2</span><span class="src-sym">-&gt;</span><span class="src-id">sort_order&nbsp;</span>=&nbsp;<span class="src-num">3</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$up2</span><span class="src-sym">-&gt;</span><span class="src-id">save</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;$up2-&gt;sort_order&nbsp;is&nbsp;now&nbsp;&quot;3&quot;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;$up3-&gt;sort_order&nbsp;has&nbsp;been&nbsp;automatically&nbsp;updated&nbsp;to&nbsp;be&nbsp;&quot;2&quot;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;ModelQuery&nbsp;fills&nbsp;in&nbsp;the&nbsp;gaps&nbsp;on&nbsp;delete</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$up3</span><span class="src-sym">-&gt;</span><span class="src-id">delete</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;$up2-&gt;sort_order&nbsp;is&nbsp;now&nbsp;&quot;2&quot;&nbsp;again</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;That&nbsp;groupBy&nbsp;field?&nbsp;&nbsp;That&nbsp;tells&nbsp;ModelQuery&nbsp;how&nbsp;to&nbsp;determine</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;unique&nbsp;ordering&nbsp;groups</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Let's&nbsp;look&nbsp;at&nbsp;a&nbsp;different&nbsp;user:</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$user2&nbsp;</span>=&nbsp;<span class="src-var">$uq</span><span class="src-sym">-&gt;</span><span class="src-id">get</span><span class="src-sym">(</span><span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$up4&nbsp;</span>=&nbsp;<span class="src-var">$pq</span><span class="src-sym">-&gt;</span><span class="src-id">create</span><span class="src-sym">(</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'user'&nbsp;</span>=&gt;&nbsp;<span class="src-var">$user2</span><span class="src-sym">,&nbsp;</span><span class="src-str">'title'&nbsp;</span>=&nbsp;<span class="src-str">'U2P1'</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$up4</span><span class="src-sym">-&gt;</span><span class="src-id">save</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;$up4-&gt;sort_order&nbsp;is&nbsp;now&nbsp;&quot;1&quot;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;$up1-&gt;sort_order&nbsp;is&nbsp;also&nbsp;still&nbsp;&quot;1&quot;,&nbsp;because&nbsp;they&nbsp;belong&nbsp;to</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;different&nbsp;users&nbsp;(and&nbsp;&quot;user&quot;&nbsp;is&nbsp;the&nbsp;&quot;groupBy&quot;&nbsp;parameter&nbsp;in&nbsp;the</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;constructor)</span></div></li>
+</ol></div></p></p>
+		<p class="notes">
+			Located in <a class="field" href="_ModelFields.php.html">/ModelFields.php</a> (line <span class="field"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a864">864</a></span>)
+		</p>
+		
+				
+		<pre><a href="../modelquery/ModelField.html">ModelField</a>
+   |
+   --<a href="../modelquery/IntegerField.html">IntegerField</a>
+      |
+      --OrderedField</pre>
+	
+			</div>
+</div>
+
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																								<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$groupBy" title="details" class="var-name">$groupBy</a>
+				</div>
+											</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+												
+												<div class="method-definition">
+											<span class="method-result">OrderedField</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name_</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupBy_</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$options_</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$validators_</span> = <span class="var-default">null</span>])
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			<a name="var$groupBy" id="$groupBy"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$groupBy</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a866">866</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+							<h4>Inherited Variables</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../modelquery/ModelField.html">ModelField</a></span></p>
+					<blockquote>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/ModelField.html#var$errors">ModelField::$errors</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/ModelField.html#var$factory">ModelField::$factory</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/ModelField.html#var$field">ModelField::$field</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/ModelField.html#var$name">ModelField::$name</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/ModelField.html#var$options">ModelField::$options</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/ModelField.html#var$query">ModelField::$query</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/ModelField.html#var$type">ModelField::$type</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/ModelField.html#var$validators">ModelField::$validators</a></span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a877">877</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Configure a new OrderedField.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">OrderedField</span>
+		<span class="method-name">
+			__construct
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name_</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$groupBy_</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$options_</span> = <span class="var-default">null</span>], [<span class="var-type">Array</span>&nbsp;<span class="var-name">$validators_</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name_</span><span class="var-description">: A descriptive (human-readable) name</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$groupBy_</span><span class="var-description">: A list of fields to group objects by when         determining ordering values</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$options_</span><span class="var-description">: An array of options</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$validators_</span><span class="var-description">: An array of FieldValidator objects</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../modelquery/IntegerField.html#method__construct">IntegerField::__construct()</a></dt>
+					</dl>
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../modelquery/IntegerField.html">IntegerField</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../modelquery/IntegerField.html#method__construct">IntegerField::__construct()</a></span><br>
+													<span class="method-name"><a href="../modelquery/IntegerField.html#methodconvertValue">IntegerField::convertValue()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../modelquery/ModelField.html">ModelField</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../modelquery/ModelField.html#method__construct">ModelField::__construct()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodaddValidator">ModelField::addValidator()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodconvertFromDbValue">ModelField::convertFromDbValue()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodconvertToDbValue">ModelField::convertToDbValue()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodconvertValue">ModelField::convertValue()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodgetDefaultValue">ModelField::getDefaultValue()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodoffsetExists">ModelField::offsetExists()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodoffsetGet">ModelField::offsetGet()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodoffsetSet">ModelField::offsetSet()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodoffsetUnset">ModelField::offsetUnset()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodserialize">ModelField::serialize()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodtoHTML">ModelField::toHTML()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodtoString">ModelField::toString()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodvalidate">ModelField::validate()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodvalidationErrors">ModelField::validationErrors()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#method__toString">ModelField::__toString()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Thu, 21 Apr 2011 16:32:33 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>
