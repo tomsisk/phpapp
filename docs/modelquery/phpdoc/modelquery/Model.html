@@ -1,0 +1,2744 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class Model</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class Model</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|											<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+                <p class="implements">
+            Implements interfaces:
+            <ul>
+                <li>ArrayAccess (internal interface)</li><li>Countable (internal interface)</li><li>Iterator (internal interface)</li>            </ul>
+        </p>
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Data model representing a record in the database.</p>
+<p class="description"><p>Model is the base class for all of your data model definitions.  To define a model, you must subclass this Model class.  Field  definitions and configuration options should be handled by  overriding Model::configure() in your subclass. When a QueryHandler  handler is created for a Model subclass (by QueryFactory-&gt;get(),  the model class is instantiated.  As part of the initialization,  configure() is called to setup field definitions.</p><p>Result sets returned by QueryFilter will be objects of the  specified subclass type (except in the case of QueryFilter::hash()  and QueryFilter::raw()).</p><p>Subclass example:</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-key">class&nbsp;</span><span class="src-id">Book&nbsp;</span><span class="src-key">extends&nbsp;</span><a href="../modelquery/Model.html">Model</a>&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><span class="src-id">configure</span><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">id&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../modelquery/IntegerField.html">IntegerField</a></span><span class="src-sym">(</span><span class="src-str">'ID'</span><span class="src-sym">,&nbsp;</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'pk'&nbsp;</span>=&gt;&nbsp;<span class="src-id">true</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">title&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../modelquery/CharField.html">CharField</a></span><span class="src-sym">(</span><span class="src-str">'Title'</span><span class="src-sym">,&nbsp;</span><span class="src-num">100</span><span class="src-sym">,&nbsp;</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'required'&nbsp;</span>=&gt;&nbsp;<span class="src-id">true</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">published&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../modelquery/DateField.html">DateField</a></span><span class="src-sym">(</span><span class="src-str">'Publication&nbsp;Date'</span><span class="src-sym">,&nbsp;</span><span class="src-key">array</span><span class="src-sym">(</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'default'&nbsp;</span>=&gt;&nbsp;<span class="src-id"><a href="../modelquery/_Model.class.php.html#defineCURRENT_TIMESTAMP">CURRENT_TIMESTAMP</a></span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">format&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../modelquery/CharField.html">CharField</a></span><span class="src-sym">(</span><span class="src-str">'Format'</span><span class="src-sym">,&nbsp;</span><span class="src-num">20</span><span class="src-sym">,&nbsp;</span><span class="src-key">array</span><span class="src-sym">(</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'options'&nbsp;</span>=&gt;&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'H'&nbsp;</span>=&gt;&nbsp;<span class="src-str">'Hardcover'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'P'&nbsp;</span>=&gt;&nbsp;<span class="src-str">'Paperback'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'A'&nbsp;</span>=&gt;&nbsp;<span class="src-str">'Audiobook'</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-id">setDefaultOrder</span><span class="src-sym">(</span><span class="src-str">'+title'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><span class="src-id">__toString</span><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><a href="http://www.php.net/strval">strval</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">title</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-sym">}</span></div></li>
+</ol></div></p><p>Implementation note: public attributes should not be accessed directly.  Fields starting with an underscore (_) should be considered private  by your code.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/QueryHandler.html">QueryHandler</a></li>
+				<li><span class="field">see:</span> <a href="../modelquery/ModelField.html">ModelField</a></li>
+				<li><span class="field">abstract:</span> </li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_Model.class.php.html">/Model.class.php</a> (line <span class="field"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a97">97</a></span>)
+		</p>
+		
+				
+		<pre></pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|												<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../modelquery/EmbeddedModel.html">EmbeddedModel</a></td>
+					<td>
+											A static (non-persistent) model designed for transient use.
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																																																																																																																																																																																																								<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_appName" title="details" class="var-name">$_appName</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_configMode" title="details" class="var-name">$_configMode</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_dbFields" title="details" class="var-name">$_dbFields</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_dbId" title="details" class="var-name">$_dbId</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_defaultOrder" title="details" class="var-name">$_defaultOrder</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_errors" title="details" class="var-name">$_errors</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_extraValues" title="details" class="var-name">$_extraValues</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_fieldErrors" title="details" class="var-name">$_fieldErrors</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_fieldRelationValues" title="details" class="var-name">$_fieldRelationValues</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_fields" title="details" class="var-name">$_fields</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_fieldValues" title="details" class="var-name">$_fieldValues</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_idField" title="details" class="var-name">$_idField</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_orderedFields" title="details" class="var-name">$_orderedFields</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_query" title="details" class="var-name">$_query</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_rawValues" title="details" class="var-name">$_rawValues</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_subclassField" title="details" class="var-name">$_subclassField</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_subclassFilter" title="details" class="var-name">$_subclassFilter</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_table" title="details" class="var-name">$_table</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_validators" title="details" class="var-name">$_validators</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_valuesConverted" title="details" class="var-name">$_valuesConverted</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_version" title="details" class="var-name">$_version</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_versionChanges" title="details" class="var-name">$_versionChanges</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_versionValues" title="details" class="var-name">$_versionValues</a>
+				</div>
+											</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																												
+												<div class="method-definition">
+											<span class="method-result">Model</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											(<span class="var-type"><a href="../modelquery/QueryHandler.html">QueryHandler</a></span>&nbsp;<span class="var-name">&$query_</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$tableName_</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$appName_</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addError" title="details" class="method-name">addError</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$error</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addField" title="details" class="method-name">addField</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type"><a href="../modelquery/ModelField.html">ModelField</a></span>&nbsp;<span class="var-name">$field</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addFieldError" title="details" class="method-name">addFieldError</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$error</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addFieldErrors" title="details" class="method-name">addFieldErrors</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$errors</span>, <span class="var-type">Array</span>&nbsp;<span class="var-name">$error</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addValidator" title="details" class="method-name">addValidator</a>
+											(<span class="var-type"><a href="../modelquery/ModelValidator.html">ModelValidator</a></span>&nbsp;<span class="var-name">$validator</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$message</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#clearErrors" title="details" class="method-name">clearErrors</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#clearFieldErrors" title="details" class="method-name">clearFieldErrors</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#configure" title="details" class="method-name">configure</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#count" title="details" class="method-name">count</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#current" title="details" class="method-name">current</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#delete" title="details" class="method-name">delete</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#getDefaultOrder" title="details" class="method-name">getDefaultOrder</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#getErrors" title="details" class="method-name">getErrors</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryFactory.html">QueryFactory</a></span>
+										<a href="#getFactory" title="details" class="method-name">getFactory</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#getFieldErrors" title="details" class="method-name">getFieldErrors</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">mixed</span>
+										<a href="#getFieldValue" title="details" class="method-name">getFieldValue</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#getFieldValues" title="details" class="method-name">&amp;getFieldValues</a>
+											([<span class="var-type"></span>&nbsp;<span class="var-name">$primitive</span> = <span class="var-default">true</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">mixed</span>
+										<a href="#getPreviousFieldValue" title="details" class="method-name">getPreviousFieldValue</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#getPreviousFieldValues" title="details" class="method-name">getPreviousFieldValues</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">mixed</span>
+										<a href="#getPrimitiveFieldValue" title="details" class="method-name">getPrimitiveFieldValue</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../modelquery/QueryHandler.html">QueryHandler</a></span>
+										<a href="#getQuery" title="details" class="method-name">getQuery</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#getRawValues" title="details" class="method-name">&amp;getRawValues</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getTable" title="details" class="method-name">getTable</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">bool</span>
+										<a href="#hasErrors" title="details" class="method-name">hasErrors</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">bool</span>
+										<a href="#hasFieldErrors" title="details" class="method-name">hasFieldErrors</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">bool</span>
+										<a href="#isChanged" title="details" class="method-name">isChanged</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">bool</span>
+										<a href="#isExtraField" title="details" class="method-name">isExtraField</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">bool</span>
+										<a href="#isPersistent" title="details" class="method-name">isPersistent</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#key" title="details" class="method-name">key</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#mapConcreteTypes" title="details" class="method-name">mapConcreteTypes</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, <span class="var-type">Array</span>&nbsp;<span class="var-name">$map</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#next" title="details" class="method-name">next</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#offsetExists" title="details" class="method-name">offsetExists</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$index</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#offsetGet" title="details" class="method-name">offsetGet</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$index</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#offsetSet" title="details" class="method-name">offsetSet</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$index</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$value</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#offsetUnset" title="details" class="method-name">offsetUnset</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$index</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#orderedFields" title="details" class="method-name">orderedFields</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#revert" title="details" class="method-name">revert</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#rewind" title="details" class="method-name">rewind</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#save" title="details" class="method-name">save</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#saveCascade" title="details" class="method-name">saveCascade</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#saveInternal" title="details" class="method-name">saveInternal</a>
+											([<span class="var-type">Array</span>&nbsp;<span class="var-name">$skip</span> = <span class="var-default">null</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$saverelated</span> = <span class="var-default">false</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setDefaultOrder" title="details" class="method-name">setDefaultOrder</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setFieldValue" title="details" class="method-name">setFieldValue</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>, [<span class="var-type">bool</span>&nbsp;<span class="var-name">$raw</span> = <span class="var-default">false</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setPrimitiveFieldValue" title="details" class="method-name">setPrimitiveFieldValue</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>, [<span class="var-type">bool</span>&nbsp;<span class="var-name">$raw</span> = <span class="var-default">false</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setQuery" title="details" class="method-name">setQuery</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$query</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setTable" title="details" class="method-name">setTable</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name_</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#toArray" title="details" class="method-name">toArray</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#toJSON" title="details" class="method-name">toJSON</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#toQueryParams" title="details" class="method-name">toQueryParams</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#updateModel" title="details" class="method-name">updateModel</a>
+											(<span class="var-type">Array</span>&nbsp;<span class="var-name">$params</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$rawvalues</span> = <span class="var-default">null</span>], [<span class="var-type">int</span>&nbsp;<span class="var-name">$flags</span> = <span class="var-default">0</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#valid" title="details" class="method-name">valid</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">bool</span>
+										<a href="#validate" title="details" class="method-name">validate</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$field</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#__clone" title="details" class="method-name">__clone</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">mixed</span>
+										<a href="#__get" title="details" class="method-name">__get</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#__set" title="details" class="method-name">__set</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">A</span>
+										<a href="#__toString" title="details" class="method-name">__toString</a>
+										()
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			<a name="var$_appName" id="$_appName"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_appName</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a126">126</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_configMode" id="$_configMode"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_configMode</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a127">127</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_dbFields" id="$_dbFields"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_dbFields</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a103">103</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_dbId" id="$_dbId"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_dbId</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a114">114</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_defaultOrder" id="$_defaultOrder"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_defaultOrder</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a115">115</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_errors" id="$_errors"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_errors</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a122">122</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_extraValues" id="$_extraValues"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_extraValues</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a111">111</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_fieldErrors" id="$_fieldErrors"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_fieldErrors</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a123">123</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_fieldRelationValues" id="$_fieldRelationValues"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_fieldRelationValues</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a110">110</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_fields" id="$_fields"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_fields</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a102">102</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_fieldValues" id="$_fieldValues"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_fieldValues</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a109">109</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_idField" id="$_idField"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_idField</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a101">101</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_orderedFields" id="$_orderedFields"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_orderedFields</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a113">113</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_query" id="$_query"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_query</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a125">125</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_rawValues" id="$_rawValues"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_rawValues</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a108">108</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_subclassField" id="$_subclassField"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_subclassField</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a105">105</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_subclassFilter" id="$_subclassFilter"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_subclassFilter</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a106">106</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_table" id="$_table"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_table</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a104">104</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_validators" id="$_validators"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_validators</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a121">121</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_valuesConverted" id="$_valuesConverted"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_valuesConverted</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a112">112</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_version" id="$_version"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_version</span>
+			 = <span class="var-default"> 1</span>			(line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a117">117</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_versionChanges" id="$_versionChanges"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_versionChanges</span>
+			 = <span class="var-default"> 0</span>			(line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a118">118</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_versionValues" id="$_versionValues"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_versionValues</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a119">119</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+						
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a140">140</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a new Model object.</p>
+<p class="description"><p>This constructor should not be called directly; all Model subclasses should  be instantiated by QueryHandler.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/QueryFactory.html#methodget">QueryFactory::get()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Model</span>
+		<span class="method-name">
+			__construct
+		</span>
+					(<span class="var-type"><a href="../modelquery/QueryHandler.html">QueryHandler</a></span>&nbsp;<span class="var-name">&$query_</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$tableName_</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$appName_</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../modelquery/QueryHandler.html">QueryHandler</a></span>
+				<span class="var-name">&$query_</span><span class="var-description">: The QueryHandler object that is managing this model</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$tableName_</span><span class="var-description">: The database table name for model persistence</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$appName_</span><span class="var-description">: The application name from the QueryFactory</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../modelquery/EmbeddedModel.html#method__construct">EmbeddedModel::__construct()</a>
+								: Create a new embedded model belonging to the specified model object
+							</li>
+				</ul>
+	</div>
+<a name="methodaddError" id="addError"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">addError</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a751">751</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a new model validation error.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addError
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$error</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$error</span><span class="var-description">: The error message</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddField" id="addField"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">addField</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a181">181</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a new field definition to this Model.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addField
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type"><a href="../modelquery/ModelField.html">ModelField</a></span>&nbsp;<span class="var-name">$field</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: The field name in the database</span>			</li>
+					<li>
+				<span class="var-type"><a href="../modelquery/ModelField.html">ModelField</a></span>
+				<span class="var-name">$field</span><span class="var-description">: A field definition object</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddFieldError" id="addFieldError"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">addFieldError</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a700">700</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a new field validation error.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addFieldError
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$error</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$field</span><span class="var-description">: The field name</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$error</span><span class="var-description">: The error message</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddFieldErrors" id="addFieldErrors"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">addFieldErrors</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a709">709</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a set of field validation errors.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addFieldErrors
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$errors</span>, <span class="var-type">Array</span>&nbsp;<span class="var-name">$error</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$field</span><span class="var-description">: The field name</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$error</span><span class="var-description">: A list of error message</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$errors</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddValidator" id="addValidator"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">addValidator</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a675">675</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a data validator to this module.</p>
+<p class="description"><p>In contrast to field validators, model validators are used  to validate the model as a whole.  This is useful when one field's  validation depends on the value of another field in the model.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/FieldValidator.html">FieldValidator</a></li>
+				<li><span class="field">see:</span> <a href="../modelquery/ModelField.html#methodaddValidator">ModelField::addValidator()</a></li>
+				<li><span class="field">see:</span> <a href="../modelquery/ModelValidator.html">ModelValidator</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addValidator
+		</span>
+					(<span class="var-type"><a href="../modelquery/ModelValidator.html">ModelValidator</a></span>&nbsp;<span class="var-name">$validator</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$message</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../modelquery/ModelValidator.html">ModelValidator</a></span>
+				<span class="var-name">$validator</span><span class="var-description">: The validator instance</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$message</span><span class="var-description">: The error message to display if validation fails</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodclearErrors" id="clearErrors"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">clearErrors</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a743">743</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Clear any model validation errors from the last validation attempt.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			clearErrors
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodclearFieldErrors" id="clearFieldErrors"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">clearFieldErrors</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a691">691</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Clear any field validation errors from the last validation attempt.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			clearFieldErrors
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodconfigure" id="configure"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">configure</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a172">172</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Configure this model.</p>
+<p class="description"><p>Subclasses of Model should override this function to define  field types and other configuration options.  To define a field,  use the following syntax:</p><p>$this-&gt;fieldName = new CharField('My Field', 100);</p><p>Other model configuration options should be set from configure()  as well, such as Model::setTable(), Model::setDefaultOrder(), etc.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/ModelField.html">ModelField</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			configure
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodcount" id="count"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">count</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a1082">1082</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			count
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>Countable::count</dt>
+					</dl>
+			
+	</div>
+<a name="methodcurrent" id="current"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">current</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a1035">1035</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			current
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>Iterator::current</dt>
+					</dl>
+			
+	</div>
+<a name="methoddelete" id="delete"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">delete</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a925">925</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Delete this model from the persistent data store.</p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> DoesNotExistException if a matching model was not          found in the data store.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			delete
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../modelquery/EmbeddedModel.html#methoddelete">EmbeddedModel::delete()</a>
+								: Override of delete function (does nothing)
+							</li>
+				</ul>
+	</div>
+<a name="methodgetDefaultOrder" id="getDefaultOrder"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getDefaultOrder</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a658">658</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the default sorting fields.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> A list of fields to order queries by</li>
+				<li><span class="field">see:</span> <a href="../modelquery/Model.html#methodsetDefaultOrder">Model::setDefaultOrder()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			getDefaultOrder
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetErrors" id="getErrors"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getErrors</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a761">761</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get a list of model validation errors resulting from the last validate() attempt.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> A list of model validation errors</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			getErrors
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetFactory" id="getFactory"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getFactory</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a222">222</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Retrieve the QueryFactory associated with this model.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The query factory</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryFactory.html">QueryFactory</a></span>
+		<span class="method-name">
+			getFactory
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetFieldErrors" id="getFieldErrors"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getFieldErrors</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a728">728</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get a list of field validation errors resulting from the last validate() attempt.</p>
+<p class="description"><p>The error list returned is of the form:</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'fieldName'&nbsp;</span>=&gt;&nbsp;<span class="src-key">array</span><span class="src-sym">(</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]&nbsp;</span>=&gt;&nbsp;<span class="src-str">'Error&nbsp;message&nbsp;#1'</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">[</span><span class="src-num">1</span><span class="src-sym">]&nbsp;</span>=&gt;&nbsp;<span class="src-str">'Error&nbsp;message&nbsp;#2'</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+</ol></div></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> A list of field validation errors</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			getFieldErrors
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetFieldValue" id="getFieldValue"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getFieldValue</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a375">375</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get a field's value.</p>
+<p class="description"><p>If the field is a RelationField, this will return the related object  (querying the database if necessary) rather than the object's ID.</p><p>A more common way to retrieve field values is using standard attributes  (i.e. $model-&gt;title), or via array access ($model['title']) since this  class implements ArrayAccess.  These are both synonymous to  $model-&gt;getFieldValue('title').</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The field value</li>
+				<li><span class="field">see:</span> <a href="../modelquery/Model.html#method__get">Model::__get()</a></li>
+				<li><span class="field">see:</span> <a href="../modelquery/Model.html#methodoffsetGet">Model::offsetGet()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			getFieldValue
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: The field name</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetFieldValues" id="getFieldValues"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getFieldValues</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a309">309</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get an array of type-converted name/value pairs.</p>
+<p class="description"><p>For relation fields, this will return their primary key  value rather than the related object itself.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/Model.html#methodtoArray">Model::toArray()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			&amp;getFieldValues
+		</span>
+					([<span class="var-type"></span>&nbsp;<span class="var-name">$primitive</span> = <span class="var-default">true</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$primitive</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetPreviousFieldValue" id="getPreviousFieldValue"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getPreviousFieldValue</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a428">428</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">If a field was modified since the last save, return the old value.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The previous value</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			getPreviousFieldValue
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: The field name</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetPreviousFieldValues" id="getPreviousFieldValues"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getPreviousFieldValues</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a440">440</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">If a model was modified since the last save, return the old field values as an array.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The previous field values</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			getPreviousFieldValues
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetPrimitiveFieldValue" id="getPrimitiveFieldValue"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getPrimitiveFieldValue</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a409">409</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get a field's raw value, as stored in the database.</p>
+<p class="description"><p>Unlike getFieldValue, this method does no type conversion, and  returns related object IDs rather than the object itself.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The field value</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			getPrimitiveFieldValue
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: The field name</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetQuery" id="getQuery"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getQuery</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a202">202</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Retrieve the QueryHandler object that manages this model</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The query manager</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../modelquery/QueryHandler.html">QueryHandler</a></span>
+		<span class="method-name">
+			getQuery
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetRawValues" id="getRawValues"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getRawValues</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a297">297</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get a hash array of raw name/value pairs, as they are stored in the database.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> A hash of name/value pairs</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			&amp;getRawValues
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetTable" id="getTable"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getTable</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a635">635</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the database table name associated with this model.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The table name</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getTable
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodhasErrors" id="hasErrors"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">hasErrors</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a736">736</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Check if the last validation produced any model validation errors.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> TRUE if any model validators failed.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool</span>
+		<span class="method-name">
+			hasErrors
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodhasFieldErrors" id="hasFieldErrors"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">hasFieldErrors</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a684">684</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Check if the last validation produced any field validation errors.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> TRUE if any field validators failed.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool</span>
+		<span class="method-name">
+			hasFieldErrors
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodisChanged" id="isChanged"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">isChanged</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a464">464</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Check if a field has been changed since the last save.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> TRUE if the field or model has changed</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool</span>
+		<span class="method-name">
+			isChanged
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: The field name, or null to check if <em>any</em>          fields in this model have changed.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodisExtraField" id="isExtraField"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">isExtraField</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a454">454</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Check if a field is an &quot;extra field&quot;</p>
+<p class="description"><p>Use of aggregates (min(), max(), etc) can result in a model  containing field names and values that are not part of its  original definition.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> TRUE if it is an extra field</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool</span>
+		<span class="method-name">
+			isExtraField
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: The field name</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodisPersistent" id="isPersistent"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">isPersistent</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a619">619</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Check if this model has been persisted to the data store.</p>
+<p class="description"><p>This does not verify that the current data has been persisted, just  that the object originally was loaded from the data store.  To check  if the current field data has been persisted, use Model::isChanged().</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> TRUE if the object exists in the data store</li>
+				<li><span class="field">see:</span> <a href="../modelquery/Model.html#methodisChanged">Model::isChanged()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool</span>
+		<span class="method-name">
+			isPersistent
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodkey" id="key"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">key</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a1041">1041</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			key
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>Iterator::key</dt>
+					</dl>
+			
+	</div>
+<a name="methodmapConcreteTypes" id="mapConcreteTypes"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">mapConcreteTypes</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a1007">1007</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Identifies this class as an parent model for other models by mapping specific field values to different concrete subclasses.</p>
+<p class="description"><p>Mapping concrete types allows you to have multiple model  representations of data from a single database table.  It  allows you to specify that when a field is a certain value,  it should actually instantiate another model class (which  subclasses the parent model) instead of this one.</p><p>This is especially useful when:  <ul><li>You have a relation field that can link to different
+ model types depending on a field's value.</li><li>You have a model with an EmbeddedModelField (which
+ serializes a model into a single text field), where
+ the EmbeddedModel is different depending on another field's
+ value.</li></ul></p><p>Example:</p><p>Parent class:  <div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-key">class&nbsp;</span><span class="src-id">Page&nbsp;</span><span class="src-key">extends&nbsp;</span><a href="../modelquery/Model.html">Model</a>&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><span class="src-id">configure</span><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">id&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../modelquery/IntegerField.html">IntegerField</a></span><span class="src-sym">(</span><span class="src-str">'ID'</span><span class="src-sym">,&nbsp;</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'pk'&nbsp;</span>=&gt;&nbsp;<span class="src-id">true</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">type&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../modelquery/CharField.html">CharField</a></span><span class="src-sym">(</span><span class="src-str">'Page&nbsp;Type'</span><span class="src-sym">,&nbsp;</span><span class="src-num">20</span><span class="src-sym">,&nbsp;</span><span class="src-key">array</span><span class="src-sym">(</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'options'&nbsp;</span>=&gt;&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'H'&nbsp;</span>=&gt;&nbsp;<span class="src-str">'Static&nbsp;HTML'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'F'&nbsp;</span>=&gt;&nbsp;<span class="src-str">'Web&nbsp;Form'</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">content&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../modelquery/TextField.html">TextField</a></span><span class="src-sym">(</span><span class="src-str">'Page&nbsp;Body'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-id">mapConcreteTypes</span><span class="src-sym">(</span><span class="src-str">'type'</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'F'&nbsp;</span>=&gt;&nbsp;<span class="src-str">'FormPage'</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-sym">}</span></div></li>
+</ol></div></p><p>Subclass:</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-key">class&nbsp;</span><span class="src-id">FormPage&nbsp;</span><span class="src-key">extends&nbsp;</span><span class="src-id">Page&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><span class="src-id">configure</span><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id">parent</span><span class="src-sym">::</span><span class="src-id">configure</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">form&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../modelquery/OneToOneField.html">OneToOneField</a></span><span class="src-sym">(</span><span class="src-str">'Form'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'Form'</span><span class="src-sym">,&nbsp;</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'reverseJoin'&nbsp;</span>=&gt;&nbsp;<span class="src-str">'page'</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-sym">}</span></div></li>
+</ol></div></p><p>In this case, if a Page object has a &quot;type&quot; field equal to &quot;F&quot;, instead of  instantiating a Page object from the query result, it instantiates the  FormPage subclass.  This gives our code access to an additional relation  field that is specific to the form page type.</p><p>You can only map concrete types by a single field.  Calling this function  with different parameters invalidates the first call.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			mapConcreteTypes
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$field</span>, <span class="var-type">Array</span>&nbsp;<span class="var-name">$map</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$field</span><span class="var-description">: The field name to map by</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$map</span><span class="var-description">: A field value =&gt; model type hash array (see example above)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodnext" id="next"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">next</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a1047">1047</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			next
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>Iterator::next</dt>
+					</dl>
+			
+	</div>
+<a name="methodoffsetExists" id="offsetExists"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">offsetExists</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a1075">1075</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			offsetExists
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$index</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$index</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>ArrayAccess::offsetExists</dt>
+					</dl>
+			
+	</div>
+<a name="methodoffsetGet" id="offsetGet"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">offsetGet</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a1071">1071</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			offsetGet
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$index</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$index</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>ArrayAccess::offsetGet</dt>
+					</dl>
+			
+	</div>
+<a name="methodoffsetSet" id="offsetSet"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">offsetSet</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a1067">1067</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			offsetSet
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$index</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$value</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$index</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$value</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>ArrayAccess::offsetSet</dt>
+					</dl>
+			
+	</div>
+<a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">offsetUnset</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a1060">1060</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			offsetUnset
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$index</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$index</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>ArrayAccess::offsetUnset</dt>
+					</dl>
+			
+	</div>
+<a name="methodorderedFields" id="orderedFields"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">orderedFields</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a230">230</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get a list of all OrderedField definitions.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> An array of ModelField objects</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			orderedFields
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodrevert" id="revert"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">revert</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a481">481</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Revert a field to the last saved value.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			revert
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: The field name, or null to revert <em>all</em>          fields in this model to the last saved value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodrewind" id="rewind"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">rewind</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a1029">1029</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			rewind
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>Iterator::rewind</dt>
+					</dl>
+			
+	</div>
+<a name="methodsave" id="save"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">save</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a902">902</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Persists the current model data to the data store.</p>
+<p class="description"><p>Validates the current model data, and attempts to save it  to the data store.</p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> ValidationException If data validation fails</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			save
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../modelquery/EmbeddedModel.html#methodsave">EmbeddedModel::save()</a>
+								: Override of save function (does nothing)
+							</li>
+				</ul>
+	</div>
+<a name="methodsaveCascade" id="saveCascade"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">saveCascade</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a916">916</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Persists the current model data to the data store, and  saves all child relations that have changed.</p>
+<p class="description"><p>Validates the current model data, and attempts to save it  to the data store, including any dependent relations that have  been changed.</p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> ValidationException If data validation fails</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			saveCascade
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodsaveInternal" id="saveInternal"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">saveInternal</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a839">839</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Persists the current model data to the data store.</p>
+<p class="description"><p>Validates the current model data, and attempts to save it  to the data store, including many-to-one relations that  have changed.</p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> ValidationException If data validation fails</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			saveInternal
+		</span>
+					([<span class="var-type">Array</span>&nbsp;<span class="var-name">$skip</span> = <span class="var-default">null</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$saverelated</span> = <span class="var-default">false</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$skip</span><span class="var-description">: A list of field names to ignore during          cascading saves of related objects</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$saverelated</span><span class="var-description">: Cascade-save all related         *-to-many relation sets that have changed.  This is a         convenience operation that only goes down one level; if         you have children of children that need saving, you         should save them manually.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetDefaultOrder" id="setDefaultOrder"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">setDefaultOrder</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a648">648</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the default sorting order for queries on this model.</p>
+<p class="description"><p>This function takes an arbitrary number of arguments, each of  which is a string containing an (optional) order specifier  of <em>+</em> or <em>-</em> and a field name.</p><p>i.e. $model-&gt;setDefaultOrder('+author.surname', '-published');</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setDefaultOrder
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodsetFieldValue" id="setFieldValue"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">setFieldValue</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a249">249</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set a field's value.</p>
+<p class="description"><p>A more common way to set field values is using standard attributes  (i.e. $model-&gt;title =&gt; $value), or via array access ($model['title']  = $value) since this class implements ArrayAccess.  These are both  synonymous to $model-&gt;setFieldValue('title', $value).</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/Model.html#method__set">Model::__set()</a></li>
+				<li><span class="field">see:</span> <a href="../modelquery/Model.html#methodoffsetSet">Model::offsetSet()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setFieldValue
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>, [<span class="var-type">bool</span>&nbsp;<span class="var-name">$raw</span> = <span class="var-default">false</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: The field name</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$value</span><span class="var-description">: The field value</span>			</li>
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$raw</span><span class="var-description">: If true, this is a raw value that should not          be type converted</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetPrimitiveFieldValue" id="setPrimitiveFieldValue"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">setPrimitiveFieldValue</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a276">276</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set a raw field value, bypassing type conversion.</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/Model.html#methodsetFieldValue">Model::setFieldValue()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setPrimitiveFieldValue
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>, [<span class="var-type">bool</span>&nbsp;<span class="var-name">$raw</span> = <span class="var-default">false</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: The field name</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$value</span><span class="var-description">: The field value</span>			</li>
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$raw</span><span class="var-description">: If true, this is a raw value that should not          be type converted</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetQuery" id="setQuery"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">setQuery</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a210">210</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the query handler for this model. Useful after  deserializing models.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setQuery
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$query</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$query</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetTable" id="setTable"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">setTable</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a627">627</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the database table name associated with this model.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setTable
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name_</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name_</span><span class="var-description">: The table name</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodtoArray" id="toArray"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">toArray</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a341">341</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get an array of type-converted name/value pairs.</p>
+<p class="description"><p>Unlike Model::getFieldValues(), this returns relation  objects instead of primary keys.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> A hash array of name/value pairs</li>
+				<li><span class="field">see:</span> <a href="../modelquery/Model.html#methodgetFieldValues">Model::getFieldValues()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			toArray
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodtoJSON" id="toJSON"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">toJSON</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a352">352</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return a JSON representation of this object.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> Field/value data in JSON notation</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			toJSON
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodtoQueryParams" id="toQueryParams"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">toQueryParams</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a1016">1016</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a URL-encoded query string based on this model's field names and values.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> A URL-encoded query string representation of this model</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			toQueryParams
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodupdateModel" id="updateModel"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">updateModel</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a776">776</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Update the model's field values from a hash array of name/value pairs.</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/_Model.class.php.html#defineUPDATE_FROM_DB">UPDATE_FROM_DB</a></li>
+				<li><span class="field">see:</span> <a href="../modelquery/_Model.class.php.html#defineUPDATE_FORCE_BOOLEAN">UPDATE_FORCE_BOOLEAN</a></li>
+				<li><span class="field">see:</span> <a href="../modelquery/_Model.class.php.html#defineUPDATE_FROM_FORM">UPDATE_FROM_FORM</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			updateModel
+		</span>
+					(<span class="var-type">Array</span>&nbsp;<span class="var-name">$params</span>, [<span class="var-type">Array</span>&nbsp;<span class="var-name">$rawvalues</span> = <span class="var-default">null</span>], [<span class="var-type">int</span>&nbsp;<span class="var-name">$flags</span> = <span class="var-default">0</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$params</span><span class="var-description">: A hash array of field name/value pairs</span>			</li>
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$rawvalues</span><span class="var-description">: A list of field names to pass through withou          type conversion on the values</span>			</li>
+					<li>
+				<span class="var-type">int</span>
+				<span class="var-name">$flags</span><span class="var-description">: A bitmask of flags specifying information about the          source of the params (UPDATE_* constants)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodvalid" id="valid"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">valid</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a1053">1053</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			valid
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>Iterator::valid</dt>
+					</dl>
+			
+	</div>
+<a name="methodvalidate" id="validate"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">validate</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a555">555</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Validate the model's current field data.</p>
+<p class="description"><p>If validation fails, errors can be retrieved from Model::getErrors()  and Model::getFieldErrors().</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> TRUE if validation succeeds</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool</span>
+		<span class="method-name">
+			validate
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$field</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$field</span><span class="var-description">: The field to validate, or null for all fields</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method__clone" id="__clone"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">__clone</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a152">152</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Clone constructor</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			__clone
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method__get" id="__get"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">__get</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a532">532</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get a field value.</p>
+<p class="description"><p>If a field with the given property name exists, it will return the  field's value, internally calling Model::getFieldValue().</p><p>When in configuration more (inside Model:configure()), it returns  the field definition instead, internally calling Model::getField().</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The field value</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			__get
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: The field name</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method__set" id="__set"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">__set</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a511">511</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set a field value.</p>
+<p class="description"><p>If a field with the given property name exists, it will set it  to a new value, internally calling Model::setFieldValue().</p><p>When in configuration more (inside Model:configure()), it defines  a field definition instead, internally calling Model::addField().</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			__set
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: The field name</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$value</span><span class="var-description">: The field value</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method__toString" id="__toString"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">__toString</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__Model.class.php.html#a1091">1091</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return a string representation of this model.</p>
+<p class="description"><p>The default value is '[&lt;classname&gt;]'</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> string representation of this model</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">A</span>
+		<span class="method-name">
+			__toString
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+						
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Thu, 21 Apr 2011 16:32:30 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

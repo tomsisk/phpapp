@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class ManyToOneField</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class ManyToOneField</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|											<a href="#sec-vars">Vars</a>
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Defines a many-to-one relation between two models.</p>
+<p class="description"><p>In SQL terminology, this is a FOREIGN KEY field.</p><p>Example:  <div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-key">class&nbsp;</span><span class="src-id">Book&nbsp;</span><span class="src-key">extends&nbsp;</span><a href="../modelquery/Model.html">Model</a>&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><span class="src-id">configure</span><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">id&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../modelquery/IntegerField.html">IntegerField</a></span><span class="src-sym">(</span><span class="src-str">'ID'</span><span class="src-sym">,&nbsp;</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'pk'&nbsp;</span>=&gt;&nbsp;<span class="src-id">true</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">author&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../modelquery/OneToManyField.html">OneToManyField</a></span><span class="src-sym">(</span><span class="src-str">'Author'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'Author'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-key">class&nbsp;</span><span class="src-id">Author&nbsp;</span><span class="src-key">extends&nbsp;</span><a href="../modelquery/Model.html">Model</a>&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><span class="src-id">configure</span><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">id&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../modelquery/IntegerField.html">IntegerField</a></span><span class="src-sym">(</span><span class="src-str">'ID'</span><span class="src-sym">,&nbsp;</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'pk'&nbsp;</span>=&gt;&nbsp;<span class="src-id">true</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">name&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../modelquery/CharField.html">CharField</a></span><span class="src-sym">(</span><span class="src-str">'Name'</span><span class="src-sym">,&nbsp;</span><span class="src-num">100</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Author&nbsp;object&nbsp;is&nbsp;not&nbsp;loaded&nbsp;yet;&nbsp;we&nbsp;only&nbsp;made&nbsp;a&nbsp;single&nbsp;query</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$book&nbsp;</span>=&nbsp;<span class="src-var">$bq</span><span class="src-sym">-&gt;</span><span class="src-id">one</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;Author&nbsp;is&nbsp;loaded&nbsp;as&nbsp;soon&nbsp;as&nbsp;we&nbsp;call&nbsp;the&nbsp;-&gt;author&nbsp;field,</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;and&nbsp;we&nbsp;can&nbsp;access&nbsp;its&nbsp;fields&nbsp;like&nbsp;normal</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$authorname&nbsp;</span>=&nbsp;<span class="src-var">$book</span><span class="src-sym">-&gt;</span><span class="src-id">author</span><span class="src-sym">-&gt;</span><span class="src-id">name</span><span class="src-sym">;</span></div></li>
+</ol></div></p><p>Because relation fields are <em>lazy-loading</em>, you avoid  excessive queries while retaining the benefit of transparent  access to the related objects in your code.</p></p>
+		<p class="notes">
+			Located in <a class="field" href="_ModelFields.php.html">/ModelFields.php</a> (line <span class="field"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a436">436</a></span>)
+		</p>
+		
+				
+		<pre><a href="../modelquery/ModelField.html">ModelField</a>
+   |
+   --<a href="../modelquery/RelationField.html">RelationField</a>
+      |
+      --ManyToOneField</pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|												<a href="#sec-vars">Vars</a>
+								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../modelquery/OneToOneField.html">OneToOneField</a></td>
+					<td>
+											Creates a one-to-one relation between two models.
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+																		<a href="#sec-vars">Vars</a>
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																				
+												<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#getRelation" title="details" class="method-name">getRelation</a>
+											(<span class="var-type"><a href="../modelquery/Model.html">Model</a></span>&nbsp;<span class="var-name">$model</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$primitive</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setRelation" title="details" class="method-name">setRelation</a>
+											(<span class="var-type"><a href="../modelquery/Model.html">Model</a></span>&nbsp;<span class="var-name">$model</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>)
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+										<h4>Inherited Variables</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../modelquery/RelationField.html">RelationField</a></span></p>
+					<blockquote>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/RelationField.html#var$fldType">RelationField::$fldType</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/RelationField.html#var$relationName">RelationField::$relationName</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/RelationField.html#var$relModel">RelationField::$relModel</a></span><br>
+							</span>
+											</blockquote> 
+									<p>Inherited from <span class="classname"><a href="../modelquery/ModelField.html">ModelField</a></span></p>
+					<blockquote>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/ModelField.html#var$errors">ModelField::$errors</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/ModelField.html#var$factory">ModelField::$factory</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/ModelField.html#var$field">ModelField::$field</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/ModelField.html#var$name">ModelField::$name</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/ModelField.html#var$options">ModelField::$options</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/ModelField.html#var$query">ModelField::$query</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/ModelField.html#var$type">ModelField::$type</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../modelquery/ModelField.html#var$validators">ModelField::$validators</a></span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+															<a href="#sec-vars">Vars</a>
+																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="methodgetRelation" id="getRelation"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getRelation</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a446">446</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the Model instance that this field links to.</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/RelationField.html#methodgetRelation">RelationField::getRelation()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getRelation
+		</span>
+					(<span class="var-type"><a href="../modelquery/Model.html">Model</a></span>&nbsp;<span class="var-name">$model</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$primitive</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../modelquery/Model.html">Model</a></span>
+				<span class="var-name">$model</span><span class="var-description">: The Model instance that we want to fetch         the related object for</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$primitive</span><span class="var-description">: The primary key of the related object</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../modelquery/RelationField.html#methodgetRelation">RelationField::getRelation()</a></dt>
+						<dd>Get the Model instance that this field links to.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../modelquery/OneToOneField.html#methodgetRelation">OneToOneField::getRelation()</a>
+							</li>
+				</ul>
+	</div>
+<a name="methodsetRelation" id="setRelation"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">setRelation</span> (line <span class="line-number"><a href="../__filesource/fsource_modelquery__ModelFields.php.html#a461">461</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the object that a model instance is related to, returning  the primitive value of the primary key.</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../modelquery/RelationField.html#methodsetRelation">RelationField::setRelation()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setRelation
+		</span>
+					(<span class="var-type"><a href="../modelquery/Model.html">Model</a></span>&nbsp;<span class="var-name">$model</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../modelquery/Model.html">Model</a></span>
+				<span class="var-name">$model</span><span class="var-description">: The Model to set the related object for</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$value</span><span class="var-description">: The value to set, as either a Model object         or primitive primary key value</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../modelquery/RelationField.html#methodsetRelation">RelationField::setRelation()</a></dt>
+						<dd>Set the Model instance that this field links to.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../modelquery/OneToOneField.html#methodsetRelation">OneToOneField::setRelation()</a>
+							</li>
+				</ul>
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../modelquery/RelationField.html">RelationField</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../modelquery/RelationField.html#method__construct">RelationField::__construct()</a></span><br>
+													<span class="method-name"><a href="../modelquery/RelationField.html#methodconvertFromDbValue">RelationField::convertFromDbValue()</a></span><br>
+													<span class="method-name"><a href="../modelquery/RelationField.html#methodconvertToDbValue">RelationField::convertToDbValue()</a></span><br>
+													<span class="method-name"><a href="../modelquery/RelationField.html#methodconvertValue">RelationField::convertValue()</a></span><br>
+													<span class="method-name"><a href="../modelquery/RelationField.html#methodgetFieldType">RelationField::getFieldType()</a></span><br>
+													<span class="method-name"><a href="../modelquery/RelationField.html#methodgetRelation">RelationField::getRelation()</a></span><br>
+													<span class="method-name"><a href="../modelquery/RelationField.html#methodgetRelationModel">RelationField::getRelationModel()</a></span><br>
+													<span class="method-name"><a href="../modelquery/RelationField.html#methodsetRelation">RelationField::setRelation()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../modelquery/ModelField.html">ModelField</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../modelquery/ModelField.html#method__construct">ModelField::__construct()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodaddValidator">ModelField::addValidator()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodconvertFromDbValue">ModelField::convertFromDbValue()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodconvertToDbValue">ModelField::convertToDbValue()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodconvertValue">ModelField::convertValue()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodgetDefaultValue">ModelField::getDefaultValue()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodoffsetExists">ModelField::offsetExists()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodoffsetGet">ModelField::offsetGet()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodoffsetSet">ModelField::offsetSet()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodoffsetUnset">ModelField::offsetUnset()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodserialize">ModelField::serialize()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodtoHTML">ModelField::toHTML()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodtoString">ModelField::toString()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodvalidate">ModelField::validate()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#methodvalidationErrors">ModelField::validationErrors()</a></span><br>
+													<span class="method-name"><a href="../modelquery/ModelField.html#method__toString">ModelField::__toString()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Thu, 21 Apr 2011 16:32:33 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>
